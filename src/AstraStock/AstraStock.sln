@@ -1,7 +1,13 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{814BFC12-11AD-479F-B708-8E70293D8820}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.AppHost", "AppHost\AstraStock.AppHost.csproj", "{21D40E8A-4CFF-4465-9187-0ED4FC6C0B95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.ServiceDefaults", "ServiceDefaults\AstraStock.ServiceDefaults.csproj", "{CC39D945-BBF6-48EC-9CAC-9455E2F41485}"
@@ -10,10 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.ApiService", "Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.Tests", "Tests\AstraStock.Tests.csproj", "{A7D56C5D-6005-4BD2-B453-246AABC6D095}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{814BFC12-11AD-479F-B708-8E70293D8820}"
-	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.Database", "Database\AstraStock.Database.csproj", "{9A0C4806-FA3D-4BD6-B4AE-131ED831EF6E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.MigrationService", "MigrationService\AstraStock.MigrationService.csproj", "{6CA86A7F-7211-44D3-AEA0-15D7FA627551}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AstraStock.Shared", "Shared\AstraStock.Shared.csproj", "{801DFA7A-E3E4-44B5-9293-8FD58BC16666}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +44,18 @@ Global
 		{A7D56C5D-6005-4BD2-B453-246AABC6D095}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7D56C5D-6005-4BD2-B453-246AABC6D095}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7D56C5D-6005-4BD2-B453-246AABC6D095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A0C4806-FA3D-4BD6-B4AE-131ED831EF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A0C4806-FA3D-4BD6-B4AE-131ED831EF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A0C4806-FA3D-4BD6-B4AE-131ED831EF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A0C4806-FA3D-4BD6-B4AE-131ED831EF6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA86A7F-7211-44D3-AEA0-15D7FA627551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA86A7F-7211-44D3-AEA0-15D7FA627551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA86A7F-7211-44D3-AEA0-15D7FA627551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA86A7F-7211-44D3-AEA0-15D7FA627551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801DFA7A-E3E4-44B5-9293-8FD58BC16666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801DFA7A-E3E4-44B5-9293-8FD58BC16666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801DFA7A-E3E4-44B5-9293-8FD58BC16666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801DFA7A-E3E4-44B5-9293-8FD58BC16666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
