@@ -15,3 +15,12 @@
   - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 - [Node.js LTS](https://nodejs.org/)
+
+## Run
+
+- `Console:`
+
+```bash
+cd src/AstraStock/AppHost
+dotnet run
+```
