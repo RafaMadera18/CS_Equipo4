@@ -11,7 +11,7 @@ public static class EFCommandHandler
         try
         {
             await Cli.Wrap("dotnet")
-                .WithArguments($"ef {command} --project \"{project}\" --startup-project \"{project}\"")
+                .WithArguments($"tool run dotnet-ef {command} --project \"{project}\" --startup-project \"{project}\"")
                 .WithStandardOutputPipe(outputPipe)
                 .ExecuteBufferedAsync();
         }

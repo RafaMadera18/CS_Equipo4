@@ -9,7 +9,7 @@ if (!serverUrl) {
 
 console.log("Server url: " + serverUrl);
 
-const terminal = new TerminalEmulator(document.getElementById('terminal')!, "dotnet ef ");
+const terminal = new TerminalEmulator(document.getElementById('terminal')!, "dotnet tool run dotnet-ef ");
 
 window.addEventListener('resize', () => terminal.fit());
 

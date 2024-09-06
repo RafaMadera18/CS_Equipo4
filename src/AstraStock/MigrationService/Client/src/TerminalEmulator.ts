@@ -36,6 +36,7 @@ export class TerminalEmulator {
 
     public backspace(): void {
         this.write('\b \b');
+        // TODO: Remove at cursor pos
         this.line = this.line.slice(0, -1);
     }
 
