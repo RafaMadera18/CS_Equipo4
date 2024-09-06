@@ -1,5 +1,6 @@
 using AstraStock.ApiService;
 using AstraStock.Database;
+using AstraStock.ServiceDefaults;
 
 var builder = WebApplication.CreateBuilder(args);
 
