@@ -24,6 +24,10 @@ public class AppDbContext(
 
         options.UseNpgsql(
             connectionString,
-            options => options.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null));
+            options =>
+            {
+                options.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null);
+                options.CommandTimeout(60);
+            });
     }
 }
