@@ -24,6 +24,8 @@ internal static class DatabaseInitializer
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
+        await Task.Delay(TimeSpan.FromSeconds(2));
+
         bool dbCreated = await AppDbContextInitializer.EnsureCreatedAsync(
             context,
             exception => app.Logger.LogInformation(exception, "Waiting for database..."));
