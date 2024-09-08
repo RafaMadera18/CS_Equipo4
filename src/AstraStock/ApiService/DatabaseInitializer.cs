@@ -16,7 +16,7 @@ internal static class DatabaseInitializer
 
         if (app.Environment.IsProduction())
         {
-            throw new InvalidOperationException("DB_PERSISTENCE is required in production mode.");
+            throw new InvalidOperationException("DB_PERSISTENCE is required in production mode");
         }
 
         app.Logger.LogWarning("Db persistence disabled! Data will not be saved.");
@@ -34,6 +34,6 @@ internal static class DatabaseInitializer
         }
 
         string dbName = context.Database.GetDbConnection().Database;
-        app.Logger.LogInformation("Database '{Name}' created successfully.", dbName);
+        app.Logger.LogInformation("Database '{Name}' created successfully", dbName);
     }
 }
