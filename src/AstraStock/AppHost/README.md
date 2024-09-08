@@ -7,7 +7,7 @@ dotnet run
 ```
 
 > [!WARNING]
-> Database persistence disabled by default. See [DB_PERSISTENCE](#configuration-variables).
+> Database persistence disabled by default. See [DB_PERSISTENCE](#db_persistence).
 
 ## Modules
 
@@ -40,7 +40,7 @@ graph LR
     subgraph Database
     AppHost --> db[(PostgreSQL)]
     AppHost --> pg1[[pgAdmin]]
-    AppHost --> pg2[[pgWeb]]
+    AppHost --> pg2[[pgweb]]
     end
 ```
 
@@ -48,9 +48,18 @@ graph LR
 
 **Default:** App.
 
+**Base services:** [PostgreSQL](https://www.postgresql.org/), [pgAdmin](https://www.pgadmin.org/) & [pgweb](https://sosedoff.github.io/pgweb/) containers.
+
 ---
 
 - ### App
+
+  - The ApiService and WebApp are also started.
+
+&#32;
+
+> [!IMPORTANT]
+> If [DB_PERSISTENCE](#db_persistence) is enabled, database must be previously created/updated in [Migration mode](#migration).
 
 ```mermaid
 graph TD
@@ -73,6 +82,9 @@ graph TD
 
 - ### Migration
 
+  - MigrationService and MigrationClient are also started to allow management of database schema changes.
+  - [EF commands](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?source=recommendations&tabs=dotnet-core-cli) can be sent from MigrationClient.
+
 ```mermaid
 graph TD
     style AppHost fill:#a546be
@@ -81,7 +93,7 @@ graph TD
     style Database fill:#a546be
     style ServiceDefaults fill:#a546be
     style db fill:#4e92e6
-    
+
     AppHost -.-> MigrationService
     MigrationService --> ServiceDefaults
     MigrationService <-.->|http| MigrationClient
@@ -91,15 +103,17 @@ graph TD
 
 ## Configuration variables
 
-> ### DB_MIGRATION ( bool | false )
+> ### DB_MIGRATION
 >
+> - Type: bool. Default: false.
 > - Enables migration mode.
 > - Enables database persistence.
-> - [EF commands](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?source=recommendations&tabs=dotnet-core-cli) can be send from MigrationClient.
+> - [EF commands](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?source=recommendations&tabs=dotnet-core-cli) can be sent from MigrationClient.
 
 &#32;
 
-> ### DB_PERSISTENCE ( bool | false )
+> ### DB_PERSISTENCE
 >
+> - Type: bool. Default: false.
 > - Enables database persistence.
-> - In [App mode](#app), database must be previously created/updated in [Migration mode](#migration).
+> - If enabled and in [App mode](#app), database must be previously created/updated in [Migration mode](#migration).
