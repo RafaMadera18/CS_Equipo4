@@ -26,6 +26,8 @@ public abstract class AstraStockWebAppDefinition : SerilogWebAppDefinition
         await base.ConfigureServices(builder);
 
         builder.AddServiceDefaults();
+
+        builder.AddSwaggerGenIfEnabled();
     }
 
     protected override async Task Configure(WebApplication app)
@@ -33,5 +35,7 @@ public abstract class AstraStockWebAppDefinition : SerilogWebAppDefinition
         await base.Configure(app);
 
         app.MapDefaultEndpoints();
+
+        app.UseSwaggerIfEnabled();
     }
 }
