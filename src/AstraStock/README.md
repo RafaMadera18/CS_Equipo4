@@ -33,7 +33,7 @@ See [AppHost](AppHost/README.md).
 
 - [MigrationService](MigrationServiceiService/): A Service managing database schema migrations and updates.
 
-- [MigrationClient](MigrationServiceiService/Client/): A Service managing database schema migrations and updates.
+- [MigrationClient](MigrationServiceiService/Client/): This project interacts with the MigrationService to apply necessary schema changes to the Database. It serves as an interface to trigger migrations in Migration Mode.
 
 - [ServiceDefaults](ServiceDefaults/): A shared library containing common server configurations.
 
@@ -50,7 +50,7 @@ graph TD
     style ServiceDefaults fill:#a546be
     style WebApp fill:#de002d
     style db fill:#4e92e6
-    
+
     ApiService --> Database
     ApiService --> ServiceDefaults
     WebApp <-.->|http| ApiService

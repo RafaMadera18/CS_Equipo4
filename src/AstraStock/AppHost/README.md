@@ -7,7 +7,7 @@ dotnet run
 ```
 
 > [!WARNING]
-> Database persistence disabled by default. See [DB_PERSISTENCE](#db_persistence).
+> Database persistence disabled by default. See [DB_PERSISTENCE](#configuration-variables).
 
 ## Modules
 
@@ -59,7 +59,7 @@ graph LR
 &#32;
 
 > [!IMPORTANT]
-> If [DB_PERSISTENCE](#db_persistence) is enabled, database must be previously created/updated in [Migration mode](#migration).
+> If [DB_PERSISTENCE](#configuration-variables) is enabled, database must be previously created/updated in [Migration mode](#migration).
 
 ```mermaid
 graph TD
@@ -103,17 +103,7 @@ graph TD
 
 ## Configuration variables
 
-> ### DB_MIGRATION
->
-> - Type: bool. Default: false.
-> - Enables migration mode.
-> - Enables database persistence.
-> - [EF commands](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?source=recommendations&tabs=dotnet-core-cli) can be sent from MigrationClient.
-
-&#32;
-
-> ### DB_PERSISTENCE
->
-> - Type: bool. Default: false.
-> - Enables database persistence.
-> - If enabled and in [App mode](#app), database must be previously created/updated in [Migration mode](#migration).
+| Variable           | Type  | Default | Description |
+|:------------------:|:-----:|:-------:|-------------|
+| **DB_MIGRATION**   | bool  | false   | - Enables [Migration mode](#migration).<br> - Enables database persistence. |
+| **DB_PERSISTENCE** | bool  | false   | - Enables database persistence.<br> - If enabled and in [App mode](#app), database must be previously created/updated in [Migration mode](#migration).<br> - If disabled a new database is created each time the app is run, and the data is lost along with the database container. |
