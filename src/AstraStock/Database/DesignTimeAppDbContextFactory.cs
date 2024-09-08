@@ -14,7 +14,7 @@ internal class DesignTimeAppDbContextFactory : IDesignTimeDbContextFactory<AppDb
             .AddEnvironmentVariables()
             .Build();
 
-        AppDbContext.Configure(optionsBuilder, configuration);
+        AppDbContextConfiguration.Configure(optionsBuilder, configuration);
 
         return new AppDbContext(optionsBuilder.Options);
     }

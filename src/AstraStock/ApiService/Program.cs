@@ -8,8 +8,7 @@ builder.AddServiceDefaults();
 
 builder.Services.AddProblemDetails();
 
-builder.Services.AddDbContext<AppDbContext>(
-    options => AppDbContext.Configure(options, builder.Configuration));
+builder.Services.AddAppDbContext(builder.Configuration);
 
 var app = builder.Build();
 
@@ -19,6 +18,6 @@ app.MapGet("/hello", () => "Hello, World!");
 
 app.MapDefaultEndpoints();
 
-await app.InitializeDbAsync<AppDbContext>();
+await app.InitializeDbAsync();
 
 await app.RunAsync();
