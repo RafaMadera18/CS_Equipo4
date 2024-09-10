@@ -89,15 +89,16 @@ graph TD
 graph TD
     style AppHost fill:#a546be
     style MigrationService fill:#a546be
-    style MigrationClient fill:#de002d
     style Database fill:#a546be
     style ServiceDefaults fill:#a546be
+    style MigrationClient fill:#de002d
     style db fill:#4e92e6
 
+    AppHost -.-> MigrationClient
     AppHost -.-> MigrationService
+    MigrationService --> Database
     MigrationService --> ServiceDefaults
-    MigrationService <-.->|http| MigrationClient
-    MigrationService <-.->|EF tools| Database
+    MigrationClient <-.->|SignalR| MigrationService
     Database <-.->|tcp| db[(PostgreSQL)]
 ```
 
@@ -106,4 +107,5 @@ graph TD
 | Variable           | Type  | Default | Description |
 |:------------------:|:-----:|:-------:|-------------|
 | **DB_MIGRATION**   | bool  | false   | - Enables [Migration mode](#migration).<br> - Enables database persistence. |
-| **DB_PERSISTENCE** | bool  | false   | - Enables database persistence.<br> - If enabled and in [App mode](#app), database must be previously created/updated in [Migration mode](#migration).<br> - If disabled a new database is created each time the app is run, and the data is lost along with the database container. |
+| **DB_PERSISTENCE** | bool  | false   | - Enables database persistence.<br> - If enabled and in [App mode](#app), database must be previously created/updated in [Migration mode](#migration).<br> - If disabled a new database is created each time the app is run, and the data is lost along with the database container.<br> - Must be disabled in production. |
+| **ENABLE_SWAGGER** | bool  | dev:&nbsp;true<br> prod:&nbsp;false | - Enables Swagger UI and OpenAPI documentation for the API endpoints.<br> - Useful for visualizing and testing the API during development and debugging. |
