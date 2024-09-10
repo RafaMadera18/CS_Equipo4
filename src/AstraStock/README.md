@@ -55,7 +55,7 @@ graph TD
     ApiService --> ServiceDefaults
     WebApp <-.->|http| ApiService
     MigrationService --> ServiceDefaults
-    MigrationService <-.->|http| MigrationClient
+    MigrationService <-.->|SignalR| MigrationClient
     MigrationService <-.->|EF tools| Database
     Database <-.->|tcp| db[(PostgreSQL)]
 ```
