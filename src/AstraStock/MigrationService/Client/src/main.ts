@@ -1,4 +1,5 @@
-import { TerminalEmulator } from './TerminalEmulator';
+import { EventToPromiseConverter } from './event-to-promise-converter';
+import { TerminalEmulator } from './terminal-emulator';
 import * as signalR from "@microsoft/signalr";
 
 const serverUrl = process.env.SERVER_URL;
@@ -25,30 +26,21 @@ hub.on("ReceiveLine", (line: string) => {
   terminal.writeLine(line);
 });
 
-let resolveEndOfResponse: (() => void) | null = null;
-
-const createEndOfResponsePromise = (): Promise<void> => {
-  return new Promise<void>((resolve) => {
-    resolveEndOfResponse = resolve;
-  });
-};
+const endOfResponseEvent = new EventToPromiseConverter<void>();
 
 hub.on("EndOfResponse", () => {
-  if (resolveEndOfResponse) {
-    resolveEndOfResponse();
-    resolveEndOfResponse = null;
-  }
+  endOfResponseEvent.handleEvent();
 });
 
 await hub.start();
 
-await createEndOfResponsePromise();
+await endOfResponseEvent.createPromise();
 
 while (true) {
   const command: string = await terminal.prompt();
   terminal.newLine();
 
-  const endOfResponsePromise = createEndOfResponsePromise();
+  const endOfResponsePromise = endOfResponseEvent.createPromise();
 
   await hub.invoke("ReceiveCommand", command);
 
