@@ -2,7 +2,7 @@ namespace AstraStock.AppHost;
 
 using Microsoft.Extensions.Configuration;
 
-public static class PostgresBuilderExtensions
+internal static class PostgresBuilderExtensions
 {
     public static IResourceBuilder<PostgresServerResource> AddConfiguredPostgres(
         this IDistributedApplicationBuilder builder,

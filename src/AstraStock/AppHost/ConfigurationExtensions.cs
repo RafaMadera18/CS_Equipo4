@@ -4,7 +4,7 @@ using AstraStock.Shared.Extensions.Configuration;
 
 using Microsoft.Extensions.Configuration;
 
-public static class ConfigurationExtensions
+internal static class ConfigurationExtensions
 {
     public static bool IsDatabasePersistenceEnabled(this IConfiguration configuration)
     {
