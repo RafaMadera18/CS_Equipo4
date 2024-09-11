@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ServiceDefaults\AstraStock.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Shared\AstraStock.Shared.csproj" />
   </ItemGroup>
 

@@ -1,17 +1,14 @@
 ﻿namespace AstraStock.MigrationService;
 
-using AstraStock.Shared.Extensions.Configuration;
-
 using CliWrap;
 
 using Microsoft.AspNetCore.SignalR;
 
-public class TerminalHub(IConfiguration configuration) : Hub<ITerminalClient>
+internal class TerminalHub(
+    ILogger<TerminalHub> logger,
+    EFCommandHandler commandHandler)
+    : Hub<ITerminalClient>
 {
-    private static SemaphoreSlim Semaphore { get; } = new(1, 1);
-
-    private string Project { get; } = configuration.GetRequired("db-project");
-
     public override async Task OnConnectedAsync()
     {
         var caller = this.Clients.Caller;
@@ -22,24 +19,32 @@ public class TerminalHub(IConfiguration configuration) : Hub<ITerminalClient>
 
     public Task ReceiveCommand(string command)
     {
+        logger.LogInformation("Received command. Command: \"{Command}\"", command);
+
         return this.ExecuteAndSendCommandResult(this.Clients.Caller, command);
     }
 
     private async Task ExecuteAndSendCommandResult(ITerminalClient client, string command)
     {
-        await Semaphore.WaitAsync();
+        if (commandHandler.ExecutingCommand)
+        {
+            await client.ReceiveLine("Command in queue...");
+
+            logger.LogInformation("Command added to queue. Command: \"{Command}\"", command);
+        }
 
         try
         {
-            await EFCommandHandler.Execute(
-                command,
-                this.Project,
-                PipeTarget.ToDelegate(client.ReceiveLine));
+            await commandHandler.Execute(
+                command: command,
+                outputPipe: PipeTarget.ToDelegate(client.ReceiveLine),
+                onCommandExecuting: () => logger.LogInformation("Executing command. Command: \"{Command}\"", command));
         }
         finally
         {
             await client.EndOfResponse();
-            Semaphore.Release();
+
+            logger.LogInformation("The command finished executing. \"{Command}\"", command);
         }
     }
 }

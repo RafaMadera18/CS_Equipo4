@@ -1,11 +1,3 @@
 using AstraStock.MigrationService;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddSignalR();
-
-var app = builder.Build();
-
-app.MapHub<TerminalHub>("/terminal");
-
-await app.RunAsync();
+return await new MigrationService().Run(args);
