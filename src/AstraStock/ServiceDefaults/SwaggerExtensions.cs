@@ -40,7 +40,6 @@ internal static class SwaggerExtensions
     [Pure]
     public static bool IsSwaggerEnabled(IWebHostEnvironment environment, IConfiguration configuration)
     {
-        return environment.IsDevelopment()
-            || configuration.IsEnabled("ENABLE_SWAGGER");
+        return configuration.IsEnabled("ENABLE_SWAGGER", environment.IsDevelopment());
     }
 }
