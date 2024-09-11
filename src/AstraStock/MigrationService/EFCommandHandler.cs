@@ -1,5 +1,7 @@
 ﻿namespace AstraStock.MigrationService;
 
+using AstraStock.Shared.Threading;
+
 using CliWrap;
 using CliWrap.Buffered;
 using CliWrap.Builders;
@@ -7,7 +9,7 @@ using CliWrap.Exceptions;
 
 internal class EFCommandHandler(IEnumerable<string> args)
 {
-    private readonly SemaphoreSlim semaphore = new(initialCount: 1, maxCount: 1);
+    private readonly AsyncLock commandLock = new();
 
     private readonly string args = CreateArgs(args);
 
@@ -16,11 +18,11 @@ internal class EFCommandHandler(IEnumerable<string> args)
     {
     }
 
-    public bool ExecutingCommand => this.semaphore.CurrentCount == 0;
+    public bool ExecutingCommand => this.commandLock.Locked;
 
     public async Task Execute(string command, PipeTarget outputPipe, Action? onCommandExecuting)
     {
-        await this.semaphore.WaitAsync();
+        using var scope = await this.commandLock.LockAsync();
 
         onCommandExecuting?.Invoke();
 
@@ -34,10 +36,6 @@ internal class EFCommandHandler(IEnumerable<string> args)
         catch (CommandExecutionException ex) when (ex.ExitCode == 1)
         {
             // Ignore exit code 1
-        }
-        finally
-        {
-            this.semaphore.Release();
         }
     }
 
