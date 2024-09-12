@@ -8,10 +8,11 @@ var postgresDb = postgres.AddDatabase("AstraStockDb");
 
 if (!builder.Configuration.IsDatabaseMigrationMode())
 {
-    builder.AddProject<Projects.AstraStock_ApiService>("ApiService")
+    var apiService = builder.AddProject<Projects.AstraStock_ApiService>("ApiService")
         .WithReference(postgresDb);
 
-    builder.AddNpmAppWithRandomPort("WebApp", "../WebApp");
+    builder.AddNpmAppWithRandomPort("WebApp", "../WebApp")
+        .WithEnvironment("SERVER_URL", apiService.GetEndpoint("http"));
 }
 else
 {
