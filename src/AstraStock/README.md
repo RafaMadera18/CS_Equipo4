@@ -11,11 +11,18 @@
   dotnet workload install aspire
   ```
 
+- [Node.js LTS](https://nodejs.org/)
+
+- npm packages:
+
+  ```bash
+  npm install -g @angular/cli
+  npm install -g @ionic/cli
+  ```
+
 - An OCI compliant container runtime, such as:
 
   - [Docker Desktop](https://www.docker.com/products/docker-desktop)
-
-- [Node.js LTS](https://nodejs.org/)
 
 ## Run
 
