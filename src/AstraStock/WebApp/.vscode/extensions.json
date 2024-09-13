@@ -1,5 +1,8 @@
 {
-    "recommendations": [
-      "ionic.ionic"
-    ]
+  "recommendations": [
+    "angular.ng-template",
+    "ionic.ionic",
+    "rvest.vs-code-prettier-eslint",
+    "editorconfig.editorconfig"
+  ]
 }

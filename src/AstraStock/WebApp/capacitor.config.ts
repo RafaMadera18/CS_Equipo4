@@ -1,9 +1,9 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'AstraStock',
-  webDir: 'www/browser'
+  appId: "io.ionic.starter",
+  appName: "AstraStock",
+  webDir: "www/browser",
 };
 
 export default config;
