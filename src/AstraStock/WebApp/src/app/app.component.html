@@ -1,49 +1,34 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi&#64;ionicframework.com</ion-note>
+  <div class="page-content">
+    <ion-tabs />
+  </div>
 
-          @for (page of appPages; track $index) {
-            <ion-menu-toggle auto-hide="false">
-              <ion-item
-                routerDirection="root"
-                [routerLink]="[page.url]"
-                lines="none"
-                detail="false"
-                routerLinkActive="selected"
-              >
-                <ion-icon
-                  aria-hidden="true"
-                  slot="start"
-                  [ios]="page.icon + '-outline'"
-                  [md]="page.icon + '-sharp'"
-                ></ion-icon>
-                <ion-label>{{ page.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          }
-        </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          @for (label of labels; track $index) {
-            <ion-item lines="none">
-              <ion-icon
-                aria-hidden="true"
-                slot="start"
-                ios="bookmark-outline"
-                md="bookmark-sharp"
-              ></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
-          }
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+  <div class="sidebar" #sidebar>
+    <ul>
+      <li>
+        <ion-button
+          class="expand-btn"
+          (click)="sidebarExpanded.set(!sidebarExpanded())"
+        >
+          <ion-icon name="reorder-three-outline" />
+        </ion-button>
+      </li>
+      <li>
+        <app-tab-button
+          name="Chats"
+          icon="chatbubble-ellipses-outline"
+          [expanded]="sidebarExpanded"
+          (click)="onTabClick('chats')"
+        />
+      </li>
+      <li>
+        <app-tab-button
+          name="Friends"
+          icon="person-add-outline"
+          [expanded]="sidebarExpanded"
+          (click)="onTabClick('friends')"
+        />
+      </li>
+    </ul>
+  </div>
 </ion-app>

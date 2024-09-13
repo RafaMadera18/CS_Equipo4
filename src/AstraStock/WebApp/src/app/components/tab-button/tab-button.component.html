@@ -1,0 +1,8 @@
+<ion-button class="tab-btn">
+  <span>
+    <ion-icon [name]="icon()" aria-hidden="true" />
+    @if (expanded()()) {
+      {{ name() }}
+    }
+  </span>
+</ion-button>

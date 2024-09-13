@@ -1,89 +1,72 @@
-import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
-import { RouterLink, RouterLinkActive } from "@angular/router";
 import {
-  IonApp,
-  IonSplitPane,
-  IonMenu,
-  IonContent,
-  IonList,
-  IonListHeader,
-  IonNote,
-  IonMenuToggle,
-  IonItem,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonRouterLink,
-} from "@ionic/angular/standalone";
+  Component,
+  ElementRef,
+  effect,
+  signal,
+  viewChild,
+} from "@angular/core";
+
 import { addIcons } from "ionicons";
 import {
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  heartOutline,
-  heartSharp,
-  archiveOutline,
-  archiveSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
-  bookmarkOutline,
-  bookmarkSharp,
+  chatbubbleEllipsesOutline,
+  personAddOutline,
+  reorderThreeOutline,
 } from "ionicons/icons";
+
+import {
+  IonTitle,
+  IonButton,
+  IonIcon,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonLabel,
+  IonApp,
+} from "@ionic/angular/standalone";
+
+import { TabButtonComponent } from "@components/tab-button/tab-button.component";
 
 @Component({
   selector: "app-root",
-  templateUrl: "app.component.html",
-  styleUrls: ["app.component.scss"],
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
   standalone: true,
   imports: [
-    RouterLink,
-    RouterLinkActive,
-    CommonModule,
     IonApp,
-    IonSplitPane,
-    IonMenu,
-    IonContent,
-    IonList,
-    IonListHeader,
-    IonNote,
-    IonMenuToggle,
-    IonItem,
-    IonIcon,
     IonLabel,
-    IonRouterLink,
-    IonRouterOutlet,
+    IonTabButton,
+    IonTabBar,
+    IonTabs,
+    IonIcon,
+    IonButton,
+    IonTitle,
+    TabButtonComponent,
   ],
 })
 export class AppComponent {
-  public appPages = [
-    { title: "Inbox", url: "/folder/inbox", icon: "mail" },
-    { title: "Outbox", url: "/folder/outbox", icon: "paper-plane" },
-    { title: "Favorites", url: "/folder/favorites", icon: "heart" },
-    { title: "Archived", url: "/folder/archived", icon: "archive" },
-    { title: "Trash", url: "/folder/trash", icon: "trash" },
-    { title: "Spam", url: "/folder/spam", icon: "warning" },
-  ];
-  public labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
+  protected readonly sidebar =
+    viewChild.required<ElementRef<HTMLDivElement>>("sidebar");
+
+  protected readonly sidebarExpanded = signal<boolean>(false);
+
+  protected readonly tabs = viewChild.required(IonTabs);
+
   constructor() {
     addIcons({
-      mailOutline,
-      mailSharp,
-      paperPlaneOutline,
-      paperPlaneSharp,
-      heartOutline,
-      heartSharp,
-      archiveOutline,
-      archiveSharp,
-      trashOutline,
-      trashSharp,
-      warningOutline,
-      warningSharp,
-      bookmarkOutline,
-      bookmarkSharp,
+      reorderThreeOutline,
+      chatbubbleEllipsesOutline,
+      personAddOutline,
     });
+
+    effect(() => {
+      this.sidebar().nativeElement.classList.toggle(
+        "expanded",
+        this.sidebarExpanded(),
+      );
+    });
+  }
+
+  protected onTabClick(tab: string): void {
+    this.tabs().select(tab);
   }
 }

@@ -1,0 +1,14 @@
+.tab-btn {
+  width: calc(100% - 5px);
+  text-transform: none;
+
+  span {
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+
+    ion-icon {
+      margin-right: 5px;
+    }
+  }
+}
