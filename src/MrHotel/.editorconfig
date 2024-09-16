@@ -1,8 +1,8 @@
-# Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
 
 [*]
 spelling_exclusion_path = SpellingExclusions.dic
+guidelines = 120
 
 # C# files
 [*.cs]
