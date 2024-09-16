@@ -4,6 +4,8 @@ using System;
 
 using Microsoft.AspNetCore.Builder;
 
+using MrHotel.Shared.Logging.Filters;
+
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
@@ -17,6 +19,7 @@ public abstract class MrHotelWebAppDefinition : SerilogWebAppDefinition
             => options
             .ReadFrom.Configuration(builder.Configuration)
             .Enrich.FromLogContext()
+            .Filter.With(new RequestPathPrefixLogFilter("/api/"))
             .WriteTo.Console(theme: this.ConsoleTheme, applyThemeToRedirectedOutput: true)
             .WriteTo.OpenTelemetry();
     }
