@@ -1,8 +1,8 @@
 ﻿namespace MrHotel.AppHost;
 
-using MrHotel.Shared.Extensions.Configuration;
-
 using Microsoft.Extensions.Configuration;
+
+using MrHotel.Shared.Extensions.Configuration;
 
 internal static class ConfigurationExtensions
 {

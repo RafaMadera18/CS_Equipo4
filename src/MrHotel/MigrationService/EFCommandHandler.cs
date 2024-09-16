@@ -1,11 +1,11 @@
 ﻿namespace MrHotel.MigrationService;
 
-using MrHotel.Shared.Threading;
-
 using CliWrap;
 using CliWrap.Buffered;
 using CliWrap.Builders;
 using CliWrap.Exceptions;
+
+using MrHotel.Shared.Threading;
 
 internal class EFCommandHandler(IEnumerable<string> args)
 {

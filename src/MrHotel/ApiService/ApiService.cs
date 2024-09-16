@@ -1,9 +1,9 @@
 ﻿namespace MrHotel.ApiService;
 
+using Microsoft.AspNetCore.Builder;
+
 using MrHotel.Database;
 using MrHotel.ServiceDefaults.Applications;
-
-using Microsoft.AspNetCore.Builder;
 
 public class ApiService : MrHotelWebAppDefinition
 {

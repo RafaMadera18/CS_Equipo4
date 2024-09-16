@@ -1,9 +1,9 @@
 ﻿namespace MrHotel.ApiService;
 
+using Microsoft.EntityFrameworkCore;
+
 using MrHotel.Database;
 using MrHotel.Shared.Extensions.Configuration;
-
-using Microsoft.EntityFrameworkCore;
 
 internal static class DatabaseInitializer
 {

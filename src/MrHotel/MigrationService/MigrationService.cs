@@ -2,11 +2,11 @@
 
 using System.Threading.Tasks;
 
-using MrHotel.ServiceDefaults.Applications;
-using MrHotel.Shared.Extensions.Configuration;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.SignalR;
+
+using MrHotel.ServiceDefaults.Applications;
+using MrHotel.Shared.Extensions.Configuration;
 
 internal class MigrationService : MrHotelWebAppDefinition
 {
