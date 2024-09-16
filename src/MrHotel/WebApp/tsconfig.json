@@ -21,7 +21,9 @@
     "lib": ["es2018", "dom"],
     "useDefineForClassFields": false,
     "paths": {
-      "@components/*": ["app/components/*"]
+      "@components/*": ["app/components/*"],
+      "@services/*": ["app/services/*"],
+      "@customTypes/*": ["app/types/*"]
     }
   },
   "angularCompilerOptions": {

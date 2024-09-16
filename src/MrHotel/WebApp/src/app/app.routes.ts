@@ -3,17 +3,16 @@ import { Routes } from "@angular/router";
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "bookings",
-    pathMatch: "full",
+    loadChildren: () =>
+      import("./pages/auth/auth.routes").then((m) => m.routes),
   },
   {
-    path: "folder/:id",
+    path: "menu",
     loadComponent: () =>
-      import("./folder/folder.page").then((m) => m.FolderPage),
+      import("./pages/menu/menu.page").then((m) => m.MenuPage),
   },
   {
-    path: "bookings",
-    loadComponent: () =>
-      import("./pages/bookings/bookings.page").then((m) => m.BookingsPage),
+    path: "**",
+    redirectTo: "",
   },
 ];

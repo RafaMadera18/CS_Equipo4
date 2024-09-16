@@ -1,34 +1,3 @@
 <ion-app>
-  <div class="page-content">
-    <ion-tabs />
-  </div>
-
-  <div class="sidebar" #sidebar>
-    <ul>
-      <li>
-        <ion-button
-          class="expand-btn"
-          (click)="sidebarExpanded.set(!sidebarExpanded())"
-        >
-          <ion-icon name="reorder-three-outline" />
-        </ion-button>
-      </li>
-      <li>
-        <app-tab-button
-          name="Chats"
-          icon="chatbubble-ellipses-outline"
-          [expanded]="sidebarExpanded"
-          (click)="onTabClick('chats')"
-        />
-      </li>
-      <li>
-        <app-tab-button
-          name="Friends"
-          icon="person-add-outline"
-          [expanded]="sidebarExpanded"
-          (click)="onTabClick('friends')"
-        />
-      </li>
-    </ul>
-  </div>
+  <ion-router-outlet></ion-router-outlet>
 </ion-app>

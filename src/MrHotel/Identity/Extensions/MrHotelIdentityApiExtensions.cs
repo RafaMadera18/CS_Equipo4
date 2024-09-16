@@ -20,6 +20,8 @@ public static class MrHotelIdentityApiExtensions
 
         routeGroup.MapPost("/register", RegisterEndpoint.Handle).RequireAuthorization();
 
+        routeGroup.MapGet("/admin-register-status", AdminRegisterStatusEndpoint.Handle);
+
         routeGroup.MapPost("/login", LoginEndpoint.Handle);
 
         routeGroup.MapPost("/logout", LogoutEndpoint.Handle).RequireAuthorization();

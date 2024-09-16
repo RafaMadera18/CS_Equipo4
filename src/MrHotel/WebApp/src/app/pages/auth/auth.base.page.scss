@@ -1,0 +1,29 @@
+$background: linear-gradient(43deg, #4158d0 0%, #5066c8 46%, #c850c0 100%);
+$btnBackground: linear-gradient(90deg, #175894 0%, #839ab1 100%);
+
+.auth-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-content {
+  --ion-padding: 1.5rem;
+  --background: #{$background};
+}
+
+app-input-field {
+  --input-background: #071133;
+}
+
+.auth-Btn {
+  --background: #{$btnBackground};
+}
+
+.auth-error {
+  width: 250px;
+  margin-top: 20px;
+  color: red;
+}

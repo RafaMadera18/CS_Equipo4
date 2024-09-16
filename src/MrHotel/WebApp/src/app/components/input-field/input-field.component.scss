@@ -1,0 +1,13 @@
+.field {
+  padding-bottom: 35px !important;
+}
+
+ion-input {
+  --background: var(--input-background);
+}
+
+.error {
+  position: absolute;
+  padding-top: 5px;
+  --color: var(--ion-color-danger);
+}
