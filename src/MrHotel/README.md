@@ -38,6 +38,8 @@ See [AppHost](AppHost/README.md).
 
 - [Database](Database/): The database project responsible for schema definition, database connectivity, and entity mapping.
 
+- [Identity](Identity/): A project that handles user authentication, authorization, and identity management. It provides functionality for user registration, login, and role-based access control.
+
 - [MigrationService](MigrationServiceiService/): A Service managing database schema migrations and updates.
 
 - [MigrationClient](MigrationServiceiService/Client/): This project interacts with the MigrationService to apply necessary schema changes to the Database. It serves as an interface to trigger migrations in Migration Mode.
@@ -57,6 +59,7 @@ graph TD
     style ServiceDefaults fill:#a546be
     style WebApp fill:#de002d
     style db fill:#4e92e6
+    style Identity fill:#a546be
 
     ApiService --> Database
     ApiService --> ServiceDefaults
@@ -64,5 +67,7 @@ graph TD
     MigrationService --> ServiceDefaults
     MigrationService <-.->|SignalR| MigrationClient
     MigrationService <-.->|EF tools| Database
-    Database <-.->|tcp| db[(PostgreSQL)]
+    Database <-.->|EntityFramework| db[(PostgreSQL)]
+    ApiService --> Identity
+    Database --> Identity
 ```

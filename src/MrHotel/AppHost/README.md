@@ -69,13 +69,16 @@ graph TD
     style ServiceDefaults fill:#a546be
     style WebApp fill:#de002d
     style db fill:#4e92e6
+    style Identity fill:#a546be
 
     AppHost -.-> WebApp
     AppHost -.-> ApiService
     ApiService --> Database
     ApiService --> ServiceDefaults
     WebApp <-.->|http| ApiService
-    Database <-.->|tcp| db[(PostgreSQL)]
+    Database <-.->|EntityFramework| db[(PostgreSQL)]
+    ApiService --> Identity
+    Database --> Identity
 ```
 
 ---
@@ -93,13 +96,15 @@ graph TD
     style ServiceDefaults fill:#a546be
     style MigrationClient fill:#de002d
     style db fill:#4e92e6
+    style Identity fill:#a546be
 
     AppHost -.-> MigrationClient
     AppHost -.-> MigrationService
     MigrationService --> Database
     MigrationService --> ServiceDefaults
     MigrationClient <-.->|SignalR| MigrationService
-    Database <-.->|tcp| db[(PostgreSQL)]
+    Database <-.->|EntityFramework| db[(PostgreSQL)]
+    Database --> Identity
 ```
 
 ## Configuration variables
