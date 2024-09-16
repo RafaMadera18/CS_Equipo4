@@ -1,0 +1,7 @@
+{
+  "name": "MrHotel",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

@@ -1,0 +1,10 @@
+﻿namespace MrHotel.Database;
+
+using Microsoft.EntityFrameworkCore;
+
+public class AppDbContext(
+    DbContextOptions<AppDbContext> options)
+    : DbContext(options)
+{
+    public DbSet<AppUser> Users { get; set; }
+}

@@ -1,7 +1,0 @@
-{
-  "name": "AstraStock",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
