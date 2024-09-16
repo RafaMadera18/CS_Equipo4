@@ -12,20 +12,13 @@
         <ion-icon name="reorder-three-outline" />
       </ion-button>
     </li>
+
     <li>
       <app-tab-button
-        name="Chats"
-        icon="chatbubble-ellipses-outline"
+        name="Bookings"
+        icon="bed-outline"
         [expanded]="sidebarExpanded"
-        (click)="onTabClick('chats')"
-      />
-    </li>
-    <li>
-      <app-tab-button
-        name="Friends"
-        icon="person-add-outline"
-        [expanded]="sidebarExpanded"
-        (click)="onTabClick('friends')"
+        (click)="onTabClick('bookings')"
       />
     </li>
   </ul>

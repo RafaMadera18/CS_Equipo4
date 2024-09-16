@@ -8,8 +8,8 @@ export const routes: Routes = [
   },
   {
     path: "menu",
-    loadComponent: () =>
-      import("./pages/menu/menu.page").then((m) => m.MenuPage),
+    loadChildren: () =>
+      import("./pages/menu/menu.routes").then((m) => m.routes),
   },
   {
     path: "**",
