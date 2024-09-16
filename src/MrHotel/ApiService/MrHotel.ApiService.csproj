@@ -5,6 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Identity\MrHotel.Identity.csproj" />
     <ProjectReference Include="..\ServiceDefaults\MrHotel.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Database\MrHotel.Database.csproj" />
   </ItemGroup>

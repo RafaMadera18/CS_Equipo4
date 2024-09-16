@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Builder;
 
 using MrHotel.Database;
+using MrHotel.Identity.Extensions;
 using MrHotel.ServiceDefaults.Applications;
 
 public class ApiService : MrHotelWebAppDefinition
@@ -14,6 +15,10 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddProblemDetails();
 
         builder.Services.AddAppDbContext(builder.Configuration);
+
+        builder.Services.AddAppIdentity<AppDbContext>();
+
+        builder.Services.AddAppAuth();
     }
 
     protected override async Task Configure(WebApplication app)
@@ -22,7 +27,9 @@ public class ApiService : MrHotelWebAppDefinition
 
         app.UseExceptionHandler();
 
-        app.MapGet("/hello", () => "Hello, World!");
+        var apiGroup = app.MapGroup("/api");
+
+        apiGroup.MapGroup("/account").MapMrHotelIdentityApi();
 
         await app.InitializeDbAsync();
     }
