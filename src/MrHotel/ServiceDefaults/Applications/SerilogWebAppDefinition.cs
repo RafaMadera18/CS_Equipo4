@@ -40,7 +40,7 @@ public abstract class SerilogWebAppDefinition : WebAppDefinition
             .CreateBootstrapLogger();
     }
 
-    protected abstract Action<IServiceProvider, LoggerConfiguration> ConfigureLogger(WebApplicationBuilder builder);
+    protected abstract void ConfigureLogger(IServiceProvider serviceProvider, LoggerConfiguration options);
 
     protected override WebApplicationBuilder CreateBuilder(string[] args)
     {
@@ -48,7 +48,7 @@ public abstract class SerilogWebAppDefinition : WebAppDefinition
 
         Log.Information("Environment: {Environment}", builder.Environment.EnvironmentName);
 
-        builder.Services.AddSerilog(this.ConfigureLogger(builder));
+        builder.Services.AddSerilog(this.ConfigureLogger);
 
         return builder;
     }

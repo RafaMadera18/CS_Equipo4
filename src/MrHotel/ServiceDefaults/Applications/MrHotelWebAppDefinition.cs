@@ -3,8 +3,8 @@
 using System;
 
 using Microsoft.AspNetCore.Builder;
-
-using MrHotel.Shared.Logging.Filters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -13,13 +13,13 @@ public abstract class MrHotelWebAppDefinition : SerilogWebAppDefinition
 {
     public override ConsoleTheme? ConsoleTheme => AnsiConsoleTheme.Code;
 
-    protected override Action<IServiceProvider, LoggerConfiguration> ConfigureLogger(WebApplicationBuilder builder)
+    protected override void ConfigureLogger(IServiceProvider serviceProvider, LoggerConfiguration options)
     {
-        return (_, options)
-            => options
-            .ReadFrom.Configuration(builder.Configuration)
+        var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+
+        options
+            .ReadFrom.Configuration(configuration)
             .Enrich.FromLogContext()
-            .Filter.With(new RequestPathPrefixLogFilter("/api/"))
             .WriteTo.Console(theme: this.ConsoleTheme, applyThemeToRedirectedOutput: true)
             .WriteTo.OpenTelemetry();
     }
