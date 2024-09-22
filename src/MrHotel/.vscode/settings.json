@@ -8,5 +8,6 @@
         "**/obj": true,
         "**/node_modules": true,
         "**/.angular": true
-    }
+    },
+    "files.insertFinalNewline": true
 }
