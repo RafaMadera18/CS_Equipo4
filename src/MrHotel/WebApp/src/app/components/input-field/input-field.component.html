@@ -6,12 +6,12 @@
     [label]="label()"
     [placeholder]="placeholder()"
     [labelPlacement]="label() ? 'stacked' : ''"
-    fill="outline"
+    helperText=" "
     clearOnEdit="false"
     (ionBlur)="blur.emit()"
   >
     @if (icon()) {
-      <ion-icon [name]="icon()" slot="start" aria-hidden="true" />
+      <ion-icon [name]="icon()" slot="end" aria-hidden="true" />
     }
   </ion-input>
   <ion-note class="error">

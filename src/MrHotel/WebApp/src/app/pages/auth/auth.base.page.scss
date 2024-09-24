@@ -1,29 +1,47 @@
-$background: linear-gradient(43deg, #4158d0 0%, #5066c8 46%, #c850c0 100%);
 $btnBackground: linear-gradient(90deg, #175894 0%, #839ab1 100%);
 
-.auth-container {
-  height: 100%;
-  width: 100%;
+h1 {
+  color: var(--primary);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &-auth{
+    width: 100%;
+    background-color: var(--light);
+    padding: 0 1.5rem;
+    min-width: 15rem;
+    max-width: 30rem;
+  }
 }
 
 ion-content {
   --ion-padding: 1.5rem;
-  --background: #{$background};
+  --background: #F0F0F0;
 }
 
 app-input-field {
-  --input-background: #071133;
+  --input-background: var(--light);
+  --input-text-color: var(--secondary);
 }
 
-.auth-Btn {
-  --background: #{$btnBackground};
+ion-button {
+  --background: var(--light-green);
 }
 
 .auth-error {
-  width: 250px;
-  margin-top: 20px;
-  color: red;
+  margin-top: 1rem;
+  display: block;
+  background-color: var(--error);
+  color: var(--light);
+  text-align: center;
+  border-radius: 1rem;
 }
+
+
