@@ -21,6 +21,7 @@ app-auth-header {
     min-width: 15rem;
     max-width: 30rem;
     border-radius: .3rem;
+    margin: 2rem 0;
 
     -webkit-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
     -moz-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
@@ -46,7 +47,7 @@ ion-button {
 }
 
 .auth-error {
-  margin-top: 1rem;
+  margin: 1rem 0;
   display: block;
   background-color: var(--error);
   color: var(--light);
