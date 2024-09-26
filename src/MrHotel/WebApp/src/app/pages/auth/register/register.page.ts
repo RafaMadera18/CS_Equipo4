@@ -14,6 +14,8 @@ import { IonButton, IonImg, IonContent } from "@ionic/angular/standalone";
 
 import { AuthBasePage } from "../auth.base.page";
 
+import { AuthHeaderComponent } from "@components/auth-header/auth-header.component";
+
 import { InputFieldComponent } from "@components/input-field";
 
 import { AdminRegisterRequest } from "@services/auth";
@@ -30,6 +32,7 @@ interface AdminRegistrationForm extends AdminRegisterRequest {
   styleUrls: ["./register.page.scss"],
   standalone: true,
   imports: [
+    AuthHeaderComponent,
     InputFieldComponent,
     IonContent,
     IonImg,

@@ -1,10 +1,12 @@
-$btnBackground: linear-gradient(90deg, #175894 0%, #839ab1 100%);
+$background-color: -webkit-linear-gradient(135deg, var(--dark-blue),var(--light-blue));
 
-h1 {
-  color: var(--primary);
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2rem;
+ion-content {
+  --ion-padding: 1.5rem;
+  --background: #{$background-color};
+}
+
+app-auth-header {
+  margin: 0 auto;
 }
 
 .container {
@@ -18,21 +20,29 @@ h1 {
     padding: 0 1.5rem;
     min-width: 15rem;
     max-width: 30rem;
+    border-radius: .3rem;
+
+    -webkit-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
+    -moz-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
+    box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
   }
 }
 
-ion-content {
-  --ion-padding: 1.5rem;
-  --background: #F0F0F0;
+h1 {
+  color: var(--dark-blue);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 app-input-field {
   --input-background: var(--light);
-  --input-text-color: var(--secondary);
+  --input-text-color: var(--dark-gray);
 }
 
 ion-button {
-  --background: var(--light-green);
+  --background: var(--dark-blue);
+  --color: var(--light);
 }
 
 .auth-error {

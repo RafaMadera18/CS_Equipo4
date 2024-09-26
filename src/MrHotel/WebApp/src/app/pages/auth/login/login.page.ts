@@ -8,6 +8,8 @@ import {
 } from "@angular/forms";
 import { HttpErrorResponse } from "@angular/common/http";
 
+import { AuthHeaderComponent } from "@components/auth-header/auth-header.component";
+
 import {
   IonButton,
   IonIcon,
@@ -33,6 +35,7 @@ import { ObjectForm } from "@customTypes/object-form";
   standalone: true,
   imports: [
     InputFieldComponent,
+    AuthHeaderComponent,
     IonContent,
     IonImg,
     IonButton,
