@@ -10,14 +10,14 @@ import {
   ReactiveFormsModule,
 } from "@angular/forms";
 
-import { IonInput, IonIcon, IonNote } from "@ionic/angular/standalone";
+import { IonInput, IonIcon, IonNote, IonInputPasswordToggle } from "@ionic/angular/standalone";
 
 @Component({
   selector: "app-input-field",
   templateUrl: "./input-field.component.html",
   styleUrls: ["./input-field.component.scss"],
   standalone: true,
-  imports: [IonInput, IonIcon, IonNote, ReactiveFormsModule],
+  imports: [IonInput, IonIcon, IonNote, ReactiveFormsModule, IonInputPasswordToggle],
   viewProviders: [
     {
       provide: ControlContainer,
