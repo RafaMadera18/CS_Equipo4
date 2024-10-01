@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.Configuration;
 
-using MrHotel.Shared.Extensions.Configuration;
+using RaptorUtils.Extensions.Configuration;
 
 internal static class ConfigurationExtensions
 {

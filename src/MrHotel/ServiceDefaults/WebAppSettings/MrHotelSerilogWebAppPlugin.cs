@@ -1,15 +1,18 @@
-﻿namespace MrHotel.ServiceDefaults.Applications;
-
-using System;
+﻿namespace MrHotel.ServiceDefaults.WebAppSettings;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using RaptorUtils.AspNet.Applications.Plugins.Serilog;
+using RaptorUtils.AspNet.Logging.Filters;
+
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
-public abstract class MrHotelWebAppDefinition : SerilogWebAppDefinition
+internal class MrHotelSerilogWebAppPlugin(
+    Func<WebApplicationBuilder, Task<bool>>? isEnabled = null)
+    : SerilogWebAppPlugin(isEnabled)
 {
     public override ConsoleTheme? ConsoleTheme => AnsiConsoleTheme.Code;
 
@@ -20,25 +23,8 @@ public abstract class MrHotelWebAppDefinition : SerilogWebAppDefinition
         options
             .ReadFrom.Configuration(configuration)
             .Enrich.FromLogContext()
+            .Filter.With(new RequestPathPrefixLogFilter("/api/"))
             .WriteTo.Console(theme: this.ConsoleTheme, applyThemeToRedirectedOutput: true)
             .WriteTo.OpenTelemetry();
-    }
-
-    protected override async Task ConfigureServices(WebApplicationBuilder builder)
-    {
-        await base.ConfigureServices(builder);
-
-        builder.AddServiceDefaults();
-
-        builder.AddSwaggerGenIfEnabled();
-    }
-
-    protected override async Task Configure(WebApplication app)
-    {
-        await base.Configure(app);
-
-        app.MapDefaultEndpoints();
-
-        app.UseSwaggerIfEnabled();
     }
 }

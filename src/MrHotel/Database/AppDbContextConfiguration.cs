@@ -3,7 +3,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-using MrHotel.Shared.Extensions.Configuration;
+using RaptorUtils.Extensions.Configuration;
 
 public static class AppDbContextConfiguration
 {

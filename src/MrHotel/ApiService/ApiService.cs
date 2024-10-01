@@ -1,25 +1,13 @@
 ﻿namespace MrHotel.ApiService;
 
-using System;
-
 using Microsoft.AspNetCore.Builder;
 
 using MrHotel.Database;
 using MrHotel.Identity.Extensions;
-using MrHotel.ServiceDefaults.Applications;
-using MrHotel.Shared.Logging.Filters;
-
-using Serilog;
+using MrHotel.ServiceDefaults.WebAppSettings;
 
 public class ApiService : MrHotelWebAppDefinition
 {
-    protected override void ConfigureLogger(IServiceProvider serviceProvider, LoggerConfiguration options)
-    {
-        base.ConfigureLogger(serviceProvider, options);
-
-        options.Filter.With(new RequestPathPrefixLogFilter("/api/"));
-    }
-
     protected override async Task ConfigureServices(WebApplicationBuilder builder)
     {
         await base.ConfigureServices(builder);

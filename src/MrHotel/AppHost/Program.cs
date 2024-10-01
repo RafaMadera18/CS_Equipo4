@@ -1,5 +1,7 @@
 using MrHotel.AppHost;
 
+using RaptorUtils.Aspire.Hosting.NodeJs;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var postgres = builder.AddConfiguredPostgres(builder.Configuration);
@@ -11,17 +13,20 @@ if (!builder.Configuration.IsDatabaseMigrationMode())
     var apiService = builder.AddProject<Projects.MrHotel_ApiService>("ApiService")
         .WithReference(postgresDb);
 
-    builder.AddNpmAppWithRandomPort("WebApp", "../WebApp")
-        .WithEnvironment("SERVER_URL", apiService.GetEndpoint("http"));
+    builder.AddNpmApp("WebApp", "../WebApp")
+        .WithEnvironment("SERVER_URL", apiService.GetEndpoint("http"))
+        .WithRandomPort();
 }
 else
 {
-    var migrationService = builder.AddProject<Projects.MrHotel_MigrationService>("MigrationService")
+    var migrationServer = builder.AddProject<Projects.EFMigrationService_Server>("MigrationServer")
         .WithReference(postgresDb)
-        .WithEnvironment("db-project", "../Database");
+        .WithEnvironment("--project", "../Database")
+        .WithEnvironment("--startup-project", "../Database");
 
-    builder.AddNpmAppWithRandomPort("MigrationClient", "../MigrationService/Client", "dev")
-        .WithEnvironment("SERVER_URL", migrationService.GetEndpoint("http"));
+    builder.AddNpmApp("MigrationClient", "../../EFMigrationService/Client", "dev")
+        .WithEnvironment("SERVER_URL", migrationServer.GetEndpoint("http"))
+        .WithRandomPort();
 }
 
 await builder.Build().RunAsync();

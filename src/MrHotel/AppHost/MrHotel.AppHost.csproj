@@ -13,14 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\MrHotel.Shared.csproj" IsAspireProjectResource="false" />
     <ProjectReference Include="..\ApiService\MrHotel.ApiService.csproj" />
-    <ProjectReference Include="..\MigrationService\MrHotel.MigrationService.csproj" />
+    <ProjectReference Include="..\..\EFMigrationService\Server\EFMigrationService.Server.csproj" />
+    <ProjectReference Include="..\ServiceDefaults\MrHotel.ServiceDefaults.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
   <ItemGroup>
     <NpmPackageFile Include="..\WebApp\package.json" />
-    <NpmPackageFile Include="..\MigrationService\Client\package.json" />
+    <NpmPackageFile Include="..\..\EFMigrationService\Client\package.json" />
   </ItemGroup>
 
   <Target Name="ComputeNpmPackageMetadata">
@@ -34,17 +34,14 @@
     </ItemGroup>
   </Target>
 
-  <Target
-    Name="NpmInstall"
-    DependsOnTargets="ComputeNpmPackageMetadata"
-    Inputs="@(NpmPackageFile)"
-    Outputs="%(NpmPackageFile.StampFile)"
-    BeforeTargets="Build"
-    Condition="'$(DesignTimeBuild)' != 'true'"
-  >
+  <Target Name="NpmInstall" DependsOnTargets="ComputeNpmPackageMetadata" Inputs="@(NpmPackageFile)" Outputs="%(NpmPackageFile.StampFile)" BeforeTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
     <Message Importance="High" Text="Installing npm packages for %(NpmPackageFile.RelativeDir)" />
     <Exec Command="@(NpmPackageFile->'%(Command)')" WorkingDirectory="%(WorkingDirectory)" />
     <Touch Files="@(NpmPackageFile->'%(StampFile)')" AlwaysCreate="true" />
+  </Target>
+
+  <Target Name="Build-EFMigrationService-Server" BeforeTargets="Restore">
+    <Exec WorkingDirectory="..\..\EFMigrationService\Server\" Command="dotnet build EFMigrationService.Server.sln" />
   </Target>
 
 </Project>

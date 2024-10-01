@@ -3,7 +3,8 @@
 using Microsoft.EntityFrameworkCore;
 
 using MrHotel.Database;
-using MrHotel.Shared.Extensions.Configuration;
+
+using RaptorUtils.Extensions.Configuration;
 
 internal static class DatabaseInitializer
 {

@@ -1,11 +1,11 @@
 ﻿namespace MrHotel.Database;
 
-using MrHotel.Shared.Exceptions;
-
 using Npgsql;
 
 using Polly;
 using Polly.Retry;
+
+using RaptorUtils.Exceptions;
 
 public static class AppDbContextInitializer
 {
