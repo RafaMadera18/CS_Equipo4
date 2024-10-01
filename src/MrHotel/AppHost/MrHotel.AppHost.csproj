@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" InitialTargets="Build-EFMigrationService-Server">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -17,6 +17,10 @@
     <ProjectReference Include="..\..\EFMigrationService\Server\EFMigrationService.Server.csproj" />
     <ProjectReference Include="..\ServiceDefaults\MrHotel.ServiceDefaults.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
+
+  <Target Name="Build-EFMigrationService-Server">
+    <Exec WorkingDirectory="..\..\EFMigrationService\Server\" Command="dotnet build EFMigrationService.Server.sln" />
+  </Target>
 
   <ItemGroup>
     <NpmPackageFile Include="..\WebApp\package.json" />
@@ -38,10 +42,6 @@
     <Message Importance="High" Text="Installing npm packages for %(NpmPackageFile.RelativeDir)" />
     <Exec Command="@(NpmPackageFile->'%(Command)')" WorkingDirectory="%(WorkingDirectory)" />
     <Touch Files="@(NpmPackageFile->'%(StampFile)')" AlwaysCreate="true" />
-  </Target>
-
-  <Target Name="Build-EFMigrationService-Server" BeforeTargets="Restore">
-    <Exec WorkingDirectory="..\..\EFMigrationService\Server\" Command="dotnet build EFMigrationService.Server.sln" />
   </Target>
 
 </Project>
