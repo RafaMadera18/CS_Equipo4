@@ -2,6 +2,9 @@
 
 ## Run
 
+> [!NOTE]
+> The container runtime must be running.
+
 ```bash
 dotnet run
 ```
@@ -16,7 +19,7 @@ graph LR
     style host-s stroke-width:0,fill:transparent
     style AppHost fill:#a546be
     style ApiService fill:#a546be
-    style MigrationService fill:#a546be
+    style MigrationServer fill:#a546be
     style MigrationClient fill:#de002d
     style WebApp fill:#de002d
     style db fill:#4e92e6
@@ -33,7 +36,7 @@ graph LR
     end
 
     subgraph Migration
-    AppHost --> MigrationService
+    AppHost --> MigrationServer
     AppHost --> MigrationClient
     end
 
@@ -66,7 +69,6 @@ graph TD
     style AppHost fill:#a546be
     style ApiService fill:#a546be
     style Database fill:#a546be
-    style ServiceDefaults fill:#a546be
     style WebApp fill:#de002d
     style db fill:#4e92e6
     style Identity fill:#a546be
@@ -74,7 +76,6 @@ graph TD
     AppHost -.-> WebApp
     AppHost -.-> ApiService
     ApiService --> Database
-    ApiService --> ServiceDefaults
     WebApp <-.->|http| ApiService
     Database <-.->|EntityFramework| db[(PostgreSQL)]
     ApiService --> Identity
@@ -85,24 +86,22 @@ graph TD
 
 - ### Migration
 
-  - MigrationService and MigrationClient are also started to allow management of database schema changes.
+  - MigrationServer and MigrationClient are also started to allow management of database schema changes.
   - [EF commands](https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/?source=recommendations&tabs=dotnet-core-cli) can be sent from MigrationClient.
 
 ```mermaid
 graph TD
     style AppHost fill:#a546be
-    style MigrationService fill:#a546be
+    style MigrationServer fill:#a546be
     style Database fill:#a546be
-    style ServiceDefaults fill:#a546be
     style MigrationClient fill:#de002d
     style db fill:#4e92e6
     style Identity fill:#a546be
 
     AppHost -.-> MigrationClient
-    AppHost -.-> MigrationService
-    MigrationService --> Database
-    MigrationService --> ServiceDefaults
-    MigrationClient <-.->|SignalR| MigrationService
+    AppHost -.-> MigrationServer
+    MigrationServer --> Database
+    MigrationClient <-.->|SignalR| MigrationServer
     Database <-.->|EntityFramework| db[(PostgreSQL)]
     Database --> Identity
 ```
