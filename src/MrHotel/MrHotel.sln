@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaptorUtils.SerilogWebAppPl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaptorUtils.SwaggerWebAppPlugin", "..\RaptorUtils\WebAppPlugins\SwaggerWebAppPlugin\RaptorUtils.SwaggerWebAppPlugin.csproj", "{625937E7-2A0E-42A6-8FEB-C3EE37578C03}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFMigrationService.Integration", "..\EFMigrationService\Integration\EFMigrationService.Integration.csproj", "{07E1EB1D-FD2E-4EF1-9CF0-C16FFA3DA888}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{625937E7-2A0E-42A6-8FEB-C3EE37578C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625937E7-2A0E-42A6-8FEB-C3EE37578C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625937E7-2A0E-42A6-8FEB-C3EE37578C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E1EB1D-FD2E-4EF1-9CF0-C16FFA3DA888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E1EB1D-FD2E-4EF1-9CF0-C16FFA3DA888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E1EB1D-FD2E-4EF1-9CF0-C16FFA3DA888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E1EB1D-FD2E-4EF1-9CF0-C16FFA3DA888}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

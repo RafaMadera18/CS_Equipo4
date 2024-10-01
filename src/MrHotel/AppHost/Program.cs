@@ -1,3 +1,5 @@
+using EFMigrationService.Integration;
+
 using MrHotel.AppHost;
 
 using RaptorUtils.Aspire.Hosting.NodeJs;
@@ -24,8 +26,7 @@ else
 
     var migrationServer = builder.AddProject<Projects.EFMigrationService_Server>("MigrationServer")
         .WithReference(postgresDb)
-        .WithEnvironment("--project", migrationTargetProject)
-        .WithEnvironment("--startup-project", migrationTargetProject);
+        .WithSingleMigrationProject(migrationTargetProject);
 
     builder.AddNpmApp("MigrationClient", "../../EFMigrationService/Client", "dev")
         .WithEnvironment("SERVER_URL", migrationServer.GetEndpoint("http"))

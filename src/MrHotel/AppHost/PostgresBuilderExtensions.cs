@@ -1,5 +1,7 @@
 namespace MrHotel.AppHost;
 
+using EFMigrationService.Integration;
+
 using Microsoft.Extensions.Configuration;
 
 internal static class PostgresBuilderExtensions
