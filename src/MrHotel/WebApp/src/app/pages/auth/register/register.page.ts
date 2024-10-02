@@ -110,9 +110,11 @@ export class RegisterPage extends AuthBasePage<AdminRegistrationForm> {
       next: () => {
         this.router.navigate(["../login"]);
       },
-      error: (error: HttpErrorResponse) => {
-        // TODO
-        this.errorMessage.set(error.message);
+      error: (response: HttpErrorResponse) => {
+        const errorMessageValue =
+          this.errorMessageProvider.formatErrorResponse(response);
+
+        this.errorMessage.set(errorMessageValue);
       },
     });
   }

@@ -13,6 +13,7 @@ import { personOutline, lockClosedOutline, keyOutline } from "ionicons/icons";
 import { AuthService } from "@services/auth";
 
 import { Maybe, Nullable, ObjectForm } from "@customTypes/.";
+import { ErrorMessageProviderService } from "@services/error-message-provider/error-message-provider.service";
 
 @Directive()
 export abstract class AuthBasePage<TValue> implements OnInit {
@@ -24,6 +25,7 @@ export abstract class AuthBasePage<TValue> implements OnInit {
   constructor(
     protected readonly router: Router,
     protected readonly authService: AuthService,
+    protected readonly errorMessageProvider: ErrorMessageProviderService,
   ) {
     addIcons({ personOutline, lockClosedOutline, keyOutline });
   }

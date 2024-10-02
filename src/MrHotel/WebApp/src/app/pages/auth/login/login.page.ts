@@ -63,12 +63,13 @@ export class LoginPage extends AuthBasePage<LoginRequest> {
 
     this.authService.login(value).subscribe({
       next: () => {
-        console.log("Login");
         this.router.navigateByUrl("menu");
       },
-      error: (error: HttpErrorResponse) => {
-        // TODO
-        this.errorMessage.set(error.message);
+      error: (response: HttpErrorResponse) => {
+        const errorMessageValue =
+          this.errorMessageProvider.formatErrorResponse(response);
+
+        this.errorMessage.set(errorMessageValue);
       },
     });
   }

@@ -1,4 +1,8 @@
-$background-color: -webkit-linear-gradient(135deg, var(--dark-blue),var(--light-blue));
+$background-color: -webkit-linear-gradient(
+  135deg,
+  var(--dark-blue),
+  var(--light-blue)
+);
 
 ion-content {
   --ion-padding: 1.5rem;
@@ -14,18 +18,18 @@ app-auth-header {
   align-items: center;
   justify-content: center;
 
-  &-auth{
+  &-auth {
     width: 100%;
     background-color: var(--light);
     padding: 0 1.5rem;
     min-width: 15rem;
     max-width: 30rem;
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     margin: 2rem 0;
 
-    -webkit-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
-    -moz-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
-    box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
+    -webkit-box-shadow: 4px 3px 102px -4px rgba(48, 131, 220, 1);
+    -moz-box-shadow: 4px 3px 102px -4px rgba(48, 131, 220, 1);
+    box-shadow: 4px 3px 102px -4px rgba(48, 131, 220, 1);
   }
 }
 
@@ -48,11 +52,15 @@ ion-button {
 
 .auth-error {
   margin: 1rem 0;
+  padding: 10px;
   display: block;
   background-color: var(--error);
   color: var(--light);
-  text-align: center;
+  text-align: left;
   border-radius: 1rem;
+  white-space: pre-line;
 }
 
-
+.auth-error:empty {
+  display: none;
+}

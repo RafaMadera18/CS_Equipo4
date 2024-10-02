@@ -1,9 +1,7 @@
 <ion-content>
-
   <app-auth-header></app-auth-header>
 
   <div class="container">
-
     <div class="container-auth">
       <h1>Register</h1>
 
@@ -51,22 +49,13 @@
             [errorMessage]="getErrorMsg('adminCode')"
           />
 
-          <ion-button
-            [disabled]="!authForm.valid"
-            expand="block"
-            type="submit"
-          >
+          <ion-button [disabled]="!authForm.valid" expand="block" type="submit">
             Register
           </ion-button>
-
         </form>
 
-        <div class="auth-error">
-          {{ errorMessage() }}
-        </div>
+        <div class="auth-error">{{ errorMessage() }}</div>
       }
     </div>
   </div>
-
-
 </ion-content>
