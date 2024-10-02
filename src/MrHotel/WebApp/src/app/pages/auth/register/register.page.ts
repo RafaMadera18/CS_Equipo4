@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
-  AbstractControl,
+  FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from "@angular/forms";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -20,6 +19,8 @@ import { InputFieldComponent } from "@components/input-field";
 import { AdminRegisterRequest } from "@services/auth";
 
 import { FormObject, FormObjectGroup } from "@customTypes/.";
+
+import * as PasswordConfirmation from "./password-confirmation";
 
 interface AdminRegistrationForm extends AdminRegisterRequest {
   passwordConfirm: string;
@@ -53,53 +54,28 @@ export class RegisterPage extends AuthBasePage<AdminRegistrationForm> {
         adminCode: builder.control("", [Validators.required]),
       },
       {
-        validators: this.passwordMatchValidator,
+        validators: PasswordConfirmation.matchValidator(
+          "password",
+          "passwordConfirm",
+        ),
       },
     );
 
-    authForm
-      .get("password")!
-      .valueChanges.subscribe(() => this.onValueChanges());
-    authForm
-      .get("passwordConfirm")!
-      .valueChanges.subscribe(() => this.onValueChanges());
+    authForm.statusChanges.subscribe(() => {
+      this.updateMismatchState(authForm);
+    });
 
     return authForm;
   }
 
-  protected passwordMatchValidator(formGroup: AbstractControl) {
-    return formGroup.get("password")!.value ===
-      formGroup.get("passwordConfirm")!.value
-      ? null
-      : { mismatch: true };
-  }
-
-  protected onValueChanges() {
-    this.errorMessage.set(null);
-    const errors: ValidationErrors | null = this.authForm()!.errors;
-    if (errors == null) {
-      return;
-    }
-
-    if (
-      errors["mismatch"] &&
-      this.haveValueAndAreNotSelected(["password", "passwordConfirm"])
-    ) {
-      this.errorMessage.set("Password mismatch");
-    }
-  }
-
-  protected haveValueAndAreNotSelected(controlNames: string[]): boolean {
-    return controlNames.every((name) => this.hasValueAndIsNotSelected(name));
-  }
-
-  protected hasValueAndIsNotSelected(controlName: string): boolean {
-    const control: AbstractControl = this.authForm()!.get(controlName)!;
-    const element: HTMLElement = document
-      .getElementById(controlName)!
-      .querySelector(".native-input")!;
-
-    return control.value && element != document.activeElement;
+  protected updateMismatchState(formGroup: FormGroup) {
+    const state = PasswordConfirmation.getMismatchState(
+      formGroup,
+      "password",
+      "passwordConfirm",
+      (id) => document.getElementById(id)!.querySelector(".native-input")!,
+    );
+    this.errorMessage.set(state);
   }
 
   protected override onSubmitValue(value: AdminRegistrationForm): void {

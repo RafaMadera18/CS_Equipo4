@@ -27,7 +27,7 @@
             placeholder="..."
             icon="lock-closed-outline"
             [errorMessage]="getErrorMsg('password')"
-            (blur)="onValueChanges()"
+            (blur)="updateMismatchState(authForm)"
           />
 
           <app-input-field
@@ -37,7 +37,7 @@
             placeholder="..."
             icon="lock-closed-outline"
             [errorMessage]="getErrorMsg('passwordConfirm')"
-            (blur)="onValueChanges()"
+            (blur)="updateMismatchState(authForm)"
           />
 
           <app-input-field
