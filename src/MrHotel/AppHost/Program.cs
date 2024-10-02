@@ -3,7 +3,6 @@ using EFMigrationService.Integration;
 using MrHotel.AppHost;
 
 using RaptorUtils.Aspire.Hosting.NodeJs;
-using RaptorUtils.Extensions.Configuration;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -22,15 +21,13 @@ if (!builder.Configuration.IsDatabaseMigrationMode())
 }
 else
 {
-    string migrationTargetProject = Path.GetFullPath(builder.Configuration.GetRequired("MigrationTargetProject"));
+    string migrationTargetProject = Path.GetFullPath("../Database");
 
     var migrationServer = builder.AddProject<Projects.EFMigrationService_Server>("MigrationServer")
         .WithReference(postgresDb)
         .WithSingleMigrationProject(migrationTargetProject);
 
-    builder.AddNpmApp("MigrationClient", "../../EFMigrationService/Client", "dev")
-        .WithEnvironment("SERVER_URL", migrationServer.GetEndpoint("http"))
-        .WithRandomPort();
+    builder.AddMigrationClient(migrationServer, "../../EFMigrationService/Client");
 }
 
 await builder.Build().RunAsync();
