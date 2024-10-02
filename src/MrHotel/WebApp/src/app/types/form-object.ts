@@ -1,5 +1,5 @@
 import { FormControl } from "@angular/forms";
 
-export type ObjectForm<T> = {
+export type FormObject<T> = {
   [K in keyof T]: FormControl<T[K]>;
 };

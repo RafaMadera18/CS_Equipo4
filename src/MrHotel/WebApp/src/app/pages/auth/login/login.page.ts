@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { Router, RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import {
-  FormGroup,
   Validators,
   ReactiveFormsModule,
   NonNullableFormBuilder,
@@ -26,7 +25,7 @@ import { LoginRequest } from "@services/auth";
 
 import { AuthBasePage } from "../auth.base.page";
 
-import { ObjectForm } from "@customTypes/object-form";
+import { FormObjectGroup } from "@customTypes/.";
 
 @Component({
   selector: "app-login",
@@ -51,7 +50,7 @@ import { ObjectForm } from "@customTypes/object-form";
 export class LoginPage extends AuthBasePage<LoginRequest> {
   protected override createAuthForm(
     builder: NonNullableFormBuilder,
-  ): FormGroup<ObjectForm<LoginRequest>> {
+  ): FormObjectGroup<LoginRequest> {
     return builder.group({
       userName: builder.control("", [Validators.required]),
       password: builder.control("", [Validators.required]),

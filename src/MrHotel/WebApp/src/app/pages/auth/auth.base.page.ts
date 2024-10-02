@@ -3,7 +3,6 @@ import { Router } from "@angular/router";
 import {
   AbstractControl,
   FormBuilder,
-  FormGroup,
   NonNullableFormBuilder,
 } from "@angular/forms";
 
@@ -11,14 +10,13 @@ import { addIcons } from "ionicons";
 import { personOutline, lockClosedOutline, keyOutline } from "ionicons/icons";
 
 import { AuthService } from "@services/auth";
+import { ErrorMessageProviderService } from "@services/error-message-provider";
 
-import { Maybe, Nullable, ObjectForm } from "@customTypes/.";
-import { ErrorMessageProviderService } from "@services/error-message-provider/error-message-provider.service";
+import { Maybe, Nullable, FormObjectGroup } from "@customTypes/.";
 
 @Directive()
 export abstract class AuthBasePage<TValue> implements OnInit {
-  protected readonly authForm =
-    signal<Nullable<FormGroup<ObjectForm<TValue>>>>(null);
+  protected readonly authForm = signal<Nullable<FormObjectGroup<TValue>>>(null);
 
   protected readonly errorMessage = signal<Nullable<string>>(null);
 
@@ -37,7 +35,7 @@ export abstract class AuthBasePage<TValue> implements OnInit {
 
   protected abstract createAuthForm(
     builder: NonNullableFormBuilder,
-  ): FormGroup<ObjectForm<TValue>>;
+  ): FormObjectGroup<TValue>;
 
   protected getErrorMsg(controlName: string): Maybe<string> {
     const control: Nullable<AbstractControl> =

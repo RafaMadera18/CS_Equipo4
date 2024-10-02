@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
   AbstractControl,
-  FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   ValidationErrors,
@@ -20,7 +19,7 @@ import { InputFieldComponent } from "@components/input-field";
 
 import { AdminRegisterRequest } from "@services/auth";
 
-import { ObjectForm } from "@customTypes/.";
+import { FormObject, FormObjectGroup } from "@customTypes/.";
 
 interface AdminRegistrationForm extends AdminRegisterRequest {
   passwordConfirm: string;
@@ -45,8 +44,8 @@ interface AdminRegistrationForm extends AdminRegisterRequest {
 export class RegisterPage extends AuthBasePage<AdminRegistrationForm> {
   protected override createAuthForm(
     builder: NonNullableFormBuilder,
-  ): FormGroup<ObjectForm<AdminRegistrationForm>> {
-    const authForm = builder.group<ObjectForm<AdminRegistrationForm>>(
+  ): FormObjectGroup<AdminRegistrationForm> {
+    const authForm = builder.group<FormObject<AdminRegistrationForm>>(
       {
         userName: builder.control("", [Validators.required]),
         password: builder.control("", [Validators.required]),
