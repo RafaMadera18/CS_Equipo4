@@ -6,12 +6,16 @@
     [label]="label()"
     [placeholder]="placeholder()"
     [labelPlacement]="label() ? 'stacked' : ''"
-    fill="outline"
+    helperText=" "
     clearOnEdit="false"
     (ionBlur)="blur.emit()"
   >
     @if (icon()) {
       <ion-icon [name]="icon()" slot="start" aria-hidden="true" />
+    }
+
+    @if (type() == "password"){
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     }
   </ion-input>
   <ion-note class="error">

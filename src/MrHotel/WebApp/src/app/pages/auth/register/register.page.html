@@ -1,8 +1,11 @@
-<ion-content class="ion-padding">
-  <div class="auth-container">
-    <div>
+<ion-content>
+
+  <app-auth-header></app-auth-header>
+
+  <div class="container">
+
+    <div class="container-auth">
       <h1>Register</h1>
-      <br />
 
       @if (authForm(); as authForm) {
         <form
@@ -13,7 +16,7 @@
         >
           <app-input-field
             name="userName"
-            label="UserName"
+            label="Username"
             placeholder="..."
             icon="person-outline"
             [errorMessage]="getErrorMsg('userName')"
@@ -32,7 +35,7 @@
           <app-input-field
             name="passwordConfirm"
             type="password"
-            label="Password confirmation"
+            label="Password Confirmation"
             placeholder="..."
             icon="lock-closed-outline"
             [errorMessage]="getErrorMsg('passwordConfirm')"
@@ -42,28 +45,28 @@
           <app-input-field
             name="adminCode"
             type="password"
-            label="Admin code"
+            label="Admin Code"
             placeholder="..."
             icon="key-outline"
             [errorMessage]="getErrorMsg('adminCode')"
           />
 
           <ion-button
-            class="auth-button"
-            expand="block"
             [disabled]="!authForm.valid"
-            shape="round"
+            expand="block"
             type="submit"
-            size="large"
           >
             Register
           </ion-button>
 
-          <div class="auth-error" style="position: absolute">
-            {{ errorMessage() }}
-          </div>
         </form>
+
+        <div class="auth-error">
+          {{ errorMessage() }}
+        </div>
       }
     </div>
   </div>
+
+
 </ion-content>

@@ -1,2 +1,16 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+:root {
+  --dark-blue: #0A2472;
+  --dark-gray: #4a4a4a;
+  --light-blue: #3083DC;
+  --light-gray: #DDD5D0;
+  --light: #FFFFFF;
+  --dark: #000000;
+  --error: red;
+
+  p {
+    color: #FFFFFF;
+  }
+}

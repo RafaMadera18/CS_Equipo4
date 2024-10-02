@@ -1,8 +1,11 @@
-<ion-content class="ion-padding">
-  <div class="auth-container">
-    <div>
+<ion-content>
+
+  <app-auth-header></app-auth-header>
+
+  <div class="container">
+    <div class="container-auth">
       <h1>Log In</h1>
-      <br />
+
 
       @if (authForm(); as authForm) {
         <form
@@ -39,11 +42,13 @@
             Log In
           </ion-button>
 
-          <div class="auth-error">
-            {{ errorMessage() }}
-          </div>
         </form>
+
+        <div class="auth-error">
+          {{ errorMessage() }}
+        </div>
       }
     </div>
   </div>
+
 </ion-content>

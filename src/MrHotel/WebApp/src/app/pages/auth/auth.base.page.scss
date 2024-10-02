@@ -1,29 +1,58 @@
-$background: linear-gradient(43deg, #4158d0 0%, #5066c8 46%, #c850c0 100%);
-$btnBackground: linear-gradient(90deg, #175894 0%, #839ab1 100%);
-
-.auth-container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+$background-color: -webkit-linear-gradient(135deg, var(--dark-blue),var(--light-blue));
 
 ion-content {
   --ion-padding: 1.5rem;
-  --background: #{$background};
+  --background: #{$background-color};
+}
+
+app-auth-header {
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-auth{
+    width: 100%;
+    background-color: var(--light);
+    padding: 0 1.5rem;
+    min-width: 15rem;
+    max-width: 30rem;
+    border-radius: .3rem;
+    margin: 2rem 0;
+
+    -webkit-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
+    -moz-box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
+    box-shadow: 4px 3px 102px -4px rgba(48,131,220,1);
+  }
+}
+
+h1 {
+  color: var(--dark-blue);
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 app-input-field {
-  --input-background: #071133;
+  --input-background: var(--light);
+  --input-text-color: var(--dark-gray);
 }
 
-.auth-Btn {
-  --background: #{$btnBackground};
+ion-button {
+  --background: var(--dark-blue);
+  --color: var(--light);
 }
 
 .auth-error {
-  width: 250px;
-  margin-top: 20px;
-  color: red;
+  margin: 1rem 0;
+  display: block;
+  background-color: var(--error);
+  color: var(--light);
+  text-align: center;
+  border-radius: 1rem;
 }
+
+
