@@ -33,6 +33,14 @@ app-auth-header {
   }
 }
 
+app-input-field{
+  --input-padding-bottom: 2rem;
+}
+
+.last-input {
+  --input-padding-bottom: .5rem;
+  }
+
 h1 {
   color: var(--dark-blue);
   font-weight: bold;
