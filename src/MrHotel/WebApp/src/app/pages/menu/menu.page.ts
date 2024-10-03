@@ -21,7 +21,7 @@ import {
 import { TabButtonComponent } from "@components/tab-button";
 
 import { addIcons } from "ionicons";
-import { reorderThreeOutline, bedOutline } from "ionicons/icons";
+import { reorderThreeOutline, bedOutline, calendarOutline } from "ionicons/icons";
 
 @Component({
   selector: "app-menu",
@@ -50,7 +50,7 @@ export class MenuPage {
   protected readonly tabs = viewChild.required(IonTabs);
 
   constructor() {
-    addIcons({ reorderThreeOutline, bedOutline });
+    addIcons({ reorderThreeOutline, bedOutline, calendarOutline });
 
     effect(() => {
       this.sidebar().nativeElement.classList.toggle(
