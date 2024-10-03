@@ -12,7 +12,7 @@ import { personOutline, lockClosedOutline, keyOutline } from "ionicons/icons";
 import { AuthService } from "@services/auth";
 import { ErrorMessageProviderService } from "@services/error-message-provider";
 
-import { Maybe, Nullable, FormObjectGroup } from "@customTypes/.";
+import { Nullable, FormObjectGroup } from "@customTypes/.";
 
 @Directive()
 export abstract class AuthBasePage<TValue> implements OnInit {
@@ -37,7 +37,7 @@ export abstract class AuthBasePage<TValue> implements OnInit {
     builder: NonNullableFormBuilder,
   ): FormObjectGroup<TValue>;
 
-  protected getErrorMsg(controlName: string): Maybe<string> {
+  protected getErrorMsg(controlName: string): Nullable<string> {
     const control: Nullable<AbstractControl> =
       this.authForm()!.get(controlName);
 
@@ -46,7 +46,7 @@ export abstract class AuthBasePage<TValue> implements OnInit {
     }
 
     if (!this.shouldValidateControl(control)) {
-      return undefined;
+      return null;
     }
 
     // TODO: return this.errorMsgProviderService.getErrorMsg(control, controlName);

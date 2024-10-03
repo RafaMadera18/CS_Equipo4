@@ -68,7 +68,7 @@ export class RegisterPage extends AuthBasePage<AdminRegistrationForm> {
     return authForm;
   }
 
-  protected updateMismatchState(formGroup: FormGroup) {
+  protected updateMismatchState(formGroup: FormGroup): void {
     const state = PasswordConfirmation.getMismatchState(
       formGroup,
       "password",

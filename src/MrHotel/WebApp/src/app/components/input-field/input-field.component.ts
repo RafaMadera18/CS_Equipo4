@@ -9,15 +9,27 @@ import {
   FormGroupDirective,
   ReactiveFormsModule,
 } from "@angular/forms";
+import {
+  IonInput,
+  IonIcon,
+  IonNote,
+  IonInputPasswordToggle,
+} from "@ionic/angular/standalone";
 
-import { IonInput, IonIcon, IonNote, IonInputPasswordToggle } from "@ionic/angular/standalone";
+import { Nullable } from "@customTypes/nullable";
 
 @Component({
   selector: "app-input-field",
   templateUrl: "./input-field.component.html",
   styleUrls: ["./input-field.component.scss"],
   standalone: true,
-  imports: [IonInput, IonIcon, IonNote, ReactiveFormsModule, IonInputPasswordToggle],
+  imports: [
+    IonInput,
+    IonIcon,
+    IonNote,
+    ReactiveFormsModule,
+    IonInputPasswordToggle,
+  ],
   viewProviders: [
     {
       provide: ControlContainer,
@@ -32,6 +44,6 @@ export class InputFieldComponent {
   label = input("");
   placeholder = input("");
   icon = input("");
-  errorMessage = input<string>();
+  errorMessage = input<Nullable<string>>(null);
   blur = output();
 }
