@@ -59,12 +59,13 @@ ion-button {
 }
 
 .auth-error {
-  margin: 1rem 0;
-  padding: 10px;
+  margin-top: 1rem;
+  padding: .5rem;
   display: block;
   background-color: var(--error);
   color: var(--light);
-  text-align: left;
+  text-align: center;
+  text-transform: uppercase;
   border-radius: 1rem;
   white-space: pre-line;
 }
