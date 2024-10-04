@@ -13,9 +13,7 @@ function notLoggedIn(): CanActivateFn {
 
     return authService.userInfo().pipe(
       map((userInfo: Nullable<UserInfoResponse>) => {
-        console.log(userInfo);
         const loggedIn: boolean = userInfo != null;
-        console.log(loggedIn);
         if (loggedIn) {
           router.navigate(["../menu"]);
         }
