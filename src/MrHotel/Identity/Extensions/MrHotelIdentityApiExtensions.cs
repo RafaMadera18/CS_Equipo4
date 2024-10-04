@@ -26,6 +26,10 @@ public static class MrHotelIdentityApiExtensions
 
         routeGroup.MapPost("/logout", LogoutEndpoint.Handle).RequireAuthorization();
 
+        var accountGroup = routeGroup.MapGroup("/manage").RequireAuthorization();
+
+        accountGroup.MapGet("/info", UserInfoEndpoint.HandleGet).RequireAuthorization();
+
         return routeGroup.WithTags(tag);
     }
 }
