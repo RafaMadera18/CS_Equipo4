@@ -35,4 +35,59 @@ li {
   left: $sidebar-width;
   width: calc(100% - $sidebar-width);
   height: 100%;
+
+  ion-tabs {
+    position: relative;
+  }
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark-blue);
+
+  .logo {
+    margin-left: 1rem;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+
+    &-img{
+      width: 3rem;
+    }
+  }
+
+  .buttons-container {
+    margin-right: 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+
+    .user-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .exit-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .button-exit {
+        text-decoration: none;
+        background-color: var(--error);
+        text-align: center;
+        padding: .5rem;
+        color: var(--white);
+        border-radius: .5rem;
+      }
+  }
+
+
+  }
+
+
+
 }
