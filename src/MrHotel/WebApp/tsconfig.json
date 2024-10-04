@@ -21,6 +21,7 @@
     "lib": ["es2018", "dom"],
     "useDefineForClassFields": false,
     "paths": {
+      "@environment": ["environments/environment.ts"],
       "@components/*": ["app/components/*"],
       "@services/*": ["app/services/*"],
       "@customTypes/*": ["app/types/*"]

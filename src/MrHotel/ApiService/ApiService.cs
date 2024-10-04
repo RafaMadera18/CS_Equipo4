@@ -16,7 +16,7 @@ public class ApiService : MrHotelWebAppDefinition
 
         builder.Services.AddAppDbContext(builder.Configuration);
 
-        builder.Services.AddAppIdentity<AppDbContext>();
+        builder.Services.AddAppIdentity<AppDbContext>(builder.Configuration);
 
         builder.Services.AddAppAuth();
     }

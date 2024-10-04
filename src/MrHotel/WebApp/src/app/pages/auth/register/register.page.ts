@@ -22,6 +22,8 @@ import { FormObject, FormObjectGroup } from "@customTypes/.";
 
 import { PasswordFieldMatcher } from "./password-field-matcher";
 
+import { environment } from "@environment";
+
 interface AdminRegistrationForm extends AdminRegisterRequest {
   passwordConfirm: string;
 }
@@ -59,7 +61,10 @@ export class RegisterPage extends AuthBasePage<AdminRegistrationForm> {
     const authForm = builder.group<FormObject<AdminRegistrationForm>>(
       {
         userName: builder.control("", [Validators.required]),
-        password: builder.control("", [Validators.required]),
+        password: builder.control("", [
+          Validators.required,
+          Validators.minLength(environment.passwordMinLength),
+        ]),
         passwordConfirm: builder.control("", [Validators.required]),
         adminCode: builder.control("", [Validators.required]),
       },
