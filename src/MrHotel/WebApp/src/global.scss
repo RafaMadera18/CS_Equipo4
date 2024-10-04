@@ -35,3 +35,12 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+/*
+  Allows to hide the eye button (DEFAULT) to show and hide passwords in the ionic passwords inputs
+  This fix is only for Microsoft Edge
+*/
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

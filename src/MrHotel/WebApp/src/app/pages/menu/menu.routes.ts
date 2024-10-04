@@ -8,20 +8,20 @@ export const routes: Routes = [
     component: MenuPage,
     children: [
       {
-        path: "bookings",
+        path: "reservations",
         loadComponent: () =>
-          import("../bookings/bookings.page").then((m) => m.BookingsPage),
+          import("../reservations/reservations.page").then((m) => m.ReservationsPage),
       },
       {
         path: "",
-        redirectTo: "/menu/bookings",
+        redirectTo: "/menu/reservations",
         pathMatch: "full",
       },
     ],
   },
   {
     path: "",
-    redirectTo: "/menu/bookings",
+    redirectTo: "/menu/reservations",
     pathMatch: "full",
   },
 ];
