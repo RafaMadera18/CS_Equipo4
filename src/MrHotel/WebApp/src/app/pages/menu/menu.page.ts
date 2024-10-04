@@ -21,7 +21,11 @@ import {
 import { TabButtonComponent } from "@components/tab-button";
 
 import { addIcons } from "ionicons";
-import { reorderThreeOutline, bedOutline, calendarOutline } from "ionicons/icons";
+import {
+  reorderThreeOutline,
+  bedOutline,
+  calendarOutline,
+} from "ionicons/icons";
 
 @Component({
   selector: "app-menu",

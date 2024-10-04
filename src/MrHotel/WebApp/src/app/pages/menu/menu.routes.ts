@@ -10,7 +10,9 @@ export const routes: Routes = [
       {
         path: "reservations",
         loadComponent: () =>
-          import("../reservations/reservations.page").then((m) => m.ReservationsPage),
+          import("../reservations/reservations.page").then(
+            (m) => m.ReservationsPage,
+          ),
       },
       {
         path: "",
