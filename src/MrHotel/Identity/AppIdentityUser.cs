@@ -2,8 +2,7 @@
 
 using Microsoft.AspNetCore.Identity;
 
-// TODO: Rename to AppIdentityUser, and create new AppUser in MrHotel.Database
-public class AppUser : IdentityUser
+public abstract class AppIdentityUser : IdentityUser
 {
     public UserRole Role { get; set; }
 

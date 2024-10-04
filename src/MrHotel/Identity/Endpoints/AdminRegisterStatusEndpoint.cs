@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 public static class AdminRegisterStatusEndpoint
 {
-    public static async Task<Ok<bool>> Handle(
-        [FromServices] UserManager<AppUser> userManager)
+    public static async Task<Ok<bool>> Handle<TUser>(
+        [FromServices] UserManager<TUser> userManager)
+        where TUser : AppIdentityUser
     {
         bool anyUser = await userManager.Users.AnyAsync();
         return TypedResults.Ok(anyUser);

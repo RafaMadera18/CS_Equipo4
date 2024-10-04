@@ -7,16 +7,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 using MrHotel.Identity;
 
+using RaptorUtils.AspNet.Identity;
+
 public static class IdentityServiceCollectionExtensions
 {
-    public static void AddAppIdentity<TDbContext>(
+    public static void AddAppIdentity<TDbContext, TUser>(
         this IServiceCollection services,
         IConfiguration configuration)
-        where TDbContext : IdentityDbContext<AppUser>
+        where TDbContext : IdentityDbContext<TUser>
+        where TUser : AppIdentityUser, new()
     {
         int passwordMinLength = configuration.GetRequiredSection("PasswordMinLength").Get<int>();
 
-        services.AddIdentityCore<AppUser>(options =>
+        services.AddIdentityCore<TUser>(options =>
         {
             options.Password.RequiredLength = passwordMinLength;
             options.Password.RequireNonAlphanumeric = false;
@@ -25,8 +28,10 @@ public static class IdentityServiceCollectionExtensions
             options.Password.RequireDigit = false;
         })
         .AddEntityFrameworkStores<TDbContext>()
-        .AddUserManager<UserManager<AppUser>>()
-        .AddSignInManager<SignInManager<AppUser>>()
-        .AddMrHotelApiEndpoints();
+        .AddUserManager<UserManager<TUser>>()
+        .AddSignInManager<SignInManager<TUser>>()
+        .AddMrHotelApiEndpoints<TUser>();
+
+        services.AddScoped<UserContext<TUser>>();
     }
 }

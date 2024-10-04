@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Identity;
 
 using MrHotel.Identity.Data;
 
-public class UserRegisterService(
-    UserManager<AppUser> userManager,
+public class UserRegisterService<TUser>(
+    UserManager<TUser> userManager,
     AdminCodeValidator adminCodeValidator)
+    where TUser : AppIdentityUser, new()
 {
     public Task<IdentityResult> RegisterUserAsync(RegisterRequest request)
     {
@@ -31,7 +32,7 @@ public class UserRegisterService(
 
     private async Task<IdentityResult> RegisterAsync(RegisterRequest request, UserRole role)
     {
-        var user = new AppUser()
+        var user = new TUser()
         {
             UserName = request.UserName,
             Role = role,

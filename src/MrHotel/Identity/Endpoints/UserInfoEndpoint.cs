@@ -11,8 +11,9 @@ using RaptorUtils.AspNet.Identity;
 
 public static class UserInfoEndpoint
 {
-    public static async Task<Results<Ok<UserInfoResponse>, NotFound>> HandleGet(
-        [FromServices] UserContext<AppUser> userContext)
+    public static async Task<Results<Ok<UserInfoResponse>, NotFound>> HandleGet<TUser>(
+        [FromServices] UserContext<TUser> userContext)
+        where TUser : AppIdentityUser
     {
         if (await userContext.TryGetLoggedInUser() is not { } user)
         {

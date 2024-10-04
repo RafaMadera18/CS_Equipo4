@@ -10,9 +10,10 @@ using MrHotel.Identity.Services;
 
 public static class RegisterAdminEndpoint
 {
-    public static async Task<Results<Ok, ValidationProblem>> Handle(
+    public static async Task<Results<Ok, ValidationProblem>> Handle<TUser>(
         [FromBody] AdminRegisterRequest request,
-        [FromServices] UserRegisterService userRegisterService)
+        [FromServices] UserRegisterService<TUser> userRegisterService)
+        where TUser : AppIdentityUser, new()
     {
         IdentityResult result = await userRegisterService.RegisterAdminAsync(request);
 
