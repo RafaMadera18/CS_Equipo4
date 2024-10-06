@@ -1,10 +1,11 @@
-
-
 <div class="page-content">
   <header>
-
     <div class="logo">
-      <img src="../../../assets/Logo_Mr-Hotel.svg" alt="Logo" class="logo-img">
+      <img
+        src="../../../assets/Logo_Mr-Hotel.svg"
+        alt="Logo"
+        class="logo-img"
+      />
       <p>Mr. Hotel</p>
     </div>
 
@@ -17,25 +18,32 @@
         <a href="" class="button-exit">Exit</a>
       </div>
     </div>
-
   </header>
 
   <!-- Principal Content -->
-   <main>
+  <main>
     <ion-tabs />
-   </main>
-
+  </main>
 </div>
 
 <div class="sidebar" #sidebar>
   <ul>
     <li>
+      <!--
       <ion-button
         class="expand-btn"
         (click)="sidebarExpanded.set(!sidebarExpanded())"
       >
         <ion-icon name="reorder-three-outline" />
       </ion-button>
+      -->
+
+      <app-tab-button
+        name="Back"
+        (click)="sidebarExpanded.set(!sidebarExpanded())"
+        [expanded]="sidebarExpanded"
+        [icon]="sidebarExpanded() ? 'arrow-back-outline' : 'reorder-three-outline'"
+      />
     </li>
 
     <li>

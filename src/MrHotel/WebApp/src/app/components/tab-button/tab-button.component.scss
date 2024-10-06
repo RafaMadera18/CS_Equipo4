@@ -1,8 +1,10 @@
 .tab-btn {
   width: calc(100% - 5px);
   text-transform: none;
+  --background: var(--light);
 
   span {
+    align-items: center;
     width: 100%;
     text-align: left;
     white-space: nowrap;
