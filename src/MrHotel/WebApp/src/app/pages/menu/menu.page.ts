@@ -61,7 +61,7 @@ export class MenuPage {
 
   protected readonly tabs = viewChild.required(IonTabs);
 
-  constructor() {
+  constructor(authService: AuthService) {
     addIcons({ reorderThreeOutline, bedOutline, calendarOutline, arrowBackOutline });
 
     this.userInfo = toSignal(authService.userInfo(), { initialValue: null });
