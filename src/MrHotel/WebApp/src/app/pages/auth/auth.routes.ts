@@ -3,7 +3,26 @@ import { CanActivateFn, Router, Routes } from "@angular/router";
 
 import { map } from "rxjs";
 
-import { AuthService } from "@services/auth";
+import { AuthService, UserInfoResponse } from "@services/auth";
+import { Nullable } from "@customTypes/nullable";
+
+function notLoggedIn(): CanActivateFn {
+  return () => {
+    const authService = inject(AuthService);
+    const router = inject(Router);
+
+    return authService.userInfo().pipe(
+      map((userInfo: Nullable<UserInfoResponse>) => {
+        const loggedIn: boolean = userInfo != null;
+        if (loggedIn) {
+          router.navigate(["../menu"]);
+        }
+
+        return !loggedIn;
+      }),
+    );
+  };
+}
 
 function requireAdminRegisterStatus(
   status: boolean,
@@ -14,7 +33,7 @@ function requireAdminRegisterStatus(
     const router = inject(Router);
 
     return authService.adminRegisterStatus().pipe(
-      map((currentStatus) => {
+      map((currentStatus: boolean) => {
         const statusMatch: boolean = currentStatus === status;
         if (!statusMatch) {
           router.navigate([mismatchRedirect]);
@@ -39,13 +58,19 @@ export const routes: Routes = [
         path: "login",
         loadComponent: () =>
           import("./login/login.page").then((m) => m.LoginPage),
-        canActivate: [requireAdminRegisterStatus(true, "auth/register")],
+        canActivate: [
+          notLoggedIn(),
+          requireAdminRegisterStatus(true, "auth/register"),
+        ],
       },
       {
         path: "register",
         loadComponent: () =>
           import("./register/register.page").then((m) => m.RegisterPage),
-        canActivate: [requireAdminRegisterStatus(false, "auth/login")],
+        canActivate: [
+          notLoggedIn(),
+          requireAdminRegisterStatus(false, "auth/login"),
+        ],
       },
     ],
   },

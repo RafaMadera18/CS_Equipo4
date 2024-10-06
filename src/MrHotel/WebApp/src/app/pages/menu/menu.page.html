@@ -1,17 +1,13 @@
 <div class="page-content">
   <header>
     <div class="logo">
-      <img
-        src="../../../assets/Logo_Mr-Hotel.svg"
-        alt="Logo"
-        class="logo-img"
-      />
+      <img src="./assets/mr-hotel-logo.svg" alt="Logo" class="logo-img" />
       <p>Mr. Hotel</p>
     </div>
 
     <div class="buttons-container">
       <div class="user-container">
-        <p>User</p>
+        <p>{{ userInfo()?.userName }}</p>
       </div>
 
       <div class="exit-container">

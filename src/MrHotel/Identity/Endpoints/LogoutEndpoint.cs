@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 public static class LogoutEndpoint
 {
-    public static Task Handle(
-        [FromServices] SignInManager<IdentityUser> signInManager)
+    public static Task Handle<TUser>(
+        [FromServices] SignInManager<TUser> signInManager)
+        where TUser : AppIdentityUser
     {
         return signInManager.SignOutAsync();
     }

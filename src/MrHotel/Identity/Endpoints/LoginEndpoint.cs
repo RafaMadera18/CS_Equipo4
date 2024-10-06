@@ -9,9 +9,10 @@ using MrHotel.Identity.Data;
 
 public static class LoginEndpoint
 {
-    public static async Task<Results<Ok, ProblemHttpResult>> Handle(
+    public static async Task<Results<Ok, ProblemHttpResult>> Handle<TUser>(
         [FromBody] LoginRequest request,
-        [FromServices] SignInManager<AppUser> signInManager)
+        [FromServices] SignInManager<TUser> signInManager)
+        where TUser : AppIdentityUser
     {
         var result = await signInManager.PasswordSignInAsync(
             request.UserName,

@@ -2,11 +2,13 @@ import {
   Component,
   effect,
   ElementRef,
+  Signal,
   signal,
   viewChild,
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 import {
   IonContent,
@@ -18,10 +20,18 @@ import {
   IonIcon,
 } from "@ionic/angular/standalone";
 
+import { addIcons } from "ionicons";
+import {
+  reorderThreeOutline,
+  bedOutline,
+  calendarOutline,
+  arrowBackOutline
+} from "ionicons/icons";
+
 import { TabButtonComponent } from "@components/tab-button";
 
-import { addIcons } from "ionicons";
-import { reorderThreeOutline, bedOutline, calendarOutline, arrowBackOutline} from "ionicons/icons";
+import { AuthService, UserInfoResponse } from "@services/auth";
+import { Nullable } from "@customTypes/nullable";
 
 @Component({
   selector: "app-menu",
@@ -42,6 +52,8 @@ import { reorderThreeOutline, bedOutline, calendarOutline, arrowBackOutline} fro
   ],
 })
 export class MenuPage {
+  protected readonly userInfo: Signal<Nullable<UserInfoResponse>>;
+
   protected readonly sidebar =
     viewChild.required<ElementRef<HTMLDivElement>>("sidebar");
 
@@ -51,6 +63,8 @@ export class MenuPage {
 
   constructor() {
     addIcons({ reorderThreeOutline, bedOutline, calendarOutline, arrowBackOutline });
+
+    this.userInfo = toSignal(authService.userInfo(), { initialValue: null });
 
     effect(() => {
       this.sidebar().nativeElement.classList.toggle(

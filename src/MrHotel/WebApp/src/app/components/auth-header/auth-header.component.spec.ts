@@ -1,16 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { IonicModule } from "@ionic/angular";
 
-import { AuthHeaderComponent } from './auth-header.component';
+import { AuthHeaderComponent } from "./auth-header.component";
 
-describe('AuthHeaderComponent', () => {
+describe("AuthHeaderComponent", () => {
   let component: AuthHeaderComponent;
   let fixture: ComponentFixture<AuthHeaderComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthHeaderComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AuthHeaderComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AuthHeaderComponent);
@@ -18,7 +18,7 @@ describe('AuthHeaderComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
