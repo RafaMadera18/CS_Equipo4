@@ -1,20 +1,21 @@
 import { Component, OnInit } from "@angular/core";
-import { RoomStatus } from "@customTypes/model/room-status";
-import { Guid } from "@customTypes/model/guid";
-import { Room } from "@customTypes/model/room";
-import { RoomState } from "@customTypes/model/room-state";
 import { RoomStatusComponent } from "@components/room-status/room-status.component";
 import { roomsStatus } from "./reservations-data";
+import { IonIcon } from "@ionic/angular/standalone";
+import { addOutline } from "ionicons/icons";
+import { addIcons } from "ionicons";
 
 @Component({
   selector: "app-reservations",
   templateUrl: "./reservations.page.html",
   styleUrls: ["./reservations.page.scss"],
   standalone: true,
-  imports: [RoomStatusComponent],
+  imports: [RoomStatusComponent, IonIcon],
 })
 export class ReservationsPage implements OnInit {
-  constructor() {}
+  constructor() {
+    addIcons({ addOutline });
+  }
 
   ngOnInit() {
     ("");
