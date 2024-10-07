@@ -1,18 +1,17 @@
 <div [ngClass]="[getRoomColorState(), 'container']">
   <div class="container-num">
-    <p class="name">{{name()}}</p>
-    <ion-icon [name]="icon()" class="icon"/>
+    <p class="name">{{ name() }}</p>
+    <ion-icon [name]="icon()" class="icon" />
     <p class="state"></p>
   </div>
 
   <div class="container-tags">
     @for (tag of tags(); track tag.id) {
       <div class="tag">
-        <p>{{tag.group.name}} <span>{{tag.name}}</span></p>
+        <p>
+          {{ tag.group.name }} <span>{{ tag.name }}</span>
+        </p>
       </div>
     }
   </div>
-
-
-
 </div>

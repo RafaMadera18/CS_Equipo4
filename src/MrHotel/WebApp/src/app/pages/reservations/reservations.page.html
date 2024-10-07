@@ -1,5 +1,5 @@
 <main>
-  @for (roomStatus of roomsStatus; track roomStatus.room.id) {
+  @for (roomStatus of roomsStatusDisplay; track roomStatus.room.id) {
     <app-room-status
       [name]="roomStatus.room.name"
       [state]="roomStatus.state"
