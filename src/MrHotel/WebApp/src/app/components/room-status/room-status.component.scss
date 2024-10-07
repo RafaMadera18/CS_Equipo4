@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  margin: 0 auto;
+
+  &-num {
+    display: grid;
+    padding: .5rem 0;
+    grid-template-columns: 1.5fr 1fr;
+    place-items: center;
+    .name {
+      font-size: 2.5rem;
+    }
+    .icon {
+      font-size: 5.5rem;
+      grid-row: span 2;
+    }
+    .state {
+      font-size: 1.5rem;
+      color: var(--dark);
+    }
+  }
+
+  &-tags {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    gap: 1%;
+    place-items: center;
+    padding: .5rem 0;
+  }
+}
+
+.tag {
+  background-color: var(--dark-gray);
+  border-radius: 1rem;
+  min-width: 4.5rem;
+  max-width: 5rem;
+
+  padding: 10%;
+  p {
+    font-size: 0.8rem;
+    font-weight: bold;
+    word-wrap: normal;
+    span {
+      display: block;
+      margin-top: .2rem;
+      font-weight: 400;
+    }
+  }
+}
+
+.available {
+  background-color: var(--available);
+
+  .container-num .state::before {
+    content: "Available";
+  }
+
+  .container-tags {
+    background-color: var(--available);
+    filter: brightness(90%);
+  }
+}
+
+.maintenance {
+  background-color: var(--maintenance);
+
+  .container-num .state::before {
+    content: "Maintenance";
+  }
+
+  .container-tags {
+    background-color: var(--maintenance);
+    filter: brightness(90%);
+  }
+}
+
+.occupied {
+  background-color: var(--occupied);
+
+  .container-num .state::before {
+    content: "Occupied";
+  }
+
+  .container-tags {
+    background-color: var(--occupied);
+    filter: brightness(90%);
+  }
+}
+
+.unavailable {
+  background-color: var(--error);
+
+  .container-num .state::before {
+    content: "Unavailable";
+  }
+
+  .container-tags {
+    background-color: var(--error);
+    filter: brightness(90%);
+  }
+}
+
+p {
+  color: var(--light);
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+
