@@ -11,9 +11,9 @@ import {
   trashOutline,
 } from "ionicons/icons";
 
-import { RoomState } from "@services/reservation-manager/data/room-state";
+import { RoomState } from "@services/room-manager/data/room-state";
 import { CommonModule } from "@angular/common";
-import { Tag } from "@services/reservation-manager/data/tag";
+import { Tag } from "@services/room-manager/data/tag";
 
 @Component({
   selector: "app-room-status",

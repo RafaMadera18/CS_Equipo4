@@ -10,15 +10,15 @@ import { RoomStatusComponent } from "@components/room-status/room-status.compone
 import { ModalController } from "@ionic/angular";
 import { AddRoomModalFormComponent } from "@components/modals/add-room-modal-form";
 import { DeleteRoomModalFormComponent } from "@components/modals/delete-room-modal-form";
-import { ReservationManagerService } from "@services/reservation-manager";
-import { RoomStatus, Room } from "@services/reservation-manager/data";
+import { RoomManagerService } from "@services/room-manager";
+import { RoomStatus, Room } from "@services/room-manager/data";
 import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "@components/modals/modal-base-form-component";
 
 @Component({
-  selector: "app-reservations",
-  templateUrl: "./reservations.page.html",
-  styleUrls: ["./reservations.page.scss"],
+  selector: "app-rooms",
+  templateUrl: "./rooms.page.html",
+  styleUrls: ["./rooms.page.scss"],
   standalone: true,
   imports: [
     CommonModule,
@@ -28,23 +28,23 @@ import { BaseModalFormComponent } from "@components/modals/modal-base-form-compo
     DeleteRoomModalFormComponent
   ],
 })
-export class ReservationsPage {
+export class RoomsPage {
   protected readonly roomStatuses: Observable<RoomStatus[]>;
 
   constructor(
-    private readonly reservationManager: ReservationManagerService,
+    private readonly roomManager: RoomManagerService,
     private modalController: ModalController,
   ) {
     addIcons({ addOutline });
 
-    this.roomStatuses = reservationManager.getRoomStatuses();
+    this.roomStatuses = roomManager.getRoomStatuses();
   }
 
   public async addRoom(): Promise<void> {
     const roomData = await this.openModal(AddRoomModalFormComponent, "add-room-modal");
 
     if (roomData.name) {
-      this.reservationManager.addRoom(roomData.name).subscribe();
+      this.roomManager.addRoom(roomData.name).subscribe();
     }
   }
 
@@ -52,7 +52,7 @@ export class ReservationsPage {
     const isDeleteConfirmed = await this.openModal(DeleteRoomModalFormComponent, "delete-room-modal");
 
     if (isDeleteConfirmed.state){
-      this.reservationManager.deleteRoom(room).subscribe();
+      this.roomManager.deleteRoom(room).subscribe();
     }
   }
 

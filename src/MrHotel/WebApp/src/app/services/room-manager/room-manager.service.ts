@@ -8,12 +8,12 @@ import {
   Room,
   RoomStatus,
   roomStatusEmpty,
-} from "@services/reservation-manager/data";
+} from "@services/room-manager/data";
 
 @Injectable({
   providedIn: "root",
 })
-export class ReservationManagerService {
+export class RoomManagerService {
   private roomStatuses: Nullable<SynchronizedCollection<RoomStatus>> = null;
 
   constructor(private readonly http: HttpClient) {}
