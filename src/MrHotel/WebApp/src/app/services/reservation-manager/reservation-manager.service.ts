@@ -1,0 +1,61 @@
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+
+import { Observable, tap } from "rxjs";
+
+import { Guid, Nullable, SynchronizedCollection } from "@customTypes/.";
+import {
+  Room,
+  RoomStatus,
+  roomStatusEmpty,
+} from "@services/reservation-manager/data";
+
+@Injectable({
+  providedIn: "root",
+})
+export class ReservationManagerService {
+  private roomStatuses: Nullable<SynchronizedCollection<RoomStatus>> = null;
+
+  constructor(private readonly http: HttpClient) {}
+
+  public getRoomStatuses(): Observable<RoomStatus[]> {
+    if (this.roomStatuses != null) {
+      return this.roomStatuses.items$;
+    }
+
+    this.roomStatuses = new SynchronizedCollection();
+    return this.roomStatuses.load(
+      this.http.get<RoomStatus[]>(this.getFullPath("room-statuses")),
+    );
+  }
+
+  public addRoom(name: string): Observable<Guid> {
+    return this.http
+      .post<Guid>(this.getFullPath(`rooms?name=${name}`), {})
+      .pipe(
+        tap((id: Guid) => {
+          this.roomStatuses?.add(roomStatusEmpty(id, name));
+        }),
+      );
+  }
+
+  public deleteRoom(room: Room) {
+    return this.http.delete(this.getFullPath(`rooms?id=${room.id}`), {}).pipe(
+      tap(() => {
+        if (this.roomStatuses == null) {
+          return;
+        }
+
+        const deleteIndex = this.roomStatuses
+          ?.getItems()
+          .findIndex((status) => status.room.id == room.id);
+
+        this.roomStatuses.removeAt(deleteIndex);
+      }),
+    );
+  }
+
+  private getFullPath(path: string): string {
+    return `api/reservations/${path}`;
+  }
+}

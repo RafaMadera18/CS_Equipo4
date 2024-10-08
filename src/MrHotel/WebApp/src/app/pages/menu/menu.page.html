@@ -16,7 +16,6 @@
     </div>
   </header>
 
-  <!-- Principal Content -->
   <main>
     <ion-tabs />
   </main>
@@ -25,20 +24,13 @@
 <div class="sidebar" #sidebar>
   <ul>
     <li>
-      <!--
-      <ion-button
-        class="expand-btn"
-        (click)="sidebarExpanded.set(!sidebarExpanded())"
-      >
-        <ion-icon name="reorder-three-outline" />
-      </ion-button>
-      -->
-
       <app-tab-button
         name="Back"
         (click)="sidebarExpanded.set(!sidebarExpanded())"
         [expanded]="sidebarExpanded"
-        [icon]="sidebarExpanded() ? 'arrow-back-outline' : 'reorder-three-outline'"
+        [icon]="
+          sidebarExpanded() ? 'arrow-back-outline' : 'reorder-three-outline'
+        "
       />
     </li>
 

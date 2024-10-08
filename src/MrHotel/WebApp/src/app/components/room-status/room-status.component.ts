@@ -1,12 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from "@angular/core";
-import { RoomState } from "@customTypes/model/room-state";
-import { CommonModule } from "@angular/common";
-import { Tag } from "@customTypes/model/tag";
+import { Component, computed, input, output } from "@angular/core";
+
 import { IonIcon } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
 import {
@@ -15,8 +8,12 @@ import {
   hammerOutline,
   alertCircleOutline,
   pencilOutline,
-  trashOutline
+  trashOutline,
 } from "ionicons/icons";
+
+import { RoomState } from "@services/reservation-manager/data/room-state";
+import { CommonModule } from "@angular/common";
+import { Tag } from "@services/reservation-manager/data/tag";
 
 @Component({
   selector: "app-room-status",
@@ -24,7 +21,6 @@ import {
   styleUrls: ["./room-status.component.scss"],
   standalone: true,
   imports: [IonIcon, CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoomStatusComponent {
   constructor() {
@@ -34,7 +30,7 @@ export class RoomStatusComponent {
       hammerOutline,
       alertCircleOutline,
       pencilOutline,
-      trashOutline
+      trashOutline,
     });
   }
   name = input("");
@@ -53,6 +49,8 @@ export class RoomStatusComponent {
         return "alert-circle-outline";
     }
   });
+
+  public readonly deleteClick = output();
 
   getRoomColorState(): string {
     switch (this.state()) {

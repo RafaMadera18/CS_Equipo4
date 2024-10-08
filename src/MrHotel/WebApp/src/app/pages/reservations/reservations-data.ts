@@ -1,7 +1,9 @@
-import { Tag } from "@customTypes/model/tag";
-import { Guid } from "@customTypes/model/guid";
-import { RoomStatus } from "@customTypes/model/room-status";
-import { RoomState } from "@customTypes/model/room-state";
+// TODO: Remove
+
+import { Tag } from "@services/reservation-manager/data/tag";
+import { Guid } from "@customTypes/guid";
+import { RoomStatus } from "@services/reservation-manager/data/room-status";
+import { RoomState } from "@services/reservation-manager/data/room-state";
 
 const tag: Tag = {
   id: "1" as unknown as Guid,
