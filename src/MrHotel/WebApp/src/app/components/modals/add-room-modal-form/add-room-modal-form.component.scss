@@ -8,6 +8,7 @@ h2 {
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
+  font-size: 2rem;
 }
 
 form {
@@ -18,10 +19,12 @@ form {
 }
 
 .button {
-  padding: .5rem;
+  padding: 0.5rem;
   font-weight: bold;
-  min-width: 5rem;
+  min-width: 7rem;
+  min-height: 2rem;
   color: var(--light);
+  font-size: 1.5rem;
 
   &-add {
     background-color: var(--available);
@@ -58,15 +61,16 @@ form {
   width: fit-content;
 }
 
-.coolinput input[type=text].input {
+.coolinput input[type="text"].input {
   padding: 11px 10px;
   font-size: 0.75rem;
   border: 2px var(--dark-blue) solid;
   border-radius: 5px;
   background: var(--light);
   color: var(--dark);
+  min-width: 15rem;
 }
 
-.coolinput input[type=text].input:focus {
+.coolinput input[type="text"].input:focus {
   outline: none;
 }
