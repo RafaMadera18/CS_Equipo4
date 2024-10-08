@@ -1,6 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 90% 10%;
+  max-width: 15rem;
 
   &-buttons {
     display: grid;
