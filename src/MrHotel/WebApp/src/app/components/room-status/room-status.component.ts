@@ -14,6 +14,8 @@ import {
   lockClosedOutline,
   hammerOutline,
   alertCircleOutline,
+  pencilOutline,
+  trashOutline
 } from "ionicons/icons";
 
 @Component({
@@ -31,6 +33,8 @@ export class RoomStatusComponent {
       lockClosedOutline,
       hammerOutline,
       alertCircleOutline,
+      pencilOutline,
+      trashOutline
     });
   }
   name = input("");
