@@ -14,7 +14,6 @@ export class AddRoomModalFormComponent extends BaseModalFormComponent {
   name: string = "";
 
   onSubmit() {
-    console.log("Formulario enviado", this.name);
     this.dismissModal({ name: this.name }); // Cierra el modal después de enviar
   }
 }
