@@ -5,8 +5,8 @@
   &-buttons {
     display: grid;
     background-color: var(--dark-blue);
-    border-top-right-radius: .5rem;
-    border-bottom-right-radius: .5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 
     button {
       background-color: inherit;
@@ -14,17 +14,13 @@
 
       &.delete-button {
         border-top: 1px solid var(--light);
-        border-bottom-right-radius: .5rem;
+        border-bottom-right-radius: 0.5rem;
       }
 
       &.edit-button {
-        border-top-right-radius: .5rem;
+        border-top-right-radius: 0.5rem;
       }
     }
-
-
-
-
   }
 
   &-room {
