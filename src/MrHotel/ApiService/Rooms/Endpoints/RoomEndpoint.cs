@@ -1,10 +1,10 @@
-﻿namespace MrHotel.ApiService.Reservations.Endpoints;
+﻿namespace MrHotel.ApiService.Rooms.Endpoints;
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-using MrHotel.ApiService.Reservations.Services;
+using MrHotel.ApiService.Rooms.Services;
 
 public static class RoomEndpoint
 {

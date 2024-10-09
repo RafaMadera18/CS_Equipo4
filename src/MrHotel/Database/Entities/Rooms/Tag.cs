@@ -1,4 +1,4 @@
-﻿namespace MrHotel.Database.Entities.Reservations;
+﻿namespace MrHotel.Database.Entities.Rooms;
 
 public class Tag
 {

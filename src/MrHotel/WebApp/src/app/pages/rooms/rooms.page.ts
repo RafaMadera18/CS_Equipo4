@@ -1,5 +1,7 @@
-import { Component, Type } from "@angular/core";
+import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
+
+import { IonicModule } from "@ionic/angular";
 
 import { addIcons } from "ionicons";
 import { addOutline } from "ionicons/icons";
@@ -7,13 +9,18 @@ import { addOutline } from "ionicons/icons";
 import { Observable } from "rxjs";
 
 import { RoomStatusComponent } from "@components/room-status/room-status.component";
-import { ModalController } from "@ionic/angular";
-import { AddRoomModalFormComponent } from "@components/modals/add-room-modal-form";
-import { DeleteRoomModalFormComponent } from "@components/modals/delete-room-modal-form";
+import {
+  addRoomModal,
+  AddRoomModalFormComponent,
+} from "@components/modals/add-room-modal-form";
+import {
+  deleteRoomModal,
+  DeleteRoomModalFormComponent,
+} from "@components/modals/delete-room-modal-form";
+
 import { RoomManagerService } from "@services/room-manager";
 import { RoomStatus, Room } from "@services/room-manager/data";
-import { IonicModule } from "@ionic/angular";
-import { BaseModalFormComponent } from "@components/modals/modal-base-form-component";
+import { ModalService } from "@services/modal/modal.service";
 
 @Component({
   selector: "app-rooms",
@@ -22,10 +29,10 @@ import { BaseModalFormComponent } from "@components/modals/modal-base-form-compo
   standalone: true,
   imports: [
     CommonModule,
+    IonicModule,
     RoomStatusComponent,
     AddRoomModalFormComponent,
-    IonicModule,
-    DeleteRoomModalFormComponent
+    DeleteRoomModalFormComponent,
   ],
 })
 export class RoomsPage {
@@ -33,7 +40,7 @@ export class RoomsPage {
 
   constructor(
     private readonly roomManager: RoomManagerService,
-    private modalController: ModalController,
+    private readonly modalService: ModalService,
   ) {
     addIcons({ addOutline });
 
@@ -41,7 +48,7 @@ export class RoomsPage {
   }
 
   public async addRoom(): Promise<void> {
-    const roomData = await this.openModal(AddRoomModalFormComponent, "add-room-modal");
+    const roomData = await this.modalService.openModal(addRoomModal);
 
     if (roomData.name) {
       this.roomManager.addRoom(roomData.name).subscribe();
@@ -49,25 +56,11 @@ export class RoomsPage {
   }
 
   public async deleteRoom(room: Room): Promise<void> {
-    const isDeleteConfirmed = await this.openModal(DeleteRoomModalFormComponent, "delete-room-modal");
+    const isDeleteConfirmed =
+      await this.modalService.openModal(deleteRoomModal);
 
-    if (isDeleteConfirmed.state){
+    if (isDeleteConfirmed.state) {
       this.roomManager.deleteRoom(room).subscribe();
     }
-  }
-
-  private async openModal(
-    component: Type<BaseModalFormComponent>,
-    cssClass: string,
-  ): Promise<any> {
-    const modal = await this.modalController.create({
-      component: component,
-      cssClass: cssClass,
-    });
-
-    await modal.present();
-
-    const { data } = await modal.onDidDismiss();
-    return data;
   }
 }

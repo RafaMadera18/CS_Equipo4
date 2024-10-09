@@ -1,7 +1,15 @@
 import { Component } from "@angular/core";
-import { IonicModule, ModalController } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
-import { BaseModalFormComponent } from "../modal-base-form-component";
+
+import { IonicModule } from "@ionic/angular";
+
+import { ModalInfo } from "@services/modal/modal-info";
+import { BaseModalFormComponent } from "../modal-base-form.component";
+import { Nullable } from "@customTypes/nullable";
+
+export type AddRoomModalData = {
+  name: Nullable<string>;
+};
 
 @Component({
   selector: "app-add-room-modal-form",
@@ -10,10 +18,18 @@ import { BaseModalFormComponent } from "../modal-base-form-component";
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class AddRoomModalFormComponent extends BaseModalFormComponent {
-  name: string = "";
+export class AddRoomModalFormComponent extends BaseModalFormComponent<AddRoomModalData> {
+  protected name: string = "";
 
   onSubmit() {
-    this.dismissModal({ name: this.name }); // Cierra el modal después de enviar
+    this.dismissModal({ name: this.name });
   }
 }
+
+export const addRoomModal: ModalInfo<
+  AddRoomModalData,
+  AddRoomModalFormComponent
+> = {
+  component: AddRoomModalFormComponent,
+  cssClass: "add-room-modal",
+};

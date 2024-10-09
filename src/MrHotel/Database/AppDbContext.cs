@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 using MrHotel.Database.Entities;
-using MrHotel.Database.Entities.Reservations;
+using MrHotel.Database.Entities.Rooms;
 using MrHotel.Identity;
 
 public class AppDbContext(

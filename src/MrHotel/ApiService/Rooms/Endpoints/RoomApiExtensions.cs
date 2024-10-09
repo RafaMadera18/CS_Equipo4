@@ -1,9 +1,9 @@
-namespace MrHotel.ApiService.Reservations.Endpoints;
+﻿namespace MrHotel.ApiService.Rooms.Endpoints;
 
-public static class ReservationApiExtensions
+public static class RoomApiExtensions
 {
-    public static IEndpointConventionBuilder MapReservationApi(
-        this IEndpointRouteBuilder endpoints, string tag = "Reservations")
+    public static IEndpointConventionBuilder MapRoomsApi(
+        this IEndpointRouteBuilder endpoints, string tag = "Rooms")
     {
         ArgumentNullException.ThrowIfNull(endpoints);
         ArgumentException.ThrowIfNullOrWhiteSpace(tag);

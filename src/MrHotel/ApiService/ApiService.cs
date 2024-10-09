@@ -2,8 +2,8 @@
 
 using Microsoft.AspNetCore.Builder;
 
-using MrHotel.ApiService.Reservations.Endpoints;
-using MrHotel.ApiService.Reservations.Services;
+using MrHotel.ApiService.Rooms.Endpoints;
+using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database;
 using MrHotel.Database.Entities;
 using MrHotel.Identity.Extensions;
@@ -36,7 +36,7 @@ public class ApiService : MrHotelWebAppDefinition
 
         apiGroup.MapGroup("/account").MapMrHotelIdentityApi<AppUser>();
 
-        apiGroup.MapGroup("/reservations").MapReservationApi();
+        apiGroup.MapGroup("/rooms").MapRoomsApi();
 
         await app.InitializeDbAsync();
     }

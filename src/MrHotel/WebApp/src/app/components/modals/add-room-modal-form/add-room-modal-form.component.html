@@ -1,16 +1,26 @@
 <div class="container">
   <h2>Add Room</h2>
   <form (submit)="onSubmit()">
-
     <div class="coolinput">
       <label for="name" class="text">Room Name:</label>
-      <input id="name" type="text" class="input" [(ngModel)]="name" name="name"/>
+      <input
+        id="name"
+        type="text"
+        class="input"
+        [(ngModel)]="name"
+        name="name"
+      />
     </div>
 
     <div class="container-actions">
       <button class="button button-add" type="submit">Add</button>
-      <button class="button button-cancel" type="button" (click)="dismissModal()">Cancel</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal({ name: null })"
+      >
+        Cancel
+      </button>
     </div>
-
   </form>
 </div>

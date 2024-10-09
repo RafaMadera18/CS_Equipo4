@@ -4,11 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 
 import { Guid, Nullable, SynchronizedCollection } from "@customTypes/.";
-import {
-  Room,
-  RoomStatus,
-  roomStatusEmpty,
-} from "@services/room-manager/data";
+import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
 
 @Injectable({
   providedIn: "root",
@@ -56,6 +52,6 @@ export class RoomManagerService {
   }
 
   private getFullPath(path: string): string {
-    return `api/reservations/${path}`;
+    return `api/rooms/${path}`;
   }
 }

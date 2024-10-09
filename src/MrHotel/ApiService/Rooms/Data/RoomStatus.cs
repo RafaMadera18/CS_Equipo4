@@ -1,6 +1,6 @@
-﻿namespace MrHotel.ApiService.Reservations.Data;
+﻿namespace MrHotel.ApiService.Rooms.Data;
 
-using MrHotel.Database.Entities.Reservations;
+using MrHotel.Database.Entities.Rooms;
 
 public record RoomStatus(
     Room Room,

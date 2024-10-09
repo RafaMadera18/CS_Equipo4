@@ -1,5 +1,7 @@
 ﻿namespace MrHotel.Database.Entities.Reservations;
 
+using MrHotel.Database.Entities.Rooms;
+
 public class Reservation
 {
     public Guid Id { get; set; }

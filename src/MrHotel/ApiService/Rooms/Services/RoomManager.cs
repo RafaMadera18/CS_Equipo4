@@ -1,9 +1,9 @@
-﻿namespace MrHotel.ApiService.Reservations.Services;
+﻿namespace MrHotel.ApiService.Rooms.Services;
 
 using System.Diagnostics.Contracts;
 
 using MrHotel.Database;
-using MrHotel.Database.Entities.Reservations;
+using MrHotel.Database.Entities.Rooms;
 
 public class RoomManager(AppDbContext db)
 {
