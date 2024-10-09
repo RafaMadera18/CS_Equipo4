@@ -37,5 +37,10 @@
   },
   "[json]": {
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  }
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "http://localhost:9000",
+    "projectKey": "MrHotel"
+  },
+  "sonarlint.disableTelemetry": true
 }

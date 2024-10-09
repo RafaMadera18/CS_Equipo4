@@ -3,6 +3,7 @@
     "angular.ng-template",
     "ionic.ionic",
     "rvest.vs-code-prettier-eslint",
-    "editorconfig.editorconfig"
+    "editorconfig.editorconfig",
+    "sonarsource.sonarlint-vscode"
   ]
 }
