@@ -29,7 +29,7 @@ export class PasswordFieldMatcher {
 
   public getMismatchState(formGroup: FormGroup): Nullable<string> {
     const errors: Nullable<ValidationErrors> = formGroup.errors;
-    if (errors == null || !errors["mismatch"]) {
+    if (!errors?.["mismatch"]) {
       return null;
     }
 

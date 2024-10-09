@@ -1,1 +1,1 @@
-export type Guid = String & { readonly brand: unique symbol };
+export type Guid = string & { readonly brand: unique symbol };

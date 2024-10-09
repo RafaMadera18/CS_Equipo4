@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, switchMap, tap } from "rxjs";
 
 export class SynchronizedCollection<T> {
-  private subject: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
+  private readonly subject: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
   public readonly items$: Observable<T[]> = this.subject.asObservable();
 

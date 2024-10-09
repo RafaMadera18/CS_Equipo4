@@ -22,7 +22,7 @@ export class ErrorMessageProviderService {
     return `${formattedTitle}\n\n${formattedErrors}`;
   }
 
-  private formatDetailsTitle(title: String) {
+  private formatDetailsTitle(title: string) {
     return (title.endsWith(".") ? title.slice(0, -1) : title) + ":";
   }
 

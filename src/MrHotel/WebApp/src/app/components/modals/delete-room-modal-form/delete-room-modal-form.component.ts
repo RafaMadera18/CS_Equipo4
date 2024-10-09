@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 import { IonicModule } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
