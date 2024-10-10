@@ -21,7 +21,7 @@ export class RoomManagerService {
 
     this.roomStatuses = new SynchronizedCollection();
     return this.roomStatuses.load(
-      this.http.get<RoomStatus[]>(this.getFullPath("statuses")),
+      this.http.get<RoomStatus[]>(this.getFullPath("rooms/statuses")),
     );
   }
 
