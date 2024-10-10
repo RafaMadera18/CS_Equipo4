@@ -45,32 +45,10 @@ input::-ms-clear {
   display: none;
 }
 
-.add-room-modal {
-  --width: 30%;
-  --height: 22%;
+.modal {
+  --width: min-content;
+  --height: min-content;
   --background: #fff;
   --color: #000;
 }
 
-.delete-room-modal {
-  --width: 30%;
-  --height: 20%;
-  --background: #fff;
-  --color: #000;
-}
-
-@media screen and (max-width: 600px) {
-  .add-room-modal {
-    --width: 70%;
-    --height: 20%;
-    --background: #fff;
-    --color: #000;
-  }
-
-  .delete-room-modal {
-    --width: 90%;
-    --height: 20%;
-    --background: #fff;
-    --color: #000;
-  }
-}

@@ -28,5 +28,5 @@ export const deleteRoomModal: ModalInfo<
   DeleteRoomModalFormComponent
 > = {
   component: DeleteRoomModalFormComponent,
-  cssClass: "delete-room-modal",
+  cssClass: "modal",
 };
