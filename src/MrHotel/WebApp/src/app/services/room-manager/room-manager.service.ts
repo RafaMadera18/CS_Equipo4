@@ -3,14 +3,14 @@ import { HttpClient } from "@angular/common/http";
 
 import { map, Observable, tap } from "rxjs";
 
-import { Guid, Nullable, SynchronizedCollection } from "@customTypes/.";
+import { Guid, Nullable, ObservableCollection } from "@customTypes/.";
 import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
 
 @Injectable({
   providedIn: "root",
 })
 export class RoomManagerService {
-  private roomStatuses: Nullable<SynchronizedCollection<RoomStatus>> = null;
+  private roomStatuses: Nullable<ObservableCollection<RoomStatus>> = null;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class RoomManagerService {
       return this.roomStatuses.items$;
     }
 
-    this.roomStatuses = new SynchronizedCollection();
+    this.roomStatuses = new ObservableCollection();
     return this.roomStatuses.load(
       this.http.get<RoomStatus[]>(this.getFullPath("statuses")),
     );
