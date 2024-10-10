@@ -12,14 +12,18 @@ public static class RoomStatusEndpoint
 {
     public static async Task<Ok<IEnumerable<RoomStatus>>> HandleGet(
         [FromServices] RoomManager roomManager,
-        [FromServices] RoomStatusChecker roomStatusChecker)
+        [FromServices] RoomStateChecker roomStateChecker)
     {
-        Room[] rooms = await roomManager
-            .GetRooms()
-            .ToArrayAsync();
+        Room[] rooms = await roomManager.GetRooms().ToArrayAsync();
 
-        RoomStatusContext context = await roomStatusChecker.GetStatusContext();
-        IEnumerable<RoomStatus> roomStatuses = roomStatusChecker.GetRoomStatuses(rooms, context);
+        RoomStateContext context = await roomStateChecker.GetStateContext();
+
+        IEnumerable<RoomStatus> roomStatuses = rooms.Select(
+            room =>
+            {
+                RoomState roomState = roomStateChecker.GetRoomState(room, context);
+                return new RoomStatus(room, roomState);
+            });
 
         return TypedResults.Ok(roomStatuses);
     }
