@@ -11,13 +11,16 @@ using MrHotel.Database.Entities.Rooms;
 public static class RoomStatusEndpoint
 {
     public static async Task<Ok<IEnumerable<RoomStatus>>> HandleGet(
-        [FromServices] RoomManager roomManager)
+        [FromServices] RoomManager roomManager,
+        [FromServices] RoomStatusChecker roomStatusChecker)
     {
         Room[] rooms = await roomManager
             .GetRooms()
             .ToArrayAsync();
 
-        IEnumerable<RoomStatus> result = rooms.Select(room => new RoomStatus(room, RoomState.Available));
-        return TypedResults.Ok(result);
+        RoomStatusContext context = await roomStatusChecker.GetStatusContext();
+        IEnumerable<RoomStatus> roomStatuses = roomStatusChecker.GetRoomStatuses(rooms, context);
+
+        return TypedResults.Ok(roomStatuses);
     }
 }

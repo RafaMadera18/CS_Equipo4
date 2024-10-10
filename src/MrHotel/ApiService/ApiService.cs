@@ -27,6 +27,7 @@ public class ApiService : MrHotelWebAppDefinition
 
         builder.Services.AddTransient<RoomManager>();
         builder.Services.AddTransient<ReservationManager>();
+        builder.Services.AddTransient<RoomStatusChecker>();
     }
 
     protected override async Task Configure(WebApplication app)

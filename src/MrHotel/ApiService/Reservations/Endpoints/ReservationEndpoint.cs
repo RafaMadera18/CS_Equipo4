@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Reservations.Data;
 using MrHotel.ApiService.Reservations.Services;
