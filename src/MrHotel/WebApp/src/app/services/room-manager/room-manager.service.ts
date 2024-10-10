@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { Observable, tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 
 import { Guid, Nullable, SynchronizedCollection } from "@customTypes/.";
 import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
@@ -33,7 +33,7 @@ export class RoomManagerService {
     );
   }
 
-  public deleteRoom(room: Room) {
+  public deleteRoom(room: Room): Observable<void> {
     return this.http.delete(this.getFullPath(room.id), {}).pipe(
       tap(() => {
         if (this.roomStatuses == null) {
@@ -46,6 +46,7 @@ export class RoomManagerService {
 
         this.roomStatuses.removeAt(deleteIndex);
       }),
+      map(() => undefined),
     );
   }
 
