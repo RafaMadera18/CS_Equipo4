@@ -3,19 +3,18 @@
 public static class RoomApiExtensions
 {
     public static IEndpointConventionBuilder MapRoomsApi(
-        this IEndpointRouteBuilder endpoints, string tag = "Rooms")
+        this IEndpointRouteBuilder endpoints)
     {
         ArgumentNullException.ThrowIfNull(endpoints);
-        ArgumentException.ThrowIfNullOrWhiteSpace(tag);
 
-        var routeGroup = endpoints.MapGroup(string.Empty).RequireAuthorization();
+        var routeGroup = endpoints.MapGroup("/rooms").RequireAuthorization();
 
-        routeGroup.MapGet("/room-statuses", RoomStatusEndpoint.HandleGet);
+        routeGroup.MapGet("/statuses", RoomStatusEndpoint.HandleGet);
 
-        routeGroup.MapPost("/rooms", RoomEndpoint.HandlePost);
+        routeGroup.MapPost(string.Empty, RoomEndpoint.HandlePost);
 
-        routeGroup.MapDelete("/rooms", RoomEndpoint.HandleDelete);
+        routeGroup.MapDelete(string.Empty, RoomEndpoint.HandleDelete);
 
-        return routeGroup.WithTags(tag);
+        return routeGroup.WithTags("Rooms");
     }
 }

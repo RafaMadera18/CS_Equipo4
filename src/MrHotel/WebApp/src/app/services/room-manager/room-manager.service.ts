@@ -21,7 +21,7 @@ export class RoomManagerService {
 
     this.roomStatuses = new SynchronizedCollection();
     return this.roomStatuses.load(
-      this.http.get<RoomStatus[]>(this.getFullPath("room-statuses")),
+      this.http.get<RoomStatus[]>(this.getFullPath("statuses")),
     );
   }
 
@@ -52,6 +52,6 @@ export class RoomManagerService {
   }
 
   private getFullPath(path: string): string {
-    return `api/rooms/${path}`;
+    return `api/${path}`;
   }
 }

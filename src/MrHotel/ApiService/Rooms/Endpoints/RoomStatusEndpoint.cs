@@ -13,8 +13,10 @@ public static class RoomStatusEndpoint
     public static async Task<Ok<IEnumerable<RoomStatus>>> HandleGet(
         [FromServices] RoomManager roomManager)
     {
-        Room[] rooms = await roomManager.GetRooms().ToArrayAsync();
-        // TODO: Compute RoomState, depends on reservations
+        Room[] rooms = await roomManager
+            .GetRooms()
+            .ToArrayAsync();
+
         IEnumerable<RoomStatus> result = rooms.Select(room => new RoomStatus(room, RoomState.Available));
         return TypedResults.Ok(result);
     }

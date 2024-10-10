@@ -2,6 +2,8 @@
 
 using System.Diagnostics.Contracts;
 
+using Microsoft.EntityFrameworkCore;
+
 using MrHotel.Database;
 using MrHotel.Database.Entities.Rooms;
 
@@ -20,9 +22,12 @@ public class RoomManager(AppDbContext db)
     }
 
     [Pure]
-    public IQueryable<Room> GetRooms()
+    public IQueryable<Room> GetRooms(
+        QueryTrackingBehavior trackingBehavior = QueryTrackingBehavior.NoTracking)
     {
-        return db.Rooms.AsQueryable();
+        return db.Rooms
+            .AsQueryable()
+            .AsTracking(trackingBehavior);
     }
 
     public Task SaveChanges()

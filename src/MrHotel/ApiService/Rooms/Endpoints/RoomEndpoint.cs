@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Rooms.Services;
+using MrHotel.Database.Entities.Rooms;
 
 public static class RoomEndpoint
 {
@@ -12,7 +13,7 @@ public static class RoomEndpoint
         [FromQuery] string name,
         [FromServices] RoomManager roomManager)
     {
-        var room = await roomManager.AddRoom(name);
+        Room room = await roomManager.AddRoom(name);
         await roomManager.SaveChanges();
         return TypedResults.Ok(room.Id);
     }
@@ -21,7 +22,11 @@ public static class RoomEndpoint
         [FromQuery] Guid id,
         [FromServices] RoomManager roomManager)
     {
-        if (await roomManager.GetRooms().FirstOrDefaultAsync(r => r.Id == id) is not { } room)
+        Room? room = await roomManager
+            .GetRooms()
+            .FirstOrDefaultAsync(room => room.Id == id);
+
+        if (room is null)
         {
             return TypedResults.NotFound();
         }

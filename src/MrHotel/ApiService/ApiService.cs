@@ -2,6 +2,8 @@
 
 using Microsoft.AspNetCore.Builder;
 
+using MrHotel.ApiService.Reservations.Endpoints;
+using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.Rooms.Endpoints;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database;
@@ -24,6 +26,7 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddAppAuth();
 
         builder.Services.AddTransient<RoomManager>();
+        builder.Services.AddTransient<ReservationManager>();
     }
 
     protected override async Task Configure(WebApplication app)
@@ -36,7 +39,9 @@ public class ApiService : MrHotelWebAppDefinition
 
         apiGroup.MapGroup("/account").MapMrHotelIdentityApi<AppUser>();
 
-        apiGroup.MapGroup("/rooms").MapRoomsApi();
+        apiGroup.MapRoomsApi();
+
+        apiGroup.MapReservationApi();
 
         await app.InitializeDbAsync();
     }
