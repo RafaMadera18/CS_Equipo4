@@ -9,13 +9,12 @@ using MrHotel.Identity.Endpoints;
 public static class MrHotelIdentityApiExtensions
 {
     public static IEndpointConventionBuilder MapMrHotelIdentityApi<TUser>(
-        this IEndpointRouteBuilder endpoints, string tag = "Account")
+        this IEndpointRouteBuilder endpoints)
         where TUser : AppIdentityUser, new()
     {
         ArgumentNullException.ThrowIfNull(endpoints);
-        ArgumentException.ThrowIfNullOrWhiteSpace(tag);
 
-        var routeGroup = endpoints.MapGroup(string.Empty);
+        var routeGroup = endpoints.MapGroup("/account");
 
         routeGroup.MapPost("/register-admin", RegisterAdminEndpoint.Handle<TUser>);
 
@@ -31,6 +30,6 @@ public static class MrHotelIdentityApiExtensions
 
         accountGroup.MapGet("/info", UserInfoEndpoint.HandleGet<TUser>).RequireAuthorization();
 
-        return routeGroup.WithTags(tag);
+        return routeGroup.WithTags("Account");
     }
 }

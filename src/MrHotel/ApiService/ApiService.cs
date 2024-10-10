@@ -38,7 +38,7 @@ public class ApiService : MrHotelWebAppDefinition
 
         var apiGroup = app.MapGroup("/api");
 
-        apiGroup.MapGroup("/account").MapMrHotelIdentityApi<AppUser>();
+        apiGroup.MapMrHotelIdentityApi<AppUser>();
 
         apiGroup.MapRoomsApi();
 

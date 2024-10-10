@@ -4,27 +4,28 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using MrHotel.ApiService.Rooms.Data;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database.Entities.Rooms;
 
 public static class RoomEndpoint
 {
     public static async Task<Ok<Guid>> HandlePost(
-        [FromQuery] string name,
+        [FromBody] CreateRoomRequest request,
         [FromServices] RoomManager roomManager)
     {
-        Room room = await roomManager.AddRoom(name);
+        Room room = await roomManager.AddRoom(request);
         await roomManager.SaveChanges();
         return TypedResults.Ok(room.Id);
     }
 
     public static async Task<Results<Ok, NotFound>> HandleDelete(
-        [FromQuery] Guid id,
+        [FromRoute] Guid roomId,
         [FromServices] RoomManager roomManager)
     {
         Room? room = await roomManager
             .GetRooms()
-            .FirstOrDefaultAsync(room => room.Id == id);
+            .FirstOrDefaultAsync(room => room.Id == roomId);
 
         if (room is null)
         {

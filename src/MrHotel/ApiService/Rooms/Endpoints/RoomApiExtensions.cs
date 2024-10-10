@@ -13,7 +13,7 @@ public static class RoomApiExtensions
 
         routeGroup.MapPost(string.Empty, RoomEndpoint.HandlePost);
 
-        routeGroup.MapDelete(string.Empty, RoomEndpoint.HandleDelete);
+        routeGroup.MapDelete("{roomId}", RoomEndpoint.HandleDelete);
 
         return routeGroup.WithTags("Rooms");
     }

@@ -4,14 +4,16 @@ using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
 
+using MrHotel.ApiService.Rooms.Data;
 using MrHotel.Database;
 using MrHotel.Database.Entities.Rooms;
 
 public class RoomManager(AppDbContext db)
 {
-    public async Task<Room> AddRoom(string name)
+    public async Task<Room> AddRoom(
+        CreateRoomRequest request)
     {
-        var room = Room.Create(name);
+        var room = request.Create();
         await db.Rooms.AddAsync(room);
         return room;
     }
