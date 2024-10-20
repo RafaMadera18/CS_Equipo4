@@ -17,7 +17,8 @@ var mrHotelDb = postgres.AddDatabase("MrHotelDb");
 if (!builder.Configuration.IsDatabaseMigrationMode())
 {
     var apiService = builder.AddProject<Projects.MrHotel_ApiService>("ApiService")
-        .WithReference(mrHotelDb);
+        .WithReference(mrHotelDb)
+        .WaitFor(mrHotelDb);
 
     builder.AddNpmApp("WebApp", "../WebApp")
         .WithEnvironment("SERVER_URL", apiService.GetEndpoint("http"))
@@ -39,6 +40,7 @@ else
 
     var migrationServer = builder.AddProject<Projects.EFMigrationService_Server>("MigrationServer")
         .WithReference(mrHotelDb)
+        .WaitFor(mrHotelDb)
         .WithSingleMigrationProject(migrationTargetProject);
 
     builder.AddMigrationClient(migrationServer.GetEndpoint("http"), migrationService.ClientPath);

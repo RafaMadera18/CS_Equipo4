@@ -1,32 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" InitialTargets="Build-EFMigrationService-Server">
-
+  
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0-rc.1.24511.1" />
+  
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <IsAspireHost>true</IsAspireHost>
     <UserSecretsId>775f4f5a-d2ff-49ae-a660-4057296269b1</UserSecretsId>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.1" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.1" />
-    <PackageReference Include="Aspire.Hosting.NodeJs" Version="8.2.1" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0-rc.1.24511.1" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.0.0-rc.1.24511.1" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.0.0-rc.1.24511.1" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\ApiService\MrHotel.ApiService.csproj" />
     <ProjectReference Include="..\..\EFMigrationService\Server\EFMigrationService.Server.csproj" />
     <ProjectReference Include="..\ServiceDefaults\MrHotel.ServiceDefaults.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
-
+  
   <Target Name="Build-EFMigrationService-Server">
     <Exec WorkingDirectory="..\..\EFMigrationService\Server\" Command="dotnet build EFMigrationService.Server.sln" />
   </Target>
-
+  
   <ItemGroup>
     <NpmPackageFile Include="..\WebApp\package.json" />
     <NpmPackageFile Include="..\..\EFMigrationService\Client\package.json" />
   </ItemGroup>
-
+  
   <Target Name="ComputeNpmPackageMetadata">
     <ItemGroup>
       <NpmPackageFile>
@@ -37,11 +39,11 @@
       </NpmPackageFile>
     </ItemGroup>
   </Target>
-
+  
   <Target Name="NpmInstall" DependsOnTargets="ComputeNpmPackageMetadata" Inputs="@(NpmPackageFile)" Outputs="%(NpmPackageFile.StampFile)" BeforeTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
     <Message Importance="High" Text="Installing npm packages for %(NpmPackageFile.RelativeDir)" />
     <Exec Command="@(NpmPackageFile->'%(Command)')" WorkingDirectory="%(WorkingDirectory)" />
     <Touch Files="@(NpmPackageFile->'%(StampFile)')" AlwaysCreate="true" />
   </Target>
-
+  
 </Project>

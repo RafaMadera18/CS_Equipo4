@@ -23,20 +23,11 @@ internal static class DatabaseInitializer
         app.Logger.LogWarning("Db persistence disabled! Data will not be saved.");
 
         using var scope = app.Services.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        await dbContext.Database.EnsureCreatedAsync();
 
-        bool dbCreated = await AppDbContextInitializer.EnsureCreatedAsync(
-            context,
-            exception => app.Logger.LogInformation(exception, "Waiting for database..."));
-
-        if (!dbCreated)
-        {
-            throw new TimeoutException("Could not create database.");
-        }
-
-        string dbName = context.Database.GetDbConnection().Database;
+        string dbName = dbContext.Database.GetDbConnection().Database;
         app.Logger.LogInformation("Database '{Name}' created successfully", dbName);
     }
 }
