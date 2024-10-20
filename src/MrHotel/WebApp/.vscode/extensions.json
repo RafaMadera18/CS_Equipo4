@@ -2,8 +2,9 @@
   "recommendations": [
     "angular.ng-template",
     "ionic.ionic",
-    "rvest.vs-code-prettier-eslint",
     "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "rvest.vs-code-prettier-eslint",
     "sonarsource.sonarlint-vscode"
   ]
 }
