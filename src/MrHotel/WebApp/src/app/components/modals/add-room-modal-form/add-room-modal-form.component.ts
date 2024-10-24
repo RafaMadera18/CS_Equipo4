@@ -31,5 +31,5 @@ export const addRoomModal: ModalInfo<
   AddRoomModalFormComponent
 > = {
   component: AddRoomModalFormComponent,
-  cssClass: "add-room-modal",
+  cssClass: "modal",
 };
