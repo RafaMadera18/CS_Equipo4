@@ -1,5 +1,7 @@
 ﻿namespace MrHotel.ApiService.Reservations.Endpoints;
 
+using MrHotel.Identity;
+
 public static class ReservationApiExtensions
 {
     public static IEndpointConventionBuilder MapReservationApi(
@@ -7,7 +9,8 @@ public static class ReservationApiExtensions
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
-        var routeGroup = endpoints.MapGroup("reservations").RequireAuthorization();
+        var routeGroup = endpoints.MapGroup("reservations")
+            .RequireAuthorization(AppPolicy.AdminRole.Name);
 
         routeGroup.MapPost(string.Empty, ReservationEndpoint.HandlePost);
 

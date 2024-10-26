@@ -27,6 +27,7 @@ public static class IdentityServiceCollectionExtensions
             options.Password.RequireUppercase = false;
             options.Password.RequireDigit = false;
         })
+        .AddRoles<IdentityRole>()
         .AddEntityFrameworkStores<TDbContext>()
         .AddUserManager<UserManager<TUser>>()
         .AddSignInManager<SignInManager<TUser>>()

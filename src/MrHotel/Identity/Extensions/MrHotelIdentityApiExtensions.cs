@@ -18,17 +18,20 @@ public static class MrHotelIdentityApiExtensions
 
         routeGroup.MapPost("/register-admin", RegisterAdminEndpoint.Handle<TUser>);
 
-        routeGroup.MapPost("/register", RegisterEndpoint.Handle<TUser>).RequireAuthorization();
+        routeGroup.MapPost("/register", RegisterEndpoint.Handle<TUser>)
+            .RequireAuthorization(AppPolicy.AdminRole.Name);
 
         routeGroup.MapGet("/admin-register-status", AdminRegisterStatusEndpoint.Handle<TUser>);
 
         routeGroup.MapPost("/login", LoginEndpoint.Handle<TUser>);
 
-        routeGroup.MapPost("/logout", LogoutEndpoint.Handle<TUser>).RequireAuthorization();
+        routeGroup.MapPost("/logout", LogoutEndpoint.Handle<TUser>)
+            .RequireAuthorization();
 
-        var accountGroup = routeGroup.MapGroup("/manage").RequireAuthorization();
+        var accountGroup = routeGroup.MapGroup("/manage");
 
-        accountGroup.MapGet("/info", UserInfoEndpoint.HandleGet<TUser>).RequireAuthorization();
+        accountGroup.MapGet("/info", UserInfoEndpoint.HandleGet<TUser>)
+            .RequireAuthorization();
 
         return routeGroup.WithTags("Account");
     }
