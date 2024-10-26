@@ -13,8 +13,11 @@ public static class ReservationEndpoint
         [FromBody] CreateReservationRequest request,
         [FromServices] ReservationManager reservationManager)
     {
-        Reservation reservation = await reservationManager.AddReservation(request);
+        Reservation reservation = request.Create();
+
+        await reservationManager.AddReservation(reservation);
         await reservationManager.SaveChanges();
+
         return TypedResults.Ok(reservation.Id);
     }
 }

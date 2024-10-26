@@ -1,5 +1,7 @@
 ﻿namespace MrHotel.ApiService.Reservations.Data;
 
+using System.Diagnostics.Contracts;
+
 using MrHotel.Database.Entities.Reservations;
 
 public record CreateReservationRequest(
@@ -11,6 +13,7 @@ public record CreateReservationRequest(
     decimal Price)
 {
     // TODO: Validate?
+    [Pure]
     public Reservation Create()
     {
         return new()
