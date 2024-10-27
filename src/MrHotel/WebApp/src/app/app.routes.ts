@@ -14,5 +14,9 @@ export const routes: Routes = [
   {
     path: "**",
     redirectTo: "",
+  },  {
+    path: 'guests',
+    loadComponent: () => import('./pages/guests/guests.page').then( m => m.GuestsPage)
   },
+
 ];
