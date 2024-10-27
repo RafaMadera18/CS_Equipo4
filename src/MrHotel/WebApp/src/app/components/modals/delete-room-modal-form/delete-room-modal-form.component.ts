@@ -19,7 +19,7 @@ export class DeleteRoomModalFormComponent extends BaseModalFormComponent<DeleteR
   protected state: boolean = true;
 
   public onSubmit() {
-    this.dismissModal({ state: this.state });
+    this.submitModal({ state: this.state });
   }
 }
 
@@ -28,5 +28,4 @@ export const deleteRoomModal: ModalInfo<
   DeleteRoomModalFormComponent
 > = {
   component: DeleteRoomModalFormComponent,
-  cssClass: "modal",
 };

@@ -4,6 +4,7 @@ import { ModalController } from "@ionic/angular/standalone";
 
 import { ModalInfo } from "./modal-info";
 import { BaseModalFormComponent } from "@components/modals/modal-base-form.component";
+import { Nullable } from "@customTypes/nullable";
 
 @Injectable({
   providedIn: "root",
@@ -14,15 +15,15 @@ export class ModalService {
   public async openModal<
     TTData,
     TComponent extends BaseModalFormComponent<TTData>,
-  >(info: ModalInfo<TTData, TComponent>): Promise<TTData> {
+  >(info: ModalInfo<TTData, TComponent>): Promise<Nullable<TTData>> {
     const modal = await this.modalController.create({
       component: info.component,
-      cssClass: info.cssClass,
+      cssClass: info.cssClass ?? "modal",
     });
 
     await modal.present();
 
     const { data } = await modal.onDidDismiss<TTData>();
-    return data!;
+    return data ?? null;
   }
 }

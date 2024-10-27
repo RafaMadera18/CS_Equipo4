@@ -5,7 +5,11 @@ import { ModalController } from "@ionic/angular";
 export abstract class BaseModalFormComponent<TData> {
   constructor(protected readonly modalController: ModalController) {}
 
-  public dismissModal(data: TData): void {
+  public submitModal(data: TData): void {
     this.modalController.dismiss(data);
+  }
+
+  public dismissModal(): void {
+    this.modalController.dismiss(null);
   }
 }
