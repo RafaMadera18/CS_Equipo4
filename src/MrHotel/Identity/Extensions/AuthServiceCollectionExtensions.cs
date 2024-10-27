@@ -14,6 +14,9 @@ public static class AuthServiceCollectionExtensions
 
         services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
 
+        services.AddAuthorizationBuilder()
+            .AddPolicy(AppPolicy.AdminRole.Name, AppPolicy.AdminRole.Create());
+
         services.ConfigureApplicationCookie(options =>
         {
             options.Cookie.Name = "MrHotelIdentity";

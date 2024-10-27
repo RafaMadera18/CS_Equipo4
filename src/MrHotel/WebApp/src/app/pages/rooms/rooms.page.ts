@@ -50,7 +50,7 @@ export class RoomsPage {
   public async addRoom(): Promise<void> {
     const roomData = await this.modalService.openModal(addRoomModal);
 
-    if (roomData.name) {
+    if (roomData?.name) {
       this.roomManager.addRoom(roomData.name).subscribe();
     }
   }
@@ -59,7 +59,7 @@ export class RoomsPage {
     const isDeleteConfirmed =
       await this.modalService.openModal(deleteRoomModal);
 
-    if (isDeleteConfirmed.state) {
+    if (isDeleteConfirmed?.state) {
       this.roomManager.deleteRoom(room).subscribe();
     }
   }

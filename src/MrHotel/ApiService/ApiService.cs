@@ -44,6 +44,6 @@ public class ApiService : MrHotelWebAppDefinition
 
         apiGroup.MapReservationApi();
 
-        await app.InitializeDbAsync();
+        await app.InitializeDb();
     }
 }

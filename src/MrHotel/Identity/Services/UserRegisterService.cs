@@ -35,9 +35,15 @@ public class UserRegisterService<TUser>(
         var user = new TUser()
         {
             UserName = request.UserName,
-            Role = role,
         };
 
-        return await userManager.CreateAsync(user, request.Password);
+        IdentityResult result = await userManager.CreateAsync(user, request.Password);
+
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, role.ToString());
+        }
+
+        return result;
     }
 }

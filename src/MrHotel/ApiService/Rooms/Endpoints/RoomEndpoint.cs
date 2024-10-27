@@ -14,8 +14,11 @@ public static class RoomEndpoint
         [FromBody] CreateRoomRequest request,
         [FromServices] RoomManager roomManager)
     {
-        Room room = await roomManager.AddRoom(request);
+        Room room = request.Create();
+
+        await roomManager.AddRoom(room);
         await roomManager.SaveChanges();
+
         return TypedResults.Ok(room.Id);
     }
 
@@ -34,6 +37,7 @@ public static class RoomEndpoint
 
         roomManager.DeleteRoom(room);
         await roomManager.SaveChanges();
+
         return TypedResults.Ok();
     }
 }

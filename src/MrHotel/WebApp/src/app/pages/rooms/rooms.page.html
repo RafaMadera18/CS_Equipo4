@@ -1,17 +1,19 @@
-<div class="container-actions">
-  <button class="button button-add-room" (click)="addRoom()">
-    <ion-icon name="add-outline"></ion-icon>
-    <span>Add Room</span>
-  </button>
-</div>
+<div class="container">
+  <div class="container-actions">
+    <button class="button button-add-room" (click)="addRoom()">
+      <ion-icon name="add-outline"></ion-icon>
+      <span>Add Room</span>
+    </button>
+  </div>
 
-<main>
-  @for (roomStatus of roomStatuses | async; track roomStatus.room.id) {
-    <app-room-status
-      [name]="roomStatus.room.name"
-      [state]="roomStatus.state"
-      [tags]="roomStatus.room.tags"
-      (deleteClick)="deleteRoom(roomStatus.room)"
-    />
-  }
-</main>
+  <main>
+    @for (roomStatus of roomStatuses | async; track roomStatus.room.id) {
+      <app-room-status
+        [name]="roomStatus.room.name"
+        [state]="roomStatus.state"
+        [tags]="roomStatus.room.tags"
+        (deleteClick)="deleteRoom(roomStatus.room)"
+      />
+    }
+  </main>
+</div>

@@ -22,7 +22,7 @@ export class AddRoomModalFormComponent extends BaseModalFormComponent<AddRoomMod
   protected name: string = "";
 
   onSubmit() {
-    this.dismissModal({ name: this.name });
+    this.submitModal({ name: this.name });
   }
 }
 
@@ -31,5 +31,4 @@ export const addRoomModal: ModalInfo<
   AddRoomModalFormComponent
 > = {
   component: AddRoomModalFormComponent,
-  cssClass: "modal",
 };

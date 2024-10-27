@@ -7,9 +7,10 @@ using Polly.Retry;
 
 using RaptorUtils.Exceptions;
 
+// TODO: Replace with aspire 9 WaitFor
 public static class AppDbContextInitializer
 {
-    public static Task<bool> EnsureCreatedAsync(AppDbContext context, Action<Exception> onException)
+    public static async Task<bool> EnsureCreatedAsync(AppDbContext context, Action<Exception> onException)
     {
         var retryPolicy = Policy
             .Handle<ServiceUnavailableException>()
@@ -17,12 +18,22 @@ public static class AppDbContextInitializer
                 retryCount: 5,
                 _ => TimeSpan.FromSeconds(5));
 
-        return EnsureCreatedAsync(context, onException, retryPolicy);
+        PolicyResult<bool> result = await EnsureCreatedAsync(context, onException, retryPolicy);
+
+        if (result.Outcome == OutcomeType.Failure)
+        {
+            throw new TimeoutException("Could not create database.");
+        }
+
+        return result.Result;
     }
 
-    public static Task<bool> EnsureCreatedAsync(AppDbContext context, Action<Exception> onException, AsyncRetryPolicy retryPolicy)
+    private static Task<PolicyResult<bool>> EnsureCreatedAsync(
+        AppDbContext context,
+        Action<Exception> onException,
+        AsyncRetryPolicy retryPolicy)
     {
-        return retryPolicy.ExecuteAsync(async () =>
+        return retryPolicy.ExecuteAndCaptureAsync(async () =>
         {
             try
             {

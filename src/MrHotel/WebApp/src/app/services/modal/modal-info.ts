@@ -7,5 +7,5 @@ export interface ModalInfo<
   TComponent extends BaseModalFormComponent<TTData>,
 > {
   readonly component: Type<TComponent>;
-  readonly cssClass: string;
+  readonly cssClass?: string;
 }
