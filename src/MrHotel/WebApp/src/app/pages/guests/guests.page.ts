@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable} from "rxjs";
 import { Guest } from "@services/guest-manager/data";
-import { Guid } from "@customTypes/guid";
 import { CommonModule } from "@angular/common";
 import { addIcons } from "ionicons";
 import { pencilOutline, trashOutline, personAddOutline } from "ionicons/icons";

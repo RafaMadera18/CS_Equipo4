@@ -17,6 +17,6 @@ export function createGuest(
     id: id,
     name: name,
     phoneNumber: phoneNumber,
-    dateOfBirth: dateOfBirth
-  }
+    dateOfBirth: dateOfBirth,
+  };
 }
