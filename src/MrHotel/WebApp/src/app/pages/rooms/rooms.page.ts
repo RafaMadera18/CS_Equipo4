@@ -14,9 +14,9 @@ import {
   AddRoomModalFormComponent,
 } from "@components/modals/add-room-modal-form";
 import {
-  deleteRoomModal,
-  DeleteRoomModalFormComponent,
-} from "@components/modals/delete-room-modal-form";
+  deleteModal,
+  DeleteModalFormComponent,
+} from "@components/modals/delete-modal-form";
 
 import { RoomManagerService } from "@services/room-manager";
 import { RoomStatus, Room } from "@services/room-manager/data";
@@ -32,7 +32,7 @@ import { ModalService } from "@services/modal/modal.service";
     IonicModule,
     RoomStatusComponent,
     AddRoomModalFormComponent,
-    DeleteRoomModalFormComponent,
+    DeleteModalFormComponent,
   ],
 })
 export class RoomsPage {
@@ -56,8 +56,9 @@ export class RoomsPage {
   }
 
   public async deleteRoom(room: Room): Promise<void> {
-    const isDeleteConfirmed =
-      await this.modalService.openModal(deleteRoomModal);
+    const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
+      message: `Do You want To Delete Room: ${room.name}?`,
+    });
 
     if (isDeleteConfirmed?.state) {
       this.roomManager.deleteRoom(room).subscribe();

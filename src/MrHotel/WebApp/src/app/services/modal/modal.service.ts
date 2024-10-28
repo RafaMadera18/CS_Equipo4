@@ -15,10 +15,14 @@ export class ModalService {
   public async openModal<
     TTData,
     TComponent extends BaseModalFormComponent<TTData>,
-  >(info: ModalInfo<TTData, TComponent>): Promise<Nullable<TTData>> {
+  >(
+    info: ModalInfo<TTData, TComponent>,
+    componentProps?: Partial<TTData>,
+  ): Promise<Nullable<TTData>> {
     const modal = await this.modalController.create({
       component: info.component,
       cssClass: info.cssClass ?? "modal",
+      componentProps,
     });
 
     await modal.present();

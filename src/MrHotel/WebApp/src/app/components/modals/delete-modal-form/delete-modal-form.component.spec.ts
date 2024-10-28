@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DeleteRoomModalFormComponent } from './delete-room-modal-form.component';
+import { DeleteRoomModalFormComponent } from './delete-modal-form.component';
 
 describe('DeleteRoomModalFormComponent', () => {
   let component: DeleteRoomModalFormComponent;
