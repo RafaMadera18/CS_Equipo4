@@ -21,7 +21,24 @@ export class ObservableCollection<T> {
   }
 
   public removeAt(index: number): void {
-    this.subject.value.splice(index, 1);
-    this.subject.next(this.subject.value);
+    const array = this.subject.value;
+
+    if (index < 0 || index >= array.length) {
+      throw new RangeError(`Index "${index}" is out of bounds.`);
+    }
+
+    array.splice(index, 1);
+    this.subject.next(array);
+  }
+
+  public removeFirstWhere(
+    predicate: (value: T, index: number, obj: T[]) => boolean,
+  ): void {
+    const removeIndex = this.subject.value.findIndex(predicate);
+    if (removeIndex < 0) {
+      throw new RangeError(`No element matching the predicate was found.`);
+    }
+
+    this.removeAt(removeIndex);
   }
 }

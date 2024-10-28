@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { map, Observable, tap } from "rxjs";
+import { Observable, tap } from "rxjs";
 
 import { Guid, Nullable, ObservableCollection } from "@customTypes/.";
 import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
@@ -10,43 +10,39 @@ import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
   providedIn: "root",
 })
 export class RoomManagerService {
-  private roomStatuses: Nullable<ObservableCollection<RoomStatus>> = null;
+  // Null initially and until a get operation is performed
+  private roomStatusesCache: Nullable<ObservableCollection<RoomStatus>> = null;
 
   constructor(private readonly http: HttpClient) {}
 
   public getRoomStatuses(): Observable<RoomStatus[]> {
-    if (this.roomStatuses != null) {
-      return this.roomStatuses.items$;
+    if (this.roomStatusesCache != null) {
+      return this.roomStatusesCache.items$;
     }
 
-    this.roomStatuses = new ObservableCollection();
-    return this.roomStatuses.load(
+    this.roomStatusesCache = new ObservableCollection();
+    return this.roomStatusesCache.load(
       this.http.get<RoomStatus[]>(this.getFullPath("statuses")),
     );
   }
 
   public addRoom(name: string): Observable<Guid> {
-    return this.http.post<Guid>(this.getFullPath(), { name: name }).pipe(
+    const roomCreateRequest = { name: name };
+
+    return this.http.post<Guid>(this.getFullPath(), roomCreateRequest).pipe(
       tap((id: Guid) => {
-        this.roomStatuses?.add(roomStatusEmpty(id, name));
+        this.roomStatusesCache?.add(roomStatusEmpty(id, name));
       }),
     );
   }
 
   public deleteRoom(room: Room): Observable<void> {
-    return this.http.delete(this.getFullPath(room.id), {}).pipe(
+    return this.http.delete<void>(this.getFullPath(room.id), {}).pipe(
       tap(() => {
-        if (this.roomStatuses == null) {
-          return;
-        }
-
-        const deleteIndex = this.roomStatuses
-          ?.getItems()
-          .findIndex((status) => status.room.id == room.id);
-
-        this.roomStatuses.removeAt(deleteIndex);
+        this.roomStatusesCache?.removeFirstWhere(
+          (status) => status.room.id == room.id,
+        );
       }),
-      map(() => undefined),
     );
   }
 
