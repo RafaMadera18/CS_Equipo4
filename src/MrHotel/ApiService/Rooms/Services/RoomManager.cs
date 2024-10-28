@@ -28,6 +28,11 @@ public class RoomManager(AppDbContext db)
         db.Rooms.Remove(room);
     }
 
+    public void UpdateRoom(Room room)
+    {
+        db.Rooms.Update(room);
+    }
+
     [Pure]
     public IQueryable<Room> GetRooms()
     {
