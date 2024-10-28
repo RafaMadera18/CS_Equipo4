@@ -1,5 +1,6 @@
 import { Guid } from "@customTypes/.";
-import { Guest, Room } from ".";
+import { Room } from ".";
+import { Guest } from "@services/guest-manager/data";
 
 export type Reservation = {
   id: Guid;
