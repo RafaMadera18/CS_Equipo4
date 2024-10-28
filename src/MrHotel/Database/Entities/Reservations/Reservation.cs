@@ -2,24 +2,18 @@
 
 using MrHotel.Database.Entities.Rooms;
 
-public class Reservation
+public partial class Reservation
 {
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
 
     // TODO
-    /*
-    public Guid GuestId { get; set; }
-
-    public Guest Guest { get; set; } = null!;
-    */
-
-    public Guid RoomId { get; set; }
+    // public Guest Guest { get; set; } = null!;
 
     public Room Room { get; set; } = null!;
 
-    public DateTimeOffset CheckInDate { get; set; }
+    public required DateTimeOffset CheckInDate { get; set; }
 
-    public DateTimeOffset CheckOutDate { get; set; }
+    public required DateTimeOffset CheckOutDate { get; set; }
 
     public bool CheckOutDone { get; set; }
 

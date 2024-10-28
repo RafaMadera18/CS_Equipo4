@@ -2,5 +2,5 @@
 
 public class Guest
 {
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
 }
