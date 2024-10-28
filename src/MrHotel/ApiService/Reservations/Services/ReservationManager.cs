@@ -14,15 +14,15 @@ public class ReservationManager(AppDbContext db)
         await db.Reservations.AddAsync(reservation);
     }
 
-    public void DeleteReservation(Reservation reservation)
-    {
-        db.Reservations.Remove(reservation);
-    }
-
     [Pure]
     public IQueryable<Reservation> GetReservations()
     {
         return db.Reservations.AsQueryable().AsNoTracking();
+    }
+
+    public void DeleteReservation(Reservation reservation)
+    {
+        db.Reservations.Remove(reservation);
     }
 
     public Task SaveChanges()
