@@ -23,9 +23,10 @@ public class RoomManager(AppDbContext db)
         return result;
     }
 
-    public void DeleteRoom(Room room)
+    [Pure]
+    public IQueryable<Room> GetRooms()
     {
-        db.Rooms.Remove(room);
+        return db.Rooms.AsQueryable().AsNoTracking();
     }
 
     public void UpdateRoom(Room room)
@@ -33,10 +34,9 @@ public class RoomManager(AppDbContext db)
         db.Rooms.Update(room);
     }
 
-    [Pure]
-    public IQueryable<Room> GetRooms()
+    public void DeleteRoom(Room room)
     {
-        return db.Rooms.AsQueryable().AsNoTracking();
+        db.Rooms.Remove(room);
     }
 
     public Task SaveChanges()

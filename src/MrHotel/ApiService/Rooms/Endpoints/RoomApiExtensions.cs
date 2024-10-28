@@ -15,9 +15,9 @@ public static class RoomApiExtensions
 
         routeGroup.MapPost(string.Empty, RoomEndpoint.HandlePost);
 
-        routeGroup.MapDelete("{roomId}", RoomEndpoint.HandleDelete);
-
         routeGroup.MapPut("{roomId}", RoomEndpoint.HandlePut);
+
+        routeGroup.MapDelete("{roomId}", RoomEndpoint.HandleDelete);
 
         return routeGroup.WithTags("Rooms");
     }

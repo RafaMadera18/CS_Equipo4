@@ -28,25 +28,6 @@ public static class RoomEndpoint
         return TypedResults.Ok(room.Id);
     }
 
-    public static async Task<Results<Ok, NotFound>> HandleDelete(
-        [FromRoute] Guid roomId,
-        [FromServices] RoomManager roomManager)
-    {
-        Room? room = await roomManager
-            .GetRooms()
-            .FirstOrDefaultAsync(room => room.Id == roomId);
-
-        if (room is null)
-        {
-            return TypedResults.NotFound();
-        }
-
-        roomManager.DeleteRoom(room);
-        await roomManager.SaveChanges();
-
-        return TypedResults.Ok();
-    }
-
     public static async Task<IResult> HandlePut(
         [FromRoute] Guid roomId,
         [FromBody] UpdateRoomRequest request,
@@ -64,6 +45,26 @@ public static class RoomEndpoint
         request.Update(room);
         roomManager.UpdateRoom(room);
         await roomManager.SaveChanges();
+
         return TypedResults.NoContent();
+    }
+
+    public static async Task<Results<Ok, NotFound>> HandleDelete(
+        [FromRoute] Guid roomId,
+        [FromServices] RoomManager roomManager)
+    {
+        Room? room = await roomManager
+            .GetRooms()
+            .FirstOrDefaultAsync(room => room.Id == roomId);
+
+        if (room is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        roomManager.DeleteRoom(room);
+        await roomManager.SaveChanges();
+
+        return TypedResults.Ok();
     }
 }
