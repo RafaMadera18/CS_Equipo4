@@ -13,9 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ServiceDefaults\MrHotel.ServiceDefaults.csproj" IsAspireProjectResource="false" />
+    <ProjectReference Include="..\..\EFMigrationService\Integration\EFMigrationService.Integration.csproj" IsAspireProjectResource="false" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\ApiService\MrHotel.ApiService.csproj" />
     <ProjectReference Include="..\..\EFMigrationService\Server\EFMigrationService.Server.csproj" />
-    <ProjectReference Include="..\ServiceDefaults\MrHotel.ServiceDefaults.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 
   <Target Name="Build-EFMigrationService-Server">
