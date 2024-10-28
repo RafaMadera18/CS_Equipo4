@@ -6,6 +6,12 @@ import { CommonModule } from "@angular/common";
 import { addIcons } from "ionicons";
 import { pencilOutline, trashOutline, personAddOutline } from "ionicons/icons";
 import { IonicModule } from "@ionic/angular";
+import { ModalService } from "@services/modal/modal.service";
+import {
+  addGuestModal,
+  AddGuestModalData,
+} from "@components/modals/add-guest-modal-form";
+import { Nullable } from "@customTypes/index";
 
 @Component({
   selector: "app-guests",
@@ -17,7 +23,7 @@ import { IonicModule } from "@ionic/angular";
 export class GuestsPage {
   protected readonly guests: Observable<Guest[]>;
 
-  constructor() {
+  constructor(private readonly modalService: ModalService) {
     addIcons({ pencilOutline, trashOutline, personAddOutline });
     // TODO: Change for Guest Service
     this.guests = of([
@@ -42,7 +48,11 @@ export class GuestsPage {
     ]);
   }
 
-  public async addGuest(): Promise<void> {}
+  public async addGuest(): Promise<void> {
+    const guestData = await this.modalService.openModal(addGuestModal);
+    //TODO: Add GuestManager
+    console.log(guestData);
+  }
 
   public async deleteGuest(guest: Guest): Promise<void> {}
 }

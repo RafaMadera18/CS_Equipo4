@@ -21,7 +21,7 @@ export type AddRoomModalData = {
 export class AddRoomModalFormComponent extends BaseModalFormComponent<AddRoomModalData> {
   protected name: string = "";
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitModal({ name: this.name });
   }
 }
