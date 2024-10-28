@@ -28,7 +28,7 @@ public static class RoomEndpoint
         return TypedResults.Ok(room.Id);
     }
 
-    public static async Task<IResult> HandlePut(
+    public static async Task<Results<NoContent, NotFound>> HandlePut(
         [FromRoute] Guid roomId,
         [FromBody] UpdateRoomRequest request,
         [FromServices] RoomManager roomManager)
@@ -49,7 +49,7 @@ public static class RoomEndpoint
         return TypedResults.NoContent();
     }
 
-    public static async Task<Results<Ok, NotFound>> HandleDelete(
+    public static async Task<Results<NoContent, NotFound>> HandleDelete(
         [FromRoute] Guid roomId,
         [FromServices] RoomManager roomManager)
     {
@@ -65,6 +65,6 @@ public static class RoomEndpoint
         roomManager.DeleteRoom(room);
         await roomManager.SaveChanges();
 
-        return TypedResults.Ok();
+        return TypedResults.NoContent();
     }
 }
