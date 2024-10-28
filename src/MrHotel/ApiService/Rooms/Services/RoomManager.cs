@@ -19,13 +19,15 @@ public class RoomManager(AppDbContext db)
         db.Rooms.Remove(room);
     }
 
-    [Pure]
-    public IQueryable<Room> GetRooms(
-        QueryTrackingBehavior trackingBehavior = QueryTrackingBehavior.NoTracking)
+    public void UpdateRoom(Room room)
     {
-        return db.Rooms
-            .AsQueryable()
-            .AsTracking(trackingBehavior);
+        db.Rooms.Update(room);
+    }
+
+    [Pure]
+    public IQueryable<Room> GetRooms()
+    {
+        return db.Rooms.AsQueryable().AsNoTracking();
     }
 
     public Task SaveChanges()

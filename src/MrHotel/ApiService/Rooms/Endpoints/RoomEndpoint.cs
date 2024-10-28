@@ -40,4 +40,24 @@ public static class RoomEndpoint
 
         return TypedResults.Ok();
     }
+
+    public static async Task<IResult> HandlePut(
+        [FromRoute] Guid roomId,
+        [FromBody] UpdateRoomRequest request,
+        [FromServices] RoomManager roomManager)
+    {
+        Room? room = await roomManager
+            .GetRooms()
+            .FirstOrDefaultAsync(room => room.Id == roomId);
+
+        if (room is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        request.Update(room);
+        roomManager.UpdateRoom(room);
+        await roomManager.SaveChanges();
+        return TypedResults.NoContent();
+    }
 }
