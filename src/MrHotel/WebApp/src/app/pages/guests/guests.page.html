@@ -9,17 +9,17 @@
   <main>
     <table>
       <thead>
-          <th>Name</th>
-          <th>Phone Number</th>
-          <th>Date of Birth</th>
-          <th>Actions</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Date of Birth</th>
+        <th>Actions</th>
       </thead>
       <tbody>
-        @for(guest of guests | async; track guest.id){
+        @for (guest of guests | async; track guest.id) {
           <tr>
-            <td>{{guest.name}}</td>
-            <td>{{guest.phoneNumber}}</td>
-            <td>{{guest.dateOfBirth.toLocaleDateString()}}</td>
+            <td>{{ guest.name }}</td>
+            <td>{{ guest.phoneNumber }}</td>
+            <td>{{ guest.dateOfBirth.toLocaleDateString() }}</td>
             <td class="guest-actions">
               <button class="edit">
                 <ion-icon name="pencil-outline"></ion-icon>
