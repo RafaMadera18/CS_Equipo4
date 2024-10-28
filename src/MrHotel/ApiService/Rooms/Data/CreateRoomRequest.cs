@@ -12,7 +12,7 @@ public record CreateRoomRequest(string Name)
         return new()
         {
             Id = Guid.NewGuid(),
-            Name = this.Name,
+            Name = this.Name.Trim(),
         };
     }
 }

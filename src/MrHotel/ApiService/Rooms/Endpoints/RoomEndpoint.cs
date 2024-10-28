@@ -4,19 +4,25 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using MrHotel.ApiService.Core.Validation;
 using MrHotel.ApiService.Rooms.Data;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database.Entities.Rooms;
 
 public static class RoomEndpoint
 {
-    public static async Task<Ok<Guid>> HandlePost(
+    public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
         [FromBody] CreateRoomRequest request,
         [FromServices] RoomManager roomManager)
     {
         Room room = request.Create();
 
-        await roomManager.AddRoom(room);
+        ValidationResult result = await roomManager.AddRoom(room);
+        if (!result.Succeeded)
+        {
+            return TypedResults.ValidationProblem(result.AsErrorDictionary());
+        }
+
         await roomManager.SaveChanges();
 
         return TypedResults.Ok(room.Id);

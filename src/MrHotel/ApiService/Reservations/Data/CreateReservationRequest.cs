@@ -12,12 +12,12 @@ public record CreateReservationRequest(
     DateTimeOffset CheckOutDate,
     decimal Price)
 {
-    // TODO: Validate?
     [Pure]
     public Reservation Create()
     {
         return new()
         {
+            Id = Guid.NewGuid(),
             // TODO
             // GuestId = this.GuestId,
             RoomId = this.RoomId,
