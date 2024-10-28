@@ -20,12 +20,9 @@ public class ReservationManager(AppDbContext db)
     }
 
     [Pure]
-    public IQueryable<Reservation> GetReservations(
-        QueryTrackingBehavior trackingBehavior = QueryTrackingBehavior.NoTracking)
+    public IQueryable<Reservation> GetReservations()
     {
-        return db.Reservations
-            .AsQueryable()
-            .AsTracking(trackingBehavior);
+        return db.Reservations.AsQueryable().AsNoTracking();
     }
 
     public Task SaveChanges()
