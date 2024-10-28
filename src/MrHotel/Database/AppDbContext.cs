@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 using MrHotel.Database.Entities;
+using MrHotel.Database.Entities.Guests;
 using MrHotel.Database.Entities.Reservations;
 using MrHotel.Database.Entities.Rooms;
 
@@ -12,6 +13,8 @@ public class AppDbContext(
     : IdentityDbContext<AppUser>(options)
 {
     public DbSet<Room> Rooms { get; init; }
+
+    public DbSet<Guest> Guests { get; init; }
 
     public DbSet<Reservation> Reservations { get; init; }
 }

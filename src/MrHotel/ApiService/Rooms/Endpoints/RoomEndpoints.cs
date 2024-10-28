@@ -9,7 +9,7 @@ using MrHotel.ApiService.Rooms.Data;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database.Entities.Rooms;
 
-public static class RoomEndpoint
+public static class RoomEndpoints
 {
     public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
         [FromBody] CreateRoomRequest request,

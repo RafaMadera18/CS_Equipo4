@@ -9,7 +9,7 @@ public static class ReservationApiExtensions
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
-        var routeGroup = endpoints.MapGroup("reservations")
+        var routeGroup = endpoints.MapGroup("/reservations")
             .RequireAuthorization(AppPolicy.AdminRole.Name);
 
         routeGroup.MapPost(string.Empty, ReservationEndpoint.HandlePost);

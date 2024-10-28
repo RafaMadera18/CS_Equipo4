@@ -13,11 +13,11 @@ public static class RoomApiExtensions
 
         routeGroup.MapGet("/statuses", RoomStatusEndpoint.HandleGet);
 
-        routeGroup.MapPost(string.Empty, RoomEndpoint.HandlePost);
+        routeGroup.MapPost(string.Empty, RoomEndpoints.HandlePost);
 
-        routeGroup.MapPut("{roomId}", RoomEndpoint.HandlePut);
+        routeGroup.MapPut("{roomId}", RoomEndpoints.HandlePut);
 
-        routeGroup.MapDelete("{roomId}", RoomEndpoint.HandleDelete);
+        routeGroup.MapDelete("{roomId}", RoomEndpoints.HandleDelete);
 
         return routeGroup.WithTags("Rooms");
     }

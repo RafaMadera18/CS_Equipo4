@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 
+using MrHotel.ApiService.Guests.Endpoints;
 using MrHotel.ApiService.Reservations.Endpoints;
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.Rooms.Endpoints;
@@ -41,6 +42,8 @@ public class ApiService : MrHotelWebAppDefinition
         apiGroup.MapMrHotelIdentityApi<AppUser>();
 
         apiGroup.MapRoomsApi();
+
+        apiGroup.MapGuestApi();
 
         apiGroup.MapReservationApi();
 
