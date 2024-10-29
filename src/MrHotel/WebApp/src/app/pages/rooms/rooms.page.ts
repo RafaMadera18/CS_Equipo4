@@ -12,7 +12,6 @@ import { RoomStatusComponent } from "@components/room-status/room-status.compone
 import {
   addRoomModal,
   AddRoomModalFormComponent,
-  AddRoomModalOutput,
 } from "@components/modals/add-room-modal-form";
 import {
   deleteModal,

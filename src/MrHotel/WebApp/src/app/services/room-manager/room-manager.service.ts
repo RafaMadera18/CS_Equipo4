@@ -3,7 +3,9 @@ import { HttpClient } from "@angular/common/http";
 
 import { Observable, tap } from "rxjs";
 
-import { Guid, Nullable, ObservableCollection } from "@customTypes/.";
+import { ObservableCollection } from "@utilities/rxjs";
+
+import { Guid, Nullable } from "@customTypes/.";
 import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
 
 @Injectable({

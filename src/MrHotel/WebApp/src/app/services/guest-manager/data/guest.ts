@@ -1,22 +1,23 @@
 import { Guid } from "@customTypes/.";
 
-export type Guest = {
-  id: Guid;
-  name: string;
-  phoneNumber: string;
-  dateOfBirth: Date;
-};
+export class Guest {
+  public constructor(
+    public readonly id: Guid,
+    public fullName: string,
+    public phoneNumber: string,
+    public dateOfBirth: Date,
+  ) {}
 
-export function createGuest(
-  id: Guid,
-  name: string,
-  phoneNumber: string,
-  dateOfBirth: Date,
-) {
-  return {
-    id: id,
-    name: name,
-    phoneNumber: phoneNumber,
-    dateOfBirth: dateOfBirth,
-  };
+  public static fromDto(dto: GuestDto): Guest {
+    return new Guest(
+      dto.id,
+      dto.fullName,
+      dto.phoneNumber,
+      new Date(dto.dateOfBirth),
+    );
+  }
 }
+
+export type GuestDto = Omit<Guest, "dateOfBirth"> & {
+  dateOfBirth: string;
+};

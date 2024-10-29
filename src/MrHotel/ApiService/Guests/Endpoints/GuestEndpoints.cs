@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Guests.Data;
 using MrHotel.ApiService.Guests.Services;
@@ -19,5 +20,13 @@ public static class GuestEndpoints
         await guestManager.SaveChanges();
 
         return TypedResults.Ok(guest.Id);
+    }
+
+    public static async Task<Ok<IEnumerable<Guest>>> HandleGet(
+        [FromServices] GuestManager guestManager)
+    {
+        IEnumerable<Guest> guests = await guestManager.GetGuests().ToArrayAsync();
+
+        return TypedResults.Ok(guests);
     }
 }

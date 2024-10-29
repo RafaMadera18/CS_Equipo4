@@ -1,13 +1,18 @@
 import { Component } from "@angular/core";
-import { Observable} from "rxjs";
-import { Guest } from "@services/guest-manager/data";
 import { CommonModule } from "@angular/common";
+
+import { IonicModule } from "@ionic/angular";
+
 import { addIcons } from "ionicons";
 import { pencilOutline, trashOutline, personAddOutline } from "ionicons/icons";
-import { IonicModule } from "@ionic/angular";
-import { ModalService } from "@services/modal/modal.service";
+
+import { Observable } from "rxjs";
+import { Guest } from "@services/guest-manager/data";
+
 import { addGuestModal } from "@components/modals/add-guest-modal-form";
 import { deleteModal } from "@components/modals/delete-modal-form";
+
+import { ModalService } from "@services/modal/modal.service";
 import { GuestManagerService } from "@services/guest-manager";
 
 @Component({
@@ -30,22 +35,16 @@ export class GuestsPage {
   }
 
   public async addGuest(): Promise<void> {
-    const guestData = await this.modalService.openModal(addGuestModal);
+    const guestCreateRequest = await this.modalService.openModal(addGuestModal);
 
-    if (guestData) {
-      this.guestManager
-        .addGuest(
-          guestData.name!,
-          guestData.phoneNumber!,
-          guestData.dateOfBirth!,
-        )
-        .subscribe();
+    if (guestCreateRequest != null) {
+      this.guestManager.addGuest(guestCreateRequest).subscribe();
     }
   }
 
   public async deleteGuest(guest: Guest): Promise<void> {
     const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
-      message: `Do You want To Delete Guest: ${guest.name}? `,
+      message: `Do You want To Delete Guest: ${guest.fullName}? `,
     });
 
     if (isDeleteConfirmed?.state) {

@@ -2,13 +2,13 @@
   <h2>Add Guest</h2>
   <form (submit)="onSubmit()">
     <div class="coolinput">
-      <label for="name" class="text">Guest Name:</label>
+      <label for="fullName" class="text">Guest Name:</label>
       <input
         id="name"
         type="text"
         class="input"
-        [(ngModel)]="name"
-        name="name"
+        [(ngModel)]="fullName"
+        name="fullName"
         maxlength="15"
       />
     </div>

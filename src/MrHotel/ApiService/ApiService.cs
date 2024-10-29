@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Builder;
 
 using MrHotel.ApiService.Guests.Endpoints;
+using MrHotel.ApiService.Guests.Services;
 using MrHotel.ApiService.Reservations.Endpoints;
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.Rooms.Endpoints;
@@ -27,6 +28,7 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddAppAuth();
 
         builder.Services.AddTransient<RoomManager>();
+        builder.Services.AddTransient<GuestManager>();
         builder.Services.AddTransient<ReservationManager>();
         builder.Services.AddTransient<RoomStateChecker>();
     }

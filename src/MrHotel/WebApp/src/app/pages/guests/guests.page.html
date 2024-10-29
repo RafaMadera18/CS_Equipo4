@@ -17,7 +17,7 @@
       <tbody>
         @for (guest of guests | async; track guest.id) {
           <tr>
-            <td>{{ guest.name }}</td>
+            <td>{{ guest.fullName }}</td>
             <td>{{ guest.phoneNumber }}</td>
             <td>{{ guest.dateOfBirth.toLocaleDateString() }}</td>
             <td class="guest-actions">

@@ -11,6 +11,8 @@ public static class GuestApiExtensions
 
         routeGroup.MapPost(string.Empty, GuestEndpoints.HandlePost);
 
+        routeGroup.MapGet(string.Empty, GuestEndpoints.HandleGet);
+
         return routeGroup.WithTags("Guests");
     }
 }

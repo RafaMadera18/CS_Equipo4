@@ -3,15 +3,10 @@ import { FormsModule } from "@angular/forms";
 
 import { IonicModule } from "@ionic/angular";
 
-import { ModalInfo } from "@services/modal/modal-info";
 import { BaseModalFormComponent } from "../modal-base-form.component";
-import { Nullable } from "@customTypes/nullable";
 
-export type AddGuestModalData = {
-  name: Nullable<string>;
-  phoneNumber: Nullable<string>;
-  dateOfBirth: Nullable<Date>;
-};
+import { ModalInfo } from "@services/modal/modal-info";
+import { GuestCreateRequest } from "@services/guest-manager/data";
 
 @Component({
   selector: "app-add-guest-modal-form",
@@ -22,32 +17,33 @@ export type AddGuestModalData = {
 })
 export class AddGuestModalFormComponent extends BaseModalFormComponent<
   void,
-  AddGuestModalData
+  GuestCreateRequest
 > {
-  protected name: string = "";
+  protected fullName: string = "";
   protected phoneNumber: string = "";
-  protected dateOfBirth: Date = new Date();
+  protected dateOfBirth: string = "";
 
   protected onSubmit(): void {
-    const guestData: AddGuestModalData = {
-      name: this.name,
-      phoneNumber: this.phoneNumber,
-      dateOfBirth: this.dateOfBirth,
-    };
+    if (this.isAddGuestModalDataValid()) {
+      const guestCreateRequest = new GuestCreateRequest(
+        this.fullName,
+        this.phoneNumber,
+        new Date(this.dateOfBirth),
+      );
 
-    if (this.isAddGuestModalDataValid(guestData)) {
-      this.submitModal(guestData);
+      this.submitModal(guestCreateRequest);
     } else {
-      console.error("Guest data is invalid:", guestData);
+      // TODO
+      console.error("Guest data is invalid");
       this.dismissModal();
     }
   }
 
-  private isAddGuestModalDataValid(guest: AddGuestModalData): boolean {
+  private isAddGuestModalDataValid(): boolean {
     return !!(
-      guest.name?.trim() &&
-      guest.phoneNumber?.trim() &&
-      guest.dateOfBirth?.toLocaleDateString != new Date().toLocaleDateString
+      this.fullName.trim() &&
+      this.phoneNumber.trim() &&
+      this.dateOfBirth.trim()
     );
   }
 
@@ -62,7 +58,7 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
 export const addGuestModal: ModalInfo<
   void,
-  AddGuestModalData,
+  GuestCreateRequest,
   AddGuestModalFormComponent
 > = {
   component: AddGuestModalFormComponent,
