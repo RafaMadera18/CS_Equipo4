@@ -9,6 +9,7 @@ export class GuestCreateRequest {
     public readonly phoneNumber: string,
     dateOfBirth: Date,
   ) {
+    // TODO: Extract method. standardize date format
     this.dateOfBirth = new Date(dateOfBirth).toISOString().split("T")[0];
   }
 
