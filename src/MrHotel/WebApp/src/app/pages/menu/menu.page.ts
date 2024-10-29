@@ -25,7 +25,8 @@ import {
   reorderThreeOutline,
   bedOutline,
   calendarOutline,
-  arrowBackOutline
+  arrowBackOutline,
+  personOutline,
 } from "ionicons/icons";
 
 import { TabButtonComponent } from "@components/tab-button";
@@ -62,7 +63,13 @@ export class MenuPage {
   protected readonly tabs = viewChild.required(IonTabs);
 
   constructor(authService: AuthService) {
-    addIcons({ reorderThreeOutline, bedOutline, calendarOutline, arrowBackOutline });
+    addIcons({
+      reorderThreeOutline,
+      bedOutline,
+      calendarOutline,
+      arrowBackOutline,
+      personOutline,
+    });
 
     this.userInfo = toSignal(authService.userInfo(), { initialValue: null });
 

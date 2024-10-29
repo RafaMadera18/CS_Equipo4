@@ -5,10 +5,9 @@ import { IonicModule } from "@ionic/angular";
 
 import { ModalInfo } from "@services/modal/modal-info";
 import { BaseModalFormComponent } from "../modal-base-form.component";
-import { Nullable } from "@customTypes/nullable";
 
-export type AddRoomModalData = {
-  name: Nullable<string>;
+export type AddRoomModalOutput = {
+  name: string;
 };
 
 @Component({
@@ -18,16 +17,20 @@ export type AddRoomModalData = {
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class AddRoomModalFormComponent extends BaseModalFormComponent<AddRoomModalData> {
+export class AddRoomModalFormComponent extends BaseModalFormComponent<
+  void,
+  AddRoomModalOutput
+> {
   protected name: string = "";
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitModal({ name: this.name });
   }
 }
 
 export const addRoomModal: ModalInfo<
-  AddRoomModalData,
+  void,
+  AddRoomModalOutput,
   AddRoomModalFormComponent
 > = {
   component: AddRoomModalFormComponent,
