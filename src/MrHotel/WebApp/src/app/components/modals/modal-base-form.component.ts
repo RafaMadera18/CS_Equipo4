@@ -2,11 +2,13 @@ import { Directive } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 
 @Directive()
-export abstract class BaseModalFormComponent<TData> {
+export abstract class BaseModalFormComponent<Tinput, TOutput> {
+  public readonly input!: Tinput;
+
   constructor(protected readonly modalController: ModalController) {}
 
-  public submitModal(data: TData): void {
-    this.modalController.dismiss(data);
+  public submitModal(output: TOutput): void {
+    this.modalController.dismiss(output);
   }
 
   public dismissModal(): void {

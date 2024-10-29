@@ -4,9 +4,12 @@ import { IonicModule } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
 import { ModalInfo } from "@services/modal/modal-info";
 
-export type DeleteModalData = {
-  state: boolean;
+export type DeleteModalInput = {
   message: string;
+};
+
+export type DeleteModalOutput = {
+  state: boolean;
 };
 
 @Component({
@@ -16,20 +19,23 @@ export type DeleteModalData = {
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class DeleteModalFormComponent extends BaseModalFormComponent<DeleteModalData> {
+export class DeleteModalFormComponent extends BaseModalFormComponent<
+  DeleteModalInput,
+  DeleteModalOutput
+> {
   protected state: boolean = true;
-
-  @Input({ required: true }) message!: string;
 
   public onSubmit() {
     this.submitModal({
       state: this.state,
-      message: "",
     });
   }
 }
 
-export const deleteModal: ModalInfo<DeleteModalData, DeleteModalFormComponent> =
-  {
-    component: DeleteModalFormComponent,
-  };
+export const deleteModal: ModalInfo<
+  DeleteModalInput,
+  DeleteModalOutput,
+  DeleteModalFormComponent
+> = {
+  component: DeleteModalFormComponent,
+};

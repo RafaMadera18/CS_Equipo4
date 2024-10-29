@@ -13,21 +13,38 @@ export class ModalService {
   constructor(private readonly modalController: ModalController) {}
 
   public async openModal<
-    TTData,
-    TComponent extends BaseModalFormComponent<TTData>,
+    Tinput extends void,
+    TOutput,
+    TComponent extends BaseModalFormComponent<Tinput, TOutput>,
   >(
-    info: ModalInfo<TTData, TComponent>,
-    componentProps?: Partial<TTData>,
-  ): Promise<Nullable<TTData>> {
+    info: ModalInfo<Tinput, TOutput, TComponent>,
+    input?: void,
+  ): Promise<Nullable<TOutput>>;
+  public async openModal<
+    Tinput,
+    TOutput,
+    TComponent extends BaseModalFormComponent<Tinput, TOutput>,
+  >(
+    info: ModalInfo<Tinput, TOutput, TComponent>,
+    input: Tinput,
+  ): Promise<Nullable<TOutput>>;
+  public async openModal<
+    Tinput,
+    TOutput,
+    TComponent extends BaseModalFormComponent<Tinput, TOutput>,
+  >(
+    info: ModalInfo<Tinput, TOutput, TComponent>,
+    input: Tinput | void,
+  ): Promise<Nullable<TOutput>> {
     const modal = await this.modalController.create({
       component: info.component,
       cssClass: info.cssClass ?? "modal",
-      componentProps,
+      componentProps: { input: input },
     });
 
     await modal.present();
 
-    const { data } = await modal.onDidDismiss<TTData>();
+    const { data } = await modal.onDidDismiss<TOutput>();
     return data ?? null;
   }
 }

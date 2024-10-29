@@ -20,7 +20,10 @@ export type AddGuestModalData = {
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class AddGuestModalFormComponent extends BaseModalFormComponent<AddGuestModalData> {
+export class AddGuestModalFormComponent extends BaseModalFormComponent<
+  void,
+  AddGuestModalData
+> {
   protected name: string = "";
   protected phoneNumber: string = "";
   protected dateOfBirth: Date = new Date();
@@ -58,6 +61,7 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<AddGuestM
 }
 
 export const addGuestModal: ModalInfo<
+  void,
   AddGuestModalData,
   AddGuestModalFormComponent
 > = {

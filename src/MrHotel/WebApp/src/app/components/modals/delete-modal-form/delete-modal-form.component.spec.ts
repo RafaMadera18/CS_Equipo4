@@ -1,24 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { IonicModule } from "@ionic/angular";
 
-import { DeleteRoomModalFormComponent } from './delete-modal-form.component';
+import { DeleteModalFormComponent } from "./delete-modal-form.component";
 
-describe('DeleteRoomModalFormComponent', () => {
-  let component: DeleteRoomModalFormComponent;
-  let fixture: ComponentFixture<DeleteRoomModalFormComponent>;
+describe("DeleteModalFormComponent", () => {
+  let component: DeleteModalFormComponent;
+  let fixture: ComponentFixture<DeleteModalFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteRoomModalFormComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [DeleteModalFormComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DeleteRoomModalFormComponent);
+    fixture = TestBed.createComponent(DeleteModalFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
