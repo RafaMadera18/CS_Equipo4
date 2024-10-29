@@ -23,9 +23,8 @@ import {
 import { addIcons } from "ionicons";
 import {
   reorderThreeOutline,
-  bedOutline,
-  calendarOutline,
   arrowBackOutline,
+  bedOutline,
   personOutline,
 } from "ionicons/icons";
 
@@ -65,9 +64,8 @@ export class MenuPage {
   constructor(authService: AuthService) {
     addIcons({
       reorderThreeOutline,
-      bedOutline,
-      calendarOutline,
       arrowBackOutline,
+      bedOutline,
       personOutline,
     });
 
