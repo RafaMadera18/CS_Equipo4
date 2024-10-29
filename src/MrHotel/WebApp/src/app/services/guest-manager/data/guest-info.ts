@@ -1,6 +1,6 @@
-import { Guid } from "@customTypes/.";
+import { Guid } from "@customTypes/guid";
 
-export class Guest {
+export class GuestInfo {
   public constructor(
     public readonly id: Guid,
     public fullName: string,
@@ -8,8 +8,8 @@ export class Guest {
     public dateOfBirth: Date,
   ) {}
 
-  public static fromDto(dto: GuestDto): Guest {
-    return new Guest(
+  public static fromDto(dto: GuestInfoDto): GuestInfo {
+    return new GuestInfo(
       dto.id,
       dto.fullName,
       dto.phoneNumber,
@@ -18,6 +18,6 @@ export class Guest {
   }
 }
 
-export type GuestDto = Omit<Guest, "dateOfBirth"> & {
+export type GuestInfoDto = Omit<GuestInfo, "dateOfBirth"> & {
   dateOfBirth: string;
 };

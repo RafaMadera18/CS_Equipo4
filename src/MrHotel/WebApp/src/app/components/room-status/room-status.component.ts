@@ -1,4 +1,5 @@
 import { Component, computed, input, output } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 import { IonIcon } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
@@ -11,9 +12,10 @@ import {
   trashOutline,
 } from "ionicons/icons";
 
-import { RoomState } from "@services/room-manager/data/room-state";
-import { CommonModule } from "@angular/common";
-import { Tag } from "@services/room-manager/data/tag";
+import {
+  RoomAvailabilityState,
+  RoomProperty,
+} from "@services/room-manager/data";
 
 @Component({
   selector: "app-room-status",
@@ -34,18 +36,18 @@ export class RoomStatusComponent {
     });
   }
   name = input("");
-  state = input.required<RoomState>();
-  tags = input.required<Tag[]>();
+  state = input.required<RoomAvailabilityState>();
+  tags = input.required<RoomProperty[]>();
 
   icon = computed(() => {
     switch (this.state()) {
-      case RoomState.Available:
+      case RoomAvailabilityState.Available:
         return "bed-outline";
-      case RoomState.Maintenance:
+      case RoomAvailabilityState.Maintenance:
         return "hammer-outline";
-      case RoomState.Occupied:
+      case RoomAvailabilityState.Occupied:
         return "lock-closed-outline";
-      case RoomState.Unavailable:
+      case RoomAvailabilityState.Unavailable:
         return "alert-circle-outline";
     }
   });
@@ -54,13 +56,13 @@ export class RoomStatusComponent {
 
   getRoomColorState(): string {
     switch (this.state()) {
-      case RoomState.Available:
+      case RoomAvailabilityState.Available:
         return "available";
-      case RoomState.Maintenance:
+      case RoomAvailabilityState.Maintenance:
         return "maintenance";
-      case RoomState.Occupied:
+      case RoomAvailabilityState.Occupied:
         return "occupied";
-      case RoomState.Unavailable:
+      case RoomAvailabilityState.Unavailable:
         return "unavailable";
     }
   }

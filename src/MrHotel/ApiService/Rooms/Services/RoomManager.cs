@@ -12,7 +12,7 @@ using RaptorUtils.Collections.Extensions;
 
 public class RoomManager(AppDbContext db)
 {
-    public async Task<ValidationResult> AddRoom(Room room)
+    public async Task<ValidationResult> AddRoom(RoomInfo room)
     {
         ValidationResult result = await this.ValidateRoomForAdding(room);
         if (result.Succeeded)
@@ -24,17 +24,17 @@ public class RoomManager(AppDbContext db)
     }
 
     [Pure]
-    public IQueryable<Room> GetRooms()
+    public IQueryable<RoomInfo> GetRooms()
     {
         return db.Rooms.AsQueryable().AsNoTracking();
     }
 
-    public void UpdateRoom(Room room)
+    public void UpdateRoom(RoomInfo room)
     {
         db.Rooms.Update(room);
     }
 
-    public void DeleteRoom(Room room)
+    public void DeleteRoom(RoomInfo room)
     {
         db.Rooms.Remove(room);
     }
@@ -44,9 +44,9 @@ public class RoomManager(AppDbContext db)
         return db.SaveChangesAsync();
     }
 
-    private async Task<ValidationResult> ValidateRoomForAdding(Room room)
+    private async Task<ValidationResult> ValidateRoomForAdding(RoomInfo room)
     {
-        Room[] conflictRooms = await this.GetRooms()
+        RoomInfo[] conflictRooms = await this.GetRooms()
             .Where(r => r.Id == room.Id || r.Name == room.Name)
             .ToArrayAsync();
 

@@ -12,9 +12,9 @@ public class AppDbContext(
     DbContextOptions<AppDbContext> options)
     : IdentityDbContext<AppUser>(options)
 {
-    public DbSet<Room> Rooms { get; init; }
+    public DbSet<RoomInfo> Rooms { get; init; }
 
-    public DbSet<Guest> Guests { get; init; }
+    public DbSet<GuestInfo> Guests { get; init; }
 
-    public DbSet<Reservation> Reservations { get; init; }
+    public DbSet<ReservationInfo> Reservations { get; init; }
 }

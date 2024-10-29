@@ -15,7 +15,7 @@ public static class RoomEndpoints
         [FromBody] CreateRoomRequest request,
         [FromServices] RoomManager roomManager)
     {
-        Room room = request.Create();
+        RoomInfo room = request.Create();
 
         ValidationResult result = await roomManager.AddRoom(room);
         if (!result.Succeeded)
@@ -33,7 +33,7 @@ public static class RoomEndpoints
         [FromBody] UpdateRoomRequest request,
         [FromServices] RoomManager roomManager)
     {
-        Room? room = await roomManager
+        RoomInfo? room = await roomManager
             .GetRooms()
             .FirstOrDefaultAsync(room => room.Id == roomId);
 
@@ -53,7 +53,7 @@ public static class RoomEndpoints
         [FromRoute] Guid roomId,
         [FromServices] RoomManager roomManager)
     {
-        Room? room = await roomManager
+        RoomInfo? room = await roomManager
             .GetRooms()
             .FirstOrDefaultAsync(room => room.Id == roomId);
 

@@ -1,6 +1,6 @@
 ﻿namespace MrHotel.Database.Entities.Reservations;
 
-public partial class Reservation
+public partial class ReservationInfo
 {
     public Guid GuestId { get; set; }
 

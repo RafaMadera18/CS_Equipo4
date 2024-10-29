@@ -9,18 +9,21 @@ using MrHotel.Database.Entities.Reservations;
 
 public class ReservationManager(AppDbContext db)
 {
-    public async Task AddReservation(Reservation reservation)
+    public async Task AddReservation(ReservationInfo reservation)
     {
         await db.Reservations.AddAsync(reservation);
     }
 
     [Pure]
-    public IQueryable<Reservation> GetReservations()
+    public IQueryable<ReservationInfo> GetReservations()
     {
-        return db.Reservations.AsQueryable().AsNoTracking();
+        return db.Reservations
+            .AsQueryable()
+            .AsNoTracking()
+            .Include(reservation => reservation.Room);
     }
 
-    public void DeleteReservation(Reservation reservation)
+    public void DeleteReservation(ReservationInfo reservation)
     {
         db.Reservations.Remove(reservation);
     }

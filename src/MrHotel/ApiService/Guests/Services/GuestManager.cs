@@ -9,23 +9,23 @@ using MrHotel.Database.Entities.Guests;
 
 public class GuestManager(AppDbContext db)
 {
-    public void AddGuest(Guest guest)
+    public void AddGuest(GuestInfo guest)
     {
         db.Guests.Add(guest);
     }
 
     [Pure]
-    public IQueryable<Guest> GetGuests()
+    public IQueryable<GuestInfo> GetGuests()
     {
         return db.Guests.AsQueryable().AsNoTracking();
     }
 
-    public void UpdateGuest(Guest guest)
+    public void UpdateGuest(GuestInfo guest)
     {
         db.Guests.Update(guest);
     }
 
-    public void DeleteGuest(Guest guest)
+    public void DeleteGuest(GuestInfo guest)
     {
         db.Guests.Remove(guest);
     }

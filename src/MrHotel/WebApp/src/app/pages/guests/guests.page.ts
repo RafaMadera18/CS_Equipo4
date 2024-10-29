@@ -7,7 +7,7 @@ import { addIcons } from "ionicons";
 import { pencilOutline, trashOutline, personAddOutline } from "ionicons/icons";
 
 import { Observable } from "rxjs";
-import { Guest } from "@services/guest-manager/data";
+import { GuestInfo } from "@services/guest-manager/data";
 
 import { addGuestModal } from "@components/modals/add-guest-modal-form";
 import { deleteModal } from "@components/modals/delete-modal-form";
@@ -23,7 +23,7 @@ import { GuestManagerService } from "@services/guest-manager";
   imports: [CommonModule, IonicModule],
 })
 export class GuestsPage {
-  protected readonly guests: Observable<Guest[]>;
+  protected readonly guests: Observable<GuestInfo[]>;
 
   constructor(
     private readonly guestManager: GuestManagerService,
@@ -42,7 +42,7 @@ export class GuestsPage {
     }
   }
 
-  public async deleteGuest(guest: Guest): Promise<void> {
+  public async deleteGuest(guest: GuestInfo): Promise<void> {
     const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
       message: `Do You want To Delete Guest: ${guest.fullName}? `,
     });

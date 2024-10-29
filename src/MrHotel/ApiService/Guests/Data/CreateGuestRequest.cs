@@ -11,7 +11,7 @@ public record CreateGuestRequest(
     DateOnly DateOfBirth)
 {
     [Pure]
-    public Guest Create()
+    public GuestInfo Create()
     {
         return new()
         {

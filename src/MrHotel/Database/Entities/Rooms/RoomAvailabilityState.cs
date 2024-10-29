@@ -1,6 +1,6 @@
 ﻿namespace MrHotel.Database.Entities.Rooms;
 
-public enum RoomState
+public enum RoomAvailabilityState
 {
     Available,
     Occupied,

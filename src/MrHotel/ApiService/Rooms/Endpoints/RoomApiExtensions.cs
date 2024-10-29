@@ -11,7 +11,7 @@ public static class RoomApiExtensions
 
         var routeGroup = endpoints.MapGroup("/rooms").RequireAuthorization(AppPolicy.AdminRole.Name);
 
-        routeGroup.MapGet("/statuses", RoomStatusEndpoint.HandleGet);
+        routeGroup.MapGet("/availability", RoomsAvailabilityEndpoint.HandleGet);
 
         routeGroup.MapPost(string.Empty, RoomEndpoints.HandlePost);
 

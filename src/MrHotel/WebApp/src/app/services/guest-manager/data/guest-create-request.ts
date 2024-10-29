@@ -1,5 +1,5 @@
 import { Guid } from "@customTypes/guid";
-import { Guest } from "./guest";
+import { GuestInfo } from "./guest-info";
 
 export class GuestCreateRequest {
   public readonly dateOfBirth: string;
@@ -12,7 +12,7 @@ export class GuestCreateRequest {
     this.dateOfBirth = new Date(dateOfBirth).toISOString().split("T")[0];
   }
 
-  public replicate(id: Guid): Guest {
+  public replicate(id: Guid): GuestInfo {
     return {
       id: id,
       ...this,

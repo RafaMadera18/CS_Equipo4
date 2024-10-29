@@ -14,7 +14,7 @@ public static class GuestEndpoints
         [FromBody] CreateGuestRequest request,
         [FromServices] GuestManager guestManager)
     {
-        Guest guest = request.Create();
+        GuestInfo guest = request.Create();
 
         guestManager.AddGuest(guest);
         await guestManager.SaveChanges();
@@ -22,10 +22,10 @@ public static class GuestEndpoints
         return TypedResults.Ok(guest.Id);
     }
 
-    public static async Task<Ok<IEnumerable<Guest>>> HandleGet(
+    public static async Task<Ok<IEnumerable<GuestInfo>>> HandleGet(
         [FromServices] GuestManager guestManager)
     {
-        IEnumerable<Guest> guests = await guestManager.GetGuests().ToArrayAsync();
+        IEnumerable<GuestInfo> guests = await guestManager.GetGuests().ToArrayAsync();
 
         return TypedResults.Ok(guests);
     }
@@ -34,7 +34,7 @@ public static class GuestEndpoints
         [FromRoute] Guid guestId,
         [FromServices] GuestManager guestManager)
     {
-        Guest? guest = await guestManager
+        GuestInfo? guest = await guestManager
             .GetGuests()
             .FirstOrDefaultAsync(guest => guest.Id == guestId);
 

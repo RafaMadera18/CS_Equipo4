@@ -6,25 +6,25 @@ import { Observable, tap } from "rxjs";
 import { mapCollection, ObservableCollection } from "@utilities/rxjs";
 
 import { Nullable, Guid } from "@customTypes/.";
-import { Guest, GuestCreateRequest, GuestDto } from "./data";
+import { GuestInfo, GuestInfoDto, GuestCreateRequest } from "./data";
 
 @Injectable({
   providedIn: "root",
 })
 export class GuestManagerService {
   // Null initially and until a get operation is performed
-  private guestsCache: Nullable<ObservableCollection<Guest>> = null;
+  private guestsCache: Nullable<ObservableCollection<GuestInfo>> = null;
 
   constructor(private readonly http: HttpClient) {}
 
-  public getGuests(): Observable<Guest[]> {
+  public getGuests(): Observable<GuestInfo[]> {
     if (this.guestsCache != null) {
       return this.guestsCache.items$;
     }
 
-    const guests: Observable<Guest[]> = this.http
-      .get<GuestDto[]>(this.getFullPath())
-      .pipe(mapCollection(Guest.fromDto));
+    const guests: Observable<GuestInfo[]> = this.http
+      .get<GuestInfoDto[]>(this.getFullPath())
+      .pipe(mapCollection(GuestInfo.fromDto));
 
     this.guestsCache = new ObservableCollection();
     return this.guestsCache.load(guests);
@@ -38,7 +38,7 @@ export class GuestManagerService {
     );
   }
 
-  public deleteGuest(guest: Guest): Observable<void> {
+  public deleteGuest(guest: GuestInfo): Observable<void> {
     return this.http.delete<void>(this.getFullPath(guest.id), {}).pipe(
       tap(() => {
         this.guestsCache?.removeFirstWhere(

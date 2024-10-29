@@ -7,7 +7,7 @@ using MrHotel.Database.Entities.Rooms;
 public record CreateRoomRequest(string Name)
 {
     [Pure]
-    public Room Create()
+    public RoomInfo Create()
     {
         return new()
         {

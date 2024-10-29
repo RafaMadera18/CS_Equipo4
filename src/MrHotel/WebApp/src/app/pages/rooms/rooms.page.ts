@@ -18,13 +18,14 @@ import {
   DeleteModalFormComponent,
 } from "@components/modals/delete-modal-form";
 
+import { ModalService } from "@services/modal/modal.service";
 import { RoomManagerService } from "@services/room-manager";
+
 import {
-  RoomStatus,
-  Room,
+  RoomAvailability,
+  RoomInfo,
   RoomCreateRequest,
 } from "@services/room-manager/data";
-import { ModalService } from "@services/modal/modal.service";
 
 @Component({
   selector: "app-rooms",
@@ -40,7 +41,7 @@ import { ModalService } from "@services/modal/modal.service";
   ],
 })
 export class RoomsPage {
-  protected readonly roomStatuses: Observable<RoomStatus[]>;
+  protected readonly roomsAvailability: Observable<RoomAvailability[]>;
 
   constructor(
     private readonly roomManager: RoomManagerService,
@@ -48,7 +49,7 @@ export class RoomsPage {
   ) {
     addIcons({ addOutline });
 
-    this.roomStatuses = roomManager.getRoomStatuses();
+    this.roomsAvailability = roomManager.getRoomsAvailability();
   }
 
   public async addRoom(): Promise<void> {
@@ -60,7 +61,7 @@ export class RoomsPage {
     }
   }
 
-  public async deleteRoom(room: Room): Promise<void> {
+  public async deleteRoom(room: RoomInfo): Promise<void> {
     const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
       message: `Do You want To Delete Room: ${room.name}?`,
     });

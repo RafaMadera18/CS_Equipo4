@@ -12,7 +12,7 @@ public record CreateReservationRequest(
     float Price)
 {
     [Pure]
-    public Reservation Create()
+    public ReservationInfo Create()
     {
         return new()
         {
