@@ -19,7 +19,11 @@ import {
 } from "@components/modals/delete-modal-form";
 
 import { RoomManagerService } from "@services/room-manager";
-import { RoomStatus, Room } from "@services/room-manager/data";
+import {
+  RoomStatus,
+  Room,
+  RoomCreateRequest,
+} from "@services/room-manager/data";
 import { ModalService } from "@services/modal/modal.service";
 
 @Component({
@@ -51,7 +55,8 @@ export class RoomsPage {
     const roomData = await this.modalService.openModal(addRoomModal);
 
     if (roomData?.name) {
-      this.roomManager.addRoom(roomData.name).subscribe();
+      const request = new RoomCreateRequest(roomData.name);
+      this.roomManager.addRoom(request).subscribe();
     }
   }
 

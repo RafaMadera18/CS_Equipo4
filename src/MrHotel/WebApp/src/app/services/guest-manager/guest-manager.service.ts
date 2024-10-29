@@ -41,7 +41,9 @@ export class GuestManagerService {
   public deleteGuest(guest: Guest): Observable<void> {
     return this.http.delete<void>(this.getFullPath(guest.id), {}).pipe(
       tap(() => {
-        this.guestsCache?.removeFirstWhere((g) => g.id == guest.id);
+        this.guestsCache?.removeFirstWhere(
+          (cacheGuest) => cacheGuest.id == guest.id,
+        );
       }),
     );
   }

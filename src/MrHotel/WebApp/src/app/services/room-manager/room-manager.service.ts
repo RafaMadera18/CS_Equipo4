@@ -6,7 +6,12 @@ import { Observable, tap } from "rxjs";
 import { ObservableCollection } from "@utilities/rxjs";
 
 import { Guid, Nullable } from "@customTypes/.";
-import { Room, RoomStatus, roomStatusEmpty } from "@services/room-manager/data";
+import {
+  Room,
+  RoomCreateRequest,
+  RoomState,
+  RoomStatus,
+} from "@services/room-manager/data";
 
 @Injectable({
   providedIn: "root",
@@ -28,12 +33,20 @@ export class RoomManagerService {
     );
   }
 
-  public addRoom(name: string): Observable<Guid> {
-    const roomCreateRequest = { name: name };
-
+  public addRoom(roomCreateRequest: RoomCreateRequest): Observable<Guid> {
     return this.http.post<Guid>(this.getFullPath(), roomCreateRequest).pipe(
       tap((id: Guid) => {
-        this.roomStatusesCache?.add(roomStatusEmpty(id, name));
+        if (this.roomStatusesCache == null) {
+          return;
+        }
+
+        const room = roomCreateRequest.replicate(id);
+        const roomStatus: RoomStatus = {
+          room: room,
+          state: RoomState.Available, // TODO: Available by default?
+        };
+
+        this.roomStatusesCache.add(roomStatus);
       }),
     );
   }

@@ -6,11 +6,3 @@ export type Room = {
   name: string;
   tags: Tag[];
 };
-
-export function roomEmpty(id: Guid, name: string): Room {
-  return {
-    id: id,
-    name: name,
-    tags: [],
-  };
-}
