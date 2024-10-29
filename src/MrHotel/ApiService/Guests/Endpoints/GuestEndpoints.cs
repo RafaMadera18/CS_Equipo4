@@ -29,4 +29,23 @@ public static class GuestEndpoints
 
         return TypedResults.Ok(guests);
     }
+
+    public static async Task<Results<NoContent, NotFound>> HandleDelete(
+        [FromRoute] Guid guestId,
+        [FromServices] GuestManager guestManager)
+    {
+        Guest? guest = await guestManager
+            .GetGuests()
+            .FirstOrDefaultAsync(guest => guest.Id == guestId);
+
+        if (guest is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        guestManager.DeleteGuest(guest);
+        await guestManager.SaveChanges();
+
+        return TypedResults.NoContent();
+    }
 }
