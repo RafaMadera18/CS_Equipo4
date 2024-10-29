@@ -4,19 +4,25 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using MrHotel.ApiService.Core.Validation;
 using MrHotel.ApiService.Guests.Data;
 using MrHotel.ApiService.Guests.Services;
 using MrHotel.Database.Entities.Guests;
 
 public static class GuestEndpoints
 {
-    public static async Task<Ok<Guid>> HandlePost(
+    public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
         [FromBody] CreateGuestRequest request,
         [FromServices] GuestManager guestManager)
     {
         GuestInfo guest = request.Create();
 
-        guestManager.AddGuest(guest);
+        ValidationResult result = await guestManager.AddGuest(guest);
+        if (!result.Succeeded)
+        {
+            return TypedResults.ValidationProblem(result.AsErrorDictionary());
+        }
+
         await guestManager.SaveChanges();
 
         return TypedResults.Ok(guest.Id);
