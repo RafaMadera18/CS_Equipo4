@@ -29,10 +29,12 @@ export class RoomManagerService {
       return this.roomsAvailabilityCache.items$;
     }
 
-    this.roomsAvailabilityCache = new ObservableCollection();
-    return this.roomsAvailabilityCache.load(
-      this.http.get<RoomAvailability[]>(this.getFullPath("availability")),
+    const roomsAvailabilityFromApi = this.http.get<RoomAvailability[]>(
+      this.getFullPath("availability"),
     );
+
+    this.roomsAvailabilityCache = new ObservableCollection();
+    return this.roomsAvailabilityCache.loadItems(roomsAvailabilityFromApi);
   }
 
   public addRoom(roomCreateRequest: RoomCreateRequest): Observable<Guid> {
@@ -54,7 +56,7 @@ export class RoomManagerService {
   }
 
   public deleteRoom(room: RoomInfo): Observable<void> {
-    return this.http.delete<void>(this.getFullPath(room.id), {}).pipe(
+    return this.http.delete<void>(this.getFullPath(room.id)).pipe(
       tap(() => {
         this.roomsAvailabilityCache?.removeFirstWhere(
           (availability) => availability.room.id == room.id,

@@ -8,7 +8,7 @@ export class GuestInfo {
     public dateOfBirth: Date,
   ) {}
 
-  public static fromDto(dto: GuestInfoDto): GuestInfo {
+  public static createFromDto(dto: GuestInfoDto): GuestInfo {
     return new GuestInfo(
       dto.id,
       dto.fullName,

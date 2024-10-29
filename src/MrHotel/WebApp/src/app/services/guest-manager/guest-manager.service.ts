@@ -22,12 +22,12 @@ export class GuestManagerService {
       return this.guestsCache.items$;
     }
 
-    const guests: Observable<GuestInfo[]> = this.http
+    const guestsFromApi: Observable<GuestInfo[]> = this.http
       .get<GuestInfoDto[]>(this.getFullPath())
-      .pipe(mapCollection(GuestInfo.fromDto));
+      .pipe(mapCollection(GuestInfo.createFromDto));
 
     this.guestsCache = new ObservableCollection();
-    return this.guestsCache.load(guests);
+    return this.guestsCache.loadItems(guestsFromApi);
   }
 
   public addGuest(guestCreateRequest: GuestCreateRequest): Observable<Guid> {
@@ -39,7 +39,7 @@ export class GuestManagerService {
   }
 
   public deleteGuest(guest: GuestInfo): Observable<void> {
-    return this.http.delete<void>(this.getFullPath(guest.id), {}).pipe(
+    return this.http.delete<void>(this.getFullPath(guest.id)).pipe(
       tap(() => {
         this.guestsCache?.removeFirstWhere(
           (cacheGuest) => cacheGuest.id == guest.id,

@@ -9,7 +9,7 @@ export class ObservableCollection<T> {
     return this.subject.value;
   }
 
-  public load(observable: Observable<T[]>): Observable<T[]> {
+  public loadItems(observable: Observable<T[]>): Observable<T[]> {
     return observable.pipe(
       tap((items) => this.subject.next(items)),
       switchMap(() => this.items$),
