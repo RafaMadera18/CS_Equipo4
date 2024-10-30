@@ -2,10 +2,10 @@ import { Guid } from "@customTypes/guid";
 
 export class GuestInfo {
 
-  private readonly _id: Guid;
-  private _fullName: string;
-  private _phoneNumber: string;
-  private _dateOfBirth: Date;
+  private readonly id: Guid;
+  private fullName: string;
+  private phoneNumber: string;
+  private dateOfBirth: Date;
 
   public constructor(
     id: Guid,
@@ -13,41 +13,41 @@ export class GuestInfo {
     phoneNumber: string,
     dateOfBirth: Date,
   ) {
-    this._id = id;
-    this._fullName = fullName;
-    this._phoneNumber = phoneNumber;
-    this._dateOfBirth = dateOfBirth;
+    this.id = id;
+    this.fullName = fullName;
+    this.phoneNumber = phoneNumber;
+    this.dateOfBirth = dateOfBirth;
   }
 
-  public get id(): Guid {
-    return this._id;
+  public get Id(): Guid {
+    return this.id;
   }
 
-  public get fullName(): string {
-    return this._fullName;
+  public get FullName(): string {
+    return this.fullName;
   }
 
-  public set fullName(value: string) {
-    this._fullName = value;
+  public set FullName(value: string) {
+    this.fullName = value;
   }
 
-  public get phoneNumber(): string {
-    return this._phoneNumber;
+  public get PhoneNumber(): string {
+    return this.phoneNumber;
   }
 
-  public set phoneNumber(value: string) {
-    this._phoneNumber = value;
+  public set PhoneNumber(value: string) {
+    this.phoneNumber = value;
   }
 
-  public get dateOfBirth(): Date {
-    return this._dateOfBirth;
+  public get DateOfBirth(): Date {
+    return this.dateOfBirth;
   }
 
   public static createFromDto(dto: GuestInfoDto): GuestInfo {
     return new GuestInfo(
-      dto.id,
-      dto.fullName,
-      dto.phoneNumber,
+      dto.Id,
+      dto.FullName,
+      dto.PhoneNumber,
       new Date(dto.dateOfBirth),
     );
   }
