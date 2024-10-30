@@ -11,6 +11,8 @@ import { GuestInfo, GuestInfoDto, GuestCreateRequest } from "./data";
 @Injectable({
   providedIn: "root",
 })
+
+
 export class GuestManagerService {
   // Null initially and until a get operation is performed
   private guestsCache: Nullable<ObservableCollection<GuestInfo>> = null;
@@ -39,10 +41,10 @@ export class GuestManagerService {
   }
 
   public deleteGuest(guest: GuestInfo): Observable<void> {
-    return this.http.delete<void>(this.getFullPath(guest.id)).pipe(
+    return this.http.delete<void>(this.getFullPath(guest.Id)).pipe(
       tap(() => {
         this.guestsCache?.removeFirstWhere(
-          (cacheGuest) => cacheGuest.id == guest.id,
+          (cacheGuest) => cacheGuest.Id == guest.Id,
         );
       }),
     );
