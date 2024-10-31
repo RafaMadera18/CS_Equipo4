@@ -31,11 +31,22 @@ export class GuestManagerService {
   }
 
   public addGuest(guestCreateRequest: GuestCreateRequest): Observable<Guid> {
-    return this.http.post<Guid>(this.getFullPath(), guestCreateRequest).pipe(
-      tap((id: Guid) => {
-        this.guestsCache?.add(guestCreateRequest.replicate(id));
+    const guestCreationObservable = this.sendGuestCreationRequest(
+      guestCreateRequest,
+    ).pipe(
+      tap((newGuestId: Guid) => {
+        this.guestsCache?.add(guestCreateRequest.createGuestInfo(newGuestId));
       }),
     );
+    return guestCreationObservable;
+  }
+
+  private sendGuestCreationRequest(
+    guestCreateRequest: GuestCreateRequest,
+  ): Observable<Guid> {
+    const apiUrl = this.getFullPath();
+    const requestToServer = this.http.post<Guid>(apiUrl, guestCreateRequest);
+    return requestToServer;
   }
 
   public deleteGuest(guest: GuestInfo): Observable<void> {
