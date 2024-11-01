@@ -31,6 +31,7 @@ export class RoomStatusComponent {
   state = input.required<RoomAvailabilityState>();
   tags = input.required<RoomProperty[]>();
   public readonly deleteClick = output();
+  public readonly addReservation = output();
 
   constructor() {
     addIcons({

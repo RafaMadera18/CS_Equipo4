@@ -70,4 +70,9 @@ export class RoomsPage {
       this.roomManager.deleteRoom(room).subscribe();
     }
   }
+
+  public async addReservation(): Promise<void> {
+    // TODO: Create Logic to add a Reservation
+    console.log("Conectado")
+  }
 }
