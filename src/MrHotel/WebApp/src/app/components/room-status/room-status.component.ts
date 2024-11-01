@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from "@angular/core";
+import { Component, computed, input, output, Signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { IonIcon } from "@ionic/angular/standalone";
@@ -25,6 +25,13 @@ import {
   imports: [IonIcon, CommonModule],
 })
 export class RoomStatusComponent {
+  // TODO: Change Component Name
+  name = input("");
+  icon = this.getIconState();
+  state = input.required<RoomAvailabilityState>();
+  tags = input.required<RoomProperty[]>();
+  public readonly deleteClick = output();
+
   constructor() {
     addIcons({
       bedOutline,
@@ -35,26 +42,23 @@ export class RoomStatusComponent {
       trashOutline,
     });
   }
-  name = input("");
-  state = input.required<RoomAvailabilityState>();
-  tags = input.required<RoomProperty[]>();
 
-  icon = computed(() => {
-    switch (this.state()) {
-      case RoomAvailabilityState.Available:
-        return "bed-outline";
-      case RoomAvailabilityState.Maintenance:
-        return "hammer-outline";
-      case RoomAvailabilityState.Occupied:
-        return "lock-closed-outline";
-      case RoomAvailabilityState.Unavailable:
-        return "alert-circle-outline";
-    }
-  });
+  getIconState(): Signal<string> {
+    return computed(() => {
+      switch (this.state()) {
+        case RoomAvailabilityState.Available:
+          return "bed-outline";
+        case RoomAvailabilityState.Maintenance:
+          return "hammer-outline";
+        case RoomAvailabilityState.Occupied:
+          return "lock-closed-outline";
+        case RoomAvailabilityState.Unavailable:
+          return "alert-circle-outline";
+      }
+    });
+  }
 
-  public readonly deleteClick = output();
-
-  getRoomColorState(): string {
+  getColorState(): string {
     switch (this.state()) {
       case RoomAvailabilityState.Available:
         return "available";
