@@ -1,6 +1,7 @@
 import { Guid } from "@customTypes/guid";
 
 export class GuestInfo {
+  // TODO: Change properties to private
   public constructor(
     public readonly id: Guid,
     public fullName: string,
