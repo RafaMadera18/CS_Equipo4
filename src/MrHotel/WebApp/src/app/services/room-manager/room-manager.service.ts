@@ -44,7 +44,7 @@ export class RoomManagerService {
           return;
         }
 
-        const room = roomCreateRequest.replicate(id);
+        const room = roomCreateRequest.createRoomInfo(id);
         const roomStatus: RoomAvailability = {
           room: room,
           state: RoomAvailabilityState.Available, // TODO: Available by default?

@@ -1,4 +1,3 @@
-export * from "./reservation-info";
 export * from "./room-info";
 export * from "./room-availability-state";
 export * from "./room-availability";
