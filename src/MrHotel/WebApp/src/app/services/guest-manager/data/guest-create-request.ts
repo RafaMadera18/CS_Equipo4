@@ -18,7 +18,8 @@ export class GuestCreateRequest {
   public createGuestInfo(id: Guid): GuestInfo {
     return {
       id: id,
-      ...this,
+      fullName: this.fullName,
+      phoneNumber: this.phoneNumber,
       dateOfBirth: new Date(this.dateOfBirth),
     };
   }
