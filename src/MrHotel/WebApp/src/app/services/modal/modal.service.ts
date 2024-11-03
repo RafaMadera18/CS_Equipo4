@@ -10,7 +10,7 @@ import { Nullable } from "@customTypes/nullable";
   providedIn: "root",
 })
 export class ModalService {
-  constructor(private readonly modalController: ModalController) {}
+  constructor(private readonly _modalController: ModalController) {}
 
   public async openModal<
     Tinput extends void,
@@ -36,7 +36,7 @@ export class ModalService {
     info: ModalInfo<Tinput, TOutput, TComponent>,
     input: Tinput | void,
   ): Promise<Nullable<TOutput>> {
-    const modal = await this.modalController.create({
+    const modal = await this._modalController.create({
       component: info.component,
       cssClass: info.cssClass ?? "modal",
       componentProps: { input: input },

@@ -41,38 +41,42 @@ import {
   ],
 })
 export class RoomsPage {
-  protected readonly roomsAvailability: Observable<RoomAvailability[]>;
+  private readonly _roomsAvailability: Observable<RoomAvailability[]>;
 
   constructor(
-    private readonly roomManager: RoomManagerService,
-    private readonly modalService: ModalService,
+    private readonly _roomManager: RoomManagerService,
+    private readonly _modalService: ModalService,
   ) {
     addIcons({ addOutline });
 
-    this.roomsAvailability = roomManager.getRoomsAvailability();
+    this._roomsAvailability = _roomManager.getRoomsAvailability();
   }
 
   public async addRoom(): Promise<void> {
-    const roomData = await this.modalService.openModal(addRoomModal);
+    const roomData = await this._modalService.openModal(addRoomModal);
 
     if (roomData?.name) {
       const request = new RoomCreateRequest(roomData.name);
-      this.roomManager.addRoom(request).subscribe();
+      this._roomManager.addRoom(request).subscribe();
     }
   }
 
   public async deleteRoom(room: RoomInfo): Promise<void> {
-    const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
+    const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
       message: `Do You want To Delete Room: ${room.name}?`,
     });
 
     if (isDeleteConfirmed?.state) {
-      this.roomManager.deleteRoom(room).subscribe();
+      this._roomManager.deleteRoom(room).subscribe();
     }
   }
 
   public async addReservation(): Promise<void> {
     // TODO: Create Logic to add a Reservation
-    console.log("Conectado")
+    console.log("Conectado");
+  }
+
+  public get roomsAvailability() {
+    return this._roomsAvailability;
   }
 }

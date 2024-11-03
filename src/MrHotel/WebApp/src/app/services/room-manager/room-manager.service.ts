@@ -18,47 +18,49 @@ import {
 })
 export class RoomManagerService {
   // Null initially and until a get operation is performed
-  private roomsAvailabilityCache: Nullable<
+  private _roomsAvailabilityCache: Nullable<
     ObservableCollection<RoomAvailability>
   > = null;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly _httpClient: HttpClient) {}
 
   public getRoomsAvailability(): Observable<RoomAvailability[]> {
-    if (this.roomsAvailabilityCache != null) {
-      return this.roomsAvailabilityCache.items$;
+    if (this._roomsAvailabilityCache != null) {
+      return this._roomsAvailabilityCache.items$;
     }
 
-    const roomsAvailabilityFromApi = this.http.get<RoomAvailability[]>(
+    const roomsAvailabilityFromApi = this._httpClient.get<RoomAvailability[]>(
       this.getFullPath("availability"),
     );
 
-    this.roomsAvailabilityCache = new ObservableCollection();
-    return this.roomsAvailabilityCache.loadItems(roomsAvailabilityFromApi);
+    this._roomsAvailabilityCache = new ObservableCollection();
+    return this._roomsAvailabilityCache.loadItems(roomsAvailabilityFromApi);
   }
 
   public addRoom(roomCreateRequest: RoomCreateRequest): Observable<Guid> {
-    return this.http.post<Guid>(this.getFullPath(), roomCreateRequest).pipe(
-      tap((id: Guid) => {
-        if (this.roomsAvailabilityCache == null) {
-          return;
-        }
+    return this._httpClient
+      .post<Guid>(this.getFullPath(), roomCreateRequest)
+      .pipe(
+        tap((id: Guid) => {
+          if (this._roomsAvailabilityCache == null) {
+            return;
+          }
 
-        const room = roomCreateRequest.createRoomInfo(id);
-        const roomStatus: RoomAvailability = {
-          room: room,
-          state: RoomAvailabilityState.Available, // TODO: Available by default?
-        };
+          const room = RoomInfo.createFromRequest(id, roomCreateRequest);
+          const roomStatus: RoomAvailability = {
+            room: room,
+            state: RoomAvailabilityState.Available, // TODO: Available by default?
+          };
 
-        this.roomsAvailabilityCache.add(roomStatus);
-      }),
-    );
+          this._roomsAvailabilityCache.add(roomStatus);
+        }),
+      );
   }
 
   public deleteRoom(room: RoomInfo): Observable<void> {
-    return this.http.delete<void>(this.getFullPath(room.id)).pipe(
+    return this._httpClient.delete<void>(this.getFullPath(room.id)).pipe(
       tap(() => {
-        this.roomsAvailabilityCache?.removeFirstWhere(
+        this._roomsAvailabilityCache?.removeFirstWhere(
           (availability) => availability.room.id == room.id,
         );
       }),

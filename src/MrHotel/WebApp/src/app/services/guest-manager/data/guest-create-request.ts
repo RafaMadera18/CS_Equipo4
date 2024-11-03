@@ -1,8 +1,4 @@
-import { Guid } from "@customTypes/guid";
-import { GuestInfo } from "./guest-info";
-
 export class GuestCreateRequest {
-  //TODO: Api Error if is private or different variable name
   private readonly _fullName: string;
   private readonly _phoneNumber: string;
   private readonly _dateOfBirth: string;
@@ -14,13 +10,11 @@ export class GuestCreateRequest {
     this._dateOfBirth = new Date(dateOfBirth).toISOString().split("T")[0];
   }
 
-  //TODO: This method belongs to this class?
-  public createGuestInfo(id: Guid): GuestInfo {
+  public toJSON() {
     return {
-      id: id,
-      fullName: this.fullName,
-      phoneNumber: this.phoneNumber,
-      dateOfBirth: new Date(this.dateOfBirth),
+      fullName: this._fullName,
+      phoneNumber: this._phoneNumber,
+      dateOfBirth: this._dateOfBirth,
     };
   }
 
@@ -34,13 +28,5 @@ export class GuestCreateRequest {
 
   public get dateOfBirth(): string {
     return this._dateOfBirth;
-  }
-
-  public toJSON() {
-    return {
-      fullName: this.fullName,
-      phoneNumber: this.phoneNumber,
-      dateOfBirth: this.dateOfBirth,
-    };
   }
 }

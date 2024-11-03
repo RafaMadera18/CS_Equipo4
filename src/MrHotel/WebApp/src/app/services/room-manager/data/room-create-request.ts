@@ -1,17 +1,8 @@
-import { RoomInfo } from "./room-info";
-
-import { Guid } from "@customTypes/.";
-
 export class RoomCreateRequest {
-  public constructor(private readonly _name: string) {}
+  private readonly _name: string;
 
-  //TODO: This method belongs to this class?
-  public createRoomInfo(id: Guid): RoomInfo {
-    return {
-      id: id,
-      name: this.name,
-      properties: [],
-    };
+  public constructor(name: string) {
+    this._name = name;
   }
 
   public get name() {
@@ -20,7 +11,7 @@ export class RoomCreateRequest {
 
   public toJSON() {
     return {
-      name: this.name
-    }
+      name: this.name,
+    };
   }
 }
