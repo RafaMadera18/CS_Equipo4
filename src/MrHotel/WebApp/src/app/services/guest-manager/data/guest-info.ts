@@ -12,15 +12,6 @@ export class GuestInfo {
     private readonly _dateOfBirth: CalendarDate,
   ) {}
 
-  public static createFromDto(dto: GuestInfoDto): GuestInfo {
-    return new GuestInfo(
-      dto.id,
-      dto.fullName,
-      dto.phoneNumber,
-      new CalendarDate(dto.dateOfBirth),
-    );
-  }
-
   public get id(): Guid {
     return this._id;
   }
@@ -35,6 +26,15 @@ export class GuestInfo {
 
   public get dateOfBirth(): CalendarDate {
     return this._dateOfBirth;
+  }
+
+  public static createFromDto(dto: GuestInfoDto): GuestInfo {
+    return new GuestInfo(
+      dto.id,
+      dto.fullName,
+      dto.phoneNumber,
+      new CalendarDate(dto.dateOfBirth),
+    );
   }
 }
 

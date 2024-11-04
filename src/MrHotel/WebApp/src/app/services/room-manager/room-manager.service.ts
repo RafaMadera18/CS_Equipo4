@@ -46,7 +46,7 @@ export class RoomManagerService {
             return;
           }
 
-          const room = RoomInfo.createFromRequest(id, roomCreateRequest);
+          const room = roomCreateRequest.toRoomInfo(id);
           const roomStatus: RoomAvailability = {
             room: room,
             state: RoomAvailabilityState.Available, // TODO: Available by default?

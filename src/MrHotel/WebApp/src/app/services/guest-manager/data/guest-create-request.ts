@@ -11,18 +11,6 @@ export class GuestCreateRequest {
     private readonly _dateOfBirth: CalendarDate,
   ) {}
 
-  public toJSON(): Stringify<GuestCreateRequest> {
-    return {
-      fullName: this._fullName,
-      phoneNumber: this._phoneNumber,
-      dateOfBirth: this._dateOfBirth.toString(),
-    };
-  }
-
-  public toGuestInfo(id: Guid): GuestInfo {
-    return new GuestInfo(id, this.fullName, this.phoneNumber, this.dateOfBirth);
-  }
-
   public get fullName(): string {
     return this._fullName;
   }
@@ -33,5 +21,17 @@ export class GuestCreateRequest {
 
   public get dateOfBirth(): CalendarDate {
     return this._dateOfBirth;
+  }
+
+  public toJSON(): Stringify<GuestCreateRequest> {
+    return {
+      fullName: this.fullName,
+      phoneNumber: this.phoneNumber,
+      dateOfBirth: this.dateOfBirth.toString(),
+    };
+  }
+
+  public toGuestInfo(id: Guid): GuestInfo {
+    return new GuestInfo(id, this.fullName, this.phoneNumber, this.dateOfBirth);
   }
 }

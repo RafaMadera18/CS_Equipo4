@@ -1,5 +1,5 @@
 import { Guid } from "@customTypes/.";
-import { RoomCreateRequest, RoomProperty } from ".";
+import { RoomProperty } from ".";
 
 export class RoomInfo {
   public constructor(
@@ -7,13 +7,6 @@ export class RoomInfo {
     private readonly _name: string,
     private readonly _properties: RoomProperty[],
   ) {}
-
-  public static createFromRequest(
-    id: Guid,
-    request: RoomCreateRequest,
-  ): RoomInfo {
-    return new RoomInfo(id, request.name, []);
-  }
 
   public get id() {
     return this._id;
