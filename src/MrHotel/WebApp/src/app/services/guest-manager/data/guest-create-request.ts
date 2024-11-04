@@ -12,8 +12,6 @@ export class GuestCreateRequest {
   ) {}
 
   public toJSON(): Stringify<GuestCreateRequest> {
-    const a: Stringify<GuestCreateRequest> = null!;
-
     return {
       fullName: this._fullName,
       phoneNumber: this._phoneNumber,
