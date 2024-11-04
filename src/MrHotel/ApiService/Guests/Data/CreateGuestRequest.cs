@@ -1,7 +1,6 @@
 ﻿namespace MrHotel.ApiService.Guests.Data;
 
 using System.Diagnostics.Contracts;
-using System.Text.Json.Serialization;
 
 using MrHotel.Database.Entities.Guests;
 

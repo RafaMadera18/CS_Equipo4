@@ -7,6 +7,7 @@ import { BaseModalFormComponent } from "../modal-base-form.component";
 
 import { ModalInfo } from "@services/modal/modal-info";
 import { GuestCreateRequest } from "@services/guest-manager/data";
+import { CalendarDate } from "calendar-date";
 
 @Component({
   selector: "app-add-guest-modal-form",
@@ -28,7 +29,7 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
       const guestCreateRequest = new GuestCreateRequest(
         this.fullName,
         this.phoneNumber,
-        new Date(this.dateOfBirth),
+        CalendarDate.fromDateUTC(new Date(this.dateOfBirth)),
       );
 
       this.submitModal(guestCreateRequest);

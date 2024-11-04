@@ -1,12 +1,15 @@
 import { Guid } from "@customTypes/guid";
-import { GuestCreateRequest } from ".";
+import { ReplaceFieldType } from "@customTypes/index";
+import { Stringify } from "@customTypes/stringify";
+
+import { CalendarDate } from "calendar-date";
 
 export class GuestInfo {
   public constructor(
     private readonly _id: Guid,
     private readonly _fullName: string,
     private readonly _phoneNumber: string,
-    private readonly _dateOfBirth: Date,
+    private readonly _dateOfBirth: CalendarDate,
   ) {}
 
   public static createFromDto(dto: GuestInfoDto): GuestInfo {
@@ -14,19 +17,7 @@ export class GuestInfo {
       dto.id,
       dto.fullName,
       dto.phoneNumber,
-      new Date(dto.dateOfBirth),
-    );
-  }
-
-  public static createFromRequest(
-    id: Guid,
-    request: GuestCreateRequest,
-  ): GuestInfo {
-    return new GuestInfo(
-      id,
-      request.fullName,
-      request.phoneNumber,
-      new Date(request.dateOfBirth),
+      new CalendarDate(dto.dateOfBirth),
     );
   }
 
@@ -42,14 +33,9 @@ export class GuestInfo {
     return this._phoneNumber;
   }
 
-  public get dateOfBirth(): Date {
+  public get dateOfBirth(): CalendarDate {
     return this._dateOfBirth;
   }
 }
 
-export type GuestInfoDto = {
-  id: Guid;
-  fullName: string;
-  phoneNumber: string;
-  dateOfBirth: string;
-};
+export type GuestInfoDto = ReplaceFieldType<Stringify<GuestInfo>, "id", Guid>;

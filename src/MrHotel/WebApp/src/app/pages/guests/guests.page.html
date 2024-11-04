@@ -19,7 +19,7 @@
           <tr>
             <td>{{ guest.fullName }}</td>
             <td>{{ guest.phoneNumber }}</td>
-            <td>{{ guest.dateOfBirth.toLocaleDateString() }}</td>
+            <td>{{ guest.dateOfBirth.toDateLocal().toLocaleDateString() }}</td>
             <td class="guest-actions">
               <button class="edit">
                 <ion-icon name="pencil-outline"></ion-icon>

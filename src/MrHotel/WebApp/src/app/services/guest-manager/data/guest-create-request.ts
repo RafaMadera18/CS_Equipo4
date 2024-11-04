@@ -1,21 +1,28 @@
+import { CalendarDate } from "calendar-date";
+
+import { Guid, Stringify } from "@customTypes/.";
+
+import { GuestInfo } from "./guest-info";
+
 export class GuestCreateRequest {
-  private readonly _fullName: string;
-  private readonly _phoneNumber: string;
-  private readonly _dateOfBirth: string;
+  public constructor(
+    private readonly _fullName: string,
+    private readonly _phoneNumber: string,
+    private readonly _dateOfBirth: CalendarDate,
+  ) {}
 
-  public constructor(fullName: string, phoneNumber: string, dateOfBirth: Date) {
-    this._fullName = fullName;
-    this._phoneNumber = phoneNumber;
-    // TODO: Extract method. standardize date format
-    this._dateOfBirth = new Date(dateOfBirth).toISOString().split("T")[0];
-  }
+  public toJSON(): Stringify<GuestCreateRequest> {
+    const a: Stringify<GuestCreateRequest> = null!;
 
-  public toJSON() {
     return {
       fullName: this._fullName,
       phoneNumber: this._phoneNumber,
-      dateOfBirth: this._dateOfBirth,
+      dateOfBirth: this._dateOfBirth.toString(),
     };
+  }
+
+  public toGuestInfo(id: Guid): GuestInfo {
+    return new GuestInfo(id, this.fullName, this.phoneNumber, this.dateOfBirth);
   }
 
   public get fullName(): string {
@@ -26,7 +33,7 @@ export class GuestCreateRequest {
     return this._phoneNumber;
   }
 
-  public get dateOfBirth(): string {
+  public get dateOfBirth(): CalendarDate {
     return this._dateOfBirth;
   }
 }

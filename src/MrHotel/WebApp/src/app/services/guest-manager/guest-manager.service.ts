@@ -35,11 +35,10 @@ export class GuestManagerService {
       guestCreateRequest,
     ).pipe(
       tap((newGuestId: Guid) => {
-        this._guestsCache?.add(
-          GuestInfo.createFromRequest(newGuestId, guestCreateRequest),
-        );
+        this._guestsCache?.add(guestCreateRequest.toGuestInfo(newGuestId));
       }),
     );
+
     return guestCreationObservable;
   }
 
@@ -51,6 +50,7 @@ export class GuestManagerService {
       apiUrl,
       guestCreateRequest,
     );
+
     return requestToServer;
   }
 
