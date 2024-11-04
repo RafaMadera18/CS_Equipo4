@@ -7,6 +7,7 @@ import { mapCollection, ObservableCollection } from "@utilities/rxjs";
 
 import { Nullable, Guid } from "@customTypes/.";
 import { GuestInfo, GuestInfoDto, GuestCreateRequest } from "./data";
+import { GuestManagerGatewayService } from "./gateway/guest-manager-gateway.service";
 
 @Injectable({
   providedIn: "root",
@@ -15,56 +16,38 @@ export class GuestManagerService {
   // Null initially and until a get operation is performed
   private _guestsCache: Nullable<ObservableCollection<GuestInfo>> = null;
 
-  constructor(private readonly _httpClient: HttpClient) {}
+  constructor(private readonly _guestGateway: GuestManagerGatewayService) {}
 
   public getGuests(): Observable<GuestInfo[]> {
     if (this._guestsCache != null) {
       return this._guestsCache.items$;
     }
 
-    const guestsFromApi: Observable<GuestInfo[]> = this._httpClient
-      .get<GuestInfoDto[]>(this.getFullPath())
-      .pipe(mapCollection(GuestInfo.createFromDto));
+    const guests = this._guestGateway.getGuests();
 
     this._guestsCache = new ObservableCollection();
-    return this._guestsCache.loadItems(guestsFromApi);
+    return this._guestsCache.loadItems(guests);
   }
 
   public addGuest(guestCreateRequest: GuestCreateRequest): Observable<Guid> {
-    const guestCreationObservable = this.sendGuestCreationRequest(
-      guestCreateRequest,
-    ).pipe(
+    const addRequest = this._guestGateway.addGuest(guestCreateRequest);
+
+    return addRequest.pipe(
       tap((newGuestId: Guid) => {
         this._guestsCache?.add(guestCreateRequest.toGuestInfo(newGuestId));
       }),
     );
-
-    return guestCreationObservable;
-  }
-
-  private sendGuestCreationRequest(
-    guestCreateRequest: GuestCreateRequest,
-  ): Observable<Guid> {
-    const apiUrl = this.getFullPath();
-    const requestToServer = this._httpClient.post<Guid>(
-      apiUrl,
-      guestCreateRequest,
-    );
-
-    return requestToServer;
   }
 
   public deleteGuest(guest: GuestInfo): Observable<void> {
-    return this._httpClient.delete<void>(this.getFullPath(guest.id)).pipe(
+    const deleteRequest = this._guestGateway.deleteGuest(guest.id);
+
+    return deleteRequest.pipe(
       tap(() => {
         this._guestsCache?.removeFirstWhere(
           (cacheGuest) => cacheGuest.id == guest.id,
         );
       }),
     );
-  }
-
-  private getFullPath(path: string = ""): string {
-    return `api/guests/${path}`;
   }
 }

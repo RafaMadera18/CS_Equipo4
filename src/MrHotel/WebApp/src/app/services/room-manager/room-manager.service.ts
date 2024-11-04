@@ -13,6 +13,8 @@ import {
   RoomAvailability,
 } from "@services/room-manager/data";
 
+import { RoomManagerGatewayService } from "./gateway/room-manager-gateway.service";
+
 @Injectable({
   providedIn: "root",
 })
@@ -22,52 +24,40 @@ export class RoomManagerService {
     ObservableCollection<RoomAvailability>
   > = null;
 
-  constructor(private readonly _httpClient: HttpClient) {}
+  constructor(private readonly _roomGateway: RoomManagerGatewayService) {}
 
   public getRoomsAvailability(): Observable<RoomAvailability[]> {
     if (this._roomsAvailabilityCache != null) {
       return this._roomsAvailabilityCache.items$;
     }
 
-    const roomsAvailabilityFromApi = this._httpClient.get<RoomAvailability[]>(
-      this.getFullPath("availability"),
-    );
+    const roomsAvailability = this._roomGateway.getRoomsAvailability();
 
     this._roomsAvailabilityCache = new ObservableCollection();
-    return this._roomsAvailabilityCache.loadItems(roomsAvailabilityFromApi);
+    return this._roomsAvailabilityCache.loadItems(roomsAvailability);
   }
 
   public addRoom(roomCreateRequest: RoomCreateRequest): Observable<Guid> {
-    return this._httpClient
-      .post<Guid>(this.getFullPath(), roomCreateRequest)
-      .pipe(
-        tap((id: Guid) => {
-          if (this._roomsAvailabilityCache == null) {
-            return;
-          }
+    const addRequest = this._roomGateway.addRoom(roomCreateRequest);
 
-          const room = roomCreateRequest.toRoomInfo(id);
-          const roomStatus: RoomAvailability = {
-            room: room,
-            state: RoomAvailabilityState.Available, // TODO: Available by default?
-          };
-
-          this._roomsAvailabilityCache.add(roomStatus);
-        }),
-      );
+    return addRequest.pipe(
+      tap((id: Guid) => {
+        this._roomsAvailabilityCache?.add(
+          roomCreateRequest.toRoomAvailability(id),
+        );
+      }),
+    );
   }
 
   public deleteRoom(room: RoomInfo): Observable<void> {
-    return this._httpClient.delete<void>(this.getFullPath(room.id)).pipe(
+    const deleteRequest = this._roomGateway.deleteRoom(room.id);
+
+    return deleteRequest.pipe(
       tap(() => {
         this._roomsAvailabilityCache?.removeFirstWhere(
           (availability) => availability.room.id == room.id,
         );
       }),
     );
-  }
-
-  private getFullPath(path: string = ""): string {
-    return `api/rooms/${path}`;
   }
 }
