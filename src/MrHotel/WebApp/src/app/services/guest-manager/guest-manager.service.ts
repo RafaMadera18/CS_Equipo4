@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 import { Observable, tap } from "rxjs";
 
-import { mapCollection, ObservableCollection } from "@utilities/rxjs";
+import { ObservableCollection } from "@utilities/rxjs";
 
 import { Nullable, Guid } from "@customTypes/.";
-import { GuestInfo, GuestInfoDto, GuestCreateRequest } from "./data";
+import { GuestInfo, GuestCreateRequest } from "./data";
 import { GuestManagerGatewayService } from "./gateway/guest-manager-gateway.service";
 
 @Injectable({
