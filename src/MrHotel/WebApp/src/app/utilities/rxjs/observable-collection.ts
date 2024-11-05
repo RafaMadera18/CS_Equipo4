@@ -3,13 +3,14 @@ import { BehaviorSubject, Observable, switchMap, tap } from "rxjs";
 export class ObservableCollection<T> {
   private readonly subject: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
-  public readonly items$: Observable<T[]> = this.subject.asObservable();
+  public readonly items$: Observable<readonly T[]> =
+    this.subject.asObservable();
 
   public getItems(): readonly T[] {
     return this.subject.value;
   }
 
-  public loadItems(observable: Observable<T[]>): Observable<T[]> {
+  public loadItems(observable: Observable<T[]>): Observable<readonly T[]> {
     return observable.pipe(
       tap((items) => this.subject.next(items)),
       switchMap(() => this.items$),

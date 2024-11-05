@@ -24,7 +24,7 @@ export class RoomManagerService {
 
   constructor(private readonly _roomGateway: RoomManagerGatewayService) {}
 
-  public getRoomsAvailability(): Observable<RoomAvailability[]> {
+  public getRoomsAvailability(): Observable<readonly RoomAvailability[]> {
     if (this._roomsAvailabilityCache != null) {
       return this._roomsAvailabilityCache.items$;
     }

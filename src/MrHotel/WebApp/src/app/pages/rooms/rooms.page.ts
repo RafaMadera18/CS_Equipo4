@@ -41,7 +41,7 @@ import {
   ],
 })
 export class RoomsPage {
-  private readonly _roomsAvailability: Observable<RoomAvailability[]>;
+  private readonly _roomsAvailability: Observable<readonly RoomAvailability[]>;
 
   constructor(
     private readonly _roomManager: RoomManagerService,

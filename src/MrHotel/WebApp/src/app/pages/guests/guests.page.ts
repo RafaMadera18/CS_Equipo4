@@ -23,7 +23,7 @@ import { GuestManagerService } from "@services/guest-manager";
   imports: [CommonModule, IonicModule],
 })
 export class GuestsPage {
-  protected readonly guests: Observable<GuestInfo[]>;
+  protected readonly guests: Observable<readonly GuestInfo[]>;
 
   constructor(
     private readonly guestManager: GuestManagerService,
