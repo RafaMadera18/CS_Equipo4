@@ -24,12 +24,4 @@ export class RoomCreationData {
   public toRoomInfo(id: Guid): RoomInfo {
     return new RoomInfo(id, this.name, []);
   }
-
-  public toRoomAvailability(id: Guid): RoomAvailability {
-    const room = this.toRoomInfo(id);
-    return {
-      room: room,
-      state: RoomAvailabilityState.Available, // TODO: Available by default?
-    };
-  }
 }

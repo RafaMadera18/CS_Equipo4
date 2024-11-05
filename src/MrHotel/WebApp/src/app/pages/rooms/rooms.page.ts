@@ -26,6 +26,7 @@ import {
   RoomInfo,
   RoomCreationData,
 } from "@services/room-manager/data";
+import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
 
 @Component({
   selector: "app-rooms",
@@ -45,11 +46,12 @@ export class RoomsPage {
 
   constructor(
     private readonly _roomManager: RoomManagerService,
+    roomAvailabilityManager: RoomAvailabilityManagerService,
     private readonly _modalService: ModalService,
   ) {
     addIcons({ addOutline });
 
-    this._roomsAvailability = _roomManager.getRoomsAvailability();
+    this._roomsAvailability = roomAvailabilityManager.getRoomsAvailability();
   }
 
   public async addRoom(): Promise<void> {

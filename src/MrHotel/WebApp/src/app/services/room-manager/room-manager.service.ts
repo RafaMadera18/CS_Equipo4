@@ -2,14 +2,11 @@ import { Injectable } from "@angular/core";
 
 import { Observable, tap } from "rxjs";
 
-import { ObservableCollection } from "@utilities/rxjs";
+import { EventPublisher } from "@utilities/rxjs";
 
-import { Guid, Nullable } from "@customTypes/.";
-import {
-  RoomInfo,
-  RoomCreationData,
-  RoomAvailability,
-} from "@services/room-manager/data";
+import { Guid } from "@customTypes/.";
+
+import { RoomInfo, RoomCreationData } from "@services/room-manager/data";
 
 import { RoomManagerGatewayService } from "./gateway/room-manager-gateway.service";
 
@@ -17,22 +14,18 @@ import { RoomManagerGatewayService } from "./gateway/room-manager-gateway.servic
   providedIn: "root",
 })
 export class RoomManagerService {
-  // Null initially and until a get operation is performed
-  private _roomsAvailabilityCache: Nullable<
-    ObservableCollection<RoomAvailability>
-  > = null;
+  private readonly _addRoomEvent = new EventPublisher<RoomInfo>();
+
+  private readonly _deleteRoomEvent = new EventPublisher<Guid>();
 
   constructor(private readonly _roomGateway: RoomManagerGatewayService) {}
 
-  public getRoomsAvailability(): Observable<readonly RoomAvailability[]> {
-    if (this._roomsAvailabilityCache != null) {
-      return this._roomsAvailabilityCache.items$;
-    }
+  public get addRoomEvent$(): Observable<RoomInfo> {
+    return this._addRoomEvent.event$;
+  }
 
-    const roomsAvailability = this._roomGateway.getRoomsAvailability();
-
-    this._roomsAvailabilityCache = new ObservableCollection();
-    return this._roomsAvailabilityCache.loadItems(roomsAvailability);
+  public get deleteRoomEvent$(): Observable<Guid> {
+    return this._deleteRoomEvent.event$;
   }
 
   public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
@@ -40,9 +33,8 @@ export class RoomManagerService {
 
     return addRequest.pipe(
       tap((id: Guid) => {
-        this._roomsAvailabilityCache?.add(
-          roomCreationData.toRoomAvailability(id),
-        );
+        const newRoom = roomCreationData.toRoomInfo(id);
+        this._addRoomEvent.emit(newRoom);
       }),
     );
   }
@@ -52,9 +44,7 @@ export class RoomManagerService {
 
     return deleteRequest.pipe(
       tap(() => {
-        this._roomsAvailabilityCache?.removeFirstWhere(
-          (availability) => availability.room.id == room.id,
-        );
+        this._deleteRoomEvent.emit(room.id);
       }),
     );
   }

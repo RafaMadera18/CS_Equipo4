@@ -5,7 +5,9 @@ import { Observable, tap } from "rxjs";
 import { ObservableCollection } from "@utilities/rxjs";
 
 import { Nullable, Guid } from "@customTypes/.";
+
 import { GuestInfo, GuestCreationData } from "./data";
+
 import { GuestManagerGatewayService } from "./gateway/guest-manager-gateway.service";
 
 @Injectable({

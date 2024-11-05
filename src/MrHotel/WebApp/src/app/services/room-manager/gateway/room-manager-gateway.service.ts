@@ -13,12 +13,6 @@ import { RoomAvailability, RoomCreationData } from "../data";
 export class RoomManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
-  public getRoomsAvailability(): Observable<RoomAvailability[]> {
-    const apiUrl: string = this.getApiPath("availability");
-
-    return this._httpClient.get<RoomAvailability[]>(apiUrl);
-  }
-
   public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
     const apiUrl: string = this.getApiPath();
 
