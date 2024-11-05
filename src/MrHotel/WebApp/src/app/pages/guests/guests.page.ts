@@ -26,29 +26,29 @@ export class GuestsPage {
   private readonly _guests: Observable<GuestInfo[]>;
 
   constructor(
-    private readonly guestManager: GuestManagerService,
-    private readonly modalService: ModalService,
+    private readonly _guestManager: GuestManagerService,
+    private readonly _modalService: ModalService,
   ) {
     addIcons({ pencilOutline, trashOutline, personAddOutline });
 
-    this._guests = guestManager.getGuests();
+    this._guests = _guestManager.getGuests();
   }
 
   public async addGuest(): Promise<void> {
-    const guestCreateRequest = await this.modalService.openModal(addGuestModal);
+    const guestCreateRequest = await this._modalService.openModal(addGuestModal);
 
     if (guestCreateRequest != null) {
-      this.guestManager.addGuest(guestCreateRequest).subscribe();
+      this._guestManager.addGuest(guestCreateRequest).subscribe();
     }
   }
 
   public async deleteGuest(guest: GuestInfo): Promise<void> {
-    const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
+    const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
       message: `Do You want To Delete Guest: ${guest.fullName}? `,
     });
 
     if (isDeleteConfirmed?.state) {
-      this.guestManager.deleteGuest(guest).subscribe();
+      this._guestManager.deleteGuest(guest).subscribe();
     }
   }
 
