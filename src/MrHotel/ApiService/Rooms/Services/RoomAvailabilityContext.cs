@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.Database.Entities.Reservations;
 
-public record RoomAvailabilityStateContext(
+public record RoomAvailabilityContext(
     IReadOnlyCollection<ReservationInfo> ActiveReservations)
 {
-    public static async Task<RoomAvailabilityStateContext> Create(
+    public static async Task<RoomAvailabilityContext> Create(
         ReservationManager reservationManager)
     {
         var activeReservations = await GetActiveReservations(reservationManager);
 
-        return new RoomAvailabilityStateContext(activeReservations);
+        return new RoomAvailabilityContext(activeReservations);
     }
 
     private static async Task<IReadOnlyCollection<ReservationInfo>> GetActiveReservations(
