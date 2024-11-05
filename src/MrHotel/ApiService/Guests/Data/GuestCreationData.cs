@@ -4,13 +4,13 @@ using System.Diagnostics.Contracts;
 
 using MrHotel.Database.Entities.Guests;
 
-public record CreateGuestRequest(
+public record GuestCreationData(
     string FullName,
     string PhoneNumber,
     DateOnly DateOfBirth)
 {
     [Pure]
-    public GuestInfo Create()
+    public GuestInfo ToGuestInfo()
     {
         return new()
         {

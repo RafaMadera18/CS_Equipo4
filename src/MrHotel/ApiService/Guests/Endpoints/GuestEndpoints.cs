@@ -12,10 +12,10 @@ using MrHotel.Database.Entities.Guests;
 public static class GuestEndpoints
 {
     public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
-        [FromBody] CreateGuestRequest request,
+        [FromBody] GuestCreationData guestCreationData,
         [FromServices] GuestManager guestManager)
     {
-        GuestInfo guest = request.Create();
+        GuestInfo guest = guestCreationData.ToGuestInfo();
 
         ValidationResult result = await guestManager.AddGuest(guest);
         if (!result.Succeeded)

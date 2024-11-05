@@ -4,7 +4,7 @@ import { Guid, Stringify } from "@customTypes/.";
 
 import { GuestInfo } from "./guest-info";
 
-export class GuestCreateRequest {
+export class GuestCreationData {
   public constructor(
     private readonly _fullName: string,
     private readonly _phoneNumber: string,
@@ -23,7 +23,7 @@ export class GuestCreateRequest {
     return this._dateOfBirth;
   }
 
-  public toJSON(): Stringify<GuestCreateRequest> {
+  public toJSON(): Stringify<GuestCreationData> {
     return {
       fullName: this.fullName,
       phoneNumber: this.phoneNumber,

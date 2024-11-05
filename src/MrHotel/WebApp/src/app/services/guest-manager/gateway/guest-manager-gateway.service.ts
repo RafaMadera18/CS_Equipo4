@@ -7,7 +7,7 @@ import { mapCollection } from "@utilities/rxjs";
 
 import { Guid } from "@customTypes/guid";
 
-import { GuestCreateRequest, GuestInfo, GuestInfoDto } from "../data";
+import { GuestCreationData, GuestInfo, GuestInfoDto } from "../data";
 
 @Injectable({
   providedIn: "root",
@@ -23,10 +23,10 @@ export class GuestManagerGatewayService {
       .pipe(mapCollection(GuestInfo.createFromDto));
   }
 
-  public addGuest(guestCreateRequest: GuestCreateRequest): Observable<Guid> {
+  public addGuest(guestCreationData: GuestCreationData): Observable<Guid> {
     const apiUrl: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, guestCreateRequest);
+    return this._httpClient.post<Guid>(apiUrl, guestCreationData);
   }
 
   public deleteGuest(guestId: Guid): Observable<void> {
