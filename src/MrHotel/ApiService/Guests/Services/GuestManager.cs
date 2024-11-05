@@ -56,27 +56,30 @@ public class GuestManager(
 
     private async Task<ValidationResult> ValidateGuestForAdding(GuestInfo guest)
 {
+    List<ValidationError> errors = [];
     bool duplicateGuestID = await guestStorage.EntitySet.AnyAsync(g => g.Id == guest.Id);
-
     if (duplicateGuestID)
     {
-        var error = new ValidationError("DuplicateId", "Duplicate guest id");
-        return ValidationResult.Failed(error);
+        errors.Add(new ValidationError("DuplicateId", "Duplicate guest id"));
     }
 
-    var dateToday = DateOnly.FromDateTime(DateTime.Now);
+    var dateToday = DateOnly.FromDateTime(DateTime.UtcNow);
     var invalidDateOfBirth = guest.DateOfBirth.CompareTo(dateToday) > 0;
     if (invalidDateOfBirth)
     {
-        var error = new ValidationError("InvalidDateOfBirth", "The date of birth cannot be in the future.");
-        return ValidationResult.Failed(error);
-    }
-    else if (guest.PhoneNumber.Length != 10)
-    {
-        var error = new ValidationError("InvalidPhoneNumber", "Phone number lenght is different than 10 digits.");
-        return ValidationResult.Failed(error);
+        errors.Add(new ValidationError("InvalidDateOfBirth", "The date of birth cannot be in the future."));
     }
 
-    return ValidationResult.Success;
+    if (guest.PhoneNumber.Length != 10)
+    {
+        errors.Add(new ValidationError("InvalidPhoneNumber", "Phone number lenght is different than 10 digits."));
+    }
+
+    if (errors.Count == 0)
+    {
+        return ValidationResult.Success;
+    }
+
+    return ValidationResult.Failed(errors);
 }
 }
