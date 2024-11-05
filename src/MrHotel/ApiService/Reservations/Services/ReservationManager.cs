@@ -5,14 +5,15 @@ using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
 
-using MrHotel.Database;
+using MrHotel.ApiService.Core.Storage.Entities;
 using MrHotel.Database.Entities.Reservations;
 
-public class ReservationManager(AppDbContext db)
+public class ReservationManager(
+    IEntityRepository<ReservationInfo> reservationStorage)
 {
-    public async Task AddReservation(ReservationInfo reservation)
+    public void AddReservation(ReservationInfo reservation)
     {
-        await db.Reservations.AddAsync(reservation);
+        reservationStorage.EntitySet.Add(reservation);
     }
 
     [Pure]
@@ -20,7 +21,7 @@ public class ReservationManager(AppDbContext db)
         Guid id,
         [MaybeNullWhen(false)] out ReservationInfo reservation)
     {
-        reservation = db.Reservations.Find(id);
+        reservation = reservationStorage.EntitySet.Find(id);
         return reservation is not null;
     }
 
@@ -31,7 +32,7 @@ public class ReservationManager(AppDbContext db)
 
         IQueryable<ReservationInfo> GetReservations()
         {
-            var reservations = db.Reservations
+            var reservations = reservationStorage.EntitySet
                 .Include(reservation => reservation.Guest)
                 .Include(reservation => reservation.Room);
 
@@ -43,11 +44,11 @@ public class ReservationManager(AppDbContext db)
 
     public void DeleteReservation(ReservationInfo reservation)
     {
-        db.Reservations.Remove(reservation);
+        reservationStorage.EntitySet.Remove(reservation);
     }
 
     public Task SaveChanges()
     {
-        return db.SaveChangesAsync();
+        return reservationStorage.SaveChanges();
     }
 }

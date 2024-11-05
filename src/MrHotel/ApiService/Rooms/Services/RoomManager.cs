@@ -5,20 +5,21 @@ using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
 
+using MrHotel.ApiService.Core.Storage.Entities;
 using MrHotel.ApiService.Core.Validation;
-using MrHotel.Database;
 using MrHotel.Database.Entities.Rooms;
 
 using RaptorUtils.Collections.Extensions;
 
-public class RoomManager(AppDbContext db)
+public class RoomManager(
+    IEntityRepository<RoomInfo> roomStorage)
 {
     public async Task<ValidationResult> AddRoom(RoomInfo room)
     {
         ValidationResult result = await this.ValidateRoomForAdding(room);
         if (result.Succeeded)
         {
-            db.Rooms.Add(room);
+            roomStorage.EntitySet.Add(room);
         }
 
         return result;
@@ -29,40 +30,35 @@ public class RoomManager(AppDbContext db)
         Guid id,
         [MaybeNullWhen(false)] out RoomInfo room)
     {
-        room = db.Rooms.Find(id);
+        room = roomStorage.EntitySet.Find(id);
         return room is not null;
     }
 
     [Pure]
     public async Task<IReadOnlyCollection<RoomInfo>> GetRooms()
     {
-        return await db.Rooms.ToArrayAsync();
+        return await roomStorage.EntitySet.ToArrayAsync();
     }
 
     public void UpdateRoom(RoomInfo room)
     {
-        db.Rooms.Update(room);
+        roomStorage.EntitySet.Update(room);
     }
 
     public void DeleteRoom(RoomInfo room)
     {
-        db.Rooms.Remove(room);
+        roomStorage.EntitySet.Remove(room);
     }
 
     public Task SaveChanges()
     {
-        return db.SaveChangesAsync();
+        return roomStorage.SaveChanges();
     }
 
     [Pure]
-    private IQueryable<RoomInfo> GetRoomsQueryBuilder()
-    {
-        return db.Rooms.AsQueryable();
-    }
-
     private async Task<ValidationResult> ValidateRoomForAdding(RoomInfo room)
     {
-        RoomInfo[] conflictRooms = await this.GetRoomsQueryBuilder()
+        RoomInfo[] conflictRooms = await roomStorage.EntitySet
             .Where(r => r.Id == room.Id || r.Name == room.Name)
             .ToArrayAsync();
 
