@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Core.Validation;
 using MrHotel.ApiService.Rooms.Data;
@@ -33,11 +32,7 @@ public static class RoomEndpoints
         [FromBody] RoomUpdateData roomUpdateData,
         [FromServices] RoomManager roomManager)
     {
-        RoomInfo? room = await roomManager
-            .GetRooms()
-            .FirstOrDefaultAsync(room => room.Id == roomId);
-
-        if (room is null)
+        if (!roomManager.TryGetRoomById(roomId, out RoomInfo? room))
         {
             return TypedResults.NotFound();
         }
@@ -53,11 +48,7 @@ public static class RoomEndpoints
         [FromRoute] Guid roomId,
         [FromServices] RoomManager roomManager)
     {
-        RoomInfo? room = await roomManager
-            .GetRooms()
-            .FirstOrDefaultAsync(room => room.Id == roomId);
-
-        if (room is null)
+        if (!roomManager.TryGetRoomById(roomId, out RoomInfo? room))
         {
             return TypedResults.NotFound();
         }

@@ -1,5 +1,6 @@
 ﻿namespace MrHotel.ApiService.Reservations.Services;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +16,29 @@ public class ReservationManager(AppDbContext db)
     }
 
     [Pure]
-    public IQueryable<ReservationInfo> GetReservations()
+    public bool TryGetReservationById(
+        Guid id,
+        [MaybeNullWhen(false)] out ReservationInfo reservation)
     {
-        return db.Reservations
-            .AsQueryable()
-            .AsNoTracking()
-            .Include(reservation => reservation.Room);
+        reservation = db.Reservations.Find(id);
+        return reservation is not null;
+    }
+
+    [Pure]
+    public async Task<IReadOnlyCollection<ReservationInfo>> GetReservations(bool onlyActive = false)
+    {
+        return await GetReservations().ToArrayAsync();
+
+        IQueryable<ReservationInfo> GetReservations()
+        {
+            var reservations = db.Reservations
+                .Include(reservation => reservation.Guest)
+                .Include(reservation => reservation.Room);
+
+            return onlyActive
+                ? reservations.Where(reservation => !reservation.CheckOutDone)
+                : reservations;
+        }
     }
 
     public void DeleteReservation(ReservationInfo reservation)

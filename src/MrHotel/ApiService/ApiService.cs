@@ -28,6 +28,7 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddAppAuth();
 
         builder.Services.AddTransient<RoomManager>();
+        builder.Services.AddTransient<RoomAvailabilityManager>();
         builder.Services.AddTransient<GuestManager>();
         builder.Services.AddTransient<ReservationManager>();
     }

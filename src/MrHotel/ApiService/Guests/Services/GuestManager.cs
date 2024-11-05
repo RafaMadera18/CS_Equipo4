@@ -1,5 +1,7 @@
 ﻿namespace MrHotel.ApiService.Guests.Services;
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +24,18 @@ public class GuestManager(AppDbContext db)
     }
 
     [Pure]
-    public IQueryable<GuestInfo> GetGuests()
+    public bool TryGetGuestById(
+        Guid id,
+        [MaybeNullWhen(false)] out GuestInfo guest)
     {
-        return db.Guests.AsQueryable().AsNoTracking();
+        guest = db.Guests.Find(id);
+        return guest is not null;
+    }
+
+    [Pure]
+    public async Task<IReadOnlyCollection<GuestInfo>> GetGuests()
+    {
+        return await this.GetGuestsQueryBuilder().ToArrayAsync();
     }
 
     public void UpdateGuest(GuestInfo guest)
@@ -42,9 +53,15 @@ public class GuestManager(AppDbContext db)
         return db.SaveChangesAsync();
     }
 
+    [Pure]
+    private IQueryable<GuestInfo> GetGuestsQueryBuilder()
+    {
+        return db.Guests.AsQueryable();
+    }
+
     private async Task<ValidationResult> ValidateGuestForAdding(GuestInfo guest)
     {
-        bool duplicateRoom = await this.GetGuests().AnyAsync(g => g.Id == guest.Id);
+        bool duplicateRoom = await this.GetGuestsQueryBuilder().AnyAsync(g => g.Id == guest.Id);
 
         if (duplicateRoom)
         {

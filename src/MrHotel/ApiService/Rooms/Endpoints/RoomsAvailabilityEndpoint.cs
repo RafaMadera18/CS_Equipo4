@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Rooms.Data;
 using MrHotel.ApiService.Rooms.Services;
@@ -14,7 +13,7 @@ public static class RoomsAvailabilityEndpoint
         [FromServices] RoomManager roomManager,
         [FromServices] RoomAvailabilityManager availabilityManager)
     {
-        RoomInfo[] rooms = await roomManager.GetRooms().ToArrayAsync();
+        IEnumerable<RoomInfo> rooms = await roomManager.GetRooms();
 
         IEnumerable<RoomAvailability> roomsAvailability = await availabilityManager.GetRoomsAvailability(rooms);
 

@@ -1,5 +1,6 @@
 ﻿namespace MrHotel.ApiService.Rooms.Services;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -24,9 +25,18 @@ public class RoomManager(AppDbContext db)
     }
 
     [Pure]
-    public IQueryable<RoomInfo> GetRooms()
+    public bool TryGetRoomById(
+        Guid id,
+        [MaybeNullWhen(false)] out RoomInfo room)
     {
-        return db.Rooms.AsQueryable().AsNoTracking();
+        room = db.Rooms.Find(id);
+        return room is not null;
+    }
+
+    [Pure]
+    public async Task<IReadOnlyCollection<RoomInfo>> GetRooms()
+    {
+        return await db.Rooms.ToArrayAsync();
     }
 
     public void UpdateRoom(RoomInfo room)
@@ -44,9 +54,15 @@ public class RoomManager(AppDbContext db)
         return db.SaveChangesAsync();
     }
 
+    [Pure]
+    private IQueryable<RoomInfo> GetRoomsQueryBuilder()
+    {
+        return db.Rooms.AsQueryable();
+    }
+
     private async Task<ValidationResult> ValidateRoomForAdding(RoomInfo room)
     {
-        RoomInfo[] conflictRooms = await this.GetRooms()
+        RoomInfo[] conflictRooms = await this.GetRoomsQueryBuilder()
             .Where(r => r.Id == room.Id || r.Name == room.Name)
             .ToArrayAsync();
 

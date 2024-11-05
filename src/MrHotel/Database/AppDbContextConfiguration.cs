@@ -18,6 +18,8 @@ public static class AppDbContextConfiguration
     {
         ArgumentNullException.ThrowIfNull(connectionString);
 
+        options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
         options.UseNpgsql(
             connectionString,
             options => options.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null));

@@ -2,7 +2,6 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Core.Validation;
 using MrHotel.ApiService.Guests.Data;
@@ -31,7 +30,7 @@ public static class GuestEndpoints
     public static async Task<Ok<IEnumerable<GuestInfo>>> HandleGet(
         [FromServices] GuestManager guestManager)
     {
-        IEnumerable<GuestInfo> guests = await guestManager.GetGuests().ToArrayAsync();
+        IEnumerable<GuestInfo> guests = await guestManager.GetGuests();
 
         return TypedResults.Ok(guests);
     }
@@ -40,11 +39,7 @@ public static class GuestEndpoints
         [FromRoute] Guid guestId,
         [FromServices] GuestManager guestManager)
     {
-        GuestInfo? guest = await guestManager
-            .GetGuests()
-            .FirstOrDefaultAsync(guest => guest.Id == guestId);
-
-        if (guest is null)
+        if (!guestManager.TryGetGuestById(guestId, out GuestInfo? guest))
         {
             return TypedResults.NotFound();
         }
