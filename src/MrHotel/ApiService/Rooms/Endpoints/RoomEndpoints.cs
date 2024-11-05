@@ -12,10 +12,10 @@ using MrHotel.Database.Entities.Rooms;
 public static class RoomEndpoints
 {
     public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
-        [FromBody] CreateRoomRequest request,
+        [FromBody] RoomCreationData roomCreationData,
         [FromServices] RoomManager roomManager)
     {
-        RoomInfo room = request.Create();
+        RoomInfo room = roomCreationData.ToRoomInfo();
 
         ValidationResult result = await roomManager.AddRoom(room);
         if (!result.Succeeded)
@@ -30,7 +30,7 @@ public static class RoomEndpoints
 
     public static async Task<Results<NoContent, NotFound>> HandlePut(
         [FromRoute] Guid roomId,
-        [FromBody] UpdateRoomRequest request,
+        [FromBody] RoomUpdateData roomUpdateData,
         [FromServices] RoomManager roomManager)
     {
         RoomInfo? room = await roomManager
@@ -42,7 +42,7 @@ public static class RoomEndpoints
             return TypedResults.NotFound();
         }
 
-        request.Update(room);
+        roomUpdateData.Update(room);
         roomManager.UpdateRoom(room);
         await roomManager.SaveChanges();
 

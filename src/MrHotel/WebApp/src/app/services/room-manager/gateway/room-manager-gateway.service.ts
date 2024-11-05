@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 
 import { Guid } from "@customTypes/guid";
 
-import { RoomAvailability, RoomCreateRequest } from "../data";
+import { RoomAvailability, RoomCreationData } from "../data";
 
 @Injectable({
   providedIn: "root",
@@ -19,10 +19,10 @@ export class RoomManagerGatewayService {
     return this._httpClient.get<RoomAvailability[]>(apiUrl);
   }
 
-  public addRoom(roomCreateRequest: RoomCreateRequest): Observable<Guid> {
+  public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
     const apiUrl: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, roomCreateRequest);
+    return this._httpClient.post<Guid>(apiUrl, roomCreationData);
   }
 
   public deleteRoom(roomId: Guid): Observable<void> {

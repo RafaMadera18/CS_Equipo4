@@ -1,8 +1,8 @@
-namespace MrHotel.ApiService.Rooms.Data;
+﻿namespace MrHotel.ApiService.Rooms.Data;
 
 using MrHotel.Database.Entities.Rooms;
 
-public record UpdateRoomRequest(string Name)
+public record RoomUpdateData(string Name)
 {
     public void Update(RoomInfo room)
     {

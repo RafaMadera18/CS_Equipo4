@@ -4,7 +4,7 @@ import { RoomInfo } from "./room-info";
 import { RoomAvailability } from "./room-availability";
 import { RoomAvailabilityState } from "./room-availability-state";
 
-export class RoomCreateRequest {
+export class RoomCreationData {
   private readonly _name: string;
 
   public constructor(name: string) {
@@ -15,7 +15,7 @@ export class RoomCreateRequest {
     return this._name;
   }
 
-  public toJSON(): Stringify<RoomCreateRequest> {
+  public toJSON(): Stringify<RoomCreationData> {
     return {
       name: this.name,
     };

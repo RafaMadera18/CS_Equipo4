@@ -24,7 +24,7 @@ import { RoomManagerService } from "@services/room-manager";
 import {
   RoomAvailability,
   RoomInfo,
-  RoomCreateRequest,
+  RoomCreationData,
 } from "@services/room-manager/data";
 
 @Component({
@@ -56,7 +56,7 @@ export class RoomsPage {
     const roomData = await this._modalService.openModal(addRoomModal);
 
     if (roomData?.name) {
-      const request = new RoomCreateRequest(roomData.name);
+      const request = new RoomCreationData(roomData.name);
       this._roomManager.addRoom(request).subscribe();
     }
   }

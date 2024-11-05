@@ -7,7 +7,7 @@ import { ObservableCollection } from "@utilities/rxjs";
 import { Guid, Nullable } from "@customTypes/.";
 import {
   RoomInfo,
-  RoomCreateRequest,
+  RoomCreationData,
   RoomAvailability,
 } from "@services/room-manager/data";
 
@@ -35,13 +35,13 @@ export class RoomManagerService {
     return this._roomsAvailabilityCache.loadItems(roomsAvailability);
   }
 
-  public addRoom(roomCreateRequest: RoomCreateRequest): Observable<Guid> {
-    const addRequest = this._roomGateway.addRoom(roomCreateRequest);
+  public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
+    const addRequest = this._roomGateway.addRoom(roomCreationData);
 
     return addRequest.pipe(
       tap((id: Guid) => {
         this._roomsAvailabilityCache?.add(
-          roomCreateRequest.toRoomAvailability(id),
+          roomCreationData.toRoomAvailability(id),
         );
       }),
     );
