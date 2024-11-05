@@ -54,6 +54,10 @@ export class RoomsPage {
     this._roomsAvailability = roomAvailabilityManager.getRoomsAvailability();
   }
 
+  public get roomsAvailability() {
+    return this._roomsAvailability;
+  }
+
   public async addRoom(): Promise<void> {
     const roomData = await this._modalService.openModal(addRoomModal);
 
@@ -76,9 +80,5 @@ export class RoomsPage {
   public async addReservation(): Promise<void> {
     // TODO: Create Logic to add a Reservation
     console.log("Conectado");
-  }
-
-  public get roomsAvailability() {
-    return this._roomsAvailability;
   }
 }
