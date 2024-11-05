@@ -55,15 +55,28 @@ public class GuestManager(
     }
 
     private async Task<ValidationResult> ValidateGuestForAdding(GuestInfo guest)
+{
+    bool duplicateGuestID = await guestStorage.EntitySet.AnyAsync(g => g.Id == guest.Id);
+
+    if (duplicateGuestID)
     {
-        bool duplicateRoom = await guestStorage.EntitySet.AnyAsync(g => g.Id == guest.Id);
-
-        if (duplicateRoom)
-        {
-            var error = new ValidationError("DuplicateId", "Duplicate guest id");
-            return ValidationResult.Failed(error);
-        }
-
-        return ValidationResult.Success;
+        var error = new ValidationError("DuplicateId", "Duplicate guest id");
+        return ValidationResult.Failed(error);
     }
+
+    var dateToday = DateOnly.FromDateTime(DateTime.Now);
+    var invalidDateOfBirth = guest.DateOfBirth.CompareTo(dateToday) > 0;
+    if (invalidDateOfBirth)
+    {
+        var error = new ValidationError("InvalidDateOfBirth", "The date of birth cannot be in the future.");
+        return ValidationResult.Failed(error);
+    }
+    else if (guest.PhoneNumber.Length != 10)
+    {
+        var error = new ValidationError("InvalidPhoneNumber", "Phone number lenght is different than 10 digits.");
+        return ValidationResult.Failed(error);
+    }
+
+    return ValidationResult.Success;
+}
 }
