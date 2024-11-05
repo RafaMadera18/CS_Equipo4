@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 import { Observable, tap } from "rxjs";
 
@@ -9,7 +8,6 @@ import { Guid, Nullable } from "@customTypes/.";
 import {
   RoomInfo,
   RoomCreateRequest,
-  RoomAvailabilityState,
   RoomAvailability,
 } from "@services/room-manager/data";
 

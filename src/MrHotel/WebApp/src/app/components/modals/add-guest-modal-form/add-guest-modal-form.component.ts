@@ -6,7 +6,7 @@ import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 
 import { ModalInfo } from "@services/modal/modal-info";
-import { GuestCreateRequest } from "@services/guest-manager/data";
+import { GuestCreationData } from "@services/guest-manager/data";
 import { CalendarDate } from "calendar-date";
 
 @Component({
@@ -18,7 +18,7 @@ import { CalendarDate } from "calendar-date";
 })
 export class AddGuestModalFormComponent extends BaseModalFormComponent<
   void,
-  GuestCreateRequest
+  GuestCreationData
 > {
   protected fullName: string = "";
   protected phoneNumber: string = "";
@@ -26,7 +26,7 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
   protected onSubmit(): void {
     if (this.isAddGuestModalDataValid()) {
-      const guestCreateRequest = new GuestCreateRequest(
+      const guestCreateRequest = new GuestCreationData(
         this.fullName,
         this.phoneNumber,
         CalendarDate.fromDateUTC(new Date(this.dateOfBirth)),
@@ -59,7 +59,7 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
 export const addGuestModal: ModalInfo<
   void,
-  GuestCreateRequest,
+  GuestCreationData,
   AddGuestModalFormComponent
 > = {
   component: AddGuestModalFormComponent,

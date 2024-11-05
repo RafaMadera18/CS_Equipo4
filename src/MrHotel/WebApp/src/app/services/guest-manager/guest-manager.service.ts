@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 import { Observable, tap } from "rxjs";
 
-import { mapCollection, ObservableCollection } from "@utilities/rxjs";
+import { ObservableCollection } from "@utilities/rxjs";
 
 import { Nullable, Guid } from "@customTypes/.";
-import { GuestInfo, GuestInfoDto, GuestCreateRequest } from "./data";
+import { GuestInfo, GuestCreationData } from "./data";
 import { GuestManagerGatewayService } from "./gateway/guest-manager-gateway.service";
 
 @Injectable({
@@ -29,12 +28,12 @@ export class GuestManagerService {
     return this._guestsCache.loadItems(guests);
   }
 
-  public addGuest(guestCreateRequest: GuestCreateRequest): Observable<Guid> {
-    const addRequest = this._guestGateway.addGuest(guestCreateRequest);
+  public addGuest(guestCreationData: GuestCreationData): Observable<Guid> {
+    const addRequest = this._guestGateway.addGuest(guestCreationData);
 
     return addRequest.pipe(
       tap((newGuestId: Guid) => {
-        this._guestsCache?.add(guestCreateRequest.toGuestInfo(newGuestId));
+        this._guestsCache?.add(guestCreationData.toGuestInfo(newGuestId));
       }),
     );
   }

@@ -1,2 +1,2 @@
 export * from "./guest-info";
-export * from "./guest-create-request";
+export * from "./guest-creation-data";
