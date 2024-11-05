@@ -23,7 +23,7 @@ import { GuestManagerService } from "@services/guest-manager";
   imports: [CommonModule, IonicModule],
 })
 export class GuestsPage {
-  protected readonly guests: Observable<GuestInfo[]>;
+  private readonly _guests: Observable<GuestInfo[]>;
 
   constructor(
     private readonly guestManager: GuestManagerService,
@@ -31,7 +31,7 @@ export class GuestsPage {
   ) {
     addIcons({ pencilOutline, trashOutline, personAddOutline });
 
-    this.guests = guestManager.getGuests();
+    this._guests = guestManager.getGuests();
   }
 
   public async addGuest(): Promise<void> {
@@ -50,5 +50,9 @@ export class GuestsPage {
     if (isDeleteConfirmed?.state) {
       this.guestManager.deleteGuest(guest).subscribe();
     }
+  }
+
+  public get guests() {
+    return this._guests;
   }
 }
