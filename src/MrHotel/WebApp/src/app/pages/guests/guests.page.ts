@@ -23,7 +23,7 @@ import { GuestManagerService } from "@services/guest-manager";
   imports: [CommonModule, IonicModule],
 })
 export class GuestsPage {
-  private _guests: Observable<GuestInfo[]>;
+  private readonly _guests: Observable<readonly GuestInfo[]>;
 
   constructor(
     private readonly _guestManager: GuestManagerService,
@@ -35,7 +35,8 @@ export class GuestsPage {
   }
 
   public async addGuest(): Promise<void> {
-    const guestCreateRequest = await this._modalService.openModal(addGuestModal);
+    const guestCreateRequest =
+      await this._modalService.openModal(addGuestModal);
 
     if (guestCreateRequest != null) {
       this._guestManager.addGuest(guestCreateRequest).subscribe();
