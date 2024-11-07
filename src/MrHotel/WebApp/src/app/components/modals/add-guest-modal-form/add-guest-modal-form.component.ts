@@ -26,13 +26,13 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
   protected onSubmit(): void {
     if (this.isAddGuestModalDataValid()) {
-      const guestCreateRequest = new GuestCreationData(
+      const guestCreationData = new GuestCreationData(
         this.fullName,
         this.phoneNumber,
         CalendarDate.fromDateUTC(new Date(this.dateOfBirth)),
       );
 
-      this.submitModal(guestCreateRequest);
+      this.submitModal(guestCreationData);
     } else {
       // TODO
       console.error("Guest data is invalid");

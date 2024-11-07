@@ -24,8 +24,9 @@ import { RoomManagerService } from "@services/room-manager";
 import {
   RoomAvailability,
   RoomInfo,
-  RoomCreateRequest,
+  RoomCreationData,
 } from "@services/room-manager/data";
+import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
 
 @Component({
   selector: "app-rooms",
@@ -41,22 +42,27 @@ import {
   ],
 })
 export class RoomsPage {
-  private readonly _roomsAvailability: Observable<RoomAvailability[]>;
+  private readonly _roomsAvailability: Observable<readonly RoomAvailability[]>;
 
   constructor(
     private readonly _roomManager: RoomManagerService,
+    roomAvailabilityManager: RoomAvailabilityManagerService,
     private readonly _modalService: ModalService,
   ) {
     addIcons({ addOutline });
 
-    this._roomsAvailability = _roomManager.getRoomsAvailability();
+    this._roomsAvailability = roomAvailabilityManager.getRoomsAvailability();
+  }
+
+  public get roomsAvailability() {
+    return this._roomsAvailability;
   }
 
   public async addRoom(): Promise<void> {
     const roomData = await this._modalService.openModal(addRoomModal);
 
     if (roomData?.name) {
-      const request = new RoomCreateRequest(roomData.name);
+      const request = new RoomCreationData(roomData.name);
       this._roomManager.addRoom(request).subscribe();
     }
   }
@@ -74,9 +80,5 @@ export class RoomsPage {
   public async addReservation(): Promise<void> {
     // TODO: Create Logic to add a Reservation
     console.log("Conectado");
-  }
-
-  public get roomsAvailability() {
-    return this._roomsAvailability;
   }
 }

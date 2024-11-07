@@ -1,35 +1,54 @@
 ﻿namespace MrHotel.ApiService.Reservations.Services;
 
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
 
-using MrHotel.Database;
+using MrHotel.ApiService.Core.Storage.Entities;
 using MrHotel.Database.Entities.Reservations;
 
-public class ReservationManager(AppDbContext db)
+public class ReservationManager(
+    IEntityRepository<ReservationInfo> reservationStorage)
 {
-    public async Task AddReservation(ReservationInfo reservation)
+    public void AddReservation(ReservationInfo reservation)
     {
-        await db.Reservations.AddAsync(reservation);
+        reservationStorage.EntitySet.Add(reservation);
     }
 
     [Pure]
-    public IQueryable<ReservationInfo> GetReservations()
+    public bool TryGetReservationById(
+        Guid id,
+        [MaybeNullWhen(false)] out ReservationInfo reservation)
     {
-        return db.Reservations
-            .AsQueryable()
-            .AsNoTracking()
-            .Include(reservation => reservation.Room);
+        reservation = reservationStorage.EntitySet.Find(id);
+        return reservation is not null;
+    }
+
+    [Pure]
+    public async Task<IReadOnlyCollection<ReservationInfo>> GetReservations(bool onlyActive = false)
+    {
+        return await GetReservations().ToArrayAsync();
+
+        IQueryable<ReservationInfo> GetReservations()
+        {
+            var reservations = reservationStorage.EntitySet
+                .Include(reservation => reservation.Guest)
+                .Include(reservation => reservation.Room);
+
+            return onlyActive
+                ? reservations.Where(reservation => !reservation.CheckOutDone)
+                : reservations;
+        }
     }
 
     public void DeleteReservation(ReservationInfo reservation)
     {
-        db.Reservations.Remove(reservation);
+        reservationStorage.EntitySet.Remove(reservation);
     }
 
     public Task SaveChanges()
     {
-        return db.SaveChangesAsync();
+        return reservationStorage.SaveChanges();
     }
 }

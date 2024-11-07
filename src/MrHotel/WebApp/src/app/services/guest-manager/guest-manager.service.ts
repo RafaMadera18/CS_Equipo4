@@ -5,7 +5,9 @@ import { Observable, tap } from "rxjs";
 import { ObservableCollection } from "@utilities/rxjs";
 
 import { Nullable, Guid } from "@customTypes/.";
+
 import { GuestInfo, GuestCreationData } from "./data";
+
 import { GuestManagerGatewayService } from "./gateway/guest-manager-gateway.service";
 
 @Injectable({
@@ -17,7 +19,7 @@ export class GuestManagerService {
 
   constructor(private readonly _guestGateway: GuestManagerGatewayService) {}
 
-  public getGuests(): Observable<GuestInfo[]> {
+  public getGuests(): Observable<readonly GuestInfo[]> {
     if (this._guestsCache != null) {
       return this._guestsCache.items$;
     }

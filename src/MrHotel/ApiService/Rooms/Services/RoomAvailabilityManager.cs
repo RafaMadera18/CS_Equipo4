@@ -2,23 +2,35 @@
 
 using System.Diagnostics.Contracts;
 
+using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.Rooms.Data;
 using MrHotel.Database.Entities.Rooms;
 
 public class RoomAvailabilityManager(
-    RoomAvailabilityStateContext availabilityContext)
+    ReservationManager reservationManager)
 {
+    private RoomAvailabilityContext? availabilityContextCache;
+
     [Pure]
-    public RoomAvailability GetRoomAvailability(RoomInfo room)
+    public async ValueTask<IEnumerable<RoomAvailability>> GetRoomsAvailability(IEnumerable<RoomInfo> rooms)
     {
-        RoomAvailabilityState roomState = this.GetRoomState(room);
+        return await rooms.ToAsyncEnumerable()
+            .SelectAwait(this.GetRoomAvailability)
+            .ToArrayAsync();
+    }
+
+    [Pure]
+    public async ValueTask<RoomAvailability> GetRoomAvailability(RoomInfo room)
+    {
+        RoomAvailabilityState roomState = await this.GetRoomState(room);
         return new RoomAvailability(room, roomState);
     }
 
     [Pure]
-    private RoomAvailabilityState GetRoomState(RoomInfo room)
+    private async ValueTask<RoomAvailabilityState> GetRoomState(RoomInfo room)
     {
-        bool roomOccupied = availabilityContext.ActiveReservations.Any(reservation => reservation.Room.Id == room.Id);
+        RoomAvailabilityContext context = await this.GetRoomAvailabilityContext();
+        bool roomOccupied = context.ActiveReservations.Any(reservation => reservation.Room.Id == room.Id);
         if (roomOccupied)
         {
             return RoomAvailabilityState.Occupied;
@@ -26,5 +38,12 @@ public class RoomAvailabilityManager(
 
         // TODO: Check for maintenance & unavailable
         return RoomAvailabilityState.Available;
+    }
+
+    [Pure]
+    private async ValueTask<RoomAvailabilityContext> GetRoomAvailabilityContext()
+    {
+        return this.availabilityContextCache
+            ??= await RoomAvailabilityContext.Create(reservationManager);
     }
 }

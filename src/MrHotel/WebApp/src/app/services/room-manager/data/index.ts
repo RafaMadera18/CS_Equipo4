@@ -3,4 +3,4 @@ export * from "./room-availability-state";
 export * from "./room-availability";
 export * from "./room-property";
 export * from "./room-property-group";
-export * from "./room-create-request";
+export * from "./room-creation-data";

@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 
 using MrHotel.Database.Entities.Reservations;
 
-public record CreateReservationRequest(
+public record ReservationCreationData(
     Guid GuestId,
     Guid RoomId,
     DateTimeOffset CheckInDate,
@@ -12,7 +12,7 @@ public record CreateReservationRequest(
     float Price)
 {
     [Pure]
-    public ReservationInfo Create()
+    public ReservationInfo ToReservationInfo()
     {
         return new()
         {

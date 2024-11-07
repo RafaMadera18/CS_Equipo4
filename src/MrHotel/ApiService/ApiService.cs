@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Builder;
 
+using MrHotel.ApiService.Core.Storage.Entities.Extensions;
 using MrHotel.ApiService.Guests.Endpoints;
 using MrHotel.ApiService.Guests.Services;
 using MrHotel.ApiService.Reservations.Endpoints;
@@ -10,6 +11,9 @@ using MrHotel.ApiService.Rooms.Endpoints;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database;
 using MrHotel.Database.Entities;
+using MrHotel.Database.Entities.Guests;
+using MrHotel.Database.Entities.Reservations;
+using MrHotel.Database.Entities.Rooms;
 using MrHotel.Identity.Extensions;
 using MrHotel.ServiceDefaults.WebAppSettings;
 
@@ -28,8 +32,13 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddAppAuth();
 
         builder.Services.AddTransient<RoomManager>();
+        builder.Services.AddTransient<RoomAvailabilityManager>();
         builder.Services.AddTransient<GuestManager>();
         builder.Services.AddTransient<ReservationManager>();
+
+        builder.Services.AddEntityRepository<AppDbContext, RoomInfo>();
+        builder.Services.AddEntityRepository<AppDbContext, GuestInfo>();
+        builder.Services.AddEntityRepository<AppDbContext, ReservationInfo>();
     }
 
     protected override async Task Configure(WebApplication app)

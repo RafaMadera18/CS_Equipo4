@@ -4,10 +4,10 @@ using System.Diagnostics.Contracts;
 
 using MrHotel.Database.Entities.Rooms;
 
-public record CreateRoomRequest(string Name)
+public record RoomCreationData(string Name)
 {
     [Pure]
-    public RoomInfo Create()
+    public RoomInfo ToRoomInfo()
     {
         return new()
         {
