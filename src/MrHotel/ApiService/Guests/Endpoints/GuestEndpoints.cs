@@ -40,7 +40,9 @@ public static class GuestEndpoints
         [FromBody] GuestUpdateData guestUpdateData,
         [FromServices] GuestManager guestManager)
     {
-        if (!guestManager.TryGetGuestById(guestId, out GuestInfo? guest))
+        GuestInfo? guest = await guestManager.TryGetGuestById(guestId);
+
+        if (guest is null)
         {
             return TypedResults.NotFound();
         }
@@ -56,7 +58,9 @@ public static class GuestEndpoints
         [FromRoute] Guid guestId,
         [FromServices] GuestManager guestManager)
     {
-        if (!guestManager.TryGetGuestById(guestId, out GuestInfo? guest))
+        GuestInfo? guest = await guestManager.TryGetGuestById(guestId);
+
+        if (guest is null)
         {
             return TypedResults.NotFound();
         }
