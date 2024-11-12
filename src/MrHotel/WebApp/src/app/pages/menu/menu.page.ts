@@ -6,19 +6,10 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+
 import { toSignal } from "@angular/core/rxjs-interop";
 
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonTabs,
-  IonButton,
-  IonIcon,
-} from "@ionic/angular/standalone";
+import { IonTabs } from "@ionic/angular/standalone";
 
 import { addIcons } from "ionicons";
 import {
