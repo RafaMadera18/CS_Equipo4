@@ -3,15 +3,19 @@ import { ModalController } from "@ionic/angular";
 
 @Directive()
 export abstract class BaseModalFormComponent<Tinput, TOutput> {
-  public readonly input!: Tinput;
+  private readonly _input!: Tinput;
 
-  constructor(protected readonly modalController: ModalController) {}
+  constructor(private readonly _modalController: ModalController) {}
 
   public submitModal(output: TOutput): void {
-    this.modalController.dismiss(output);
+    this._modalController.dismiss(output);
   }
 
   public dismissModal(): void {
-    this.modalController.dismiss(null);
+    this._modalController.dismiss(null);
+  }
+
+  public get input() {
+    return this._input;
   }
 }
