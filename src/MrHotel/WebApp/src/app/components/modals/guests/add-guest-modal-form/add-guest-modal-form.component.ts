@@ -34,7 +34,6 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
       this.submitModal(guestCreationData);
     } else {
-      // TODO
       console.error("Guest data is invalid");
       this.dismissModal();
     }
