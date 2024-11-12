@@ -26,10 +26,10 @@
     <li>
       <app-tab-button
         name="Back"
-        (click)="sidebarExpanded.set(!sidebarExpanded())"
-        [expanded]="sidebarExpanded"
+        (click)="isSideBarExpanded.set(!isSideBarExpanded())"
+        [expanded]="isSideBarExpanded"
         [icon]="
-          sidebarExpanded() ? 'arrow-back-outline' : 'reorder-three-outline'
+          isSideBarExpanded() ? 'arrow-back-outline' : 'reorder-three-outline'
         "
       />
     </li>
@@ -38,14 +38,14 @@
       <app-tab-button
         name="Reservations"
         icon="bed-outline"
-        [expanded]="sidebarExpanded"
+        [expanded]="isSideBarExpanded"
         (click)="onTabClick('reservations')"
       />
 
       <app-tab-button
         name="Guests"
         icon="person-outline"
-        [expanded]="sidebarExpanded"
+        [expanded]="isSideBarExpanded"
         (click)="onTabClick('guests')"
       />
     </li>

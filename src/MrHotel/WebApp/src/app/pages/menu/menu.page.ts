@@ -38,28 +38,17 @@ import { Nullable } from "@customTypes/nullable";
   templateUrl: "./menu.page.html",
   styleUrls: ["./menu.page.scss"],
   standalone: true,
-  imports: [
-    IonIcon,
-    IonButton,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonTabs,
-    TabButtonComponent,
-    CommonModule,
-    FormsModule,
-  ],
+  imports: [IonTabs, TabButtonComponent],
 })
 export class MenuPage {
-  protected readonly userInfo: Signal<Nullable<UserInfoResponse>>;
+  protected readonly _userInfo: Signal<Nullable<UserInfoResponse>>;
 
-  protected readonly sidebar =
+  protected readonly _sidebar =
     viewChild.required<ElementRef<HTMLDivElement>>("sidebar");
 
-  protected readonly sidebarExpanded = signal<boolean>(false);
+  protected readonly _isSidebarExpanded = signal<boolean>(false);
 
-  protected readonly tabs = viewChild.required(IonTabs);
+  protected readonly _tabs = viewChild.required(IonTabs);
 
   constructor(authService: AuthService) {
     addIcons({
@@ -69,17 +58,25 @@ export class MenuPage {
       personOutline,
     });
 
-    this.userInfo = toSignal(authService.userInfo(), { initialValue: null });
+    this._userInfo = toSignal(authService.userInfo(), { initialValue: null });
 
     effect(() => {
-      this.sidebar().nativeElement.classList.toggle(
+      this._sidebar().nativeElement.classList.toggle(
         "expanded",
-        this.sidebarExpanded(),
+        this._isSidebarExpanded(),
       );
     });
   }
 
   protected onTabClick(tab: string): void {
-    this.tabs().select(tab);
+    this._tabs().select(tab);
+  }
+
+  public get userInfo() {
+    return this._userInfo;
+  }
+
+  public get isSideBarExpanded() {
+    return this._isSidebarExpanded;
   }
 }
