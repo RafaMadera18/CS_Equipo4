@@ -35,6 +35,23 @@ public static class GuestEndpoints
         return TypedResults.Ok(guests);
     }
 
+    public static async Task<Results<NoContent, NotFound>> HandlePut(
+        [FromRoute] Guid guestId,
+        [FromBody] GuestUpdateData guestUpdateData,
+        [FromServices] GuestManager guestManager)
+    {
+        if (!guestManager.TryGetGuestById(guestId, out GuestInfo? guest))
+        {
+            return TypedResults.NotFound();
+        }
+
+        guestUpdateData.ApplyUpdate(guest);
+        guestManager.UpdateGuest(guest);
+        await guestManager.SaveChanges();
+
+        return TypedResults.NoContent();
+    }
+
     public static async Task<Results<NoContent, NotFound>> HandleDelete(
         [FromRoute] Guid guestId,
         [FromServices] GuestManager guestManager)
