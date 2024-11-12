@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BaseModalFormComponent } from "@components/modals/modal-base-form.component";
 import { IonicModule } from "@ionic/angular";
@@ -13,13 +13,19 @@ import { CalendarDate } from "calendar-date";
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class EditGuestModalFormComponent extends BaseModalFormComponent<
-  GuestInfo,
-  GuestInfo
-> {
+export class EditGuestModalFormComponent
+  extends BaseModalFormComponent<GuestInfo, GuestInfo>
+  implements OnInit
+{
   private _fullName: string = "";
   private _phoneNumber: string = "";
   private _dateOfBirth: string = "";
+
+  public ngOnInit(): void {
+    this._fullName = this.input.fullName;
+    this._phoneNumber = this.input.phoneNumber;
+    this._dateOfBirth = this.input.dateOfBirth.toString();
+  }
 
   public onSubmit(): void {
     if (this.isGuestDataValid()) {
@@ -78,7 +84,7 @@ export class EditGuestModalFormComponent extends BaseModalFormComponent<
   }
 }
 
-export const addGuestModal: ModalInfo<
+export const editGuestModal: ModalInfo<
   GuestInfo,
   GuestInfo,
   EditGuestModalFormComponent

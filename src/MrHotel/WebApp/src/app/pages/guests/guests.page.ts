@@ -14,6 +14,7 @@ import { deleteModal } from "@components/modals/delete-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";
 import { GuestManagerService } from "@services/guest-manager";
+import { editGuestModal } from "@components/modals/guests/edit-guest-modal-form/";
 
 @Component({
   selector: "app-guests",
@@ -50,6 +51,17 @@ export class GuestsPage {
 
     if (isDeleteConfirmed?.state) {
       this._guestManager.deleteGuest(guest).subscribe();
+    }
+  }
+
+  public async editGuest(guest: GuestInfo): Promise<void> {
+    const updatedGuest = await this._modalService.openModal(
+      editGuestModal,
+      guest,
+    );
+
+    if (updatedGuest != null) {
+      console.log(updatedGuest);
     }
   }
 
