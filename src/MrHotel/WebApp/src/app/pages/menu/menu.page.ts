@@ -17,6 +17,7 @@ import {
   arrowBackOutline,
   bedOutline,
   personOutline,
+  cogOutline,
 } from "ionicons/icons";
 
 import { TabButtonComponent } from "@components/tab-button";
@@ -47,6 +48,7 @@ export class MenuPage {
       arrowBackOutline,
       bedOutline,
       personOutline,
+      cogOutline,
     });
 
     this._userInfo = toSignal(authService.userInfo(), { initialValue: null });

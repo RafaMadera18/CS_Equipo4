@@ -23,7 +23,7 @@
 
 <div class="sidebar" #sidebar>
   <ul>
-    <li>
+    <li class="back">
       <app-tab-button
         name="Back"
         (click)="isSideBarExpanded.set(!isSideBarExpanded())"
@@ -41,10 +41,22 @@
         [expanded]="isSideBarExpanded"
         (click)="onTabClick('reservations')"
       />
+    </li>
 
+    <li>
       <app-tab-button
         name="Guests"
         icon="person-outline"
+        [expanded]="isSideBarExpanded"
+        (click)="onTabClick('guests')"
+      />
+    </li>
+
+    <li>
+      <app-tab-button
+        class="settings"
+        name="Settings"
+        icon="cog-outline"
         [expanded]="isSideBarExpanded"
         (click)="onTabClick('guests')"
       />
