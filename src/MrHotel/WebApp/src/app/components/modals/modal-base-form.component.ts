@@ -3,7 +3,7 @@ import { ModalController } from "@ionic/angular";
 
 @Directive()
 export abstract class BaseModalFormComponent<Tinput, TOutput> {
-  private readonly _input!: Tinput;
+  private _input!: Tinput;
 
   constructor(private readonly _modalController: ModalController) {}
 
@@ -17,5 +17,9 @@ export abstract class BaseModalFormComponent<Tinput, TOutput> {
 
   public get input() {
     return this._input;
+  }
+
+  public set input(input: Tinput) {
+    this._input = input;
   }
 }
