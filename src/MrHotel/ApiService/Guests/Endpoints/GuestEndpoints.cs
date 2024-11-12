@@ -35,11 +35,32 @@ public static class GuestEndpoints
         return TypedResults.Ok(guests);
     }
 
+    public static async Task<Results<NoContent, NotFound>> HandlePut(
+        [FromRoute] Guid guestId,
+        [FromBody] GuestUpdateData guestUpdateData,
+        [FromServices] GuestManager guestManager)
+    {
+        GuestInfo? guest = await guestManager.TryGetGuestById(guestId);
+
+        if (guest is null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        guestUpdateData.ApplyUpdate(guest);
+        guestManager.UpdateGuest(guest);
+        await guestManager.SaveChanges();
+
+        return TypedResults.NoContent();
+    }
+
     public static async Task<Results<NoContent, NotFound>> HandleDelete(
         [FromRoute] Guid guestId,
         [FromServices] GuestManager guestManager)
     {
-        if (!guestManager.TryGetGuestById(guestId, out GuestInfo? guest))
+        GuestInfo? guest = await guestManager.TryGetGuestById(guestId);
+
+        if (guest is null)
         {
             return TypedResults.NotFound();
         }

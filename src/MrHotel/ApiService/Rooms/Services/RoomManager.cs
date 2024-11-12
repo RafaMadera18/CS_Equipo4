@@ -1,6 +1,5 @@
 ﻿namespace MrHotel.ApiService.Rooms.Services;
 
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -26,12 +25,9 @@ public class RoomManager(
     }
 
     [Pure]
-    public bool TryGetRoomById(
-        Guid id,
-        [MaybeNullWhen(false)] out RoomInfo room)
+    public ValueTask<RoomInfo?> TryGetRoomById(Guid id)
     {
-        room = roomStorage.EntitySet.Find(id);
-        return room is not null;
+        return roomStorage.EntitySet.FindAsync(id);
     }
 
     [Pure]
