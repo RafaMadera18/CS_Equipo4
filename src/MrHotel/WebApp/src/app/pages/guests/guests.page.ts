@@ -9,7 +9,7 @@ import { pencilOutline, trashOutline, personAddOutline } from "ionicons/icons";
 import { Observable } from "rxjs";
 import { GuestInfo } from "@services/guest-manager/data";
 
-import { addGuestModal } from "@components/modals/add-guest-modal-form";
+import { addGuestModal } from "@components/modals/guests/add-guest-modal-form";
 import { deleteModal } from "@components/modals/delete-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";

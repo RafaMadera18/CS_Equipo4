@@ -12,7 +12,7 @@ import { RoomStatusComponent } from "@components/room-status/room-status.compone
 import {
   addRoomModal,
   AddRoomModalFormComponent,
-} from "@components/modals/add-room-modal-form";
+} from "@components/modals/rooms/add-room-modal-form";
 import {
   deleteModal,
   DeleteModalFormComponent,
