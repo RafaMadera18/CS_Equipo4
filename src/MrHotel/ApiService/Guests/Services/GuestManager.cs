@@ -50,32 +50,50 @@ public class GuestManager(
         return guestStorage.SaveChanges();
     }
 
+    [Pure]
+    private static bool ValidateDateOfBirth(DateOnly dateOfBirth)
+    {
+        // TODO: Time-zone?
+        var todayDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+        return dateOfBirth < todayDate;
+    }
+
+    [Pure]
+    private async Task<bool> ValidateGuestUniqueId(GuestInfo guest)
+    {
+        return await guestStorage.EntitySet.AllAsync(g => g.Id != guest.Id);
+    }
+
     private async Task<ValidationResult> ValidateGuestForAdding(GuestInfo guest)
-{
-    List<ValidationError> errors = [];
-    bool duplicateGuestID = await guestStorage.EntitySet.AnyAsync(g => g.Id == guest.Id);
-    if (duplicateGuestID)
     {
-        errors.Add(new ValidationError("DuplicateId", "Duplicate guest id"));
-    }
+        List<ValidationError> errors = [];
 
-    var dateToday = DateOnly.FromDateTime(DateTime.UtcNow);
-    var invalidDateOfBirth = guest.DateOfBirth.CompareTo(dateToday) > 0;
-    if (invalidDateOfBirth)
-    {
-        errors.Add(new ValidationError("InvalidDateOfBirth", "The date of birth cannot be in the future."));
-    }
+        bool uniqueGuestId = await this.ValidateGuestUniqueId(guest);
+        if (!uniqueGuestId)
+        {
+            errors.Add(new ValidationError("DuplicateId", "Duplicate guest id"));
+        }
 
-    if (guest.PhoneNumber.Length != 10)
-    {
-        errors.Add(new ValidationError("InvalidPhoneNumber", "Phone number lenght is different than 10 digits."));
-    }
+        bool validDateOfBirth = ValidateDateOfBirth(guest.DateOfBirth);
+        if (!validDateOfBirth)
+        {
+            errors.Add(new ValidationError("InvalidDateOfBirth", "The date of birth cannot be in the future"));
+        }
 
-    if (errors.Count == 0)
-    {
-        return ValidationResult.Success;
-    }
+        const int MaxPhoneNumberDigits = 15;
+        if (guest.PhoneNumber.Length > MaxPhoneNumberDigits)
+        {
+            errors.Add(new ValidationError(
+                "InvalidPhoneNumber",
+                $"Phone number must not exceed {MaxPhoneNumberDigits} digits"));
+        }
 
-    return ValidationResult.Failed(errors);
-}
+        if (errors.Count == 0)
+        {
+            return ValidationResult.Success;
+        }
+
+        return ValidationResult.Failed(errors);
+    }
 }
