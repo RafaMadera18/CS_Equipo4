@@ -37,7 +37,7 @@ export class GuestInfo {
     );
   }
 
-  public parseToDTO(): GuestInfoDto {
+  public toGuestInfoDTO(): GuestInfoDto {
     return {
       id: this._id,
       fullName: this._fullName,

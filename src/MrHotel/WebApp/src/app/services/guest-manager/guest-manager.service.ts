@@ -53,7 +53,7 @@ export class GuestManagerService {
   }
 
   public editGuest(guest: GuestInfo): Observable<void> {
-    const updateRequest = this._guestGateway.editGuest(guest.parseToDTO());
+    const updateRequest = this._guestGateway.editGuest(guest.toGuestInfoDTO());
 
     return updateRequest.pipe(
       tap(() => {
