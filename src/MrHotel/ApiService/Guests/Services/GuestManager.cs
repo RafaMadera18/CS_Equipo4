@@ -1,7 +1,6 @@
 ﻿namespace MrHotel.ApiService.Guests.Services;
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -25,12 +24,9 @@ public class GuestManager(
     }
 
     [Pure]
-    public bool TryGetGuestById(
-        Guid id,
-        [MaybeNullWhen(false)] out GuestInfo guest)
+    public ValueTask<GuestInfo?> TryGetGuestById(Guid id)
     {
-        guest = guestStorage.EntitySet.Find(id);
-        return guest is not null;
+        return guestStorage.EntitySet.FindAsync(id);
     }
 
     [Pure]

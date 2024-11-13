@@ -32,7 +32,9 @@ public static class RoomEndpoints
         [FromBody] RoomUpdateData roomUpdateData,
         [FromServices] RoomManager roomManager)
     {
-        if (!roomManager.TryGetRoomById(roomId, out RoomInfo? room))
+        RoomInfo? room = await roomManager.TryGetRoomById(roomId);
+
+        if (room is null)
         {
             return TypedResults.NotFound();
         }
@@ -48,7 +50,9 @@ public static class RoomEndpoints
         [FromRoute] Guid roomId,
         [FromServices] RoomManager roomManager)
     {
-        if (!roomManager.TryGetRoomById(roomId, out RoomInfo? room))
+        RoomInfo? room = await roomManager.TryGetRoomById(roomId);
+
+        if (room is null)
         {
             return TypedResults.NotFound();
         }
