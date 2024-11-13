@@ -61,7 +61,7 @@ export class GuestsPage {
     );
 
     if (updatedGuest != null) {
-      console.log(updatedGuest);
+      this._guestManager.editGuest(updatedGuest).subscribe();
     }
   }
 
