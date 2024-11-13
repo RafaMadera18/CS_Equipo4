@@ -1,12 +1,9 @@
 ﻿namespace MrHotel.ApiService;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using MrHotel.Database;
-using MrHotel.Identity;
 
-using RaptorUtils.AspNet.Logging;
 using RaptorUtils.Extensions.Configuration;
 
 internal static class DatabaseInitializer
@@ -17,7 +14,6 @@ internal static class DatabaseInitializer
         IServiceProvider serviceProvider = serviceScope.ServiceProvider;
 
         await EnsureDbCreated(app, serviceProvider);
-        await EnsureRolesCreated(app.Logger, serviceProvider);
     }
 
     private static async Task EnsureDbCreated(WebApplication app, IServiceProvider serviceProvider)
@@ -34,38 +30,16 @@ internal static class DatabaseInitializer
 
         app.Logger.LogWarning("Db persistence disabled! Data will not be saved.");
 
-        var context = serviceProvider.GetRequiredService<AppDbContext>();
+        var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
 
-        // TODO: Replace with aspire 9 WaitFor
-        // Wait to avoid a connection retry
-        await Task.Delay(TimeSpan.FromSeconds(2));
-
-        bool dbCreated = await AppDbContextInitializer.EnsureCreatedAsync(
-            context,
-            exception => app.Logger.LogInformation(exception, "Waiting for database..."));
+        bool dbCreated = await dbContext.Database.EnsureCreatedAsync();
 
         if (!dbCreated)
         {
             throw new InvalidOperationException("Database already exists.");
         }
 
-        string dbName = context.Database.GetDbConnection().Database;
+        string dbName = dbContext.Database.GetDbConnection().Database;
         app.Logger.LogInformation("Database '{DatabaseName}' created successfully", dbName);
-    }
-
-    private static async Task EnsureRolesCreated(ILogger logger, IServiceProvider serviceProvider)
-    {
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-        foreach (string roleName in Enum.GetNames<UserRole>())
-        {
-            if (!await roleManager.RoleExistsAsync(roleName))
-            {
-                var role = new IdentityRole(roleName);
-                await roleManager.CreateAsync(role);
-
-                logger.TryInformation()?.Log("Created role: {Role}", roleName);
-            }
-        }
     }
 }
