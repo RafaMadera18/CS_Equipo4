@@ -1,7 +1,6 @@
 ﻿namespace MrHotel.ApiService.Guests.Services;
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -25,12 +24,9 @@ public class GuestManager(
     }
 
     [Pure]
-    public bool TryGetGuestById(
-        Guid id,
-        [MaybeNullWhen(false)] out GuestInfo guest)
+    public ValueTask<GuestInfo?> TryGetGuestById(Guid id)
     {
-        guest = guestStorage.EntitySet.Find(id);
-        return guest is not null;
+        return guestStorage.EntitySet.FindAsync(id);
     }
 
     [Pure]
@@ -54,16 +50,50 @@ public class GuestManager(
         return guestStorage.SaveChanges();
     }
 
+    [Pure]
+    private static bool ValidateDateOfBirth(DateOnly dateOfBirth)
+    {
+        // TODO: Time-zone?
+        var todayDate = DateOnly.FromDateTime(DateTime.UtcNow);
+
+        return dateOfBirth < todayDate;
+    }
+
+    [Pure]
+    private async Task<bool> ValidateGuestUniqueId(GuestInfo guest)
+    {
+        return await guestStorage.EntitySet.AllAsync(g => g.Id != guest.Id);
+    }
+
     private async Task<ValidationResult> ValidateGuestForAdding(GuestInfo guest)
     {
-        bool duplicateRoom = await guestStorage.EntitySet.AnyAsync(g => g.Id == guest.Id);
+        List<ValidationError> errors = [];
 
-        if (duplicateRoom)
+        bool uniqueGuestId = await this.ValidateGuestUniqueId(guest);
+        if (!uniqueGuestId)
         {
-            var error = new ValidationError("DuplicateId", "Duplicate guest id");
-            return ValidationResult.Failed(error);
+            errors.Add(new ValidationError("DuplicateId", "Duplicate guest id"));
         }
 
-        return ValidationResult.Success;
+        bool validDateOfBirth = ValidateDateOfBirth(guest.DateOfBirth);
+        if (!validDateOfBirth)
+        {
+            errors.Add(new ValidationError("InvalidDateOfBirth", "The date of birth cannot be in the future"));
+        }
+
+        const int MaxPhoneNumberDigits = 15;
+        if (guest.PhoneNumber.Length > MaxPhoneNumberDigits)
+        {
+            errors.Add(new ValidationError(
+                "InvalidPhoneNumber",
+                $"Phone number must not exceed {MaxPhoneNumberDigits} digits"));
+        }
+
+        if (errors.Count == 0)
+        {
+            return ValidationResult.Success;
+        }
+
+        return ValidationResult.Failed(errors);
     }
 }

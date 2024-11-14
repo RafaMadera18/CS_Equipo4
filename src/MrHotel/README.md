@@ -12,13 +12,6 @@
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
-- .NET Aspire workload:
-
-  ```bash
-  dotnet workload update
-  dotnet workload install aspire
-  ```
-
 - [Node.js LTS](https://nodejs.org/)
 
 - npm packages:

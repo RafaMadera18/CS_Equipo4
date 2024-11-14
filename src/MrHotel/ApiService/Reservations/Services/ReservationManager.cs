@@ -1,6 +1,5 @@
 ﻿namespace MrHotel.ApiService.Reservations.Services;
 
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +16,9 @@ public class ReservationManager(
     }
 
     [Pure]
-    public bool TryGetReservationById(
-        Guid id,
-        [MaybeNullWhen(false)] out ReservationInfo reservation)
+    public ValueTask<ReservationInfo?> TryGetReservationById(Guid id)
     {
-        reservation = reservationStorage.EntitySet.Find(id);
-        return reservation is not null;
+        return reservationStorage.EntitySet.FindAsync(id);
     }
 
     [Pure]

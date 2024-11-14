@@ -13,6 +13,8 @@ public static class GuestApiExtensions
 
         routeGroup.MapGet(string.Empty, GuestEndpoints.HandleGet);
 
+        routeGroup.MapPut("{guestId}", GuestEndpoints.HandlePut);
+
         routeGroup.MapDelete("{guestId}", GuestEndpoints.HandleDelete);
 
         return routeGroup.WithTags("Guests");
