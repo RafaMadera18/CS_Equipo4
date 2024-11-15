@@ -3,6 +3,28 @@
   overflow-y: scroll;
 }
 
+.container-actions {
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 95%;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.button-add-product {
+  background-color: var(--dark-blue);
+  color: var(--light);
+}
+
 main {
   width: 95%;
   margin: 1rem auto;

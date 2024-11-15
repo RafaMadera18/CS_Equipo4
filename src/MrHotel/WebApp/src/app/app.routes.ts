@@ -14,5 +14,9 @@ export const routes: Routes = [
   {
     path: "**",
     redirectTo: "",
+  },  {
+    path: 'inventory',
+    loadComponent: () => import('./pages/inventory/inventory.page').then( m => m.InventoryPage)
   },
+
 ];
