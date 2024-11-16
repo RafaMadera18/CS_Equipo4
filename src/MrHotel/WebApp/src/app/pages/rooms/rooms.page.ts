@@ -8,7 +8,7 @@ import { addOutline } from "ionicons/icons";
 
 import { Observable } from "rxjs";
 
-import { RoomStatusComponent } from "@components/room-status/room-status.component";
+import { RoomAvailabilityComponent } from "@components/room-availability/room-availability.component";
 import { addRoomModal } from "@components/modals/rooms/add-room-modal-form";
 import { deleteModal } from "@components/modals/delete-modal-form";
 
@@ -27,7 +27,7 @@ import { RoomAvailabilityManagerService } from "@services/room-availability-mana
   templateUrl: "./rooms.page.html",
   styleUrls: ["./rooms.page.scss"],
   standalone: true,
-  imports: [CommonModule, IonicModule, RoomStatusComponent],
+  imports: [CommonModule, IonicModule, RoomAvailabilityComponent],
 })
 export class RoomsPage {
   private readonly _roomsAvailability: Observable<readonly RoomAvailability[]>;

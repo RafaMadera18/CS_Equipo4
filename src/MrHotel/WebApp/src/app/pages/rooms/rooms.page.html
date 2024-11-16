@@ -11,7 +11,7 @@
       roomAvailability of roomsAvailability | async;
       track roomAvailability.room.id
     ) {
-      <app-room-status
+      <app-room-availability
         [name]="roomAvailability.room.name"
         [state]="roomAvailability.state"
         [tags]="roomAvailability.room.properties"

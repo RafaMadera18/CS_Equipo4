@@ -18,14 +18,13 @@ import {
 } from "@services/room-manager/data";
 
 @Component({
-  selector: "app-room-status",
-  templateUrl: "./room-status.component.html",
-  styleUrls: ["./room-status.component.scss"],
+  selector: "app-room-availability",
+  templateUrl: "./room-availability.component.html",
+  styleUrls: ["./room-availability.component.scss"],
   standalone: true,
   imports: [IonIcon, CommonModule],
 })
-export class RoomStatusComponent {
-  // TODO: Change Component Name
+export class RoomAvailabilityComponent {
   name = input("");
   icon = this.getIconState();
   state = input.required<RoomAvailabilityState>();
