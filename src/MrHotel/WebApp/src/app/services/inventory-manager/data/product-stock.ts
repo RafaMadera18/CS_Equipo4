@@ -17,7 +17,7 @@ export class ProductStock {
       }
     
       public get name(): string {
-        return this.name;
+        return this._name;
       }
 
       public get idealQuantity():  number{
