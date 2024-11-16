@@ -14,7 +14,7 @@
       <app-room-availability
         [name]="roomAvailability.room.name"
         [state]="roomAvailability.state"
-        [tags]="roomAvailability.room.properties"
+        [properties]="roomAvailability.room.properties"
         (deleteClick)="deleteRoom(roomAvailability.room)"
         (addReservation)="addReservation()"
       />

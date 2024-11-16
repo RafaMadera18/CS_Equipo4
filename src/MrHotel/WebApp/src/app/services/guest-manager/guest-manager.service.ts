@@ -20,7 +20,7 @@ export class GuestManagerService {
   constructor(private readonly _guestGateway: GuestManagerGatewayService) {}
 
   public getGuests(): Observable<readonly GuestInfo[]> {
-    if (this._guestsCache != null) {
+    if (this._guestsCache !== null) {
       return this._guestsCache.items$;
     }
 

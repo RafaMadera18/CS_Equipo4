@@ -3,10 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { BaseModalFormComponent } from "@components/modals/modal-base-form.component";
 import { IonicModule } from "@ionic/angular";
 import { ModalInfo } from "@services/modal/modal-info";
-
-export type AddPropertyGroupModalOutput = {
-  name: string;
-};
+import { RoomPropertyGroupCreationData } from "@services/room-property-group-manager/data";
 
 @Component({
   selector: "app-add-property-group-modal-form",
@@ -17,12 +14,19 @@ export type AddPropertyGroupModalOutput = {
 })
 export class AddPropertyGroupModalFormComponent extends BaseModalFormComponent<
   void,
-  AddPropertyGroupModalOutput
+  RoomPropertyGroupCreationData
 > {
   private _name: string = "";
 
   onSubmit(): void {
-    this.submitModal({ name: this._name });
+    if (this._name.trim().length !== 0) {
+      const roomPropertyGroupCreationData = new RoomPropertyGroupCreationData(
+        this._name,
+      );
+      this.submitModal(roomPropertyGroupCreationData);
+    } else {
+      this.dismissModal();
+    }
   }
 
   public set name(name: string) {
@@ -32,7 +36,7 @@ export class AddPropertyGroupModalFormComponent extends BaseModalFormComponent<
 
 export const AddPropertyGroupModal: ModalInfo<
   void,
-  AddPropertyGroupModalOutput,
+  RoomPropertyGroupCreationData,
   AddPropertyGroupModalFormComponent
 > = {
   component: AddPropertyGroupModalFormComponent,
