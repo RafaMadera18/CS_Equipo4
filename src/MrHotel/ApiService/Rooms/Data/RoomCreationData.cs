@@ -11,7 +11,6 @@ public record RoomCreationData(string Name)
     {
         return new()
         {
-            Id = Guid.NewGuid(),
             Name = this.Name.Trim(),
         };
     }

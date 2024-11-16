@@ -5,7 +5,7 @@ using MrHotel.Database.Entities.Rooms;
 
 public partial class ReservationInfo
 {
-    public required Guid Id { get; set; }
+    public Guid Id { get; init; }
 
     public GuestInfo Guest { get; set; } = null!;
 
