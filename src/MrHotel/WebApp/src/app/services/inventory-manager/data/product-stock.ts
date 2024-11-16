@@ -1,4 +1,7 @@
 import { Guid } from "@customTypes/guid";
+import { ReplaceFieldType } from "@customTypes/replace-field-type";
+import { Stringify } from "@customTypes/stringify";
+
 
 
 export class ProductStock {
@@ -24,5 +27,17 @@ export class ProductStock {
       public get stockQuantity(): number{
         return this._stocklQuantity;
       }
+
+      public static createFromDto(dto: ProductStockDTO): ProductStock {
+        return new ProductStock(
+            dto.id,
+            dto.name, 
+            parseInt(dto.idealQuantity), 
+            parseInt(dto.stockQuantity),
+        );
+    
+    }
   
 }
+
+export type ProductStockDTO = ReplaceFieldType<Stringify<ProductStock>, "id", Guid >;
