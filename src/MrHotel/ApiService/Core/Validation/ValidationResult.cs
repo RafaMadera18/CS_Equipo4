@@ -2,6 +2,7 @@
 
 using System.Diagnostics.Contracts;
 
+// TODO: Remove
 public sealed class ValidationResult
 {
     private readonly IReadOnlyCollection<ValidationError> errors;

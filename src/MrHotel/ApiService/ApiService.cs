@@ -1,5 +1,7 @@
 ﻿namespace MrHotel.ApiService;
 
+using FluentValidation;
+
 using Microsoft.AspNetCore.Builder;
 
 using MrHotel.ApiService.Core.Storage.Entities.Extensions;
@@ -7,6 +9,8 @@ using MrHotel.ApiService.Guests.Endpoints;
 using MrHotel.ApiService.Guests.Services;
 using MrHotel.ApiService.Reservations.Endpoints;
 using MrHotel.ApiService.Reservations.Services;
+using MrHotel.ApiService.RoomPropertyGroups.Endpoints;
+using MrHotel.ApiService.RoomPropertyGroups.Services;
 using MrHotel.ApiService.Rooms.Endpoints;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database;
@@ -23,6 +27,8 @@ public class ApiService : MrHotelWebAppDefinition
     {
         await base.ConfigureServices(builder);
 
+        ValidatorOptions.Global.LanguageManager.Enabled = false;
+
         builder.Services.AddProblemDetails();
 
         builder.Services.AddAppDbContext(builder.Configuration);
@@ -32,11 +38,13 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddAppAuth();
 
         builder.Services.AddTransient<RoomManager>();
+        builder.Services.AddTransient<RoomPropertyGroupManager>();
         builder.Services.AddTransient<RoomAvailabilityManager>();
         builder.Services.AddTransient<GuestManager>();
         builder.Services.AddTransient<ReservationManager>();
 
         builder.Services.AddEntityRepository<AppDbContext, RoomInfo>();
+        builder.Services.AddEntityRepository<AppDbContext, RoomPropertyGroup>();
         builder.Services.AddEntityRepository<AppDbContext, GuestInfo>();
         builder.Services.AddEntityRepository<AppDbContext, ReservationInfo>();
     }
@@ -52,6 +60,8 @@ public class ApiService : MrHotelWebAppDefinition
         apiGroup.MapMrHotelIdentityApi<AppUser>();
 
         apiGroup.MapRoomsApi();
+
+        apiGroup.MapRoomPropertyGroupApi();
 
         apiGroup.MapGuestApi();
 
