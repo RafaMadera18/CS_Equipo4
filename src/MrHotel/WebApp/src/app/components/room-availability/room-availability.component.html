@@ -1,5 +1,8 @@
 <div class="container">
-  <div [ngClass]="[getColorState(), 'container-room']" (click)="addReservation.emit()">
+  <div
+    [ngClass]="[getColorState(), 'container-room']"
+    (click)="addReservation.emit()"
+  >
     <div class="container-room-num">
       <p class="name">{{ name() }}</p>
       <ion-icon [name]="icon()" class="icon" />
@@ -7,10 +10,10 @@
     </div>
 
     <div class="container-room-tags">
-      @for (tag of tags(); track tag.id) {
+      @for (property of properties(); track property.id) {
         <div class="tag">
           <p>
-            {{ tag.group.name }} <span>{{ tag.name }}</span>
+            {{ property.group.name }} <span>{{ property.name }}</span>
           </p>
         </div>
       }

@@ -12,10 +12,8 @@ import {
   trashOutline,
 } from "ionicons/icons";
 
-import {
-  RoomAvailabilityState,
-  RoomProperty,
-} from "@services/room-manager/data";
+import { RoomAvailabilityState } from "@services/room-manager/data";
+import { RoomProperty, RoomPropertyGroup } from "@services/room-property-group-manager/data";
 
 @Component({
   selector: "app-room-availability",
@@ -28,7 +26,7 @@ export class RoomAvailabilityComponent {
   name = input("");
   icon = this.getIconState();
   state = input.required<RoomAvailabilityState>();
-  tags = input.required<RoomProperty[]>();
+  properties = input.required<RoomProperty[]>();
   public readonly deleteClick = output();
   public readonly addReservation = output();
 

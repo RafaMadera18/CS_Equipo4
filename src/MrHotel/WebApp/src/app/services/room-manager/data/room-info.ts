@@ -1,5 +1,5 @@
 import { Guid } from "@customTypes/.";
-import { RoomProperty } from ".";
+import { RoomProperty } from "@services/room-property-group-manager/data";
 
 export class RoomInfo {
   public constructor(
