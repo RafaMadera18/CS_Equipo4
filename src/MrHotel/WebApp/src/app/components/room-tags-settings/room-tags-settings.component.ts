@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
+import { AddPropertyGroupModal } from "@components/modals/room-property-groups/add-property-group-modal-form/add-property-group-modal-form.component";
 import { IonIcon } from "@ionic/angular/standalone";
+import { ModalService } from "@services/modal/modal.service";
 import { addIcons } from "ionicons";
 import { addOutline } from "ionicons/icons";
 
@@ -11,7 +13,15 @@ import { addOutline } from "ionicons/icons";
   imports: [IonIcon],
 })
 export class RoomTagsSettingsComponent {
-  constructor() {
+  constructor(private readonly _modalService: ModalService) {
     addIcons({ addOutline });
+  }
+
+  public async addPropertyGroup(): Promise<void> {
+    const propertyGroupCreateRequest = await this._modalService.openModal(
+      AddPropertyGroupModal,
+    );
+
+    console.log(propertyGroupCreateRequest);
   }
 }

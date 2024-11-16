@@ -8,6 +8,4 @@ import { RoomTagsSettingsComponent } from "@components/room-tags-settings";
   standalone: true,
   imports: [RoomTagsSettingsComponent],
 })
-export class SettingsPage {
-  constructor() {}
-}
+export class SettingsPage {}
