@@ -1,9 +1,10 @@
 ﻿namespace MrHotel.ApiService.Guests.Endpoints;
 
+using FluentValidation.Results;
+
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-using MrHotel.ApiService.Core.Validation;
 using MrHotel.ApiService.Guests.Data;
 using MrHotel.ApiService.Guests.Services;
 using MrHotel.Database.Entities.Guests;
@@ -17,9 +18,9 @@ public static class GuestEndpoints
         GuestInfo guest = guestCreationData.ToGuestInfo();
 
         ValidationResult result = await guestManager.AddGuest(guest);
-        if (!result.Succeeded)
+        if (!result.IsValid)
         {
-            return TypedResults.ValidationProblem(result.AsErrorDictionary());
+            return TypedResults.ValidationProblem(result.ToDictionary());
         }
 
         await guestManager.SaveChanges();
