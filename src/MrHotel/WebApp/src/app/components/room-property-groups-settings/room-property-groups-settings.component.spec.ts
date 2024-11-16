@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RoomTagsSettingsComponent } from './room-tags-settings.component';
+import { RoomPropertyGroupsSettingsComponent } from './room-property-groups-settings.component';
 
 describe('RoomTagsSettingsComponent', () => {
-  let component: RoomTagsSettingsComponent;
-  let fixture: ComponentFixture<RoomTagsSettingsComponent>;
+  let component: RoomPropertyGroupsSettingsComponent;
+  let fixture: ComponentFixture<RoomPropertyGroupsSettingsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoomTagsSettingsComponent ],
+      declarations: [ RoomPropertyGroupsSettingsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RoomTagsSettingsComponent);
+    fixture = TestBed.createComponent(RoomPropertyGroupsSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

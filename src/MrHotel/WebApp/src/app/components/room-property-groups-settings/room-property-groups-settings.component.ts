@@ -6,13 +6,13 @@ import { addIcons } from "ionicons";
 import { addOutline } from "ionicons/icons";
 
 @Component({
-  selector: "app-room-tags-settings",
-  templateUrl: "./room-tags-settings.component.html",
-  styleUrls: ["./room-tags-settings.component.scss"],
+  selector: "app-room-property-groups-settings",
+  templateUrl: "./room-property-groups-settings.component.html",
+  styleUrls: ["./room-property-groups-settings.component.scss"],
   standalone: true,
   imports: [IonIcon],
 })
-export class RoomTagsSettingsComponent {
+export class RoomPropertyGroupsSettingsComponent {
   constructor(private readonly _modalService: ModalService) {
     addIcons({ addOutline });
   }

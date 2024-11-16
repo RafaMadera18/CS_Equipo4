@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
-import { RoomTagsSettingsComponent } from "@components/room-tags-settings";
+import { RoomPropertyGroupsSettingsComponent } from "@components/room-property-groups-settings";
 
 @Component({
   selector: "app-settings",
   templateUrl: "./settings.page.html",
   styleUrls: ["./settings.page.scss"],
   standalone: true,
-  imports: [RoomTagsSettingsComponent],
+  imports: [RoomPropertyGroupsSettingsComponent],
 })
 export class SettingsPage {}
