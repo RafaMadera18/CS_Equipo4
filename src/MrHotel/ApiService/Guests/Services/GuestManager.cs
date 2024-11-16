@@ -17,7 +17,7 @@ public class GuestManager(
         ValidationResult result = await this.ValidateGuestForAdding(guest);
         if (result.Succeeded)
         {
-            guestStorage.EntitySet.Add(guest);
+            await guestStorage.EntitySet.AddAsync(guest);
         }
 
         return result;

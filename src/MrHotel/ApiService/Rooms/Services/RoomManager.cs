@@ -18,7 +18,7 @@ public class RoomManager(
         ValidationResult result = await this.ValidateRoomForAdding(room);
         if (result.Succeeded)
         {
-            roomStorage.EntitySet.Add(room);
+            await roomStorage.EntitySet.AddAsync(room);
         }
 
         return result;
@@ -27,6 +27,7 @@ public class RoomManager(
     [Pure]
     public ValueTask<RoomInfo?> TryGetRoomById(Guid id)
     {
+        // TODO: Include properties?
         return roomStorage.EntitySet.FindAsync(id);
     }
 
