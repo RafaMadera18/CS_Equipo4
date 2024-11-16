@@ -34,16 +34,13 @@ export class RoomsPage {
 
   constructor(
     private readonly _roomManager: RoomManagerService,
-    roomAvailabilityManager: RoomAvailabilityManagerService,
+    private readonly _roomAvailabilityManager: RoomAvailabilityManagerService,
     private readonly _modalService: ModalService,
   ) {
     addIcons({ addOutline });
 
-    this._roomsAvailability = roomAvailabilityManager.getRoomsAvailability();
-  }
-
-  public get roomsAvailability() {
-    return this._roomsAvailability;
+    this._roomsAvailability =
+      this._roomAvailabilityManager.getRoomsAvailability();
   }
 
   public async addRoom(): Promise<void> {
@@ -68,5 +65,9 @@ export class RoomsPage {
   public async addReservation(): Promise<void> {
     // TODO: Create Logic to add a Reservation
     console.log("Conectado");
+  }
+
+  public get roomsAvailability() {
+    return this._roomsAvailability;
   }
 }
