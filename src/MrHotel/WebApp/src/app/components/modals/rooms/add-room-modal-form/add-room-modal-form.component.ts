@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 
 import { ModalInfo } from "@services/modal/modal-info";
-import { BaseModalFormComponent } from "../modal-base-form.component";
+import { BaseModalFormComponent } from "../../modal-base-form.component";
 
 export type AddRoomModalOutput = {
   name: string;

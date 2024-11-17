@@ -27,9 +27,9 @@ export class RoomAvailabilityManagerService {
 
   constructor(
     private readonly _roomGateway: RoomAvailabilityManagerGatewayService,
-    roomManager: RoomManagerService,
+    private readonly _roomManager: RoomManagerService,
   ) {
-    this.subscribeToRoomManagerEvents(roomManager);
+    this.subscribeToRoomManagerEvents(this._roomManager);
   }
 
   public getRoomsAvailability(): Observable<readonly RoomAvailability[]> {

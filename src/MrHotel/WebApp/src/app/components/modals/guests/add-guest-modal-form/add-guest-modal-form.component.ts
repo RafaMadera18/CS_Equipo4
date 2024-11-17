@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 
 import { IonicModule } from "@ionic/angular";
 
-import { BaseModalFormComponent } from "../modal-base-form.component";
+import { BaseModalFormComponent } from "../../modal-base-form.component";
 
 import { ModalInfo } from "@services/modal/modal-info";
 import { GuestCreationData } from "@services/guest-manager/data";
@@ -34,7 +34,6 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
       this.submitModal(guestCreationData);
     } else {
-      // TODO
       console.error("Guest data is invalid");
       this.dismissModal();
     }

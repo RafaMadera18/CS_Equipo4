@@ -36,6 +36,15 @@ export class GuestInfo {
       new CalendarDate(dto.dateOfBirth),
     );
   }
+
+  public toGuestInfoDTO(): GuestInfoDto {
+    return {
+      id: this._id,
+      fullName: this._fullName,
+      phoneNumber: this._phoneNumber,
+      dateOfBirth: this._dateOfBirth.toString(),
+    };
+  }
 }
 
 export type GuestInfoDto = ReplaceFieldType<Stringify<GuestInfo>, "id", Guid>;

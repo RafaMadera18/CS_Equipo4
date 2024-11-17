@@ -23,6 +23,11 @@ export const routes: Routes = [
           import("../inventory/inventory.page").then((m) => m.InventoryPage),
       },
       {
+        path: "settings",
+        loadComponent: () =>
+          import("../settings/settings.page").then((m) => m.SettingsPage),
+      },
+      {
         path: "",
         redirectTo: "/menu/rooms",
         pathMatch: "full",

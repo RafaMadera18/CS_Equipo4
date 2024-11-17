@@ -35,6 +35,12 @@ export class GuestManagerGatewayService {
     return this._httpClient.delete<void>(apiUrl);
   }
 
+  public editGuest(guest: GuestInfoDto): Observable<void> {
+    const apiUrl: string = this.getApiPath(guest.id);
+
+    return this._httpClient.put<void>(apiUrl, guest);
+  }
+
   private getApiPath(path: string = ""): string {
     return `api/guests/${path}`;
   }

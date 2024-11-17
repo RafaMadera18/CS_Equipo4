@@ -42,4 +42,15 @@ export class ObservableCollection<T> {
 
     this.removeAt(removeIndex);
   }
+
+  public replaceAt(item: T, index: number): void {
+    const array = this.subject.value;
+
+    if (index < 0 || index >= array.length) {
+      throw new RangeError(`Index "${index}" is out of bounds.`);
+    }
+
+    array[index] = item;
+    this.subject.next(array);
+  }
 }
