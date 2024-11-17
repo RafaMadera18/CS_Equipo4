@@ -50,6 +50,7 @@ export class MenuPage {
       bedOutline,
       personOutline,
       clipboardOutline,
+      cogOutline,
     });
 
     this._userInfo = toSignal(authService.userInfo(), { initialValue: null });
