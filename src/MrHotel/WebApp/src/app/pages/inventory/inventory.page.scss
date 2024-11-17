@@ -25,13 +25,35 @@
   color: var(--light);
 }
 
+.container-reports{
+  display: flex;
+  justify-content: center;
+  gap: 35rem;
+  align-items: center;
+  width: 95%;
+  margin: 1rem auto;
+}
+
+.button-add-PurchaseReport, .button-add-UsageReport{
+  background-color: var(--dark-blue);
+  color: var(--light);
+}
+
 main {
   width: 95%;
   margin: 1rem auto;
 }
 
+.table-container {
+  max-height: 550px;
+  overflow-y: auto;
+  border: 1px solid var(--light-gray);
+  border-radius: 0.5rem;
+}
+
 table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 thead {
