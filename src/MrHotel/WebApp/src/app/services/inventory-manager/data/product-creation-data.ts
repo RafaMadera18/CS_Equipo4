@@ -1,7 +1,7 @@
 import { Guid, Stringify } from "@customTypes/.";
 
 import { ProductStock } from "./product-stock";
-import { ProductInfo } from "./product-info";
+
 
 export class ProductCreationData {
 
@@ -36,7 +36,7 @@ export class ProductCreationData {
   public toProductStock(id: Guid): ProductStock {
     return new ProductStock(
     id,
-    new ProductInfo(id,this._name),
+    this.name,
     this._idealQuantity,
     this._stockQuantity,
     );
