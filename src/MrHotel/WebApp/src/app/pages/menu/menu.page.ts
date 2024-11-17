@@ -50,7 +50,9 @@ export class MenuPage {
       bedOutline,
       personOutline,
       clipboardOutline,
+    });
 
+    this._userInfo = toSignal(authService.userInfo(), { initialValue: null });
 
     effect(() => {
       this._sidebar().nativeElement.classList.toggle(
