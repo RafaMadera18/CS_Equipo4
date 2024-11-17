@@ -7,15 +7,17 @@ import { ProductStock } from "./data/product-stock";
 import { Nullable } from "@customTypes/nullable";
 import { ProductCreationData } from "./data/product-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
+import { PurchaseReport } from "./data/purchase-report";
+import { UsageReport } from "./data/usage-report";
 
 @Injectable({
   providedIn: "root",
 })
 export class InventoryManagerService {
-
   private _inventoryCache: Nullable<ObservableCollection<ProductStock>> = null;
 
   constructor(private readonly _inventoryGateway: InventoryManagerGatewayService) {}
+
 
   public getProductStock(): Observable<readonly ProductStock[]> {
     if (this._inventoryCache != null) {
@@ -28,6 +30,7 @@ export class InventoryManagerService {
     return this._inventoryCache.loadItems(productStock);
   }
 
+
   public addNewProductToStock(productCreationData: ProductCreationData): Observable<Guid> {
     const addRequest = this._inventoryGateway.addNewProductToStock(productCreationData);
 
@@ -37,6 +40,7 @@ export class InventoryManagerService {
       }),
     );
   }
+
 
   public deleteProductFromStock(product: ProductStock): Observable<void> {
     const deleteRequest = this._inventoryGateway.deleteProductFromStock(product.id);
@@ -49,4 +53,5 @@ export class InventoryManagerService {
       }),
     );
   }
+
 }
