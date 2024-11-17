@@ -14,7 +14,6 @@ public record GuestCreationData(
     {
         return new()
         {
-            Id = Guid.NewGuid(),
             FullName = this.FullName.Trim(),
             PhoneNumber = this.PhoneNumber.Trim(),
             DateOfBirth = this.DateOfBirth,

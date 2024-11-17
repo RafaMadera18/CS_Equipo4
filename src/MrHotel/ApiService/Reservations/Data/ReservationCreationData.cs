@@ -16,7 +16,6 @@ public record ReservationCreationData(
     {
         return new()
         {
-            Id = Guid.NewGuid(),
             GuestId = this.GuestId,
             RoomId = this.RoomId,
             CheckInDate = this.CheckInDate,

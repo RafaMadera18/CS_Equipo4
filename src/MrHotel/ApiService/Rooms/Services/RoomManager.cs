@@ -2,23 +2,25 @@
 
 using System.Diagnostics.Contracts;
 
+using FluentValidation.Results;
+
 using Microsoft.EntityFrameworkCore;
 
 using MrHotel.ApiService.Core.Storage.Entities;
-using MrHotel.ApiService.Core.Validation;
+using MrHotel.ApiService.Rooms.Validation;
 using MrHotel.Database.Entities.Rooms;
-
-using RaptorUtils.Collections.Extensions;
 
 public class RoomManager(
     IEntityRepository<RoomInfo> roomStorage)
 {
+    private readonly RoomAddingValidator addingValidator = new(roomStorage.EntitySet);
+
     public async Task<ValidationResult> AddRoom(RoomInfo room)
     {
-        ValidationResult result = await this.ValidateRoomForAdding(room);
-        if (result.Succeeded)
+        ValidationResult result = await this.addingValidator.ValidateAsync(room);
+        if (result.IsValid)
         {
-            roomStorage.EntitySet.Add(room);
+            await roomStorage.EntitySet.AddAsync(room);
         }
 
         return result;
@@ -27,6 +29,7 @@ public class RoomManager(
     [Pure]
     public ValueTask<RoomInfo?> TryGetRoomById(Guid id)
     {
+        // TODO: Include properties?
         return roomStorage.EntitySet.FindAsync(id);
     }
 
@@ -49,32 +52,5 @@ public class RoomManager(
     public Task SaveChanges()
     {
         return roomStorage.SaveChanges();
-    }
-
-    [Pure]
-    private async Task<ValidationResult> ValidateRoomForAdding(RoomInfo room)
-    {
-        RoomInfo[] conflictRooms = await roomStorage.EntitySet
-            .Where(r => r.Id == room.Id || r.Name == room.Name)
-            .ToArrayAsync();
-
-        if (conflictRooms.Length == 0)
-        {
-            return ValidationResult.Success;
-        }
-
-        List<ValidationError> errors = [];
-
-        if (conflictRooms.Any(r => r.Id == room.Id))
-        {
-            errors.Add(new ValidationError("DuplicateId", "Duplicate room id"));
-        }
-
-        if (conflictRooms.Any(r => r.Name == room.Name))
-        {
-            errors.Add(new ValidationError("DuplicateName", "Duplicate room name"));
-        }
-
-        return ValidationResult.Failed(errors);
     }
 }

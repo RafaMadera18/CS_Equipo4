@@ -12,12 +12,13 @@ public class ReservationManager(
 {
     public void AddReservation(ReservationInfo reservation)
     {
-        reservationStorage.EntitySet.Add(reservation);
+        reservationStorage.EntitySet.AddAsync(reservation);
     }
 
     [Pure]
     public ValueTask<ReservationInfo?> TryGetReservationById(Guid id)
     {
+        // TODO: .Include?
         return reservationStorage.EntitySet.FindAsync(id);
     }
 

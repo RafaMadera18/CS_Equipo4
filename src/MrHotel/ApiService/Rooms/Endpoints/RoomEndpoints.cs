@@ -1,9 +1,10 @@
 ﻿namespace MrHotel.ApiService.Rooms.Endpoints;
 
+using FluentValidation.Results;
+
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-using MrHotel.ApiService.Core.Validation;
 using MrHotel.ApiService.Rooms.Data;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database.Entities.Rooms;
@@ -17,9 +18,9 @@ public static class RoomEndpoints
         RoomInfo room = roomCreationData.ToRoomInfo();
 
         ValidationResult result = await roomManager.AddRoom(room);
-        if (!result.Succeeded)
+        if (!result.IsValid)
         {
-            return TypedResults.ValidationProblem(result.AsErrorDictionary());
+            return TypedResults.ValidationProblem(result.ToDictionary());
         }
 
         await roomManager.SaveChanges();
