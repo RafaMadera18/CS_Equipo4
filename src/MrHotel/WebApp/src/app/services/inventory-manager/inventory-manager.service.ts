@@ -38,7 +38,7 @@ export class InventoryManagerService {
     );
   }
 
-  public deleteProduct(product: ProductStock): Observable<void> {
+  public deleteProductFromStock(product: ProductStock): Observable<void> {
     const deleteRequest = this._inventoryGateway.deleteProductFromStock(product.id);
 
     return deleteRequest.pipe(

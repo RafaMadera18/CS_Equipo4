@@ -1,13 +1,14 @@
 import { Guid } from "@customTypes/guid";
 import { ReplaceFieldType } from "@customTypes/replace-field-type";
 import { Stringify } from "@customTypes/stringify";
+import { ProductInfo } from "./product-info";
 
 
 
 export class ProductStock {
     public constructor(
         private readonly _id: Guid,
-        private readonly _name: string,
+        private readonly _productInfo : ProductInfo,
         private readonly _idealQuantity: number,
         private readonly _stocklQuantity: number,
       ) {}
@@ -15,11 +16,11 @@ export class ProductStock {
       public get id(): Guid {
         return this._id;
       }
-    
-      public get name(): string {
-        return this._name;
-      }
 
+      public get productInfo(): ProductInfo{
+        return this._productInfo;
+      }
+    
       public get idealQuantity():  number{
         return this._idealQuantity;
       }
@@ -31,7 +32,7 @@ export class ProductStock {
       public static createFromDto(dto: ProductStockDTO): ProductStock {
         return new ProductStock(
             dto.id,
-            dto.name, 
+            ProductInfo.createFromDto(dto.productInfo),
             parseInt(dto.idealQuantity), 
             parseInt(dto.stockQuantity),
         );
