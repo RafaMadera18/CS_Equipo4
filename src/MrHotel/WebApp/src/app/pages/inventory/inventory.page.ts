@@ -47,7 +47,7 @@ export class InventoryPage {
     });
 
     if (isDeleteConfirmed?.state) {
-      this._inventoryManager.deleteProduct(product).subscribe();
+      this._inventoryManager.deleteProductFromStock(product).subscribe();
     }
   }
 
