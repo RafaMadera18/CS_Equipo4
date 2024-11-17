@@ -1,3 +1,56 @@
-<p>
-  add-product-modal-form works!
-</p>
+<div class="container">
+  <h2>Add Product</h2>
+  <form (sumbit)="onSubmit()">
+
+    <div class="coolinput">
+      <label for="Name" class="text">Product Name:</label>
+      <input
+        id="name"
+        type="text"
+        class="input"
+        [(ngModel)]="_name"
+        name="Name"
+        maxlength="15"
+      />
+    </div>
+
+    <div class="coolinput">
+      <label for="idealQuantity" class="text">Product Ideal Quantity:</label>
+      <input
+        id="idealQuantity"
+        type="number"
+        class="input"
+        [(ngModel)]="_idealQuantity"
+        name="idealQuantity"
+        maxlength="10"
+        (keypress)="acceptOnlyNumbers($event)"
+        min="0"
+      />
+    </div>
+
+    <div class="coolinput">
+      <label for="stockQuantity" class="text">Product Stock Quantity:</label>
+      <input
+        id="stockQuantity"
+        type="number"
+        class="input"
+        [(ngModel)]="_stockQuantity"
+        name="stockQuantity"
+        maxlength="10"
+        (keypress)="acceptOnlyNumbers($event)"
+        min="0"
+      />
+    </div>
+
+    <div class="container-actions">
+      <button class="button button-add" type="submit">Add</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

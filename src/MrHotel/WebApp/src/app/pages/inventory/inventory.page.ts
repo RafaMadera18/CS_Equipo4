@@ -3,7 +3,17 @@ import { CommonModule } from "@angular/common";
 
 import { IonicModule } from "@ionic/angular";
 
+import { addIcons } from "ionicons";
+import { trashOutline } from "ionicons/icons";
+
 import { Observable } from "rxjs";
+
+import { addProductModal } from "@components/modals/add-product-modal-form";
+import { deleteModal } from "@components/modals/delete-modal-form";
+
+import { ModalService } from "@services/modal/modal.service";
+import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
+import { ProductStock } from "@services/inventory-manager/data";
 
 @Component({
   selector: "app-inventory",
@@ -13,5 +23,39 @@ import { Observable } from "rxjs";
   imports: [CommonModule, IonicModule],
 })
 export class InventoryPage {
+  private readonly _products: Observable<readonly ProductStock[]>;
 
+  constructor(
+    private readonly _inventoryManager: InventoryManagerService,
+    private readonly _modalService: ModalService,
+  ){
+    addIcons({ trashOutline });
+    this._products = _inventoryManager.getProductStock();
+  }
+
+  public async addProduct(): Promise<void> {
+    const productCreateRequest = await this._modalService.openModal(addProductModal);
+
+    if(productCreateRequest != null){
+      this._inventoryManager.addNewProductToStock(productCreateRequest).subscribe();
+    }
+  }
+
+  public async deleteProduct(product: ProductStock): Promise<void> {
+    const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
+      message: `Do You want To Delete Product: ${product.name}? `,
+    });
+
+    if (isDeleteConfirmed?.state) {
+      this._inventoryManager.deleteProduct(product).subscribe();
+    }
+  }
+
+  public get products(){
+    return this._products;
+  }
+
+  public async openPurchaseReport(): Promise<void>{
+
+  }
 }

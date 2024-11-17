@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container-actions">
-    <button class="button button-add-product">
+    <button class="button button-add-product" (click)="addProduct()">
       <ion-icon name="add-outline"></ion-icon>
       <span>Add Product</span>
     </button>
@@ -14,110 +14,22 @@
             <th>Name</th>
             <th>Ideal Quantity</th>
             <th>Stock Quantity</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Filas de ejemplo -->
-          <tr>
-            <td>Product A</td>
-            <td>50</td>
-            <td>45</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>Product B</td>
-            <td>30</td>
-            <td>20</td>
-          </tr>
+          @for (product of products | async; track product.id) {
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.idealQuantity }}</td>
+              <td>{{ product.stockQuantity }}</td>
+              <td class="product-actions">
+                <button class="delete" (click)="deleteProduct(product)">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

@@ -76,3 +76,16 @@ td {
   text-align: center;
   padding: 0.5rem;
 }
+
+.guest-actions {
+  justify-content: center;
+}
+
+.delete{
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  color: var(--light);
+  background-color: var(--error);
+}
