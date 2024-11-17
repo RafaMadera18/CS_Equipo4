@@ -17,10 +17,4 @@ export class UsageReport {
     this._products.push(productOffset);
   }
 
-
-  public validate(): void {
-    if (this._products.some((product) => product.quantity <= 0)) {
-      throw new Error("Todos los productos deben tener cantidades positivas.");
-    }
-  }
 }
