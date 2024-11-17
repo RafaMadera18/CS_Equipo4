@@ -5,47 +5,12 @@ import { Stringify } from "@customTypes/stringify";
 import { CalendarDate } from "calendar-date";
 
 export class GuestInfo {
-
-  private readonly id: Guid;
-  private fullName: string;
-  private phoneNumber: string;
-  private dateOfBirth: Date;
-
   public constructor(
-    id: Guid,
-    fullName: string,
-    phoneNumber: string,
-    dateOfBirth: Date,
-  ) {
-    this.id = id;
-    this.fullName = fullName;
-    this.phoneNumber = phoneNumber;
-    this.dateOfBirth = dateOfBirth;
-  }
-
-  public get Id(): Guid {
-    return this.id;
-  }
-
-  public get FullName(): string {
-    return this.fullName;
-  }
-
-  public set FullName(value: string) {
-    this.fullName = value;
-  }
-
-  public get PhoneNumber(): string {
-    return this.phoneNumber;
-  }
-
-  public set PhoneNumber(value: string) {
-    this.phoneNumber = value;
-  }
-
-  public get DateOfBirth(): Date {
-    return this.dateOfBirth;
-  }
+    private readonly _id: Guid,
+    private readonly _fullName: string,
+    private readonly _phoneNumber: string,
+    private readonly _dateOfBirth: CalendarDate,
+  ) {}
 
   public get id(): Guid {
     return this._id;
