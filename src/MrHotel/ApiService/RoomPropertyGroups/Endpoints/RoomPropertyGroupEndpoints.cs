@@ -29,6 +29,14 @@ public static class RoomPropertyGroupEndpoints
         return TypedResults.Ok(propertyGroup.Id);
     }
 
+    public static async Task<Ok<IEnumerable<RoomPropertyGroup>>> HandleGet(
+        [FromServices] RoomPropertyGroupManager groupManager)
+    {
+        IEnumerable<RoomPropertyGroup> propertyGroups = await groupManager.GetPropertyGroups();
+
+        return TypedResults.Ok(propertyGroups);
+    }
+
     public static async Task<Results<Ok<Dictionary<Guid, string>>, ValidationProblem, NotFound>> HandlePut(
         [FromRoute] Guid groupId,
         [FromBody] RoomPropertyGroupUpdateData groupUpdateData,
