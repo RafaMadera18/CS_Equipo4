@@ -13,14 +13,11 @@ where TReport : class, IProductReport
 {
     public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
         [FromBody] TProductReportData reportData,
-        [FromServices] ReportManager<IProductReport> reportManager)
+        [FromServices] ReportManager<TReport> reportManager)
     {
         TReport report = reportData.ToReport();
 
-        await reportManager.AddPurchaseReport(report);
-        await reportManager.SaveChanges();
-
-        // TODO add GUID on OkResult
+        await reportManager.AddReport(report);
         return TypedResults.Ok(report.Id);
     }
 }

@@ -13,6 +13,6 @@ public record ProductStockCreationData(
     public ProductStock ToProductStock()
     {
         var productInfo = new ProductInfo() { Name = this.ProductName };
-        return new ProductStock() { Product = productInfo, IdealQuantity = this.IdealQuantity, StockQuantity = this.StockQuantity};
+        return new ProductStock() { Product = productInfo, IdealQuantity = this.IdealQuantity, StockQuantity = this.StockQuantity };
     }
 }

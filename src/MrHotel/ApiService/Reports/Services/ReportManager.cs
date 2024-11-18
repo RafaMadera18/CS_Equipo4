@@ -10,17 +10,17 @@ public class ReportManager<TReport>(
     InventoryManager inventoryManager)
     where TReport : class, IProductReport
 {
-    public async Task AddPurchaseReport(TReport report)
+    public async Task AddReport(TReport report)
     {
         // TODO add validation
+        Dictionary<Guid, ProductStock> stocks = (await inventoryManager.GetProductStocks()).ToDictionary(stock => stock.Product.Id, stock => stock);
+
         foreach (ProductOffset offset in report.ProductOffsets)
         {
-            ProductStock? currentProduct = await inventoryManager.TryGetProductStockById(offset.Product.Id);
-
-            if (currentProduct != null)
+            if (stocks.TryGetValue(offset.ProductId, out ProductStock? stock))
             {
-                currentProduct.StockQuantity += offset.Quantity;
-                inventoryManager.UpdateProductStock(currentProduct);
+                stock.StockQuantity += offset.Quantity;
+                inventoryManager.UpdateProductStock(stock);
             }
         }
 
@@ -28,7 +28,8 @@ public class ReportManager<TReport>(
         await this.SaveChanges();
     }
 
-    public async Task SaveChanges()
+    // TODO add get
+    private async Task SaveChanges()
     {
         await inventoryManager.SaveChanges();
         await purchaseStorage.SaveChanges();

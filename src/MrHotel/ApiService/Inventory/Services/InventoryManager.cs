@@ -12,7 +12,7 @@ public class InventoryManager(
 {
     public async Task AddProductStock(ProductStock product)
     {
-        //TODO add validation
+        // TODO add validation
         await productStorage.EntitySet.AddAsync(product);
     }
 
@@ -25,7 +25,7 @@ public class InventoryManager(
     [Pure]
     public async Task<IReadOnlyCollection<ProductStock>> GetProductStocks()
     {
-        return await productStorage.EntitySet.ToArrayAsync();
+        return await productStorage.EntitySet.Include(p => p.Product).ToArrayAsync();
     }
 
     public void UpdateProductStock(ProductStock product)

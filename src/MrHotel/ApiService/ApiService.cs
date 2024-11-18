@@ -9,6 +9,9 @@ using MrHotel.ApiService.Guests.Endpoints;
 using MrHotel.ApiService.Guests.Services;
 using MrHotel.ApiService.Inventory.Endpoints;
 using MrHotel.ApiService.Inventory.Services;
+using MrHotel.ApiService.Reports.Data;
+using MrHotel.ApiService.Reports.Endpoints;
+using MrHotel.ApiService.Reports.Services;
 using MrHotel.ApiService.Reservations.Endpoints;
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.RoomPropertyGroups.Endpoints;
@@ -47,6 +50,8 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddTransient<GuestManager>();
         builder.Services.AddTransient<ReservationManager>();
         builder.Services.AddTransient<InventoryManager>();
+        builder.Services.AddTransient<ReportManager<UsageReport>>();
+        builder.Services.AddTransient<ReportManager<PurchaseReport>>();
 
         builder.Services.AddEntityRepository<AppDbContext, RoomInfo>();
         builder.Services.AddEntityRepository<AppDbContext, RoomPropertyGroup>();
@@ -76,6 +81,14 @@ public class ApiService : MrHotelWebAppDefinition
         apiGroup.MapReservationApi();
 
         apiGroup.MapInventoryApi();
+
+        var reportGroup = apiGroup.MapGroup("/reports").RequireAuthorization();
+
+        reportGroup.MapReportApi<PurchaseReportData, PurchaseReport>("/purchase");
+
+        reportGroup.MapReportApi<UsageReportData, UsageReport>("/usage");
+
+        reportGroup.WithTags("Reports");
 
         await app.InitializeDb();
     }
