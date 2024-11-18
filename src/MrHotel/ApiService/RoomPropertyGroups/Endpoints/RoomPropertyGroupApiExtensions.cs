@@ -13,6 +13,8 @@ public static class RoomPropertyGroupApiExtensions
 
         routeGroup.MapPost(string.Empty, RoomPropertyGroupEndpoints.HandlePost);
 
+        routeGroup.MapGet(string.Empty, RoomPropertyGroupEndpoints.HandleGet);
+
         routeGroup.MapPut("{groupId}", RoomPropertyGroupEndpoints.HandlePut);
 
         routeGroup.MapDelete("{groupId}", RoomPropertyGroupEndpoints.HandleDelete);
