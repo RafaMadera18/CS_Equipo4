@@ -5,7 +5,7 @@ import { ObservableCollection } from "@utilities/rxjs";
 import { Guid } from "@customTypes/guid";
 import { ProductStock } from "./data/product-stock";
 import { Nullable } from "@customTypes/nullable";
-import { ProductCreationData } from "./data/product-creation-data";
+import { ProductCreationData } from "./data/product-stock-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
 
 

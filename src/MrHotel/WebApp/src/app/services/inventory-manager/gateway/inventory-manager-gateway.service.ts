@@ -7,7 +7,7 @@ import { mapCollection } from "@utilities/rxjs";
 
 import { Guid } from "@customTypes/guid";
 import { ProductStock, ProductStockDTO } from "../data";
-import { ProductCreationData } from "../data/product-creation-data";
+import { ProductCreationData } from "../data/product-stock-creation-data";
 
 @Injectable({
   providedIn: "root",
