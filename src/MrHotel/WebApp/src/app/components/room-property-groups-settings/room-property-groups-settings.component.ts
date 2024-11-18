@@ -1,5 +1,7 @@
+import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { AddPropertyGroupModal } from "@components/modals/room-property-groups/add-property-group-modal-form/add-property-group-modal-form.component";
+import { RoomPropertyGroupComponent } from "@components/room-property-group/room-property-group.component";
 import { IonIcon } from "@ionic/angular/standalone";
 import { ModalService } from "@services/modal/modal.service";
 import { RoomPropertyGroupManagerService } from "@services/room-property-group-manager";
@@ -13,10 +15,12 @@ import { Observable } from "rxjs";
   templateUrl: "./room-property-groups-settings.component.html",
   styleUrls: ["./room-property-groups-settings.component.scss"],
   standalone: true,
-  imports: [IonIcon],
+  imports: [IonIcon, CommonModule, RoomPropertyGroupComponent],
 })
 export class RoomPropertyGroupsSettingsComponent {
-  private readonly _roomPropertyGroups: Observable<readonly RoomPropertyGroup[]>;
+  private readonly _roomPropertyGroups: Observable<
+    readonly RoomPropertyGroup[]
+  >;
 
   constructor(
     private readonly _modalService: ModalService,
@@ -24,7 +28,8 @@ export class RoomPropertyGroupsSettingsComponent {
   ) {
     addIcons({ addOutline });
 
-    this._roomPropertyGroups = this._roomPropertyGroupManager.getRoomPropertyGroups();
+    this._roomPropertyGroups =
+      this._roomPropertyGroupManager.getRoomPropertyGroups();
   }
 
   public async addPropertyGroup(): Promise<void> {
@@ -32,8 +37,10 @@ export class RoomPropertyGroupsSettingsComponent {
       AddPropertyGroupModal,
     );
 
-    if(propertyGroupCreateRequest !== null){
-      this._roomPropertyGroupManager.addRoomPropertyGroup(propertyGroupCreateRequest).subscribe();
+    if (propertyGroupCreateRequest !== null) {
+      this._roomPropertyGroupManager
+        .addRoomPropertyGroup(propertyGroupCreateRequest)
+        .subscribe();
     }
   }
 

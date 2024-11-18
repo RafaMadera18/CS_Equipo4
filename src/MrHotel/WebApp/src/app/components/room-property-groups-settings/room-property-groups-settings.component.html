@@ -6,4 +6,12 @@
       <span>Add Tag Group</span>
     </button>
   </div>
+  <div class="container-properties">
+    @for (
+      roomPropertyGroup of roomPropertyGroups | async;
+      track roomPropertyGroup.id
+    ) {
+      <app-room-property-group [_roomPropertyGroup]="roomPropertyGroup" />
+    }
+  </div>
 </div>

@@ -1,3 +1,16 @@
-<p>
-  room-property-group works!
-</p>
+<div class="container">
+  <h2>{{ _roomPropertyGroup()?.name }}</h2>
+
+  <div class="container-properties">
+    <ul>
+      @for (property of _roomPropertyGroup()?.properties; track property.id) {
+        <li>{{ property.name }}</li>
+      }
+    </ul>
+  </div>
+
+  <div class="container-buttons">
+    <button class="button button-edit">Edit</button>
+    <button class="button button-delete">Delete</button>
+  </div>
+</div>
