@@ -1,4 +1,6 @@
-namespace MrHotel.Database.Entities.Inventory;
+namespace MrHotel.Database.Entities.Reports;
+
+using MrHotel.Database.Entities.Inventory;
 
 public class ProductOffset
 {

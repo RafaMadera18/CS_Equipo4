@@ -19,6 +19,7 @@ using MrHotel.Database;
 using MrHotel.Database.Entities;
 using MrHotel.Database.Entities.Guests;
 using MrHotel.Database.Entities.Inventory;
+using MrHotel.Database.Entities.Reports;
 using MrHotel.Database.Entities.Reservations;
 using MrHotel.Database.Entities.Rooms;
 using MrHotel.Identity.Extensions;
@@ -52,6 +53,8 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddEntityRepository<AppDbContext, GuestInfo>();
         builder.Services.AddEntityRepository<AppDbContext, ReservationInfo>();
         builder.Services.AddEntityRepository<AppDbContext, ProductStock>();
+        builder.Services.AddEntityRepository<AppDbContext, UsageReport>();
+        builder.Services.AddEntityRepository<AppDbContext, PurchaseReport>();
     }
 
     protected override async Task Configure(WebApplication app)
