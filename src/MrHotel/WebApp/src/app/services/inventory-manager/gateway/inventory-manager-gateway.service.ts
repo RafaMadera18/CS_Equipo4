@@ -25,7 +25,7 @@ export class InventoryManagerGatewayService {
 
   public addNewProductToStock(productCreationData: ProductCreationData): Observable<Guid> {
     const apiUrl: string = this.getApiPath();
-  
+
     return this._httpClient.post<Guid>(apiUrl, productCreationData);
   }
 
@@ -36,7 +36,7 @@ export class InventoryManagerGatewayService {
   }
 
   private getApiPath(path: string = ""): string {
-    return `api/guests/${path}`;
+    return `api/inventory/${path}`;
   }
 
 }

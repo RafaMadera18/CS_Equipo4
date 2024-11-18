@@ -20,7 +20,7 @@ export class InventoryManagerService {
 
 
   public getProductStock(): Observable<readonly ProductStock[]> {
-    if (this._inventoryCache != null) {
+    if (this._inventoryCache !== null) {
       return this._inventoryCache.items$;
     }
 
@@ -36,7 +36,7 @@ export class InventoryManagerService {
 
     return addRequest.pipe(
       tap((newProductId: Guid) => {
-        this._inventoryCache?.add(productCreationData.toProductStock(newProductId)); 
+        this._inventoryCache?.add(productCreationData.toProductStock(newProductId));
       }),
     );
   }
