@@ -12,7 +12,7 @@ using RaptorUtils.Collections.Extensions;
 
 public record RoomPropertyGroupUpdateData(
     string Name,
-    IReadOnlyCollection<RoomPropertyUpdateData> PropertiesUpdates)
+    IReadOnlyCollection<RoomPropertyUpdateData> Properties)
 {
     [Pure]
     public bool IsValid(out ValidationResult result)
@@ -49,6 +49,6 @@ public record RoomPropertyGroupUpdateData(
     [Pure]
     private IEnumerable<RoomProperty> CreatePropertiesFromUpdates(RoomPropertyGroup group)
     {
-        return this.PropertiesUpdates.Select(p => p.ToRoomProperty(group));
+        return this.Properties.Select(p => p.ToRoomProperty(group));
     }
 }
