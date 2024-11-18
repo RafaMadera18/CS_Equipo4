@@ -5,7 +5,6 @@ import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
 
-import { PurchaseReport } from "@services/inventory-manager/data/purchase-report"
 
 @Component({
   selector: 'app-add-purchase-report-modal-form',
@@ -15,6 +14,12 @@ import { PurchaseReport } from "@services/inventory-manager/data/purchase-report
   imports: [IonicModule, FormsModule],
 })
 export class AddPurchaseReportModalFormComponent {
+acceptOnlyNumbers($event: KeyboardEvent) {
+throw new Error('Method not implemented.');
+}
+onSubmit() {
+throw new Error('Method not implemented.');
+}
 
   constructor() { }
 

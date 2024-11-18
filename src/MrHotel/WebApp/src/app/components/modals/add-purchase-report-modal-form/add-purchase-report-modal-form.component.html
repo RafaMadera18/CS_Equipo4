@@ -1,6 +1,11 @@
 <div class="container">
-  <h2>Add Purchase Report</h2>
-  <form>
+  <h2>Purchase report</h2>
+  <form (submit)="onSubmit()">
+    <div class="coolinput">
+      <label for="productName" class="text">Choose the product:</label>
+      <select id="products" name="products">
+        <option value="">Choose a product</option>
+      </select>
+    </div>
 
-  </form>
-</div>
+    
