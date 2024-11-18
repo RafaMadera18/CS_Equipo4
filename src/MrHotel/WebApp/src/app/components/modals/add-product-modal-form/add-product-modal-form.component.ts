@@ -15,8 +15,8 @@ import { ProductCreationData } from "@services/inventory-manager/data";
   imports: [IonicModule, FormsModule],
 })
 export class AddProductModalFormComponent extends BaseModalFormComponent<
-void,
-ProductCreationData
+  void,
+  ProductCreationData
 > {
   protected _name: string = "";
   protected _idealQuantity: number = 0;
@@ -33,7 +33,6 @@ protected onSubmit(): void {
 
     this.submitModal(productCreationData);
   } else {
-    // TODO
     console.error("Product data is invalid");
     this.dismissModal();
   }
@@ -42,8 +41,10 @@ protected onSubmit(): void {
 private isAddProductModalDataValid(): boolean {
   return !!(
     this._name.trim() &&
-    this._idealQuantity>0 &&
-    this._stockQuantity>0
+    typeof this._idealQuantity === "number" &&
+    !isNaN(this._idealQuantity) &&
+    typeof this._stockQuantity === "number" &&
+    !isNaN(this._stockQuantity)
   );
 }
 
