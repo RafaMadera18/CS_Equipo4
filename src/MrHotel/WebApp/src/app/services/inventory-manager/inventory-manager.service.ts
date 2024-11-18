@@ -7,8 +7,7 @@ import { ProductStock } from "./data/product-stock";
 import { Nullable } from "@customTypes/nullable";
 import { ProductCreationData } from "./data/product-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
-import { PurchaseReport } from "./data/purchase-report";
-import { UsageReport } from "./data/usage-report";
+
 
 @Injectable({
   providedIn: "root",
