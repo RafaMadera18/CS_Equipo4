@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, input } from "@angular/core";
+import { Component, input, output } from "@angular/core";
 import { RoomPropertyGroup } from "@services/room-property-group-manager/data";
 
 @Component({
@@ -11,6 +11,7 @@ import { RoomPropertyGroup } from "@services/room-property-group-manager/data";
 })
 export class RoomPropertyGroupComponent {
   public _roomPropertyGroup = input<RoomPropertyGroup>();
+  public readonly deleteClick = output();
 
   constructor() {}
 }

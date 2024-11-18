@@ -48,4 +48,22 @@ export class RoomPropertyGroupManagerService {
       }),
     );
   }
+
+  public deleteRoomPropertyGroup(
+    roomPropertyGroup: RoomPropertyGroup,
+  ): Observable<void> {
+    const deleteRequest =
+      this._roomPropertyGroupGateway.deleteRoomPropertyGroup(
+        roomPropertyGroup.id,
+      );
+
+    return deleteRequest.pipe(
+      tap(() => {
+        this._roomPropertyGroupsCache?.removeFirstWhere(
+          (cacheRoomPropertyGroup) =>
+            cacheRoomPropertyGroup.id === roomPropertyGroup.id,
+        );
+      }),
+    );
+  }
 }

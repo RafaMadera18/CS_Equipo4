@@ -11,7 +11,10 @@
       roomPropertyGroup of roomPropertyGroups | async;
       track roomPropertyGroup.id
     ) {
-      <app-room-property-group [_roomPropertyGroup]="roomPropertyGroup" />
+      <app-room-property-group
+        [_roomPropertyGroup]="roomPropertyGroup"
+        (deleteClick)="deletePropertyGroup(roomPropertyGroup)"
+      />
     }
   </div>
 </div>

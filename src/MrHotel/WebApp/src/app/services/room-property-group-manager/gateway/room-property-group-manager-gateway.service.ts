@@ -24,6 +24,12 @@ export class RoomPropertyGroupManagerGatewayService {
     return this._httpClient.post<Guid>(apiUrl, roomPropertyGroupCreationData);
   }
 
+  public deleteRoomPropertyGroup(roomPropertyGroupId: Guid): Observable<void> {
+    const apiUrl: string = this.getApiUrl(roomPropertyGroupId);
+
+    return this._httpClient.delete<void>(apiUrl);
+  }
+
   private getApiUrl(path: string = ""): string {
     return `api/room-property-groups/${path}`;
   }

@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
+import { deleteModal } from "@components/modals/delete-modal-form";
 import { AddPropertyGroupModal } from "@components/modals/room-property-groups/add-property-group-modal-form/add-property-group-modal-form.component";
 import { RoomPropertyGroupComponent } from "@components/room-property-group/room-property-group.component";
 import { IonIcon } from "@ionic/angular/standalone";
@@ -40,6 +41,20 @@ export class RoomPropertyGroupsSettingsComponent {
     if (propertyGroupCreateRequest !== null) {
       this._roomPropertyGroupManager
         .addRoomPropertyGroup(propertyGroupCreateRequest)
+        .subscribe();
+    }
+  }
+
+  public async deletePropertyGroup(
+    roomPropertyGroup: RoomPropertyGroup,
+  ): Promise<void> {
+    const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
+      message: `Do You want To Delete Property Group: ${roomPropertyGroup.name}?`,
+    });
+
+    if (isDeleteConfirmed) {
+      this._roomPropertyGroupManager
+        .deleteRoomPropertyGroup(roomPropertyGroup)
         .subscribe();
     }
   }
