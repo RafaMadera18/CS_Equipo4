@@ -11,7 +11,7 @@ export class ProductCreationData {
     private readonly _stockQuantity: number,
   ) {}
 
-  public get name(): string {
+  public get productName(): string {
     return this._name;
   }
 
@@ -26,7 +26,7 @@ export class ProductCreationData {
 
   public toJSON(): Stringify<ProductCreationData> {
     return {
-      name: this._name,
+      productName: this._name,
       idealQuantity: this._idealQuantity.toString(),
       stockQuantity: this._stockQuantity.toString(),
     };
@@ -36,7 +36,7 @@ export class ProductCreationData {
   public toProductStock(id: Guid): ProductStock {
     return new ProductStock(
     id,
-    this.name,
+    this.productName,
     this._idealQuantity,
     this._stockQuantity,
     );
