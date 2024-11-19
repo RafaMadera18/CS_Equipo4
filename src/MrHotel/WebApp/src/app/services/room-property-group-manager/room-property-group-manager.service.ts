@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Nullable } from "@customTypes/nullable";
 import { ObservableCollection } from "@utilities/rxjs";
 import { RoomPropertyGroup, RoomPropertyGroupCreationData } from "./data";
-import { RoomAvailabilityManagerGatewayService } from "@services/room-availability-manager/gateway/room-availability-manager-gateway.service";
 import { Observable, tap } from "rxjs";
 import { RoomPropertyGroupManagerGatewayService } from "./gateway";
 import { Guid } from "@customTypes/index";
@@ -63,6 +62,32 @@ export class RoomPropertyGroupManagerService {
           (cacheRoomPropertyGroup) =>
             cacheRoomPropertyGroup.id === roomPropertyGroup.id,
         );
+      }),
+    );
+  }
+
+  public editRoomPropertyGroup(roomPropertyGroup: RoomPropertyGroup) {
+    const editRequest =
+      this._roomPropertyGroupGateway.editRoomPropertyGroup(roomPropertyGroup);
+
+    return editRequest.pipe(
+      tap((newPropertiesRecord: Record<string, string>) => {
+        roomPropertyGroup.properties.forEach((property) => {
+          if (property.id) {
+            const newId = newPropertiesRecord[property.name];
+            property.id = newId as Guid;
+          }
+        });
+
+        const index: number =
+          this._roomPropertyGroupsCache
+            ?.getItems()
+            .findIndex(
+              (cachePropertyGroup) =>
+                cachePropertyGroup.id === roomPropertyGroup.id,
+            ) ?? -1;
+
+        this._roomPropertyGroupsCache?.replaceAt(roomPropertyGroup, index);
       }),
     );
   }

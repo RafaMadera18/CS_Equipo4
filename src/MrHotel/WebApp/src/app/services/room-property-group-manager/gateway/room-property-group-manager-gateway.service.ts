@@ -30,6 +30,17 @@ export class RoomPropertyGroupManagerGatewayService {
     return this._httpClient.delete<void>(apiUrl);
   }
 
+  public editRoomPropertyGroup(
+    roomPropertyGroup: RoomPropertyGroup,
+  ): Observable<Record<string, string>> {
+    const apiUrl: string = this.getApiUrl(roomPropertyGroup.id);
+
+    return this._httpClient.put<Record<string, string>>(
+      apiUrl,
+      roomPropertyGroup,
+    );
+  }
+
   private getApiUrl(path: string = ""): string {
     return `api/room-property-groups/${path}`;
   }

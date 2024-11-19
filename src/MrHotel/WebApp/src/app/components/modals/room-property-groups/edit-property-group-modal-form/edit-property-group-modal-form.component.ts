@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BaseModalFormComponent } from "@components/modals/modal-base-form.component";
-import { Guid } from "@customTypes/guid";
 import { IonicModule } from "@ionic/angular";
 import { ModalInfo } from "@services/modal/modal-info";
 import {
@@ -30,11 +29,10 @@ export class EditPropertyGroupModalFormComponent
         name: this._name,
         properties: this._properties,
       };
-
+      console.log(this.properties)
       this.submitModal(editedRoomPropertyGroup);
-    }
-    else {
-      console.error("Edited info is invalid")
+    } else {
+      console.error("Edited info is invalid");
     }
   }
 
@@ -61,7 +59,7 @@ export class EditPropertyGroupModalFormComponent
   }
 
   public addPropertyTextBox() {
-    this._properties.push({ id: "" as Guid, name: "", group: this.input });
+    this._properties.push({ id: null, name: "", group: this.input });
   }
 
   public get name() {
