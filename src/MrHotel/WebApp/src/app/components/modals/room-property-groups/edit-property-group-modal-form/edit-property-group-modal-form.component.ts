@@ -29,7 +29,6 @@ export class EditPropertyGroupModalFormComponent
         name: this._name,
         properties: this._properties,
       };
-      console.log(this.properties)
       this.submitModal(editedRoomPropertyGroup);
     } else {
       console.error("Edited info is invalid");
