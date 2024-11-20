@@ -27,16 +27,16 @@ public class RoomManager(
     }
 
     [Pure]
-    public ValueTask<RoomInfo?> TryGetRoomById(Guid id)
+    public Task<RoomInfo?> TryGetRoomById(Guid id)
     {
-        // TODO: Include properties?
-        return roomStorage.EntitySet.FindAsync(id);
+        return this.QueryRooms()
+            .FirstOrDefaultAsync(r => r.Id == id);
     }
 
     [Pure]
     public async Task<IReadOnlyCollection<RoomInfo>> GetRooms()
     {
-        return await roomStorage.EntitySet.ToArrayAsync();
+        return await this.QueryRooms().ToArrayAsync();
     }
 
     public void UpdateRoom(RoomInfo room)
@@ -52,5 +52,11 @@ public class RoomManager(
     public Task SaveChanges()
     {
         return roomStorage.SaveChanges();
+    }
+
+    private IQueryable<RoomInfo> QueryRooms()
+    {
+        return roomStorage.EntitySet
+            .Include(r => r.Properties);
     }
 }

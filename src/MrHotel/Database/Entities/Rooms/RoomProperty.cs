@@ -6,7 +6,7 @@ public class RoomProperty
 {
     public Guid Id { get; init; }
 
-    public required string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [JsonIgnore]
     public RoomPropertyGroup Group { get; set; } = null!;
