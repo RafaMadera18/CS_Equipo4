@@ -24,7 +24,7 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
   protected phoneNumber: string = "";
   protected dateOfBirth: string = "";
 
-  protected onSubmit(): void {
+  public onSubmit(): void {
     if (this.isAddGuestModalDataValid()) {
       const guestCreationData = new GuestCreationData(
         this.fullName,
