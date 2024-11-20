@@ -1,6 +1,7 @@
 import { ProductOffset } from "../../report-manager/data/product-offset";
 
-export class PurchaseReport {
+export class PurchaseReportData {
+
   constructor(
     private readonly _products: ProductOffset[] = [],
     private readonly _price: number
@@ -12,10 +13,6 @@ export class PurchaseReport {
 
   public get products(): ProductOffset[] {
     return this._products;
-  }
-
-  public addProduct(productOffset: ProductOffset): void {
-    this._products.push(productOffset);
   }
 
   public toJSON(): object {

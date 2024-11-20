@@ -2,7 +2,6 @@ import { Guid, Stringify } from "@customTypes/.";
 
 import { ProductStock } from "./product-stock";
 
-
 export class ProductCreationData {
 
   public constructor(
@@ -14,7 +13,6 @@ export class ProductCreationData {
   public get productName(): string {
     return this._name;
   }
-
 
   public get idealQuantity(): number {
     return this._idealQuantity;
@@ -32,7 +30,6 @@ export class ProductCreationData {
     };
   }
 
-
   public toProductStock(id: Guid): ProductStock {
     return new ProductStock(
     id,
@@ -41,5 +38,4 @@ export class ProductCreationData {
     this._stockQuantity,
     );
   }
-
 }

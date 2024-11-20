@@ -10,10 +10,13 @@ import { Observable } from "rxjs";
 
 import { addProductModal } from "@components/modals/add-product-modal-form";
 import { deleteModal } from "@components/modals/delete-modal-form";
+import { addPurchaseModal } from "@components/modals/add-purchase-report-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
 import { ProductStock } from "@services/inventory-manager/data";
+
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: "app-inventory",
@@ -51,11 +54,19 @@ export class InventoryPage {
     }
   }
 
-  public get products(){
-    return this._products;
+  public async openPurchaseReport(): Promise<void>{
+    const products = await firstValueFrom(this._products);
+
+    const purchaseReportCreateRequest = await this._modalService.openModal(
+      addPurchaseModal,
+      products);
+
+      if(purchaseReportCreateRequest != null){
+
+      }
   }
 
-  public async openPurchaseReport(): Promise<void>{
-
+  public get products(){
+    return this._products;
   }
 }

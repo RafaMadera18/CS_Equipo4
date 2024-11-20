@@ -2,10 +2,55 @@
   <h2>Purchase report</h2>
   <form (submit)="onSubmit()">
     <div class="coolinput">
-      <label for="productName" class="text">Choose the product:</label>
-      <select id="products" name="products">
-        <option value="">Choose a product</option>
-      </select>
+      <label for="title" class="text">Choose the product:</label>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Name</th>
+              <th>Stock Quantity</th>
+              <th>Increase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products">
+              <td><input id="check" type="checkbox" [(ngModel)]="product.selected" [value]="product.id"></td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.stockQuantity }}</td>
+              <td>
+                <input
+                  id="quantity"
+                  type="number"
+                  class="input"
+                  [(ngModel)]="_quantity"
+                  name="Quantity"
+                  min="0"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <label for="totalCost" class="text">Total cost:</label>
+      <input
+        id="totalCost"
+        type="number"
+        class="input"
+        [(ngModel)]="_price"
+        name="TotalCost"
+        min="0"
+        />
     </div>
-
-    
+    <div class="container-actions">
+      <button class="button button-modify" type="submit">Modify</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

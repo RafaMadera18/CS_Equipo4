@@ -8,6 +8,10 @@ import { Observable, tap } from "rxjs";
 
 export class ReportManagerService{
 
-    
+  constructor(private readonly _reportGateway: ReportManagerService) {}
+
+  public AddPurchaseReport(){
+    const addRequest = this._reportGateway
+  }
 
 }
