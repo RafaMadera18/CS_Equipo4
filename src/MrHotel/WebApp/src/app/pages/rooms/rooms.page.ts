@@ -21,6 +21,7 @@ import {
   RoomCreationData,
 } from "@services/room-manager/data";
 import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
+import { editRoomModal } from "@components/modals/rooms/edit-room-modal-form/edit-room-modal-form.component";
 
 @Component({
   selector: "app-rooms",
@@ -60,6 +61,10 @@ export class RoomsPage {
     if (isDeleteConfirmed?.state) {
       this._roomManager.deleteRoom(room).subscribe();
     }
+  }
+
+  public async editRoom(room: RoomInfo): Promise<void> {
+    const editedRoom = await this._modalService.openModal(editRoomModal, room);
   }
 
   public async addReservation(): Promise<void> {

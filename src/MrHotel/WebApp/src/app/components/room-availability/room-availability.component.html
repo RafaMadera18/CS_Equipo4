@@ -21,7 +21,7 @@
   </div>
 
   <div class="container-buttons">
-    <button class="button edit-button">
+    <button class="button edit-button" (click)="editClick.emit()">
       <ion-icon name="pencil-outline" size="large" />
     </button>
     <button class="button delete-button" (click)="deleteClick.emit()">

@@ -13,7 +13,10 @@ import {
 } from "ionicons/icons";
 
 import { RoomAvailabilityState } from "@services/room-manager/data";
-import { RoomProperty, RoomPropertyGroup } from "@services/room-property-group-manager/data";
+import {
+  RoomProperty,
+  RoomPropertyGroup,
+} from "@services/room-property-group-manager/data";
 
 @Component({
   selector: "app-room-availability",
@@ -29,6 +32,7 @@ export class RoomAvailabilityComponent {
   properties = input.required<RoomProperty[]>();
   public readonly deleteClick = output();
   public readonly addReservation = output();
+  public readonly editClick = output();
 
   constructor() {
     addIcons({
