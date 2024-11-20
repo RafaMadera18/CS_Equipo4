@@ -5,7 +5,7 @@ import { ModalController } from "@ionic/angular";
 export abstract class BaseModalFormComponent<Tinput, TOutput> {
   private _input!: Tinput;
 
-  constructor(private readonly _modalController: ModalController) {}
+  constructor(protected readonly _modalController: ModalController) {}
 
   public submitModal(output: TOutput): void {
     this._modalController.dismiss(output);
