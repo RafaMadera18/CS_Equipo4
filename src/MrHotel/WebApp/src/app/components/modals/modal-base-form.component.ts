@@ -11,6 +11,8 @@ export abstract class BaseModalFormComponent<Tinput, TOutput> {
     this._modalController.dismiss(output);
   }
 
+  abstract onSubmit(): void
+
   public dismissModal(): void {
     this._modalController.dismiss(null);
   }

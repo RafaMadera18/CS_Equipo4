@@ -65,6 +65,10 @@ export class RoomsPage {
 
   public async editRoom(room: RoomInfo): Promise<void> {
     const editedRoom = await this._modalService.openModal(editRoomModal, room);
+
+    if (editedRoom) {
+      this._roomManager.editRoom(editedRoom).subscribe();
+    }
   }
 
   public async addReservation(): Promise<void> {

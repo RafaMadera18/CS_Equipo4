@@ -15,6 +15,7 @@ import { RoomManagerGatewayService } from "./gateway/room-manager-gateway.servic
 })
 export class RoomManagerService {
   private readonly _addRoomEvent = new EventPublisher<RoomInfo>();
+  private readonly _updateRoomEvent = new EventPublisher<RoomInfo>();
 
   private readonly _deleteRoomEvent = new EventPublisher<Guid>();
 
@@ -47,5 +48,15 @@ export class RoomManagerService {
         this._deleteRoomEvent.emit(room.id);
       }),
     );
+  }
+
+  public editRoom(room: RoomInfo): Observable<void> {
+    const editRequest = this._roomGateway.editRoom(room);
+
+    return editRequest.pipe(
+      tap(() => {
+        this._updateRoomEvent.emit(room);
+      })
+    )
   }
 }
