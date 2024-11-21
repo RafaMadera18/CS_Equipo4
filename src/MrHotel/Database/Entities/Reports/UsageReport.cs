@@ -1,10 +1,13 @@
 namespace MrHotel.Database.Entities.Reports;
 
-public class UsageReport : IProductReport
+using System.ComponentModel.DataAnnotations;
+
+public class UsageReport : StockReport
 {
-    public Guid Id { get; init; }
+    public required string Concept { get; init; }
 
-    public IReadOnlyCollection<ProductOffset> UsedProducts { get; init; } = [];
-
-    IReadOnlyCollection<ProductOffset> IProductReport.ProductOffsets => this.UsedProducts;
+    public override int GetNewStock(int currentQuantity, int adjustmentQuantity)
+    {
+        return currentQuantity - adjustmentQuantity;
+    }
 }

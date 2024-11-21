@@ -1,37 +1,42 @@
 namespace MrHotel.ApiService.Reports.Services;
 
+using Microsoft.EntityFrameworkCore;
+
 using MrHotel.ApiService.Core.Storage.Entities;
 using MrHotel.ApiService.Inventory.Services;
 using MrHotel.Database.Entities.Inventory;
 using MrHotel.Database.Entities.Reports;
 
 public class ReportManager<TReport>(
-    IEntityRepository<TReport> purchaseStorage,
+    IEntityRepository<TReport> reportStorage,
     InventoryManager inventoryManager)
-    where TReport : class, IProductReport
+    where TReport : StockReport
 {
     public async Task AddReport(TReport report)
     {
-        // TODO add validation
         Dictionary<Guid, ProductStock> stocks = (await inventoryManager.GetProductStocks()).ToDictionary(stock => stock.Product.Id, stock => stock);
 
-        foreach (ProductOffset offset in report.ProductOffsets)
+        foreach (StockAdjustment adjustment in report.StockAdjustments)
         {
-            if (stocks.TryGetValue(offset.ProductId, out ProductStock? stock))
+            if (stocks.TryGetValue(adjustment.ProductId, out ProductStock? stock))
             {
-                stock.StockQuantity += offset.Quantity;
+                stock.StockQuantity = report.GetNewStock(stock.StockQuantity, adjustment.Quantity);
                 inventoryManager.UpdateProductStock(stock);
             }
         }
 
-        purchaseStorage.EntitySet.Add(report);
+        reportStorage.EntitySet.Add(report);
         await this.SaveChanges();
     }
 
-    // TODO add get
+    public async Task<IReadOnlyCollection<TReport>> GetReports()
+    {
+        return await reportStorage.EntitySet.ToArrayAsync();
+    }
+
     private async Task SaveChanges()
     {
         await inventoryManager.SaveChanges();
-        await purchaseStorage.SaveChanges();
+        await reportStorage.SaveChanges();
     }
 }
