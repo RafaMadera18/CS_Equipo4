@@ -1,4 +1,3 @@
-import { Nullable } from "@customTypes/nullable";
 import { ValidationError } from "./validation-error";
 
 export class ValidationResult {

@@ -60,7 +60,7 @@ export class RoomPropertyGroupsSettingsComponent {
     }
   }
 
-  public async editPropertyGroup(
+  public async updatePropertyGroup(
     roomPropertyGroup: RoomPropertyGroup,
   ): Promise<void> {
     const editedRoomPropertyGroup = await this._modalService.openModal(
@@ -70,7 +70,7 @@ export class RoomPropertyGroupsSettingsComponent {
 
     if (editedRoomPropertyGroup !== null) {
       this._roomPropertyGroupManager
-        .editRoomPropertyGroup(editedRoomPropertyGroup)
+        .updateRoomPropertyGroup(editedRoomPropertyGroup)
         .subscribe();
     }
   }

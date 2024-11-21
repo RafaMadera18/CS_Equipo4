@@ -66,15 +66,17 @@ export class RoomPropertyGroupManagerService {
     );
   }
 
-  public editRoomPropertyGroup(roomPropertyGroup: RoomPropertyGroup) {
+  public updateRoomPropertyGroup(
+    roomPropertyGroup: RoomPropertyGroup,
+  ): Observable<Record<string, string>> {
     const editRequest =
-      this._roomPropertyGroupGateway.editRoomPropertyGroup(roomPropertyGroup);
+      this._roomPropertyGroupGateway.updateRoomPropertyGroup(roomPropertyGroup);
 
     return editRequest.pipe(
-      tap((newPropertiesRecord: Record<string, string>) => {
+      tap((newIdPropertiesRecord: Record<string, string>) => {
         roomPropertyGroup.properties.forEach((property) => {
           if (property.id) {
-            const newId = newPropertiesRecord[property.name];
+            const newId = newIdPropertiesRecord[property.name];
             property.id = newId as Guid;
           }
         });
