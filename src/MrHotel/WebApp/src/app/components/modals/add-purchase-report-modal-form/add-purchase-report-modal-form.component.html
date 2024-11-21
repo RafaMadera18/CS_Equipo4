@@ -14,8 +14,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let product of products">
-              <td><input id="check" type="checkbox" [(ngModel)]="product.selected" [value]="product.id"></td>
+            @for (product of products | async; track product.id) {
+            <tr>
+              <td></td>
               <td>{{ product.name }}</td>
               <td>{{ product.stockQuantity }}</td>
               <td>
@@ -29,6 +30,7 @@
                 />
               </td>
             </tr>
+            }
           </tbody>
         </table>
       </div>

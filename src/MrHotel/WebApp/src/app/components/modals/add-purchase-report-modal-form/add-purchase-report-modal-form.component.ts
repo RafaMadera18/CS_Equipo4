@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { Observable, of } from "rxjs";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../modal-base-form.component";
@@ -17,32 +17,28 @@ import { ProductStock } from '@services/inventory-manager/data';
   imports: [IonicModule, FormsModule, CommonModule],
 })
 export class AddPurchaseReportModalFormComponent extends BaseModalFormComponent<
-  ProductStock[],
+  Observable<ProductStock[]>,
   PurchaseReportData
 > implements OnInit {
 
-  public products: ProductStock[] = []
-  private readonly productsPurchaseReport: ProductOffset[] = []
+  public _products: Observable<readonly ProductStock[]> = of([]);
+  private readonly productsPurchaseReport: ProductOffset[] = [];
   protected _quantity: number = 0;
   protected _price: number = 0;
 
-  ngOnInit() {
-    if (this.input && Array.isArray(this.input)) {
-      this.products = this.input;
-    }
+  public ngOnInit(): void{
+    console.log(this._products);
+    this._products = this.input;
+  }
+
+  public get products(){
+    return this._products;
   }
 
   protected onSubmit(): void {
     if (this.isAddProductModalDataValid()) {
-      const selectedProducts = this.products.filter(product => product.selected);
 
-      selectedProducts.forEach(product => {
-        const productOffset = new ProductOffset(
-          product.name,
-          this._quantity,
-        );
-        this.productsPurchaseReport.push(productOffset);
-      });
+      //
 
       const purchaseReportData = new PurchaseReportData(
         this.productsPurchaseReport,
@@ -75,7 +71,7 @@ export class AddPurchaseReportModalFormComponent extends BaseModalFormComponent<
 }
 
 export const addPurchaseModal: ModalInfo<
-  ProductStock[],
+  Observable<ProductStock[]>,
   PurchaseReportData,
   AddPurchaseReportModalFormComponent
 > = {

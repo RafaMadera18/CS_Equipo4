@@ -55,11 +55,11 @@ export class InventoryPage {
   }
 
   public async openPurchaseReport(): Promise<void>{
-    const products = await firstValueFrom(this._products);
 
+    console.log(this._products);
     const purchaseReportCreateRequest = await this._modalService.openModal(
       addPurchaseModal,
-      products);
+      this._products);
 
       if(purchaseReportCreateRequest != null){
 
