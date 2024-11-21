@@ -19,23 +19,27 @@
     <div class="container-property-groups">
       <h3>Property Groups</h3>
       @for (propertyGroup of propertyGroups | async; track propertyGroup.id) {
-        <div class="container-property-group">
-          <h4>{{ propertyGroup.name }}</h4>
-          <div class="container-properties">
-            @for (property of propertyGroup.properties; track property.id) {
-              <div class="container-properties-inputs">
-                <input
-                  type="radio"
-                  [name]="propertyGroup.id"
-                  [id]="property"
-                  [value]="property"
-                  [(ngModel)]="selectedProperties[property.id!]"
-                />
-                <label [for]="property.id">{{ property.name }}</label>
-              </div>
-            }
+        @if (propertyGroup.properties.length > 0) {
+          <div class="container-property-group">
+            <h4>{{ propertyGroup.name }}</h4>
+            <div class="container-properties">
+              @for (property of propertyGroup.properties; track property.id) {
+                <div class="container-properties-inputs">
+                  <input
+                    type="radio"
+                    [name]="propertyGroup.id"
+                    [id]="property"
+                    [value]="property"
+                    [(ngModel)]="selectedProperties[property.id!]"
+                  />
+                  <label [for]="property.id">{{ property.name }}</label>
+                </div>
+              }
+            </div>
           </div>
-        </div>
+        } @else {
+          <h4>Please Add Group Properties</h4>
+        }
       }
     </div>
 

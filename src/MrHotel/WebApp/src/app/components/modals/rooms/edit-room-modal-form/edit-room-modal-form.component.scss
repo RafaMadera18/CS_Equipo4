@@ -24,12 +24,12 @@
   &-properties {
     display: flex;
     flex-direction: column;
-    padding: .5rem;
+    padding: 0.5rem;
 
     &-inputs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding: .2rem;
+      padding: 0.2rem;
     }
   }
 }
@@ -104,5 +104,12 @@ h3,
 h4 {
   text-align: center;
   font-weight: bold;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
+}
+
+h4 {
+  font-weight: 300;
+  color: var(--light);
+  background-color: var(--error);
+  border-radius: 1rem;
 }
