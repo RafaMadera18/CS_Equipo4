@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 
 
 import { deleteModal } from "@components/modals/delete-modal-form";
-import { addPurchaseModal } from "@components/modals/add-purchase-report-modal-form";
+import { addPurchaseModal } from "@components/modals/reports/purchase-reports/add-purchase-report-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";

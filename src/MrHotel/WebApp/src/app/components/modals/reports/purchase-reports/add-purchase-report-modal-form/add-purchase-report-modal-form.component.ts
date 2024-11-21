@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { Observable } from "rxjs";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { BaseModalFormComponent } from "../modal-base-form.component";
+import { BaseModalFormComponent } from "../../../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
 import { ProductOffsetData } from "@services/report-manager/data/stock-adjustment-data";
 import { PurchaseReportData } from "@services/report-manager/data/purchase-report-data";
