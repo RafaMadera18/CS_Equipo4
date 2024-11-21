@@ -1,6 +1,7 @@
 import { Guid } from "@customTypes/guid";
 import { ProductInfo } from "./product-info";
 import { ProductStock } from "./product-stock";
+import { Stringify } from "@customTypes/stringify";
 
 export class ProductStockCreationData {
   public constructor(
@@ -28,5 +29,13 @@ export class ProductStockCreationData {
       this._idealQuantity,
       this._stockQuantity,
     );
+  }
+
+  public toJSON(): Stringify<ProductStockCreationData> {
+    return {
+      productName: this._productName,
+      stockQuantity: this._stockQuantity.toString(),
+      idealQuantity: this._idealQuantity.toString(),
+    };
   }
 }
