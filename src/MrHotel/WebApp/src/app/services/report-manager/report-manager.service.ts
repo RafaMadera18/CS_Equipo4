@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { concatMap, map, Observable, tap } from "rxjs";
+import { concatMap, map, Observable } from "rxjs";
 import { ReportManagerGatewayService } from "./gateway/report-manager-gateway.service";
-import { PurchaseReport, PurchaseReportData } from "./data";
+import { PurchaseReportData } from "./data";
 import { Guid } from "@customTypes/guid";
 import { ObservableCollection } from "@utilities/rxjs";
 import { Nullable } from "@customTypes/index";
