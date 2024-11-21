@@ -4,7 +4,7 @@ import { CommonModule } from "@angular/common";
 import { IonicModule } from "@ionic/angular";
 
 import { addIcons } from "ionicons";
-import { trashOutline } from "ionicons/icons";
+import { trashOutline, addOutline } from "ionicons/icons";
 
 import { Observable } from "rxjs";
 
@@ -15,8 +15,6 @@ import { addPurchaseModal } from "@components/modals/add-purchase-report-modal-f
 import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
 import { ProductStock } from "@services/inventory-manager/data";
-
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: "app-inventory",
@@ -31,16 +29,19 @@ export class InventoryPage {
   constructor(
     private readonly _inventoryManager: InventoryManagerService,
     private readonly _modalService: ModalService,
-  ){
-    addIcons({ trashOutline });
+  ) {
+    addIcons({ trashOutline, addOutline });
     this._products = _inventoryManager.getProductStock();
   }
 
   public async addProduct(): Promise<void> {
-    const productCreateRequest = await this._modalService.openModal(addProductModal);
+    const productCreateRequest =
+      await this._modalService.openModal(addProductModal);
 
-    if(productCreateRequest != null){
-      this._inventoryManager.addNewProductToStock(productCreateRequest).subscribe();
+    if (productCreateRequest != null) {
+      this._inventoryManager
+        .addNewProductToStock(productCreateRequest)
+        .subscribe();
     }
   }
 
@@ -54,19 +55,18 @@ export class InventoryPage {
     }
   }
 
-  public async openPurchaseReport(): Promise<void>{
-
+  public async openPurchaseReport(): Promise<void> {
     console.log(this._products);
     const purchaseReportCreateRequest = await this._modalService.openModal(
       addPurchaseModal,
-      this._products);
+      this._products,
+    );
 
-      if(purchaseReportCreateRequest != null){
-
-      }
+    if (purchaseReportCreateRequest != null) {
+    }
   }
 
-  public get products(){
+  public get products() {
     return this._products;
   }
 }

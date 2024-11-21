@@ -8,15 +8,15 @@ import { Nullable } from "@customTypes/nullable";
 import { ProductCreationData } from "./data/product-stock-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
 
-
 @Injectable({
   providedIn: "root",
 })
 export class InventoryManagerService {
   private _inventoryCache: Nullable<ObservableCollection<ProductStock>> = null;
 
-  constructor(private readonly _inventoryGateway: InventoryManagerGatewayService) {}
-
+  constructor(
+    private readonly _inventoryGateway: InventoryManagerGatewayService,
+  ) {}
 
   public getProductStock(): Observable<readonly ProductStock[]> {
     if (this._inventoryCache !== null) {
@@ -29,20 +29,25 @@ export class InventoryManagerService {
     return this._inventoryCache.loadItems(productStock);
   }
 
-
-  public addNewProductToStock(productCreationData: ProductCreationData): Observable<Guid> {
-    const addRequest = this._inventoryGateway.addNewProductToStock(productCreationData);
+  public addNewProductToStock(
+    productCreationData: ProductCreationData,
+  ): Observable<Guid> {
+    const addRequest =
+      this._inventoryGateway.addNewProductToStock(productCreationData);
 
     return addRequest.pipe(
       tap((newProductId: Guid) => {
-        this._inventoryCache?.add(productCreationData.toProductStock(newProductId));
+        this._inventoryCache?.add(
+          productCreationData.toProductStock(newProductId),
+        );
       }),
     );
   }
 
-
   public deleteProductFromStock(product: ProductStock): Observable<void> {
-    const deleteRequest = this._inventoryGateway.deleteProductFromStock(product.id);
+    const deleteRequest = this._inventoryGateway.deleteProductFromStock(
+      product.id,
+    );
 
     return deleteRequest.pipe(
       tap(() => {
@@ -52,5 +57,4 @@ export class InventoryManagerService {
       }),
     );
   }
-
 }
