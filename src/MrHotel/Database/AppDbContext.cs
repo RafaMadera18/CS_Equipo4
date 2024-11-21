@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 using MrHotel.Database.Entities;
 using MrHotel.Database.Entities.Guests;
+using MrHotel.Database.Entities.Inventory;
+using MrHotel.Database.Entities.Reports;
 using MrHotel.Database.Entities.Reservations;
 using MrHotel.Database.Entities.Rooms;
 using MrHotel.Identity;
@@ -21,6 +23,12 @@ public class AppDbContext(
     public DbSet<GuestInfo> Guests { get; init; } = null!;
 
     public DbSet<ReservationInfo> Reservations { get; init; } = null!;
+
+    public DbSet<ProductStock> Stocks { get; init; } = null!;
+
+    public DbSet<UsageReport> UsageReports { get; init; } = null!;
+
+    public DbSet<PurchaseReport> PurchaseReports { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
