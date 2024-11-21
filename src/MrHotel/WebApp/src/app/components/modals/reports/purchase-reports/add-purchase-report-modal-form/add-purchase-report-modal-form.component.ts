@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../../../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
-import { ProductOffsetData } from "@services/report-manager/data/stock-adjustment-data";
+import { StockAdjustmentData } from "@services/report-manager/data/stock-adjustment-data";
 import { PurchaseReportData } from "@services/report-manager/data/purchase-report-data";
 import { ProductStock } from "@services/inventory-manager/data";
 
@@ -21,22 +21,21 @@ export class AddPurchaseReportModalFormComponent
   implements OnInit
 {
   private _productStocks: ProductStock[] = [];
-  private _productsOffset: ProductOffsetData[] = [];
-  private _quantities: number[] = [];
+  public _stockAdjustmentsData: StockAdjustmentData[] = [];
   private _price: number = 0;
 
   public ngOnInit(): void {
     this.input.subscribe((stocks) => {
       this._productStocks = stocks;
+
+      this._stockAdjustmentsData = this._productStocks.map(
+        (productStock) => new StockAdjustmentData(productStock.id, 0),
+      );
     });
   }
 
   public get productStocks() {
     return this._productStocks;
-  }
-
-  public get quantities() {
-    return this._quantities;
   }
 
   public get price() {
@@ -48,14 +47,9 @@ export class AddPurchaseReportModalFormComponent
   }
 
   public onSubmit(): void {
-    this._productsOffset = this.quantities.map(
-      (quantity, i) =>
-        new ProductOffsetData(this._productStocks[i].id, quantity),
-    );
-
     if (true) {
       const purchaseReportData = new PurchaseReportData(
-        this._productsOffset,
+        this._stockAdjustmentsData,
         this._price,
       );
 

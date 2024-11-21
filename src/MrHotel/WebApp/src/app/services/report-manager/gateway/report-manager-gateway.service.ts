@@ -21,6 +21,6 @@ export class ReportManagerGatewayService {
   }
 
   private getApiUrl(url: string = ""): string {
-    return `api/reports/purchase/${url}`;
+    return `api/reports/purchases${url}`;
   }
 }

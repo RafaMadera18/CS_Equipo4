@@ -3,10 +3,10 @@ import { Guid } from "@customTypes/.";
 export class StockAdjustmentData {
   public constructor(
     private readonly _productId: Guid,
-    private readonly _quantity: number,
+    private _quantity: number,
   ) {}
 
-  public get id(): Guid {
+  public get productId(): Guid {
     return this._productId;
   }
 
@@ -14,10 +14,14 @@ export class StockAdjustmentData {
     return this._quantity;
   }
 
-  public toJSON(): Record<string, string> {
+  public set quantity(quantity: number) {
+    this._quantity = quantity;
+  }
+
+  public toJSON(): { productId: Guid; quantity: number } {
     return {
       productId: this._productId,
-      quantity: this._quantity.toString(),
+      quantity: this._quantity,
     };
   }
 }

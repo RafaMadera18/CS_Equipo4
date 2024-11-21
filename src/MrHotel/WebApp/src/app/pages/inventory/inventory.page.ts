@@ -59,14 +59,14 @@ export class InventoryPage {
   }
 
   public async openPurchaseReport(): Promise<void> {
-    const purchaseReportCreateRequest = await this._modalService.openModal(
+    const purchaseReportData = await this._modalService.openModal(
       addPurchaseModal,
       this._productStocks,
     );
 
-    if (purchaseReportCreateRequest) {
+    if (purchaseReportData) {
       this._reportManager
-        .addPurchaseReport(purchaseReportCreateRequest)
+        .addPurchaseReport(purchaseReportData)
         .subscribe();
     }
   }

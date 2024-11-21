@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { ReportManagerGatewayService } from "./gateway/report-manager-gateway.service";
-import { PurchaseReportData } from "./data";
+import { PurchaseReport, PurchaseReportData } from "./data";
 import { Guid } from "@customTypes/guid";
 import { ObservableCollection } from "@utilities/rxjs";
 import { Nullable } from "@customTypes/index";
@@ -10,20 +10,21 @@ import { Nullable } from "@customTypes/index";
   providedIn: "root",
 })
 export class ReportManagerService {
-  private _purchaseReportsCache: Nullable<
+  private readonly _purchaseReportsDataCache: Nullable<
     ObservableCollection<PurchaseReportData>
   > = null;
 
   constructor(private readonly _reportGateway: ReportManagerGatewayService) {}
 
   public addPurchaseReport(
-    purchaseReport: PurchaseReportData,
+    purchaseReportData: PurchaseReportData,
   ): Observable<Guid> {
-    const addRequest = this._reportGateway.addPurchaseReport(purchaseReport);
+    const addRequest =
+      this._reportGateway.addPurchaseReport(purchaseReportData);
 
     return addRequest.pipe(
       tap((newPurchaseReportId: Guid) => {
-        this._purchaseReportsCache?.add(purchaseReport);
+        this._purchaseReportsDataCache?.add(purchaseReportData);
       }),
     );
   }
