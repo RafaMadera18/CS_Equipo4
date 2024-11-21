@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using MrHotel.ApiService.Core.Storage.Entities.Extensions;
 using MrHotel.ApiService.Guests.Endpoints;
 using MrHotel.ApiService.Guests.Services;
+using MrHotel.ApiService.Inventory.Endpoints;
+using MrHotel.ApiService.Inventory.Services;
 using MrHotel.ApiService.Reservations.Endpoints;
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.RoomPropertyGroups.Endpoints;
@@ -16,6 +18,8 @@ using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database;
 using MrHotel.Database.Entities;
 using MrHotel.Database.Entities.Guests;
+using MrHotel.Database.Entities.Inventory;
+using MrHotel.Database.Entities.Reports;
 using MrHotel.Database.Entities.Reservations;
 using MrHotel.Database.Entities.Rooms;
 using MrHotel.Identity.Extensions;
@@ -42,11 +46,15 @@ public class ApiService : MrHotelWebAppDefinition
         builder.Services.AddTransient<RoomAvailabilityManager>();
         builder.Services.AddTransient<GuestManager>();
         builder.Services.AddTransient<ReservationManager>();
+        builder.Services.AddTransient<InventoryManager>();
 
         builder.Services.AddEntityRepository<AppDbContext, RoomInfo>();
         builder.Services.AddEntityRepository<AppDbContext, RoomPropertyGroup>();
         builder.Services.AddEntityRepository<AppDbContext, GuestInfo>();
         builder.Services.AddEntityRepository<AppDbContext, ReservationInfo>();
+        builder.Services.AddEntityRepository<AppDbContext, ProductStock>();
+        builder.Services.AddEntityRepository<AppDbContext, UsageReport>();
+        builder.Services.AddEntityRepository<AppDbContext, PurchaseReport>();
     }
 
     protected override async Task Configure(WebApplication app)
@@ -66,6 +74,8 @@ public class ApiService : MrHotelWebAppDefinition
         apiGroup.MapGuestApi();
 
         apiGroup.MapReservationApi();
+
+        apiGroup.MapInventoryApi();
 
         await app.InitializeDb();
     }

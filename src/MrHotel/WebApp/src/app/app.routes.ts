@@ -14,9 +14,15 @@ export const routes: Routes = [
   {
     path: "**",
     redirectTo: "",
-  },  {
-    path: 'settings',
-    loadComponent: () => import('./pages/settings/settings.page').then( m => m.SettingsPage)
   },
-
+  {
+    path: 'inventory',
+    loadComponent: () =>
+      import('./pages/inventory/inventory.page').then( m => m.InventoryPage),
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('./pages/settings/settings.page').then( m => m.SettingsPage),
+  }
 ];

@@ -17,6 +17,7 @@ import {
   arrowBackOutline,
   bedOutline,
   personOutline,
+  clipboardOutline,
   cogOutline,
 } from "ionicons/icons";
 
@@ -48,6 +49,7 @@ export class MenuPage {
       arrowBackOutline,
       bedOutline,
       personOutline,
+      clipboardOutline,
       cogOutline,
     });
 
