@@ -4,7 +4,7 @@ import { ProductInfo } from "./product-info";
 export class ProductStock {
   public constructor(
     private readonly _id: Guid,
-    private readonly _productInfo: ProductInfo,
+    private readonly _product: ProductInfo,
     private readonly _idealQuantity: number,
     private readonly _stocklQuantity: number,
   ) {}
@@ -13,8 +13,8 @@ export class ProductStock {
     return this._id;
   }
 
-  public get productInfo(): ProductInfo {
-    return this._productInfo;
+  public get product(): ProductInfo {
+    return this._product;
   }
 
   public get idealQuantity(): number {

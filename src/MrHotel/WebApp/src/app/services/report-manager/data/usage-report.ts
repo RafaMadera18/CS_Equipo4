@@ -1,5 +1,5 @@
 
-import { ProductOffset } from "../../report-manager/data/product-offset";
+import { ProductOffset } from "./product-offset-data";
 
 export class UsageReport {
   constructor(

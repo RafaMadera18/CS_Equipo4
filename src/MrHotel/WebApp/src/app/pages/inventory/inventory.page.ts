@@ -47,7 +47,7 @@ export class InventoryPage {
 
   public async deleteProductStock(product: ProductStock): Promise<void> {
     const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
-      message: `Do You want To Delete Product: ${product.productInfo.name}? `,
+      message: `Do You want To Delete Product: ${product.product.name}? `,
     });
 
     if (isDeleteConfirmed?.state) {
@@ -60,9 +60,6 @@ export class InventoryPage {
       addPurchaseModal,
       this._productStocks,
     );
-
-    if (purchaseReportCreateRequest != null) {
-    }
   }
 
   public get productStocks() {

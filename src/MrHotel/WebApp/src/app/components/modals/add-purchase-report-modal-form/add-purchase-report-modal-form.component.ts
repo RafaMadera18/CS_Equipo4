@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
-import { ProductOffset } from "@services/report-manager/data/product-offset";
+import { ProductOffsetData } from "@services/report-manager/data/product-offset-data";
 import { PurchaseReportData } from "@services/report-manager/data/purchase-report-data";
 import { ProductStock } from "@services/inventory-manager/data";
 
@@ -21,7 +21,7 @@ export class AddPurchaseReportModalFormComponent
   implements OnInit
 {
   public _productStocks: Observable<readonly ProductStock[]> = of([]);
-  private readonly productsPurchaseReport: ProductOffset[] = [];
+  private readonly productsPurchaseReport: ProductOffsetData[] = [];
   protected _quantity: number = 0;
   protected _price: number = 0;
 

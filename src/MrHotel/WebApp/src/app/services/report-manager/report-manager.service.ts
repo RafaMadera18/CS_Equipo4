@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ProductOffset } from "./data/product-offset";
+import { ProductOffset } from "./data/product-offset-data";
 import { Observable, tap } from "rxjs";
 
 @Injectable({

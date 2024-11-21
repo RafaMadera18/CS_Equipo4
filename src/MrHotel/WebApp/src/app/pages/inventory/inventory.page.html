@@ -20,7 +20,7 @@
         <tbody>
           @for (productStock of productStocks | async; track productStock.id) {
             <tr>
-              <td>{{ productStock.productInfo.name }}</td>
+              <td>{{ productStock.product.name }}</td>
               <td>{{ productStock.idealQuantity }}</td>
               <td>{{ productStock.stockQuantity }}</td>
               <td class="product-actions">
