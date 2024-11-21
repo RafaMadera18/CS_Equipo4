@@ -1,33 +1,32 @@
 import { Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { ObservableCollection } from "@utilities/rxjs";
-
-import { Guid } from "@customTypes/guid";
 import { ProductStock } from "./data/product-stock";
 import { Nullable } from "@customTypes/nullable";
 import { ProductStockCreationData } from "./data/product-stock-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
-import { ProductInfo, ProductStockCreationResult } from "./data";
+import { ProductStockCreationResult } from "./data";
 
 @Injectable({
   providedIn: "root",
 })
 export class InventoryManagerService {
-  private _inventoryCache: Nullable<ObservableCollection<ProductStock>> = null;
+  private _productStocksCache: Nullable<ObservableCollection<ProductStock>> =
+    null;
 
   constructor(
     private readonly _inventoryGateway: InventoryManagerGatewayService,
   ) {}
 
   public getProductStock(): Observable<readonly ProductStock[]> {
-    if (this._inventoryCache !== null) {
-      return this._inventoryCache.items$;
+    if (this._productStocksCache !== null) {
+      return this._productStocksCache.items$;
     }
 
     const productStock = this._inventoryGateway.getProductStock();
 
-    this._inventoryCache = new ObservableCollection();
-    return this._inventoryCache.loadItems(productStock);
+    this._productStocksCache = new ObservableCollection();
+    return this._productStocksCache.loadItems(productStock);
   }
 
   public addProductStock(
@@ -39,7 +38,7 @@ export class InventoryManagerService {
 
     return addRequest.pipe(
       tap((newIds: ProductStockCreationResult) => {
-        this._inventoryCache?.add(
+        this._productStocksCache?.add(
           productStockCreationData.toProductStock(
             newIds.stockId,
             newIds.productId,
@@ -49,15 +48,15 @@ export class InventoryManagerService {
     );
   }
 
-  public deleteProductFromStock(product: ProductStock): Observable<void> {
-    const deleteRequest = this._inventoryGateway.deleteProductFromStock(
-      product.id,
+  public deleteProductStock(productStock: ProductStock): Observable<void> {
+    const deleteRequest = this._inventoryGateway.deleteProductStock(
+      productStock.id,
     );
 
     return deleteRequest.pipe(
       tap(() => {
-        this._inventoryCache?.removeFirstWhere(
-          (cacheProduct) => cacheProduct.id === product.id,
+        this._productStocksCache?.removeFirstWhere(
+          (cacheProductStock) => cacheProductStock.id === productStock.id,
         );
       }),
     );

@@ -8,4 +8,20 @@ export class ProductStock {
     private readonly _idealQuantity: number,
     private readonly _stocklQuantity: number,
   ) {}
+
+  get id(): Guid {
+    return this._id;
+  }
+
+  get product(): ProductInfo {
+    return this._product;
+  }
+
+  get idealQuantity(): number {
+    return this._idealQuantity;
+  }
+
+  get stockQuantity(): number {
+    return this._stocklQuantity;
+  }
 }
