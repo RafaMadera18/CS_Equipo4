@@ -4,8 +4,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { Guid } from "@customTypes/guid";
-import { ProductStock } from "../data";
-import { ProductCreationData } from "../data/product-stock-creation-data";
+import { ProductStock, ProductStockCreationResult } from "../data";
+import { ProductStockCreationData } from "../data/product-stock-creation-data";
 
 @Injectable({
   providedIn: "root",
@@ -20,11 +20,11 @@ export class InventoryManagerGatewayService {
   }
 
   public addNewProductToStock(
-    productCreationData: ProductCreationData,
-  ): Observable<Guid> {
+    productCreationData: ProductStockCreationData,
+  ): Observable<ProductStockCreationResult> {
     const apiUrl: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, productCreationData);
+    return this._httpClient.post<ProductStockCreationResult>(apiUrl, productCreationData);
   }
 
   public deleteProductFromStock(productId: Guid): Observable<void> {

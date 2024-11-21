@@ -1,6 +1,6 @@
 <div class="container">
   <div class="container-actions">
-    <button class="button button-add-product" (click)="addProduct()">
+    <button class="button button-add-product" (click)="addProductStock()">
       <ion-icon name="add-outline"></ion-icon>
       <span>Add Product</span>
     </button>
@@ -18,13 +18,16 @@
           </tr>
         </thead>
         <tbody>
-          @for (product of products | async; track product.id) {
+          @for (productStock of productStocks | async; track productStock.id) {
             <tr>
-              <td>{{ product.name }}</td>
-              <td>{{ product.idealQuantity }}</td>
-              <td>{{ product.stockQuantity }}</td>
+              <td>{{ productStock.productInfo.name }}</td>
+              <td>{{ productStock.idealQuantity }}</td>
+              <td>{{ productStock.stockQuantity }}</td>
               <td class="product-actions">
-                <button class="delete" (click)="deleteProduct(product)">
+                <button
+                  class="delete"
+                  (click)="deleteProductStock(productStock)"
+                >
                   <ion-icon name="trash-outline"></ion-icon>
                 </button>
               </td>
@@ -35,7 +38,10 @@
     </div>
 
     <div class="container-reports">
-      <button class="button button-add-PurchaseReport" (click)="openPurchaseReport()">
+      <button
+        class="button button-add-PurchaseReport"
+        (click)="openPurchaseReport()"
+      >
         <ion-icon name="add-outline"></ion-icon>
         <span>Purchase report</span>
       </button>

@@ -24,17 +24,17 @@ import { ProductStock } from "@services/inventory-manager/data";
   imports: [CommonModule, IonicModule],
 })
 export class InventoryPage {
-  private readonly _products: Observable<readonly ProductStock[]>;
+  private readonly _productStocks: Observable<readonly ProductStock[]>;
 
   constructor(
     private readonly _inventoryManager: InventoryManagerService,
     private readonly _modalService: ModalService,
   ) {
     addIcons({ trashOutline, addOutline });
-    this._products = _inventoryManager.getProductStock();
+    this._productStocks = _inventoryManager.getProductStock();
   }
 
-  public async addProduct(): Promise<void> {
+  public async addProductStock(): Promise<void> {
     const productCreateRequest =
       await this._modalService.openModal(addProductModal);
 
@@ -45,9 +45,9 @@ export class InventoryPage {
     }
   }
 
-  public async deleteProduct(product: ProductStock): Promise<void> {
+  public async deleteProductStock(product: ProductStock): Promise<void> {
     const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
-      message: `Do You want To Delete Product: ${product.name}? `,
+      message: `Do You want To Delete Product: ${product.productInfo.name}? `,
     });
 
     if (isDeleteConfirmed?.state) {
@@ -56,17 +56,16 @@ export class InventoryPage {
   }
 
   public async openPurchaseReport(): Promise<void> {
-    console.log(this._products);
     const purchaseReportCreateRequest = await this._modalService.openModal(
       addPurchaseModal,
-      this._products,
+      this._productStocks,
     );
 
     if (purchaseReportCreateRequest != null) {
     }
   }
 
-  public get products() {
-    return this._products;
+  public get productStocks() {
+    return this._productStocks;
   }
 }

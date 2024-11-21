@@ -1,11 +1,10 @@
 import { Guid } from "@customTypes/guid";
+import { ProductInfo } from "./product-info";
 
 export class ProductStock {
-  private _selected?: boolean = false;
-
   public constructor(
     private readonly _id: Guid,
-    private readonly _name: string,
+    private readonly _productInfo: ProductInfo,
     private readonly _idealQuantity: number,
     private readonly _stocklQuantity: number,
   ) {}
@@ -14,8 +13,8 @@ export class ProductStock {
     return this._id;
   }
 
-  public get name(): string {
-    return this._name;
+  public get productInfo(): ProductInfo {
+    return this._productInfo;
   }
 
   public get idealQuantity(): number {
@@ -24,9 +23,5 @@ export class ProductStock {
 
   public get stockQuantity(): number {
     return this._stocklQuantity;
-  }
-
-  public get selected(): boolean {
-    return this._selected ?? false;
   }
 }

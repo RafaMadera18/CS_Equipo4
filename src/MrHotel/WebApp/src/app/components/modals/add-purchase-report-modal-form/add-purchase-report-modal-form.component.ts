@@ -1,48 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
 import { Observable, of } from "rxjs";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
-import { ProductOffset } from '@services/report-manager/data/product-offset';
-import { PurchaseReportData } from '@services/report-manager/data/purchase-report-data';
-import { ProductStock } from '@services/inventory-manager/data';
+import { ProductOffset } from "@services/report-manager/data/product-offset";
+import { PurchaseReportData } from "@services/report-manager/data/purchase-report-data";
+import { ProductStock } from "@services/inventory-manager/data";
 
 @Component({
-  selector: 'app-add-purchase-report-modal-form',
-  templateUrl: './add-purchase-report-modal-form.component.html',
-  styleUrls: ['./add-purchase-report-modal-form.component.scss'],
+  selector: "app-add-purchase-report-modal-form",
+  templateUrl: "./add-purchase-report-modal-form.component.html",
+  styleUrls: ["./add-purchase-report-modal-form.component.scss"],
   standalone: true,
   imports: [IonicModule, FormsModule, CommonModule],
 })
-export class AddPurchaseReportModalFormComponent extends BaseModalFormComponent<
-  Observable<ProductStock[]>,
-  PurchaseReportData
-> implements OnInit {
-
-  public _products: Observable<readonly ProductStock[]> = of([]);
+export class AddPurchaseReportModalFormComponent
+  extends BaseModalFormComponent<Observable<ProductStock[]>, PurchaseReportData>
+  implements OnInit
+{
+  public _productStocks: Observable<readonly ProductStock[]> = of([]);
   private readonly productsPurchaseReport: ProductOffset[] = [];
   protected _quantity: number = 0;
   protected _price: number = 0;
 
-  public ngOnInit(): void{
-    console.log(this._products);
-    this._products = this.input;
+  public ngOnInit(): void {
+    this._productStocks = this.input;
   }
 
-  public get products(){
-    return this._products;
+  public get productStocks() {
+    return this._productStocks;
   }
 
   public onSubmit(): void {
     if (this.isAddProductModalDataValid()) {
-
-      //
-
       const purchaseReportData = new PurchaseReportData(
         this.productsPurchaseReport,
-        this._price
+        this._price,
       );
 
       this.submitModal(purchaseReportData);
@@ -76,4 +71,4 @@ export const addPurchaseModal: ModalInfo<
   AddPurchaseReportModalFormComponent
 > = {
   component: AddPurchaseReportModalFormComponent,
-}
+};

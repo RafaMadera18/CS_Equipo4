@@ -14,22 +14,25 @@
             </tr>
           </thead>
           <tbody>
-            @for (product of products | async; track product.id) {
-            <tr>
-              <td></td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.stockQuantity }}</td>
-              <td>
-                <input
-                  id="quantity"
-                  type="number"
-                  class="input"
-                  [(ngModel)]="_quantity"
-                  name="Quantity"
-                  min="0"
-                />
-              </td>
-            </tr>
+            @for (
+              productStock of productStocks | async;
+              track productStock.id
+            ) {
+              <tr>
+                <td></td>
+                <td>{{ productStock.productInfo.name }}</td>
+                <td>{{ productStock.stockQuantity }}</td>
+                <td>
+                  <input
+                    id="quantity"
+                    type="number"
+                    class="input"
+                    [(ngModel)]="_quantity"
+                    name="Quantity"
+                    min="0"
+                  />
+                </td>
+              </tr>
             }
           </tbody>
         </table>
@@ -42,7 +45,7 @@
         [(ngModel)]="_price"
         name="TotalCost"
         min="0"
-        />
+      />
     </div>
     <div class="container-actions">
       <button class="button button-modify" type="submit">Modify</button>

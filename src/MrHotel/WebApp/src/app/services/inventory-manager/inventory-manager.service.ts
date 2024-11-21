@@ -5,8 +5,9 @@ import { ObservableCollection } from "@utilities/rxjs";
 import { Guid } from "@customTypes/guid";
 import { ProductStock } from "./data/product-stock";
 import { Nullable } from "@customTypes/nullable";
-import { ProductCreationData } from "./data/product-stock-creation-data";
+import { ProductStockCreationData } from "./data/product-stock-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
+import { ProductStockCreationResult } from "./data";
 
 @Injectable({
   providedIn: "root",
@@ -30,15 +31,15 @@ export class InventoryManagerService {
   }
 
   public addNewProductToStock(
-    productCreationData: ProductCreationData,
-  ): Observable<Guid> {
+    productCreationData: ProductStockCreationData,
+  ): Observable<ProductStockCreationResult> {
     const addRequest =
       this._inventoryGateway.addNewProductToStock(productCreationData);
 
     return addRequest.pipe(
-      tap((newProductId: Guid) => {
+      tap((newIds: ProductStockCreationResult) => {
         this._inventoryCache?.add(
-          productCreationData.toProductStock(newProductId),
+          productCreationData.toProductStock(newIds.stockId, newIds.productId),
         );
       }),
     );
