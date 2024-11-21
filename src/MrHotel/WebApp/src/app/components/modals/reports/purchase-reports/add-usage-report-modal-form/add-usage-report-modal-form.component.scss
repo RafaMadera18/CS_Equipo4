@@ -1,0 +1,81 @@
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0.5rem;
+  
+    &-total {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      gap: 0.5rem;
+    }
+  
+    &-actions {
+      display: flex;
+      margin-top: 1rem;
+      gap: 1rem;
+    }
+  }
+  
+  h2 {
+    color: var(--dark-blue);
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 2rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  table {
+    width: 100%;
+    border: 1px solid var(--dark-blue);
+    border-radius: 1rem;
+  }
+  
+  th {
+    padding: 0.5rem;
+  }
+  
+  td {
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .button {
+    padding: 0.5rem;
+    font-weight: bold;
+    min-width: 7rem;
+    min-height: 2rem;
+    color: var(--light);
+    font-size: 1.5rem;
+  
+    &-modify {
+      background-color: var(--available);
+    }
+  
+    &-cancel {
+      background-color: var(--error);
+    }
+  }
+  
+  .input {
+    padding: 5px 5px;
+    font-size: 0.75rem;
+    border: 2px var(--dark-blue) solid;
+    border-radius: 5px;
+    background: var(--light);
+    color: var(--dark);
+    width: 4.5rem;
+  }
+  
+  input[type="number"].input:focus {
+    outline: none;
+  }
+  

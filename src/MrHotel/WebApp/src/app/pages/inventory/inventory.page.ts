@@ -17,6 +17,7 @@ import { InventoryManagerService } from "@services/inventory-manager/inventory-m
 import { ProductStock } from "@services/inventory-manager/data";
 import { ReportManagerService } from "@services/report-manager/report-manager.service";
 import { addProductModal } from "@components/modals/inventory/add-product-modal-form";
+import { addUsageModal } from "@components/modals/reports/purchase-reports/add-usage-report-modal-form/add-usage-report-modal-form.component";
 
 @Component({
   selector: "app-inventory",
@@ -67,6 +68,19 @@ export class InventoryPage {
     if (purchaseReportData) {
       this._reportManager
         .addPurchaseReport(purchaseReportData)
+        .subscribe();
+    }
+  }
+
+  public async openUsageReport(): Promise<void> {
+    const usageReportData = await this._modalService.openModal(
+      addUsageModal,
+      this._productStocks,
+    );
+
+    if (usageReportData) {
+      this._reportManager
+        .addUsageReport(usageReportData)
         .subscribe();
     }
   }

@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { Guid } from "@customTypes/guid";
 
 import { Observable } from "rxjs";
-import { PurchaseReportData } from "../data";
+import { PurchaseReportData, UsageReportData } from "../data";
 
 @Injectable({
   providedIn: "root",
@@ -19,6 +19,15 @@ export class ReportManagerGatewayService {
 
     return this._httpClient.post<Guid>(apiUrl, purchaseReport);
   }
+
+  public addUsageReport(
+    usageReport: UsageReportData,
+  ): Observable<Guid> {
+    const apiUrl: string = this.getApiUrl();
+
+    return this._httpClient.post<Guid>(apiUrl, usageReport);
+  }
+
 
   private getApiUrl(url: string = ""): string {
     return `api/reports/purchases${url}`;

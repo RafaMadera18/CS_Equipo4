@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Observable } from "rxjs";
@@ -7,30 +6,30 @@ import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../../../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
 import { StockAdjustmentData } from "@services/report-manager/data/stock-adjustment-data";
-import { PurchaseReportData } from "@services/report-manager/data/purchase-report-data";
+import { UsageReportData } from "@services/report-manager/data/usage-report-data";
 import { ProductStock } from "@services/inventory-manager/data";
 
 @Component({
-  selector: "app-add-purchase-report-modal-form",
-  templateUrl: "./add-purchase-report-modal-form.component.html",
-  styleUrls: ["./add-purchase-report-modal-form.component.scss"],
+  selector: "app-add-usage-report-modal-form",
+  templateUrl: "./add-Usage-report-modal-form.component.html",
+  styleUrls: ["./add-usage-report-modal-form.component.scss"],
   standalone: true,
   imports: [IonicModule, FormsModule, CommonModule],
 })
-export class AddPurchaseReportModalFormComponent
-  extends BaseModalFormComponent<Observable<ProductStock[]>, PurchaseReportData>
+export class AddUsageReportModalFormComponent
+  extends BaseModalFormComponent<Observable<ProductStock[]>, UsageReportData>
   implements OnInit
 {
   private _productStocks: ProductStock[] = [];
   public _stockAdjustmentsData: StockAdjustmentData[] = [];
-  private _price: number = 0;
+
 
   public ngOnInit(): void {
     this.input.subscribe((stocks) => {
       this._productStocks = stocks;
 
       this._stockAdjustmentsData = this._productStocks.map(
-        (productStock) => new StockAdjustmentData(productStock.product.id, 0),
+        (productStock) => new StockAdjustmentData(productStock.id, 0),
       );
     });
   }
@@ -38,23 +37,15 @@ export class AddPurchaseReportModalFormComponent
   public get productStocks() {
     return this._productStocks;
   }
-
-  public get price() {
-    return this._price;
-  }
-
-  public set price(price: number) {
-    this._price = price;
-  }
-
   public onSubmit(): void {
     if (true) {
-      const purchaseReportData = new PurchaseReportData(
+      const usageReportData = new UsageReportData(
         this._stockAdjustmentsData,
-        this._price,
+        "null"
       );
+      console.log(this._stockAdjustmentsData);
 
-      this.submitModal(purchaseReportData);
+      this.submitModal(usageReportData);
     } else {
       console.error("Product data is invalid");
       this.dismissModal();
@@ -70,10 +61,10 @@ export class AddPurchaseReportModalFormComponent
   }
 }
 
-export const addPurchaseModal: ModalInfo<
+export const addUsageModal: ModalInfo<
   Observable<ProductStock[]>,
-  PurchaseReportData,
-  AddPurchaseReportModalFormComponent
+  UsageReportData,
+  AddUsageReportModalFormComponent
 > = {
-  component: AddPurchaseReportModalFormComponent,
+  component: AddUsageReportModalFormComponent,
 };
