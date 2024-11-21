@@ -1,8 +1,8 @@
 import { StockAdjustmentData } from ".";
 
-export class PurchaseReportData {
+export class UsageReportData {
   constructor(
     private readonly _stockAdjustmentData: StockAdjustmentData[],
-    private readonly _price: number,
+    private readonly _concept: string,
   ) {}
 }

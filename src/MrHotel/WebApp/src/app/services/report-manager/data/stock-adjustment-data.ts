@@ -1,6 +1,6 @@
 import { Guid } from "@customTypes/.";
 
-export class ProductOffsetData {
+export class StockAdjustmentData {
   public constructor(
     private readonly _productId: Guid,
     private readonly _quantity: number,

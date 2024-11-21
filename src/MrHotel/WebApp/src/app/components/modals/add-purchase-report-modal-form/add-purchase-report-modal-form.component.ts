@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
-import { ProductOffsetData } from "@services/report-manager/data/product-offset-data";
+import { ProductOffsetData } from "@services/report-manager/data/stock-adjustment-data";
 import { PurchaseReportData } from "@services/report-manager/data/purchase-report-data";
 import { ProductStock } from "@services/inventory-manager/data";
 
