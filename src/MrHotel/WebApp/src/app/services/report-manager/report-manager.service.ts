@@ -1,17 +1,30 @@
 import { Injectable } from "@angular/core";
-import { ProductOffset } from "./data/product-offset-data";
 import { Observable, tap } from "rxjs";
+import { ReportManagerGatewayService } from "./gateway/report-manager-gateway.service";
+import { PurchaseReportData } from "./data";
+import { Guid } from "@customTypes/guid";
+import { ObservableCollection } from "@utilities/rxjs";
+import { Nullable } from "@customTypes/index";
 
 @Injectable({
-    providedIn: "root",
-  })
+  providedIn: "root",
+})
+export class ReportManagerService {
+  private _purchaseReportsCache: Nullable<
+    ObservableCollection<PurchaseReportData>
+  > = null;
 
-export class ReportManagerService{
+  constructor(private readonly _reportGateway: ReportManagerGatewayService) {}
 
-  constructor(private readonly _reportGateway: ReportManagerService) {}
+  public addPurchaseReport(
+    purchaseReport: PurchaseReportData,
+  ): Observable<Guid> {
+    const addRequest = this._reportGateway.addPurchaseReport(purchaseReport);
 
-  public AddPurchaseReport(){
-    const addRequest = this._reportGateway
+    return addRequest.pipe(
+      tap((newPurchaseReportId: Guid) => {
+        this._purchaseReportsCache?.add(purchaseReport);
+      }),
+    );
   }
-
 }

@@ -13,8 +13,6 @@ import { GuestManagerGatewayService } from "./gateway/guest-manager-gateway.serv
 @Injectable({
   providedIn: "root",
 })
-
-
 export class GuestManagerService {
   // Null initially and until a get operation is performed
   private _guestsCache: Nullable<ObservableCollection<GuestInfo>> = null;

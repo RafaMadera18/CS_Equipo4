@@ -7,7 +7,6 @@
         <table>
           <thead>
             <tr>
-              <th>Select</th>
               <th>Name</th>
               <th>Stock Quantity</th>
               <th>Increase</th>
@@ -15,11 +14,11 @@
           </thead>
           <tbody>
             @for (
-              productStock of productStocks | async;
-              track productStock.id
+              productStock of productStocks;
+              track productStock.id;
+              let i = $index;
             ) {
               <tr>
-                <td></td>
                 <td>{{ productStock.product.name }}</td>
                 <td>{{ productStock.stockQuantity }}</td>
                 <td>
@@ -27,7 +26,7 @@
                     id="quantity"
                     type="number"
                     class="input"
-                    [(ngModel)]="_quantity"
+                    [(ngModel)]="quantities[i]"
                     name="Quantity"
                     min="0"
                   />
@@ -42,7 +41,7 @@
         id="totalCost"
         type="number"
         class="input"
-        [(ngModel)]="_price"
+        [(ngModel)]="price"
         name="TotalCost"
         min="0"
       />

@@ -1,16 +1,16 @@
 
-import { ProductOffset } from "./product-offset-data";
+import { ProductOffsetData } from "./product-offset-data";
 
 export class UsageReport {
   constructor(
-    private readonly _products: ProductOffset[] = []
+    private readonly _products: ProductOffsetData[] = []
   ) {}
 
-  public get products(): ProductOffset[] {
+  public get products(): ProductOffsetData[] {
     return this._products;
   }
 
-  public addProduct(productOffset: ProductOffset): void {
+  public addProduct(productOffset: ProductOffsetData): void {
     this._products.push(productOffset);
   }
 

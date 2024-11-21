@@ -20,23 +20,42 @@ export class AddPurchaseReportModalFormComponent
   extends BaseModalFormComponent<Observable<ProductStock[]>, PurchaseReportData>
   implements OnInit
 {
-  public _productStocks: Observable<readonly ProductStock[]> = of([]);
-  private readonly productsPurchaseReport: ProductOffsetData[] = [];
-  protected _quantity: number = 0;
-  protected _price: number = 0;
+  private _productStocks: ProductStock[] = [];
+  private _productsOffset: ProductOffsetData[] = [];
+  private _quantities: number[] = [];
+  private _price: number = 0;
 
   public ngOnInit(): void {
-    this._productStocks = this.input;
+    this.input.subscribe((stocks) => {
+      this._productStocks = stocks;
+    });
   }
 
   public get productStocks() {
     return this._productStocks;
   }
 
+  public get quantities() {
+    return this._quantities;
+  }
+
+  public get price() {
+    return this._price;
+  }
+
+  public set price(price: number) {
+    this._price = price;
+  }
+
   public onSubmit(): void {
-    if (this.isAddProductModalDataValid()) {
+    this._productsOffset = this.quantities.map(
+      (quantity, i) =>
+        new ProductOffsetData(this._productStocks[i].id, quantity),
+    );
+
+    if (true) {
       const purchaseReportData = new PurchaseReportData(
-        this.productsPurchaseReport,
+        this._productsOffset,
         this._price,
       );
 
@@ -45,15 +64,6 @@ export class AddPurchaseReportModalFormComponent
       console.error("Product data is invalid");
       this.dismissModal();
     }
-  }
-
-  private isAddProductModalDataValid(): boolean {
-    return !!(
-      typeof this._quantity === "number" &&
-      !isNaN(this._quantity) &&
-      typeof this._price === "number" &&
-      !isNaN(this._price)
-    );
   }
 
   protected acceptOnlyNumbers(event: KeyboardEvent) {

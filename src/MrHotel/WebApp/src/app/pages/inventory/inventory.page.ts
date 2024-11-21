@@ -15,6 +15,7 @@ import { addPurchaseModal } from "@components/modals/add-purchase-report-modal-f
 import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
 import { ProductStock } from "@services/inventory-manager/data";
+import { ReportManagerService } from "@services/report-manager/report-manager.service";
 
 @Component({
   selector: "app-inventory",
@@ -29,6 +30,7 @@ export class InventoryPage {
   constructor(
     private readonly _inventoryManager: InventoryManagerService,
     private readonly _modalService: ModalService,
+    private readonly _reportManager: ReportManagerService,
   ) {
     addIcons({ trashOutline, addOutline });
     this._productStocks = _inventoryManager.getProductStock();
@@ -60,6 +62,12 @@ export class InventoryPage {
       addPurchaseModal,
       this._productStocks,
     );
+
+    if (purchaseReportCreateRequest) {
+      this._reportManager
+        .addPurchaseReport(purchaseReportCreateRequest)
+        .subscribe();
+    }
   }
 
   public get productStocks() {
