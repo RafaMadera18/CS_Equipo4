@@ -12,6 +12,7 @@ using MrHotel.ApiService.Inventory.Services;
 using MrHotel.ApiService.Reports.Data;
 using MrHotel.ApiService.Reports.Endpoints;
 using MrHotel.ApiService.Reports.Services;
+using MrHotel.ApiService.Reports.Validation;
 using MrHotel.ApiService.Reservations.Endpoints;
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.RoomPropertyGroups.Endpoints;
@@ -27,6 +28,8 @@ using MrHotel.Database.Entities.Reservations;
 using MrHotel.Database.Entities.Rooms;
 using MrHotel.Identity.Extensions;
 using MrHotel.ServiceDefaults.WebAppSettings;
+
+using YamlDotNet.Serialization;
 
 public class ApiService : MrHotelWebAppDefinition
 {
@@ -82,13 +85,7 @@ public class ApiService : MrHotelWebAppDefinition
 
         apiGroup.MapInventoryApi();
 
-        var reportGroup = apiGroup.MapGroup("/reports").RequireAuthorization();
-
-        reportGroup.MapReportApi<PurchaseReportData, PurchaseReport>("/purchase");
-
-        reportGroup.MapReportApi<UsageReportData, UsageReport>("/usage");
-
-        reportGroup.WithTags("Reports");
+        apiGroup.MapReportApi();
 
         await app.InitializeDb();
     }

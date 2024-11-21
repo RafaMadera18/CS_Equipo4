@@ -1,14 +1,11 @@
 namespace MrHotel.Database.Entities.Reports;
 
-using System.Collections.Generic;
-
-public class PurchaseReport : IProductReport
+public class PurchaseReport : StockReport
 {
-    public Guid Id { get; init; }
+    public float Price { get; set; } = 0;
 
-    public decimal Price { get; set; } = 0;
-
-    public IReadOnlyCollection<ProductOffset> PurchasedProducts { get; init; } = [];
-
-    IReadOnlyCollection<ProductOffset> IProductReport.ProductOffsets => this.PurchasedProducts;
+    public override int GetNewStock(int currentQuantity, int adjustmentQuantity)
+    {
+        return currentQuantity + adjustmentQuantity;
+    }
 }

@@ -2,7 +2,7 @@ namespace MrHotel.Database.Entities.Reports;
 
 using MrHotel.Database.Entities.Inventory;
 
-public partial class ProductOffset
+public partial class StockAdjustment
 {
     public Guid Id { get; init; }
 

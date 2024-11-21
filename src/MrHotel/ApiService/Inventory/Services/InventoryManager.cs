@@ -3,17 +3,25 @@ namespace MrHotel.ApiService.Inventory.Services;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
+using FluentValidation.Results;
+
 using Microsoft.EntityFrameworkCore;
 using MrHotel.ApiService.Core.Storage.Entities;
+using MrHotel.ApiService.Inventory.Validator;
 using MrHotel.Database.Entities.Inventory;
 
 public class InventoryManager(
     IEntityRepository<ProductStock> productStorage)
 {
-    public async Task AddProductStock(ProductStock product)
+    public async Task<ValidationResult> AddProductStock(ProductStock stock)
     {
-        // TODO add validation
-        await productStorage.EntitySet.AddAsync(product);
+        ValidationResult result = StockAddingValidator.Instance.Validate(stock);
+        if (result.IsValid)
+        {
+            await productStorage.EntitySet.AddAsync(stock);
+        }
+
+        return result;
     }
 
     [Pure]

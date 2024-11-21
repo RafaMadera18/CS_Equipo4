@@ -1,22 +1,33 @@
 namespace MrHotel.ApiService.Reports.Endpoints;
 
 using MrHotel.ApiService.Reports.Data;
+using MrHotel.ApiService.Reports.Validation;
 using MrHotel.Database.Entities.Reports;
 
 public static class ReportApiExtensions
 {
-    public static IEndpointRouteBuilder MapReportApi<TProductReportData, TProductReport>(
-        this IEndpointRouteBuilder endpoints,
-        string groupName)
-        where TProductReportData : class, IProductReportData<TProductReport>
-        where TProductReport : class, IProductReport
+    public static IEndpointRouteBuilder MapReportApi(
+        this IEndpointRouteBuilder endpoints)
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
-        var routeGroup = endpoints.MapGroup(groupName);
+        var routeGroup = endpoints.MapGroup("/reports").RequireAuthorization();
 
-        routeGroup.MapPost(string.Empty, ReportEndpoints<TProductReportData, TProductReport>.HandlePost);
+        MapApiFor<PurchaseReportData, PurchaseReport>("/purchases", routeGroup);
 
-        return endpoints;
+        MapApiFor<UsageReportData, UsageReport>("/usages", routeGroup);
+
+        return routeGroup.WithTags("Reports");
+    }
+
+    private static void MapApiFor<TStockReportData, TStockReport>(
+        string groupname,
+        RouteGroupBuilder routeGroup)
+        where TStockReportData : StockReportData<TStockReport>
+        where TStockReport : StockReport
+    {
+        routeGroup.MapPost(groupname, ReportEndpoints<TStockReportData, TStockReport>.HandlePost);
+
+        routeGroup.MapGet(groupname, ReportEndpoints<TStockReportData, TStockReport>.HandleGet);
     }
 }

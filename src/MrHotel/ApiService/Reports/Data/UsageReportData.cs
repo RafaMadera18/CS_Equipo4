@@ -3,12 +3,16 @@ namespace MrHotel.ApiService.Reports.Data;
 using MrHotel.Database.Entities.Reports;
 
 public record UsageReportData(
-    IReadOnlyCollection<ProductOffsetData> UsedProducts) : IProductReportData<UsageReport>
+    IReadOnlyCollection<StockAdjustmentData> StockAdjustmentData,
+    string Concept)
+    : StockReportData<UsageReport>(StockAdjustmentData)
 {
-    IReadOnlyCollection<ProductOffsetData> IProductReportData<UsageReport>.ProductOffsetsData => this.UsedProducts;
-
-    public UsageReport ToReport()
+    public override UsageReport ToReport()
     {
-        return new UsageReport() { UsedProducts = this.ConvertOffsets() };
+        return new UsageReport()
+        {
+            StockAdjustments = this.ConvertAdjustments(),
+            Concept = this.Concept,
+        };
     }
 }
