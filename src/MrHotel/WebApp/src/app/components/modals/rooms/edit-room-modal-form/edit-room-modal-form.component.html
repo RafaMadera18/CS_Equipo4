@@ -21,7 +21,7 @@
       @for (propertyGroup of propertyGroups | async; track propertyGroup.id) {
         @if (propertyGroup.properties.length > 0) {
           <div class="container-property-group">
-            <h4>{{ propertyGroup.name }}</h4>
+            <h3>{{ propertyGroup.name }}</h3>
             <div class="container-properties">
               @for (property of propertyGroup.properties; track property.id) {
                 <div class="container-properties-inputs">
