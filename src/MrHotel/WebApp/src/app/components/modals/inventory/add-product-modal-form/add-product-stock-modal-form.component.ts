@@ -26,8 +26,8 @@ export class AddProductStockModalFormComponent extends BaseModalFormComponent<
     if (this.isAddProductModalDataValid()) {
       const productCreationData = new ProductStockCreationData(
         this._name,
-        this._idealQuantity,
         this._stockQuantity,
+        this._idealQuantity,
       );
 
       this.submitModal(productCreationData);
