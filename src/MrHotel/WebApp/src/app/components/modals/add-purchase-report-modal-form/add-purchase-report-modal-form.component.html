@@ -14,14 +14,13 @@
             </tr>
           </thead>
           <tbody>
-            @for (product of products | async; track product.id) {
+            @for (item of productsStock | async; track item.id) {
             <tr>
               <td></td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.stockQuantity }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.stockQuantity }}</td>
               <td>
                 <input
-                  id="quantity"
                   type="number"
                   class="input"
                   [(ngModel)]="_quantity"

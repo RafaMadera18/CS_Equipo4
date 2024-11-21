@@ -21,18 +21,13 @@ export class AddPurchaseReportModalFormComponent extends BaseModalFormComponent<
   PurchaseReportData
 > implements OnInit {
 
-  public _products: Observable<readonly ProductStock[]> = of([]);
+  public _productsStock: Observable<readonly ProductStock[]> = of([]);
   private readonly productsPurchaseReport: ProductOffset[] = [];
   protected _quantity: number = 0;
   protected _price: number = 0;
 
   public ngOnInit(): void{
-    console.log(this._products);
-    this._products = this.input;
-  }
-
-  public get products(){
-    return this._products;
+    this._productsStock = this.input;
   }
 
   protected onSubmit(): void {
@@ -67,6 +62,10 @@ export class AddPurchaseReportModalFormComponent extends BaseModalFormComponent<
     if (!/^\d$/.test(char)) {
       event.preventDefault();
     }
+  }
+
+  public get productsStock(){
+    return this._productsStock;
   }
 }
 

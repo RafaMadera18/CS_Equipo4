@@ -16,8 +16,6 @@ import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
 import { ProductStock } from "@services/inventory-manager/data";
 
-import { firstValueFrom } from 'rxjs';
-
 @Component({
   selector: "app-inventory",
   templateUrl: "./inventory.page.html",
@@ -56,6 +54,7 @@ export class InventoryPage {
 
   public async openPurchaseReport(): Promise<void>{
 
+    alert(this._products);
     console.log(this._products);
     const purchaseReportCreateRequest = await this._modalService.openModal(
       addPurchaseModal,
