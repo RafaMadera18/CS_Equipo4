@@ -29,7 +29,7 @@ export class AddPurchaseReportModalFormComponent
       this._productStocks = stocks;
 
       this._stockAdjustmentsData = this._productStocks.map(
-        (productStock) => new StockAdjustmentData(productStock.id, 0),
+        (productStock) => new StockAdjustmentData(productStock.product.id, 0),
       );
     });
   }
