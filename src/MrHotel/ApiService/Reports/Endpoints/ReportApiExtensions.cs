@@ -5,17 +5,18 @@ using MrHotel.Database.Entities.Reports;
 
 public static class ReportApiExtensions
 {
-    public static IEndpointConventionBuilder MapReportApi<TProductReportData, TReport>(
-        this IEndpointRouteBuilder endpoints)
-        where TProductReportData : class, IProductReportData<TReport>
-        where TReport : class, IProductReport
+    public static IEndpointRouteBuilder MapReportApi<TProductReportData, TProductReport>(
+        this IEndpointRouteBuilder endpoints,
+        string groupName)
+        where TProductReportData : class, IProductReportData<TProductReport>
+        where TProductReport : class, IProductReport
     {
         ArgumentNullException.ThrowIfNull(endpoints);
 
-        var routeGroup = endpoints.MapGroup("/reports").RequireAuthorization();
+        var routeGroup = endpoints.MapGroup(groupName);
 
-        routeGroup.MapPost(string.Empty, ReportEndpoints<TProductReportData, TReport>.HandlePost);
+        routeGroup.MapPost(string.Empty, ReportEndpoints<TProductReportData, TProductReport>.HandlePost);
 
-        return routeGroup.WithTags("Reports");
+        return endpoints;
     }
 }
