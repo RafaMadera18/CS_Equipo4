@@ -1,6 +1,8 @@
 import { Guid } from "@customTypes/guid";
 
-export type ProductStockCreationResult = {
-  stockId: Guid;
-  productId: Guid;
-};
+export class ProductStockCreationResult {
+  constructor(
+    private readonly _stockId: Guid,
+    private readonly _productId: string,
+  ) {}
+}

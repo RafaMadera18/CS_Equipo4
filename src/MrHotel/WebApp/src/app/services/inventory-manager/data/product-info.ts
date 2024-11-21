@@ -1,6 +1,8 @@
 import { Guid } from "@customTypes/guid";
 
-export type ProductInfo = {
-  id: Guid;
-  name: string;
-};
+export class ProductInfo {
+  constructor(
+    private readonly _id: Guid,
+    private readonly _name: string,
+  ) {}
+}

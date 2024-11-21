@@ -1,40 +1,7 @@
-import { Guid, Stringify } from "@customTypes/.";
-
-import { ProductStock } from "./product-stock";
-
 export class ProductStockCreationData {
   public constructor(
-    private readonly _name: string,
-    private readonly _idealQuantity: number,
+    private readonly _productName: string,
     private readonly _stockQuantity: number,
+    private readonly _idealQuantity: number,
   ) {}
-
-  public get productName(): string {
-    return this._name;
-  }
-
-  public get idealQuantity(): number {
-    return this._idealQuantity;
-  }
-
-  public get stockQuantity(): number {
-    return this._stockQuantity;
-  }
-
-  public toJSON(): Stringify<ProductStockCreationData> {
-    return {
-      productName: this._name,
-      idealQuantity: this._idealQuantity.toString(),
-      stockQuantity: this._stockQuantity.toString(),
-    };
-  }
-
-  public toProductStock(sotckId: Guid, productId: Guid): ProductStock {
-    return new ProductStock(
-      sotckId,
-      { id: productId, name: this._name },
-      this._idealQuantity,
-      this._stockQuantity,
-    );
-  }
 }
