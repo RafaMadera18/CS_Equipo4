@@ -23,7 +23,7 @@ export class AddProductModalFormComponent extends BaseModalFormComponent<
   protected _stockQuantity: number = 0;
 
 
-protected onSubmit(): void {
+public onSubmit(): void {
   if (this.isAddProductModalDataValid()) {
     const productCreationData = new ProductCreationData(
       this._name,

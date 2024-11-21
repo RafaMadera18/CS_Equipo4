@@ -35,7 +35,7 @@ export class AddPurchaseReportModalFormComponent extends BaseModalFormComponent<
     return this._products;
   }
 
-  protected onSubmit(): void {
+  public onSubmit(): void {
     if (this.isAddProductModalDataValid()) {
 
       //
