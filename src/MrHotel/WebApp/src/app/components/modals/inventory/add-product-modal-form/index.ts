@@ -1,1 +1,1 @@
-export * from "./add-product-modal-form.component"
+export * from "./add-product-stock-modal-form.component"

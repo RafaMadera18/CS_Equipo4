@@ -7,7 +7,7 @@ import { ProductStock } from "./data/product-stock";
 import { Nullable } from "@customTypes/nullable";
 import { ProductStockCreationData } from "./data/product-stock-creation-data";
 import { InventoryManagerGatewayService } from "./gateway/inventory-manager-gateway.service";
-import { ProductStockCreationResult } from "./data";
+import { ProductInfo, ProductStockCreationResult } from "./data";
 
 @Injectable({
   providedIn: "root",
@@ -30,16 +30,20 @@ export class InventoryManagerService {
     return this._inventoryCache.loadItems(productStock);
   }
 
-  public addNewProductToStock(
-    productCreationData: ProductStockCreationData,
+  public addProductStock(
+    productStockCreationData: ProductStockCreationData,
   ): Observable<ProductStockCreationResult> {
-    const addRequest =
-      this._inventoryGateway.addNewProductToStock(productCreationData);
+    const addRequest = this._inventoryGateway.addProductStock(
+      productStockCreationData,
+    );
 
     return addRequest.pipe(
       tap((newIds: ProductStockCreationResult) => {
         this._inventoryCache?.add(
-          productCreationData.toProductStock(newIds.stockId, newIds.productId),
+          productStockCreationData.toProductStock(
+            newIds.stockId,
+            newIds.productId,
+          ),
         );
       }),
     );

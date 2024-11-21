@@ -8,7 +8,7 @@ import { trashOutline, addOutline } from "ionicons/icons";
 
 import { Observable } from "rxjs";
 
-import { addProductModal } from "@components/modals/add-product-modal-form";
+
 import { deleteModal } from "@components/modals/delete-modal-form";
 import { addPurchaseModal } from "@components/modals/add-purchase-report-modal-form";
 
@@ -16,6 +16,7 @@ import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
 import { ProductStock } from "@services/inventory-manager/data";
 import { ReportManagerService } from "@services/report-manager/report-manager.service";
+import { addProductModal } from "@components/modals/inventory/add-product-modal-form";
 
 @Component({
   selector: "app-inventory",
@@ -37,12 +38,12 @@ export class InventoryPage {
   }
 
   public async addProductStock(): Promise<void> {
-    const productCreateRequest =
+    const productStockCreationData =
       await this._modalService.openModal(addProductModal);
 
-    if (productCreateRequest != null) {
+    if (productStockCreationData != null) {
       this._inventoryManager
-        .addNewProductToStock(productCreateRequest)
+        .addProductStock(productStockCreationData)
         .subscribe();
     }
   }

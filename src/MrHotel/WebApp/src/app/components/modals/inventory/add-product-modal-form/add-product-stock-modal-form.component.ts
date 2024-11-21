@@ -2,19 +2,19 @@ import { Component } from "@angular/core";
 
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { BaseModalFormComponent } from "../modal-base-form.component";
+import { BaseModalFormComponent } from "../../modal-base-form.component";
 import { ModalInfo } from "@services/modal/modal-info";
 
 import { ProductStockCreationData } from "@services/inventory-manager/data";
 
 @Component({
   selector: "app-add-product-modal-form",
-  templateUrl: "./add-product-modal-form.component.html",
-  styleUrls: ["./add-product-modal-form.component.scss"],
+  templateUrl: "./add-product-stock-modal-form.component.html",
+  styleUrls: ["./add-product-stock-modal-form.component.scss"],
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class AddProductModalFormComponent extends BaseModalFormComponent<
+export class AddProductStockModalFormComponent extends BaseModalFormComponent<
   void,
   ProductStockCreationData
 > {
@@ -57,7 +57,7 @@ export class AddProductModalFormComponent extends BaseModalFormComponent<
 export const addProductModal: ModalInfo<
   void,
   ProductStockCreationData,
-  AddProductModalFormComponent
+  AddProductStockModalFormComponent
 > = {
-  component: AddProductModalFormComponent,
+  component: AddProductStockModalFormComponent,
 };

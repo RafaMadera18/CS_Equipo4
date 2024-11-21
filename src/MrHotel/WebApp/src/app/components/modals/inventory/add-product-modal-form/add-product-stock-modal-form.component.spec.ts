@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddProductModalFormComponent } from './add-product-modal-form.component';
+import { AddProductModalFormComponent } from './add-product-stock-modal-form.component';
 
 describe('AddProductModalFormComponent', () => {
   let component: AddProductModalFormComponent;
