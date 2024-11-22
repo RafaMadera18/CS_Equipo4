@@ -27,7 +27,7 @@ export class UsageReportManagerService {
         this._usageReportsDataCache?.add(usageReportData);
 
         return this._inventoryManager
-          .getProductStock(true)
+          .getProductStocks(true)
           .pipe(map(() => newPurchaseReportId));
       }),
     );

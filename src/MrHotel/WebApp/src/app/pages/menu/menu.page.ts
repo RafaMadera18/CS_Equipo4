@@ -57,7 +57,7 @@ export class MenuPage {
       cogOutline,
     });
 
-    this._userInfo = toSignal(this._authService.userInfo(), {
+    this._userInfo = toSignal(this._authService.getUserInfo(), {
       initialValue: null,
     });
 

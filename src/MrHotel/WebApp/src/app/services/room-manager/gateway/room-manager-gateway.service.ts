@@ -16,7 +16,9 @@ export class RoomManagerGatewayService {
   public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiPath, roomCreationData);
+    const newRoomId = this._httpClient.post<Guid>(apiPath, roomCreationData);
+
+    return newRoomId;
   }
 
   public deleteRoom(roomId: Guid): Observable<void> {
@@ -34,6 +36,7 @@ export class RoomManagerGatewayService {
         .map((property) => property.id)
         .filter((id): id is Guid => id !== null),
     );
+
     return this._httpClient.put<void>(apiPath, roomUpdateData);
   }
 

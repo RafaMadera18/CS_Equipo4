@@ -13,10 +13,12 @@ import { ProductStockCreationData } from "../data/product-stock-creation-data";
 export class InventoryManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
-  public getProductStock(): Observable<ProductStock[]> {
+  public getProductStocks(): Observable<ProductStock[]> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.get<ProductStock[]>(apiPath);
+    const productStocks = this._httpClient.get<ProductStock[]>(apiPath);
+
+    return productStocks;
   }
 
   public addProductStock(

@@ -29,10 +29,12 @@ export class AuthService {
     return this._httpClient.post<void>(apiPath, request);
   }
 
-  public adminRegisterStatus(): Observable<boolean> {
+  public getAdminRegisterStatus(): Observable<boolean> {
     const apiPath: string = this.getApiPath("admin-register-status");
 
-    return this._httpClient.get<boolean>(apiPath);
+    const adminRegisterStatus = this._httpClient.get<boolean>(apiPath);
+
+    return adminRegisterStatus;
   }
 
   public login(request: LoginRequest): Observable<void> {
@@ -47,14 +49,16 @@ export class AuthService {
     return this._httpClient.post<void>(apiPath, {});
   }
 
-  public userInfo(): Observable<Nullable<UserInfoResponse>> {
+  public getUserInfo(): Observable<Nullable<UserInfoResponse>> {
     const apiPath: string = this.getApiPath("manage/info");
 
-    return this._httpClient.get<UserInfoResponse>(apiPath).pipe(
+    const userInfo = this._httpClient.get<UserInfoResponse>(apiPath).pipe(
       catchError(() => {
         return of(null);
       }),
     );
+
+    return userInfo;
   }
 
   private getApiPath(path: string): string {

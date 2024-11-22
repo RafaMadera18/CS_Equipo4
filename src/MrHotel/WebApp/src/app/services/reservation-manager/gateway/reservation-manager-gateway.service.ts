@@ -14,7 +14,13 @@ export class ReservationManagerGatewayService {
     reservationCreationData: ReservationCreationData,
   ): Observable<Guid> {
     const apiPath = this.getApiPath();
-    return this._httpClient.post<Guid>(apiPath, reservationCreationData);
+
+    const newReservationId = this._httpClient.post<Guid>(
+      apiPath,
+      reservationCreationData,
+    );
+
+    return newReservationId;
   }
 
   public makeCheckOut(reservationId: Guid): Observable<void> {

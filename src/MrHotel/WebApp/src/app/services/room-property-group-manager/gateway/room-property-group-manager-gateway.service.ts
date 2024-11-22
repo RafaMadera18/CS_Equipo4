@@ -13,7 +13,10 @@ export class RoomPropertyGroupManagerGatewayService {
   public getRoomPropertyGroups(): Observable<RoomPropertyGroup[]> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.get<RoomPropertyGroup[]>(apiPath);
+    const roomPropertyGroups =
+      this._httpClient.get<RoomPropertyGroup[]>(apiPath);
+
+    return roomPropertyGroups;
   }
 
   public addRoomPropertyGroup(
@@ -21,7 +24,12 @@ export class RoomPropertyGroupManagerGatewayService {
   ): Observable<Guid> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiPath, roomPropertyGroupCreationData);
+    const newRoomPropertyGroupId = this._httpClient.post<Guid>(
+      apiPath,
+      roomPropertyGroupCreationData,
+    );
+
+    return newRoomPropertyGroupId;
   }
 
   public deleteRoomPropertyGroup(roomPropertyGroupId: Guid): Observable<void> {
@@ -35,10 +43,12 @@ export class RoomPropertyGroupManagerGatewayService {
   ): Observable<Record<string, Guid>> {
     const apiPath: string = this.getApiPath(roomPropertyGroup.id);
 
-    return this._httpClient.put<Record<string, Guid>>(
+    const newRoomPropertyGroupIds = this._httpClient.put<Record<string, Guid>>(
       apiPath,
       roomPropertyGroup,
     );
+
+    return newRoomPropertyGroupIds;
   }
 
   private getApiPath(path: string = ""): string {

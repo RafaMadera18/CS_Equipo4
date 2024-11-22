@@ -36,7 +36,7 @@ export class InventoryPage {
     private readonly _usageReportManager: UsageReportManagerService,
   ) {
     addIcons({ trashOutline, addOutline });
-    this._productStocks = _inventoryManager.getProductStock();
+    this._productStocks = _inventoryManager.getProductStocks();
   }
 
   public async addProductStock(): Promise<void> {

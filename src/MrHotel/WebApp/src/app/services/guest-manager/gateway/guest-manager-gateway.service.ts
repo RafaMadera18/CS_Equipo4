@@ -18,15 +18,19 @@ export class GuestManagerGatewayService {
   public getGuests(): Observable<GuestInfo[]> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient
+    const guests = this._httpClient
       .get<GuestInfoDto[]>(apiPath)
       .pipe(mapCollection(GuestInfo.createFromDto));
+
+    return guests;
   }
 
   public addGuest(guestCreationData: GuestCreationData): Observable<Guid> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiPath, guestCreationData);
+    const newGuestId = this._httpClient.post<Guid>(apiPath, guestCreationData);
+
+    return newGuestId;
   }
 
   public deleteGuest(guestId: Guid): Observable<void> {

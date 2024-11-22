@@ -18,14 +18,14 @@ export class InventoryManagerService {
     private readonly _inventoryGateway: InventoryManagerGatewayService,
   ) {}
 
-  public getProductStock(
+  public getProductStocks(
     ignoreCache: boolean = false,
   ): Observable<readonly ProductStock[]> {
     if (this._productStocksCache !== null && !ignoreCache) {
       return this._productStocksCache.items$;
     }
 
-    const productStock = this._inventoryGateway.getProductStock();
+    const productStock = this._inventoryGateway.getProductStocks();
 
     this._productStocksCache ??= new ObservableCollection();
     return this._productStocksCache.loadItems(productStock);

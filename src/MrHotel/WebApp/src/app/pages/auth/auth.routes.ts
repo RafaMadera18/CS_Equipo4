@@ -11,7 +11,7 @@ function notLoggedIn(): CanActivateFn {
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    return authService.userInfo().pipe(
+    return authService.getUserInfo().pipe(
       map((userInfo: Nullable<UserInfoResponse>) => {
         const loggedIn: boolean = userInfo != null;
         if (loggedIn) {
@@ -32,7 +32,7 @@ function requireAdminRegisterStatus(
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    return authService.adminRegisterStatus().pipe(
+    return authService.getAdminRegisterStatus().pipe(
       map((currentStatus: boolean) => {
         const statusMatch: boolean = currentStatus === status;
         if (!statusMatch) {

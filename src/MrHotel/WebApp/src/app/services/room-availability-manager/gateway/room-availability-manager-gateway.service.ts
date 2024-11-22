@@ -13,7 +13,9 @@ export class RoomAvailabilityManagerGatewayService {
   public getRoomsAvailability(): Observable<RoomAvailability[]> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.get<RoomAvailability[]>(apiPath);
+    const roomsAvailability = this._httpClient.get<RoomAvailability[]>(apiPath);
+
+    return roomsAvailability;
   }
 
   private getApiPath(): string {

@@ -31,7 +31,7 @@ export class PurchaseReportManagerService {
         this._purchaseReportsDataCache?.add(purchaseReportData);
 
         return this._inventoryManager
-          .getProductStock(true)
+          .getProductStocks(true)
           .pipe(map(() => newPurchaseReportId));
       }),
     );

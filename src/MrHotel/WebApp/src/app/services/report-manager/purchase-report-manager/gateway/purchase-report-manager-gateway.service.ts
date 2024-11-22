@@ -17,7 +17,12 @@ export class PurchaseReportManagerGatewayService {
   ): Observable<Guid> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiPath, purchaseReport);
+    const newPurchaseReportId = this._httpClient.post<Guid>(
+      apiPath,
+      purchaseReport,
+    );
+
+    return newPurchaseReportId;
   }
 
   private getApiPath(path: string = ""): string {

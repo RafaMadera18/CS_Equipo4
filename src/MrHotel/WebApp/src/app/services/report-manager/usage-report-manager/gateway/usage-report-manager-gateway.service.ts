@@ -13,7 +13,9 @@ export class UsageReportManagerGatewayService {
   public addUsageReport(usageReport: UsageReportData): Observable<Guid> {
     const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiPath, usageReport);
+    const newUsageReportId = this._httpClient.post<Guid>(apiPath, usageReport);
+
+    return newUsageReportId;
   }
 
   private getApiPath(path: string = ""): string {
