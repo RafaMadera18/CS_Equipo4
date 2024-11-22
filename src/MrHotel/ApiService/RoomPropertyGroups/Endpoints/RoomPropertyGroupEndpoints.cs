@@ -37,7 +37,7 @@ public static class RoomPropertyGroupEndpoints
         return TypedResults.Ok(propertyGroups);
     }
 
-    public static async Task<Results<Ok<Dictionary<Guid, string>>, ValidationProblem, NotFound>> HandlePut(
+    public static async Task<Results<Ok<Dictionary<string, Guid>>, ValidationProblem, NotFound>> HandlePut(
         [FromRoute] Guid groupId,
         [FromBody] RoomPropertyGroupUpdateData groupUpdateData,
         [FromServices] RoomPropertyGroupManager groupManager)
@@ -59,8 +59,8 @@ public static class RoomPropertyGroupEndpoints
 
         await groupManager.SaveChanges();
 
-        Dictionary<Guid, string> idNameMap = propertyGroup.Properties.ToDictionary(p => p.Id, p => p.Name);
-        return TypedResults.Ok(idNameMap);
+        Dictionary<string, Guid> nameIdMap = propertyGroup.Properties.ToDictionary(p => p.Name, p => p.Id);
+        return TypedResults.Ok(nameIdMap);
     }
 
     public static async Task<Results<NoContent, NotFound>> HandleDelete(
