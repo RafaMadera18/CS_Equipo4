@@ -16,7 +16,7 @@
         [state]="roomAvailability.state"
         [properties]="roomAvailability.room.properties"
         (deleteClick)="deleteRoom(roomAvailability.room)"
-        (addReservation)="addReservation()"
+        (addReservation)="addReservation(roomAvailability.room)"
         (editClick)="editRoom(roomAvailability.room)"
       />
     }

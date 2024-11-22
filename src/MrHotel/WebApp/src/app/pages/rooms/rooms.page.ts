@@ -22,6 +22,8 @@ import {
 } from "@services/room-manager/data";
 import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
 import { editRoomModal } from "@components/modals/rooms/edit-room-modal-form/edit-room-modal-form.component";
+import { addReservationModal } from "@components/modals/reservations/add-reservation-modal-form";
+import { ReservationManagerService } from "@services/reservation-manager/reservation-manager.service";
 
 @Component({
   selector: "app-rooms",
@@ -37,6 +39,7 @@ export class RoomsPage {
     private readonly _roomManager: RoomManagerService,
     private readonly _roomAvailabilityManager: RoomAvailabilityManagerService,
     private readonly _modalService: ModalService,
+    private readonly _reservationManager: ReservationManagerService,
   ) {
     addIcons({ addOutline });
 
@@ -71,9 +74,17 @@ export class RoomsPage {
     }
   }
 
-  public async addReservation(): Promise<void> {
-    // TODO: Create Logic to add a Reservation
-    console.log("Conectado");
+  public async addReservation(room: RoomInfo): Promise<void> {
+    const reservationCreationData = await this._modalService.openModal(
+      addReservationModal,
+      room,
+    );
+
+    if (reservationCreationData) {
+      this._reservationManager
+        .addReservation(reservationCreationData)
+        .subscribe();
+    }
   }
 
   public get roomsAvailability() {
