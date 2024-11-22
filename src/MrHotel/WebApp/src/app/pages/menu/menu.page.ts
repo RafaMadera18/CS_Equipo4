@@ -35,7 +35,7 @@ import { Router } from "@angular/router";
   imports: [IonTabs, TabButtonComponent],
 })
 export class MenuPage {
-  private readonly _userInfo: Signal<Nullable<UserInfoResponse>>;
+  private _userInfo: Signal<Nullable<UserInfoResponse>> = signal(null);
 
   private readonly _sidebar =
     viewChild.required<ElementRef<HTMLDivElement>>("sidebar");
@@ -57,16 +57,9 @@ export class MenuPage {
       cogOutline,
     });
 
-    this._userInfo = toSignal(this._authService.getUserInfo(), {
-      initialValue: null,
-    });
+    this.getUserInfo();
 
-    effect(() => {
-      this._sidebar().nativeElement.classList.toggle(
-        "expanded",
-        this._isSidebarExpanded(),
-      );
-    });
+    this.initializeSidebar();
   }
 
   public logOut(): void {
@@ -87,5 +80,20 @@ export class MenuPage {
 
   public get isSideBarExpanded() {
     return this._isSidebarExpanded;
+  }
+
+  private getUserInfo(): void {
+    this._userInfo = toSignal(this._authService.getUserInfo(), {
+      initialValue: null,
+    });
+  }
+
+  private initializeSidebar(): void {
+    effect(() => {
+      this._sidebar().nativeElement.classList.toggle(
+        "expanded",
+        this._isSidebarExpanded(),
+      );
+    });
   }
 }

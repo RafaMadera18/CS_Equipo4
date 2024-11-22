@@ -55,7 +55,7 @@ export class InventoryPage {
       message: `Do You want To Delete Product: ${productStock.product.name}? `,
     });
 
-    if (isDeleteConfirmed?.state) {
+    if (isDeleteConfirmed?.state !== null) {
       this._inventoryManager.deleteProductStock(productStock).subscribe();
     }
   }
@@ -66,7 +66,7 @@ export class InventoryPage {
       this._productStocks,
     );
 
-    if (purchaseReportData) {
+    if (purchaseReportData !== null) {
       this._purchaseReportManager
         .addPurchaseReport(purchaseReportData)
         .subscribe();
@@ -79,7 +79,7 @@ export class InventoryPage {
       this._productStocks,
     );
 
-    if (usageReportData) {
+    if (usageReportData !== null) {
       this._usageReportManager.addUsageReport(usageReportData).subscribe();
     }
   }

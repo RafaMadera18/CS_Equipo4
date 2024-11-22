@@ -52,7 +52,7 @@ export class RoomsPage {
   public async addRoom(): Promise<void> {
     const roomData = await this._modalService.openModal(addRoomModal);
 
-    if (roomData?.name) {
+    if (roomData !== null) {
       const request = new RoomCreationData(roomData.name);
       this._roomManager.addRoom(request).subscribe();
     }
@@ -63,7 +63,7 @@ export class RoomsPage {
       message: `Do You want To Delete Room: ${room.name}?`,
     });
 
-    if (isDeleteConfirmed?.state) {
+    if (isDeleteConfirmed !== null) {
       this._roomManager.deleteRoom(room).subscribe();
     }
   }
@@ -71,7 +71,7 @@ export class RoomsPage {
   public async updateRoom(room: RoomInfo): Promise<void> {
     const editedRoom = await this._modalService.openModal(editRoomModal, room);
 
-    if (editedRoom) {
+    if (editedRoom !== null) {
       this._roomManager.updateRoom(editedRoom).subscribe();
     }
   }
@@ -82,7 +82,7 @@ export class RoomsPage {
       room,
     );
 
-    if (reservationCreationData) {
+    if (reservationCreationData !== null) {
       this._reservationManager
         .addReservation(reservationCreationData)
         .subscribe();

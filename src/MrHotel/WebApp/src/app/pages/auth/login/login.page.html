@@ -5,7 +5,7 @@
     <div class="container-auth">
       <h1>LOGIN</h1>
 
-      @if (authForm(); as authForm) {
+      @if (_authForm(); as authForm) {
         <form
           [formGroup]="authForm"
           autocomplete="off"
@@ -42,7 +42,7 @@
           </ion-button>
         </form>
 
-        <div class="auth-error">{{ errorMessage() }}</div>
+        <div class="auth-error">{{ _errorMessage() }}</div>
       }
     </div>
   </div>

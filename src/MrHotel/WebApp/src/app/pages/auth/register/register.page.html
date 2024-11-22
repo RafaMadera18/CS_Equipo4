@@ -5,7 +5,7 @@
     <div class="container-auth">
       <h1>ADMIN REGISTER</h1>
 
-      @if (authForm(); as authForm) {
+      @if (_authForm(); as authForm) {
         <form
           [formGroup]="authForm"
           autocomplete="off"
@@ -27,7 +27,7 @@
             placeholder="..."
             icon="lock-closed-outline"
             [errorMessage]="getErrorMsg('password')"
-            (blur)="updateMismatchState(authForm)"
+            (blur)="updateMismatchPasswordState(authForm)"
           />
 
           <app-input-field
@@ -37,7 +37,7 @@
             placeholder="..."
             icon="lock-closed-outline"
             [errorMessage]="getErrorMsg('passwordConfirm')"
-            (blur)="updateMismatchState(authForm)"
+            (blur)="updateMismatchPasswordState(authForm)"
           />
 
           <app-input-field
@@ -55,7 +55,7 @@
           </ion-button>
         </form>
 
-        <div class="auth-error">{{ errorMessage() }}</div>
+        <div class="auth-error">{{ _errorMessage() }}</div>
       }
     </div>
   </div>

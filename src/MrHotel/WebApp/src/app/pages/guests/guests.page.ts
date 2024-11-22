@@ -49,7 +49,7 @@ export class GuestsPage {
       message: `Do You want To Delete Guest: ${guest.fullName}? `,
     });
 
-    if (isDeleteConfirmed?.state) {
+    if (isDeleteConfirmed !== null) {
       this._guestManager.deleteGuest(guest).subscribe();
     }
   }
@@ -60,7 +60,7 @@ export class GuestsPage {
       guest,
     );
 
-    if (updatedGuest != null) {
+    if (updatedGuest !== null) {
       this._guestManager.updateGuest(updatedGuest).subscribe();
     }
   }

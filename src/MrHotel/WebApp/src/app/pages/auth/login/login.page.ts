@@ -9,15 +9,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 import { AuthHeaderComponent } from "@components/auth-header/auth-header.component";
 
-import {
-  IonButton,
-  IonIcon,
-  IonContent,
-  IonImg,
-  IonGrid,
-  IonRow,
-  IonCol,
-} from "@ionic/angular/standalone";
+import { IonButton, IonContent } from "@ionic/angular/standalone";
 
 import { InputFieldComponent } from "@components/input-field";
 
@@ -36,12 +28,7 @@ import { FormObjectGroup } from "@customTypes/.";
     InputFieldComponent,
     AuthHeaderComponent,
     IonContent,
-    IonImg,
     IonButton,
-    IonIcon,
-    IonGrid,
-    IonRow,
-    IonCol,
     ReactiveFormsModule,
     RouterModule,
   ],
@@ -58,17 +45,17 @@ export class LoginPage extends AuthBasePage<LoginRequest> {
   }
 
   protected override onSubmitValue(value: LoginRequest): void {
-    this.errorMessage.set(null);
+    this._errorMessage.set(null);
 
-    this.authService.login(value).subscribe({
+    this._authService.login(value).subscribe({
       next: () => {
-        this.router.navigateByUrl("menu");
+        this._router.navigateByUrl("menu");
       },
       error: (response: HttpErrorResponse) => {
         const errorMessageValue =
-          this.errorMessageProvider.formatErrorResponse(response);
+          this._errorMessageProvider.formatErrorResponse(response);
 
-        this.errorMessage.set(errorMessageValue);
+        this._errorMessage.set(errorMessageValue);
       },
     });
   }

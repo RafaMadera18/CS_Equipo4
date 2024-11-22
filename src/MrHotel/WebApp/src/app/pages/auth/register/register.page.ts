@@ -8,7 +8,7 @@ import {
 } from "@angular/forms";
 import { HttpErrorResponse } from "@angular/common/http";
 
-import { IonButton, IonImg, IonContent } from "@ionic/angular/standalone";
+import { IonButton, IonContent } from "@ionic/angular/standalone";
 
 import { AuthBasePage } from "../auth.base.page";
 
@@ -37,7 +37,6 @@ interface AdminRegistrationForm extends AdminRegisterRequest {
     AuthHeaderComponent,
     InputFieldComponent,
     IonContent,
-    IonImg,
     IonButton,
     ReactiveFormsModule,
     RouterModule,
@@ -74,29 +73,29 @@ export class RegisterPage extends AuthBasePage<AdminRegistrationForm> {
     );
 
     authForm.statusChanges.subscribe(() => {
-      this.updateMismatchState(authForm);
+      this.updateMismatchPasswordState(authForm);
     });
 
     return authForm;
   }
 
-  protected updateMismatchState(formGroup: FormGroup): void {
+  protected updateMismatchPasswordState(formGroup: FormGroup): void {
     const state = this.passwordFieldMatcher.getMismatchState(formGroup);
-    this.errorMessage.set(state);
+    this._errorMessage.set(state);
   }
 
   protected override onSubmitValue(value: AdminRegistrationForm): void {
-    this.errorMessage.set(null);
+    this._errorMessage.set(null);
 
-    this.authService.registerAdmin(value).subscribe({
+    this._authService.registerAdmin(value).subscribe({
       next: () => {
-        this.router.navigate(["../login"]);
+        this._router.navigate(["../login"]);
       },
       error: (response: HttpErrorResponse) => {
         const errorMessageValue =
-          this.errorMessageProvider.formatErrorResponse(response);
+          this._errorMessageProvider.formatErrorResponse(response);
 
-        this.errorMessage.set(errorMessageValue);
+        this._errorMessage.set(errorMessageValue);
       },
     });
   }
