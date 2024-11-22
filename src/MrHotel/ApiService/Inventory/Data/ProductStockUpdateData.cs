@@ -6,7 +6,7 @@ public record ProductStockUpdateData(
     string Name,
     int IdealQuantity)
 {
-    public void Update(ProductStock productStock)
+    public void ApplyUpdate(ProductStock productStock)
     {
         productStock.Product.Name = this.Name;
         productStock.IdealQuantity = this.IdealQuantity;

@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 using MrHotel.ApiService.Reports.Data;
 using MrHotel.ApiService.Reports.Services;
-using MrHotel.ApiService.Reports.Validation;
 using MrHotel.Database.Entities.Reports;
 
 public static class ReportEndpoints<TStockReportData, TStockReport>
-where TStockReportData : StockReportData<TStockReport>
-where TStockReport : StockReport
+    where TStockReportData : StockReportData<TStockReport>
+    where TStockReport : StockReport
 {
     public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
         [FromBody] TStockReportData reportData,

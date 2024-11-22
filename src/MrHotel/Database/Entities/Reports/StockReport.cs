@@ -1,7 +1,5 @@
 namespace MrHotel.Database.Entities.Reports;
 
-using System.ComponentModel.DataAnnotations;
-
 public abstract class StockReport
 {
     public Guid Id { get; init; }

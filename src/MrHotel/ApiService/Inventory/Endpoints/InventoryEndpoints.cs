@@ -34,8 +34,8 @@ public static class InventoryEndpoints
             return TypedResults.NotFound();
         }
 
-        productStockUpdateData.Update(productStock);
         inventoryManager.UpdateProductStock(productStock);
+        productStockUpdateData.ApplyUpdate(productStock);
         await inventoryManager.SaveChanges();
 
         return TypedResults.NoContent();

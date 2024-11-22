@@ -2,7 +2,7 @@
 
 using System.Text.Json.Serialization;
 
-public class RoomProperty
+public partial class RoomProperty
 {
     public Guid Id { get; init; }
 

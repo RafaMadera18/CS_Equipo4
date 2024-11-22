@@ -1,31 +1,25 @@
 ﻿namespace MrHotel.ApiService.Rooms.Data;
 
+using MrHotel.ApiService.RoomPropertyGroups.Services;
 using MrHotel.Database.Entities.Rooms;
-
-using RaptorUtils.Collections.Extensions;
 
 public record RoomUpdateData(
     string Name,
     IReadOnlyCollection<Guid> PropertiesIds)
 {
-    public void Update(RoomInfo room)
+    public async Task<RoomUpdate> ToRoomUpdate(
+        RoomPropertyGroupManager propertyGroupManager)
     {
-        room.Name = this.Name;
+        IEnumerable<RoomPropertyGroup> groups = await propertyGroupManager.GetPropertyGroups();
+        IEnumerable<RoomProperty> properties = this.GetIncludedProperties(groups);
 
-        this.UpdateProperties(room.Properties);
+        return new RoomUpdate(this.Name, properties.ToList());
     }
 
-    private void UpdateProperties(ICollection<RoomProperty> properties)
+    private IEnumerable<RoomProperty> GetIncludedProperties(IEnumerable<RoomPropertyGroup> groups)
     {
-        properties.Clear();
-
-        IEnumerable<RoomProperty> newProperties = this.GetNewProperties();
-        properties.AddRange(newProperties);
-    }
-
-    private IEnumerable<RoomProperty> GetNewProperties()
-    {
-        return this.PropertiesIds
-            .Select(id => new RoomProperty() { Id = id });
+        return groups
+            .SelectMany(g => g.Properties)
+            .Where(p => this.PropertiesIds.Contains(p.Id));
     }
 }

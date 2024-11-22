@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
+using MrHotel.ApiService.RoomPropertyGroups.Services;
 using MrHotel.ApiService.Rooms.Data;
 using MrHotel.ApiService.Rooms.Services;
 using MrHotel.Database.Entities.Rooms;
@@ -31,7 +32,8 @@ public static class RoomEndpoints
     public static async Task<Results<NoContent, NotFound>> HandlePut(
         [FromRoute] Guid roomId,
         [FromBody] RoomUpdateData roomUpdateData,
-        [FromServices] RoomManager roomManager)
+        [FromServices] RoomManager roomManager,
+        [FromServices] RoomPropertyGroupManager propertyGroupManager)
     {
         RoomInfo? room = await roomManager.TryGetRoomById(roomId);
 
@@ -40,8 +42,10 @@ public static class RoomEndpoints
             return TypedResults.NotFound();
         }
 
-        roomUpdateData.Update(room);
+        RoomUpdate roomUpdate = await roomUpdateData.ToRoomUpdate(propertyGroupManager);
+
         roomManager.UpdateRoom(room);
+        roomUpdate.ApplyUpdate(room);
         await roomManager.SaveChanges();
 
         return TypedResults.NoContent();
