@@ -18,9 +18,33 @@ export class AddProductStockModalFormComponent extends BaseModalFormComponent<
   void,
   ProductStockCreationData
 > {
-  protected _name: string = "";
-  protected _idealQuantity: number = 0;
-  protected _stockQuantity: number = 0;
+  private _name: string = "";
+  private _idealQuantity: number = 0;
+  private _stockQuantity: number = 0;
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public set name(value: string) {
+    this._name = value;
+  }
+
+  public get idealQuantity(): number {
+    return this._idealQuantity;
+  }
+
+  public set idealQuantity(value: number) {
+    this._idealQuantity = value;
+  }
+
+  public get stockQuantity(): number {
+    return this._stockQuantity;
+  }
+
+  public set stockQuantity(value: number) {
+    this._stockQuantity = value;
+  }
 
   public onSubmit(): void {
     if (this.isAddProductModalDataValid()) {

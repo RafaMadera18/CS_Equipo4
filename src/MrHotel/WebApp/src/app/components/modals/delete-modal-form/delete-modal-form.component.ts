@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { BaseModalFormComponent } from "../modal-base-form.component";
 import { IonicModule } from "@ionic/angular";
 import { FormsModule } from "@angular/forms";
@@ -23,7 +23,15 @@ export class DeleteModalFormComponent extends BaseModalFormComponent<
   DeleteModalInput,
   DeleteModalOutput
 > {
-  protected state: boolean = true;
+  private _state: boolean = true;
+
+  public get state() {
+    return this._state;
+  }
+
+  public set state(value: boolean) {
+    this._state = value;
+  }
 
   public onSubmit() {
     this.submitModal({

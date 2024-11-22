@@ -21,7 +21,7 @@ export class AddPurchaseReportModalFormComponent
   implements OnInit
 {
   private _productStocks: ProductStock[] = [];
-  public _stockAdjustmentsData: StockAdjustmentData[] = [];
+  private _stockAdjustmentsData: StockAdjustmentData[] = [];
   private _price: number = 0;
 
   public ngOnInit(): void {
@@ -38,6 +38,10 @@ export class AddPurchaseReportModalFormComponent
     return this._productStocks;
   }
 
+  public get stockAdjustmentsData() {
+    return this._stockAdjustmentsData;
+  }
+
   public get price() {
     return this._price;
   }
@@ -47,17 +51,12 @@ export class AddPurchaseReportModalFormComponent
   }
 
   public onSubmit(): void {
-    if (true) {
-      const purchaseReportData = new PurchaseReportData(
-        this._stockAdjustmentsData,
-        this._price,
-      );
+    const purchaseReportData = new PurchaseReportData(
+      this._stockAdjustmentsData,
+      this._price,
+    );
 
-      this.submitModal(purchaseReportData);
-    } else {
-      console.error("Product data is invalid");
-      this.dismissModal();
-    }
+    this.submitModal(purchaseReportData);
   }
 
   protected acceptOnlyNumbers(event: KeyboardEvent) {

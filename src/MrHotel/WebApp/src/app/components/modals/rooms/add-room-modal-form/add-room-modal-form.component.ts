@@ -21,7 +21,15 @@ export class AddRoomModalFormComponent extends BaseModalFormComponent<
   void,
   AddRoomModalOutput
 > {
-  protected name: string = "";
+  private _name: string = "";
+
+  public get name() {
+    return this._name;
+  }
+
+  public set name(name: string) {
+    this._name = name;
+  }
 
   onSubmit(): void {
     this.submitModal({ name: this.name });

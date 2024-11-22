@@ -24,7 +24,7 @@ export class AddUsageReportModalFormComponent
   implements OnInit
 {
   private _productStocks: ProductStock[] = [];
-  public _stockAdjustmentsData: StockAdjustmentData[] = [];
+  private _stockAdjustmentsData: StockAdjustmentData[] = [];
   private _concept: string = "";
 
   public ngOnInit(): void {
@@ -41,22 +41,21 @@ export class AddUsageReportModalFormComponent
     return this._concept;
   }
 
+  public get stockAdjustmentsData() {
+    return this._stockAdjustmentsData;
+  }
+
   public set concept(concept: string) {
     this._concept = concept;
   }
 
   public override onSubmit(): void {
-    if (true) {
-      const purchaseReportData = new UsageReportData(
-        this._stockAdjustmentsData,
-        this._concept,
-      );
+    const purchaseReportData = new UsageReportData(
+      this._stockAdjustmentsData,
+      this._concept,
+    );
 
-      this.submitModal(purchaseReportData);
-    } else {
-      console.error("Product data is invalid");
-      this.dismissModal();
-    }
+    this.submitModal(purchaseReportData);
   }
 
   public get productStocks() {

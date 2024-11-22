@@ -23,10 +23,10 @@ export class AddReservationModalFormComponent extends BaseModalFormComponent<
   ReservationCreationData
 > {
   private readonly _guests: Observable<readonly GuestInfo[]>;
-  private _guestId: Guid = "" as Guid;
+  private _guestId: Guid;
   private readonly _checkInDate: Date;
-  private _checkOutDate: string = "";
-  private _price: number = 0;
+  private _checkOutDate: string;
+  private _price: number;
 
   constructor(
     private readonly _guestManager: GuestManagerService,
@@ -34,7 +34,10 @@ export class AddReservationModalFormComponent extends BaseModalFormComponent<
   ) {
     super(_modalController);
     this._guests = this._guestManager.getGuests();
+    this._guestId = "" as Guid;
     this._checkInDate = new Date();
+    this._checkOutDate = "";
+    this._price = 0;
   }
 
   public override onSubmit(): void {

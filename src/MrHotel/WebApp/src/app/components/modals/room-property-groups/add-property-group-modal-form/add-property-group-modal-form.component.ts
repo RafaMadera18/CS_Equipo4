@@ -32,6 +32,10 @@ export class AddPropertyGroupModalFormComponent extends BaseModalFormComponent<
   public set name(name: string) {
     this._name = name;
   }
+
+  public get name() {
+    return this._name;
+  }
 }
 
 export const AddPropertyGroupModal: ModalInfo<

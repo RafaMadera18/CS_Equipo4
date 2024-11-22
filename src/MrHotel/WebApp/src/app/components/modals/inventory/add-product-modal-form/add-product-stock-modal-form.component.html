@@ -7,7 +7,7 @@
         id="name"
         type="text"
         class="input"
-        [(ngModel)]="_name"
+        [(ngModel)]="name"
         name="Name"
         maxlength="15"
       />
@@ -19,7 +19,7 @@
         id="idealQuantity"
         type="number"
         class="input"
-        [(ngModel)]="_idealQuantity"
+        [(ngModel)]="idealQuantity"
         name="idealQuantity"
         maxlength="10"
         (keypress)="acceptOnlyNumbers($event)"

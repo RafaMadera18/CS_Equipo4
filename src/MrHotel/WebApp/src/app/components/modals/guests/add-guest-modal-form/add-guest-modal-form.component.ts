@@ -20,16 +20,44 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
   void,
   GuestCreationData
 > {
-  protected fullName: string = "";
-  protected phoneNumber: string = "";
-  protected dateOfBirth: string = "";
+  private _fullName: string = "";
+  private _phoneNumber: string = "";
+  private _dateOfBirth: string = "";
+
+  public get fullName(): string {
+    return this._fullName;
+  }
+
+  public set fullName(value: string) {
+    this._fullName = value;
+  }
+
+  public get phoneNumber(): string {
+    return this._phoneNumber;
+  }
+
+  public get dateOfBirth(): string {
+    return this._dateOfBirth;
+  }
+
+  public set phoneNumber(value: string) {
+    this._phoneNumber = value;
+  }
+
+  set dateOfBirth(value: string) {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD
+    if (!dateRegex.test(value)) {
+      throw new Error("Date of birth must be in the format YYYY-MM-DD.");
+    }
+    this._dateOfBirth = value;
+  }
 
   public onSubmit(): void {
     if (this.isAddGuestModalDataValid()) {
       const guestCreationData = new GuestCreationData(
-        this.fullName,
-        this.phoneNumber,
-        CalendarDate.fromDateUTC(new Date(this.dateOfBirth)),
+        this._fullName,
+        this._phoneNumber,
+        CalendarDate.fromDateUTC(new Date(this._dateOfBirth)),
       );
 
       this.submitModal(guestCreationData);
@@ -41,9 +69,9 @@ export class AddGuestModalFormComponent extends BaseModalFormComponent<
 
   private isAddGuestModalDataValid(): boolean {
     return !!(
-      this.fullName.trim() &&
-      this.phoneNumber.trim() &&
-      this.dateOfBirth.trim()
+      this._fullName.trim() &&
+      this._phoneNumber.trim() &&
+      this._dateOfBirth.trim()
     );
   }
 

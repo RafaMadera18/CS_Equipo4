@@ -51,8 +51,6 @@ export class EditRoomModalFormComponent
         this._name,
         this._properties,
       );
-
-      console.log(editedRoom);
       this.submitModal(editedRoom);
     } else {
       console.error("Room name data is invalid");
