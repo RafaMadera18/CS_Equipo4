@@ -52,8 +52,10 @@ export class GuestManagerService {
     );
   }
 
-  public editGuest(guest: GuestInfo): Observable<void> {
-    const updateResponse = this._guestGateway.editGuest(guest.toGuestInfoDTO());
+  public updateGuest(guest: GuestInfo): Observable<void> {
+    const updateResponse = this._guestGateway.updateGuest(
+      guest.toGuestInfoDTO(),
+    );
 
     return updateResponse.pipe(
       tap(() => {

@@ -39,7 +39,7 @@ export class GuestManagerGatewayService {
     return this._httpClient.delete<void>(apiPath);
   }
 
-  public editGuest(guest: GuestInfoDto): Observable<void> {
+  public updateGuest(guest: GuestInfoDto): Observable<void> {
     const apiPath: string = this.getApiPath(guest.id);
 
     return this._httpClient.put<void>(apiPath, guest);

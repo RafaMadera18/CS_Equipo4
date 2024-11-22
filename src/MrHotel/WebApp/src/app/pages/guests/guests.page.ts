@@ -54,14 +54,14 @@ export class GuestsPage {
     }
   }
 
-  public async editGuest(guest: GuestInfo): Promise<void> {
+  public async updateGuest(guest: GuestInfo): Promise<void> {
     const updatedGuest = await this._modalService.openModal(
       editGuestModal,
       guest,
     );
 
     if (updatedGuest != null) {
-      this._guestManager.editGuest(updatedGuest).subscribe();
+      this._guestManager.updateGuest(updatedGuest).subscribe();
     }
   }
 
