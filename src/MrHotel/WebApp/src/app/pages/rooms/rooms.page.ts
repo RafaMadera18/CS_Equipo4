@@ -22,6 +22,7 @@ import {
 } from "@services/room-manager/data";
 import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
 import { editRoomModal } from "@components/modals/rooms/edit-room-modal-form/edit-room-modal-form.component";
+import { addReservationModal } from "@components/modals/add-reservation-modal-form";
 
 @Component({
   selector: "app-rooms",
@@ -72,8 +73,8 @@ export class RoomsPage {
   }
 
   public async addReservation(): Promise<void> {
-    // TODO: Create Logic to add a Reservation
-    console.log("Conectado");
+    const reservationCreationData =
+      await this._modalService.openModal(addReservationModal);
   }
 
   public get roomsAvailability() {
