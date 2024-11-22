@@ -12,10 +12,10 @@ import {
   trashOutline,
 } from "ionicons/icons";
 
-import { RoomAvailabilityState } from "@services/room-manager/data";
 import {
-  RoomProperty,
-} from "@services/room-property-group-manager/data";
+  RoomAvailability,
+  RoomAvailabilityState,
+} from "@services/room-manager/data";
 
 @Component({
   selector: "app-room-availability",
@@ -25,10 +25,8 @@ import {
   imports: [IonIcon, CommonModule],
 })
 export class RoomAvailabilityComponent {
-  name = input("");
+  roomAvailability = input<RoomAvailability>();
   icon = this.getIconState();
-  state = input.required<RoomAvailabilityState>();
-  properties = input.required<RoomProperty[]>();
   public readonly deleteClick = output();
   public readonly addReservation = output();
   public readonly editClick = output();
@@ -46,7 +44,7 @@ export class RoomAvailabilityComponent {
 
   getIconState(): Signal<string> {
     return computed(() => {
-      switch (this.state()) {
+      switch (this.roomAvailability()!.state) {
         case RoomAvailabilityState.Available:
           return "bed-outline";
         case RoomAvailabilityState.Maintenance:
@@ -60,7 +58,7 @@ export class RoomAvailabilityComponent {
   }
 
   getColorState(): string {
-    switch (this.state()) {
+    switch (this.roomAvailability()!.state) {
       case RoomAvailabilityState.Available:
         return "available";
       case RoomAvailabilityState.Maintenance:

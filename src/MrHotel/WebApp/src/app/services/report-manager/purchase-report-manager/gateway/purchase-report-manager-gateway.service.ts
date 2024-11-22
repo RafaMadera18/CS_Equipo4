@@ -4,12 +4,12 @@ import { Injectable } from "@angular/core";
 import { Guid } from "@customTypes/guid";
 
 import { Observable } from "rxjs";
-import { PurchaseReportData } from "../data";
+import { PurchaseReportData } from "../../data";
 
 @Injectable({
   providedIn: "root",
 })
-export class ReportManagerGatewayService {
+export class PurchaseReportManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   public addPurchaseReport(

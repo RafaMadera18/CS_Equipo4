@@ -8,15 +8,16 @@ import { trashOutline, addOutline } from "ionicons/icons";
 
 import { Observable } from "rxjs";
 
-
 import { deleteModal } from "@components/modals/delete-modal-form";
 import { addPurchaseModal } from "@components/modals/reports/purchase-reports/add-purchase-report-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";
 import { InventoryManagerService } from "@services/inventory-manager/inventory-manager.service";
 import { ProductStock } from "@services/inventory-manager/data";
-import { ReportManagerService } from "@services/report-manager/report-manager.service";
+import { PurchaseReportManagerService } from "@services/report-manager/purchase-report-manager/purchase-report-manager.service";
 import { addProductModal } from "@components/modals/inventory/add-product-modal-form";
+import { addUsageModal } from "@components/modals/reports/usage-reports";
+import { UsageReportManagerService } from "@services/report-manager/usage-report-manager/usage-report-manager.service";
 
 @Component({
   selector: "app-inventory",
@@ -31,7 +32,8 @@ export class InventoryPage {
   constructor(
     private readonly _inventoryManager: InventoryManagerService,
     private readonly _modalService: ModalService,
-    private readonly _reportManager: ReportManagerService,
+    private readonly _purchaseReportManager: PurchaseReportManagerService,
+    private readonly _usageReportManager: UsageReportManagerService,
   ) {
     addIcons({ trashOutline, addOutline });
     this._productStocks = _inventoryManager.getProductStock();
@@ -58,16 +60,27 @@ export class InventoryPage {
     }
   }
 
-  public async openPurchaseReport(): Promise<void> {
+  public async addPurchaseReport(): Promise<void> {
     const purchaseReportData = await this._modalService.openModal(
       addPurchaseModal,
       this._productStocks,
     );
 
     if (purchaseReportData) {
-      this._reportManager
+      this._purchaseReportManager
         .addPurchaseReport(purchaseReportData)
         .subscribe();
+    }
+  }
+
+  public async addUsageReport(): Promise<void> {
+    const usageReportData = await this._modalService.openModal(
+      addUsageModal,
+      this._productStocks,
+    );
+
+    if (usageReportData) {
+      this._usageReportManager.addUsageReport(usageReportData).subscribe();
     }
   }
 
