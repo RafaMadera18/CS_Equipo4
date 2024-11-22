@@ -37,14 +37,14 @@ public class InventoryManager(
         return await productStorage.EntitySet.Include(p => p.Product).ToArrayAsync();
     }
 
-    public void UpdateProductStock(ProductStock product)
+    public void UpdateProductStock(ProductStock stock)
     {
-        productStorage.EntitySet.Update(product);
+        productStorage.EntitySet.Update(stock);
     }
 
-    public void DeleteProductStock(ProductStock product)
+    public void DeleteProductStock(ProductStock stock)
     {
-        productStorage.EntitySet.Remove(product);
+        productStorage.EntitySet.Remove(stock);
     }
 
     public Task SaveChanges()
