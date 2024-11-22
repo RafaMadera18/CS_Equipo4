@@ -57,6 +57,7 @@ public class RoomManager(
     private IQueryable<RoomInfo> QueryRooms()
     {
         return roomStorage.EntitySet
-            .Include(r => r.Properties);
+            .Include(r => r.Properties)
+            .ThenInclude(p => p.Group);
     }
 }
