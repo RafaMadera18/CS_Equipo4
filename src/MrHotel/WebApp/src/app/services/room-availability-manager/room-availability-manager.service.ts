@@ -48,6 +48,7 @@ export class RoomAvailabilityManagerService {
       const availability: RoomAvailability = {
         room: room,
         state: RoomAvailabilityState.Available, // TODO: Available by default?
+        activeReservation: null,
       };
 
       this._roomsAvailabilityCache?.add(availability);
@@ -73,6 +74,9 @@ export class RoomAvailabilityManagerService {
           room: updatedRoom,
           state:
             this._roomsAvailabilityCache.getAtIndex(roomToUpdateIndex).state,
+          activeReservation:
+            this._roomsAvailabilityCache.getAtIndex(roomToUpdateIndex)
+              .activeReservation,
         },
         roomToUpdateIndex,
       );

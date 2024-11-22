@@ -4,13 +4,16 @@
     (click)="addReservation.emit()"
   >
     <div class="container-room-num">
-      <p class="name">{{ name() }}</p>
+      <p class="name">{{ roomAvailability()?.room?.name }}</p>
       <ion-icon [name]="icon()" class="icon" />
       <p class="state"></p>
     </div>
 
     <div class="container-room-tags">
-      @for (property of properties(); track property.id) {
+      @for (
+        property of roomAvailability()?.room?.properties;
+        track property.id
+      ) {
         <div class="tag">
           <p>
             {{ property.group.name }} <span>{{ property.name }}</span>

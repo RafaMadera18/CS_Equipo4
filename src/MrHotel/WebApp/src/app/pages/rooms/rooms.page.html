@@ -12,9 +12,7 @@
       track roomAvailability.room.id
     ) {
       <app-room-availability
-        [name]="roomAvailability.room.name"
-        [state]="roomAvailability.state"
-        [properties]="roomAvailability.room.properties"
+        [roomAvailability]="roomAvailability"
         (deleteClick)="deleteRoom(roomAvailability.room)"
         (addReservation)="addReservation(roomAvailability.room)"
         (editClick)="editRoom(roomAvailability.room)"
