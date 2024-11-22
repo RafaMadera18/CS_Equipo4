@@ -14,12 +14,12 @@ using MrHotel.Database.Entities.Inventory;
 public class InventoryManager(
     IEntityRepository<ProductStock> productStorage)
 {
-    public async Task<ValidationResult> AddProductStock(ProductStock product)
+    public async Task<ValidationResult> AddProductStock(ProductStock stock)
     {
-        ValidationResult result = StockAddingValidator.Instance.Validate(product);
+        ValidationResult result = StockAddingValidator.Instance.Validate(stock);
         if (result.IsValid)
         {
-            await productStorage.EntitySet.AddAsync(product);
+            await productStorage.EntitySet.AddAsync(stock);
         }
 
         return result;
@@ -37,14 +37,14 @@ public class InventoryManager(
         return await productStorage.EntitySet.Include(p => p.Product).ToArrayAsync();
     }
 
-    public void UpdateProductStock(ProductStock product)
+    public void UpdateProductStock(ProductStock stock)
     {
-        productStorage.EntitySet.Update(product);
+        productStorage.EntitySet.Update(stock);
     }
 
-    public void DeleteProductStock(ProductStock product)
+    public void DeleteProductStock(ProductStock stock)
     {
-        productStorage.EntitySet.Remove(product);
+        productStorage.EntitySet.Remove(stock);
     }
 
     public Task SaveChanges()
