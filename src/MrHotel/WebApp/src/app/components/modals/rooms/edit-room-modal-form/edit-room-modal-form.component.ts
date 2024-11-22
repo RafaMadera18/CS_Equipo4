@@ -51,6 +51,8 @@ export class EditRoomModalFormComponent
         this._name,
         this._properties,
       );
+
+      console.log(editedRoom);
       this.submitModal(editedRoom);
     } else {
       console.error("Room name data is invalid");
@@ -60,6 +62,10 @@ export class EditRoomModalFormComponent
 
   public get name() {
     return this._name;
+  }
+
+  public set name(name: string) {
+    this._name = name;
   }
 
   public get properties() {
