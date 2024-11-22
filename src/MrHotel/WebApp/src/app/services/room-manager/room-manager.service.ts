@@ -29,6 +29,10 @@ export class RoomManagerService {
     return this._deleteRoomEvent.event$;
   }
 
+  public get updateRoomEvent$(): Observable<RoomInfo> {
+    return this._updateRoomEvent.event$;
+  }
+
   public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
     const addRequest = this._roomGateway.addRoom(roomCreationData);
 
@@ -56,7 +60,7 @@ export class RoomManagerService {
     return editRequest.pipe(
       tap(() => {
         this._updateRoomEvent.emit(room);
-      })
-    )
+      }),
+    );
   }
 }

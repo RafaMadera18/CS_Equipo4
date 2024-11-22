@@ -58,5 +58,24 @@ export class RoomAvailabilityManagerService {
         (availability) => availability.room.id == roomId,
       );
     });
+
+    roomManager.updateRoomEvent$.subscribe((updatedRoom: RoomInfo) => {
+      const roomToUpdateIndex =
+        this._roomsAvailabilityCache
+          ?.getItems()
+          .findIndex(
+            (cacheRoomAvailability) =>
+              cacheRoomAvailability.room.id === updatedRoom.id,
+          ) ?? -1;
+
+      this._roomsAvailabilityCache?.replaceAt(
+        {
+          room: updatedRoom,
+          state:
+            this._roomsAvailabilityCache.getAtIndex(roomToUpdateIndex).state,
+        },
+        roomToUpdateIndex,
+      );
+    });
   }
 }
