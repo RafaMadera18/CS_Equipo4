@@ -14,6 +14,8 @@ public static class ReservationApiExtensions
 
         routeGroup.MapPost(string.Empty, ReservationEndpoint.HandlePost);
 
+        routeGroup.MapPut("{reservationId}/checkout", ReservationEndpoint.HandleCheckout);
+
         return routeGroup.WithTags("Reservations");
     }
 }

@@ -20,4 +20,22 @@ public static class ReservationEndpoint
 
         return TypedResults.Ok(reservation.Id);
     }
+
+    public static async Task<Results<Ok, NotFound>> HandleCheckout(
+        [FromRoute] Guid reservationId,
+        [FromServices] ReservationManager reservationManager)
+    {
+        ReservationInfo? reservation = await reservationManager.TryGetReservationById(reservationId, onlyActive: true);
+        if (reservation == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        reservationManager.UpdateReservation(reservation);
+        reservation.CheckOutDone = true;
+
+        await reservationManager.SaveChanges();
+
+        return TypedResults.Ok();
+    }
 }

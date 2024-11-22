@@ -14,17 +14,7 @@ public class ReportManager<TReport>(
 {
     public async Task AddReport(TReport report)
     {
-        Dictionary<Guid, ProductStock> stocks = (await inventoryManager.GetProductStocks()).ToDictionary(stock => stock.Product.Id, stock => stock);
-
-        foreach (StockAdjustment adjustment in report.StockAdjustments)
-        {
-            if (stocks.TryGetValue(adjustment.ProductId, out ProductStock? stock))
-            {
-                stock.StockQuantity = report.GetNewStock(stock.StockQuantity, adjustment.Quantity);
-                inventoryManager.UpdateProductStock(stock);
-            }
-        }
-
+        await this.ApplyToStock(report);
         reportStorage.EntitySet.Add(report);
         await this.SaveChanges();
     }
@@ -32,6 +22,26 @@ public class ReportManager<TReport>(
     public async Task<IReadOnlyCollection<TReport>> GetReports()
     {
         return await reportStorage.EntitySet.ToArrayAsync();
+    }
+
+    private async Task ApplyToStock(TReport report)
+    {
+        Dictionary<Guid, ProductStock> productIdToStockMap = await this.GetProductIdToStockMap();
+
+        foreach (StockAdjustment adjustment in report.StockAdjustments)
+        {
+            if (productIdToStockMap.TryGetValue(adjustment.ProductId, out ProductStock? stock))
+            {
+                stock.StockQuantity = report.GetNewStock(stock.StockQuantity, adjustment.Quantity);
+                inventoryManager.UpdateProductStock(stock);
+            }
+        }
+    }
+
+    private async Task<Dictionary<Guid, ProductStock>> GetProductIdToStockMap()
+    {
+        IEnumerable<ProductStock> stocks = await inventoryManager.GetProductStocks();
+        return stocks.ToDictionary(stock => stock.Product.Id, stock => stock);
     }
 
     private async Task SaveChanges()
