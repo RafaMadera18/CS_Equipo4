@@ -2,16 +2,13 @@ namespace MrHotel.ApiService.Reports.Validation;
 
 using FluentValidation;
 
-using MrHotel.Database.Entities.Reports;
+using MrHotel.ApiService.Reports.Data;
 
-public sealed class StockAdjustmentValidator : AbstractValidator<StockAdjustment>
+public sealed class StockAdjustmentValidator : AbstractValidator<StockAdjustmentData>
 {
     private StockAdjustmentValidator()
     {
-        this.RuleFor(adjustment => adjustment.Id)
-            .NotEqual(Guid.Empty);
-
-        this.RuleFor(adjustment => adjustment.Product)
+        this.RuleFor(adjustment => adjustment.ProductId)
             .NotNull();
 
         this.RuleFor(adjustment => adjustment.Quantity)

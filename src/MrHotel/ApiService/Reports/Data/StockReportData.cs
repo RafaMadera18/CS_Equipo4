@@ -1,5 +1,7 @@
 namespace MrHotel.ApiService.Reports.Data;
 
+using FluentValidation.Results;
+
 using MrHotel.Database.Entities.Reports;
 
 public abstract record StockReportData<TReport>(
@@ -7,6 +9,8 @@ public abstract record StockReportData<TReport>(
     where TReport : StockReport
 {
     public abstract TReport ToReport();
+
+    public abstract ValidationResult IsValid();
 
     protected IReadOnlyCollection<StockAdjustment> ConvertAdjustments()
     {
