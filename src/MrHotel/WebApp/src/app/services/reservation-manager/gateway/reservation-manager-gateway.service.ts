@@ -14,7 +14,6 @@ export class ReservationManagerGatewayService {
     reservationCreationData: ReservationCreationData,
   ): Observable<Guid> {
     const apiPath = this.getApiPath();
-    console.log(reservationCreationData.toJSON());
     return this._httpClient.post<Guid>(apiPath, reservationCreationData);
   }
 
