@@ -9,7 +9,7 @@ using MrHotel.Database.Entities.Rooms;
 
 public static class RoomsAvailabilityEndpoint
 {
-    public static async Task<Ok<IEnumerable<RoomAvailability>>> HandleGet(
+    public static async Task<Ok<IEnumerable<RoomAvailabilityResult>>> HandleGet(
         [FromServices] RoomManager roomManager,
         [FromServices] RoomAvailabilityManager availabilityManager)
     {
@@ -17,6 +17,8 @@ public static class RoomsAvailabilityEndpoint
 
         IEnumerable<RoomAvailability> roomsAvailability = await availabilityManager.GetRoomsAvailability(rooms);
 
-        return TypedResults.Ok(roomsAvailability);
+        var roomsAvailabilityResult = RoomAvailabilityResult.FromAvailability(roomsAvailability);
+
+        return TypedResults.Ok(roomsAvailabilityResult);
     }
 }
