@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule, ModalController } from "@ionic/angular";
 import { BaseModalFormComponent } from "../../modal-base-form.component";
@@ -6,37 +6,97 @@ import { ReservationCreationData } from "@services/reservation-manager/data/rese
 import { ModalInfo } from "@services/modal/modal-info";
 import { GuestManagerService } from "@services/guest-manager";
 import { GuestInfo } from "@services/guest-manager/data";
+import { RoomInfo } from "@services/room-manager/data";
+import { Observable } from "rxjs";
+import { Guid } from "@customTypes/guid";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-add-reservation-modal-form",
   templateUrl: "./add-reservation-modal-form.component.html",
   styleUrls: ["./add-reservation-modal-form.component.scss"],
   standalone: true,
-  imports: [IonicModule, FormsModule],
+  imports: [IonicModule, FormsModule, CommonModule],
 })
-export class AddReservationModalFormComponent
-  extends BaseModalFormComponent<void, ReservationCreationData>
-  implements OnInit
-{
-  private guests: GuestInfo[] = [];
+export class AddReservationModalFormComponent extends BaseModalFormComponent<
+  RoomInfo,
+  ReservationCreationData
+> {
+  private readonly _guests: Observable<readonly GuestInfo[]>;
+  private _guestId: Guid = "" as Guid;
+  private readonly _checkInDate: Date;
+  private _checkOutDate: string = "";
+  private _price: number = 0;
 
   constructor(
     private readonly _guestManager: GuestManagerService,
     protected override readonly _modalController: ModalController,
   ) {
     super(_modalController);
+    this._guests = this._guestManager.getGuests();
+    this._checkInDate = new Date();
   }
 
-  public override onSubmit(): void {}
+  public override onSubmit(): void {
+    if (this.isReservationValidData()) {
+      const checkOutDate = new Date(this._checkOutDate);
+      const reservationCreationData = new ReservationCreationData(
+        this._guestId,
+        this.input,
+        this._checkInDate,
+        checkOutDate,
+        this._price,
+      );
+      this.submitModal(reservationCreationData);
+    } else {
+      this.dismissModal();
+    }
+  }
 
-  public ngOnInit(): void {
-    const observableGuests = this._guestManager.getGuests();
-    observableGuests.subscribe();
+  private isReservationValidData(): boolean {
+    return this.isValidPrice() && this.isValidCheckOutDate();
+  }
+
+  private isValidPrice(): boolean {
+    return this._price >= 0;
+  }
+
+  private isValidCheckOutDate(): boolean {
+    const checkOutDate = new Date(this._checkOutDate);
+    return checkOutDate > this._checkInDate;
+  }
+
+  public get guests() {
+    return this._guests;
+  }
+
+  public get guestId() {
+    return this._guestId;
+  }
+
+  public set guestId(id: Guid) {
+    this._guestId = id;
+  }
+
+  public get checkOutDate() {
+    return this._checkOutDate;
+  }
+
+  public set checkOutDate(checkOutDate: string) {
+    this._checkOutDate = checkOutDate;
+  }
+
+  public get price() {
+    return this._price;
+  }
+
+  public set price(price: number) {
+    this._price = price;
   }
 }
 
 export const addReservationModal: ModalInfo<
-  void,
+  RoomInfo,
   ReservationCreationData,
   AddReservationModalFormComponent
 > = {

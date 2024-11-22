@@ -1,5 +1,6 @@
 import { Guid } from "@customTypes/guid";
 import { Stringify } from "@customTypes/stringify";
+import { ReservationInfo } from "./reservation-info";
 import { RoomInfo } from "@services/room-manager/data";
 
 export class ReservationCreationData {
@@ -14,10 +15,20 @@ export class ReservationCreationData {
   public toJSON(): Stringify<ReservationCreationData> {
     return {
       guestId: this._guestId,
-      room: this._room,
-      checkInDate: this._checkInDate,
-      checkOutDate: this._checkOutDate,
+      roomId: this._room.id,
+      checkInDate: this._checkInDate.toJSON(),
+      checkOutDate: this._checkOutDate.toJSON(),
       price: this._price,
     };
+  }
+
+  public toReservationInfo(id: Guid): ReservationInfo {
+    return new ReservationInfo(
+      id,
+      this._room,
+      this._checkInDate,
+      this._checkOutDate,
+      this._price,
+    );
   }
 }

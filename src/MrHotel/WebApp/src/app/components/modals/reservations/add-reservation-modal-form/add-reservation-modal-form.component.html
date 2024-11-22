@@ -2,8 +2,35 @@
   <h2>Add Reservation</h2>
   <form (submit)="onSubmit()">
     <div class="coolinput">
-      <label for="name" class="text">Room Name:</label>
-      <input id="name" type="text" class="input" name="name" maxlength="5" />
+      <label for="guests" class="text">Guest:</label>
+      <select id="guests" [(ngModel)]="guestId" name="guests">
+        @for (guest of guests | async; track guest.id) {
+          <option [value]="guest.id">{{ guest.fullName }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="coolinput">
+      <label for="checkOutDate" class="text">Checkout Date:</label>
+      <input
+        id="checkOutDate"
+        type="date"
+        class="input"
+        [(ngModel)]="checkOutDate"
+        name="checkOutDate"
+      />
+    </div>
+
+    <div class="coolinput">
+      <label for="price" class="text">Price:</label>
+      <input
+        id="price"
+        type="number"
+        class="input"
+        [(ngModel)]="price"
+        name="price"
+        min="0"
+      />
     </div>
 
     <div class="container-actions">

@@ -1,5 +1,6 @@
 import { Guid } from "@customTypes/index";
 import { RoomInfo } from "@services/room-manager/data";
+import { CalendarDate } from "calendar-date";
 
 export class ReservationInfo {
   public constructor(
