@@ -20,7 +20,7 @@ export class GuestManagerService {
   constructor(private readonly _guestGateway: GuestManagerGatewayService) {}
 
   public getGuests(): Observable<readonly GuestInfo[]> {
-    if (this._guestsCache != null) {
+    if (this._guestsCache !== null) {
       return this._guestsCache.items$;
     }
 
@@ -46,8 +46,23 @@ export class GuestManagerService {
     return deleteRequest.pipe(
       tap(() => {
         this._guestsCache?.removeFirstWhere(
-          (cacheGuest) => cacheGuest.id == guest.id,
+          (cacheGuest) => cacheGuest.id === guest.id,
         );
+      }),
+    );
+  }
+
+  public editGuest(guest: GuestInfo): Observable<void> {
+    const updateRequest = this._guestGateway.editGuest(guest.toGuestInfoDTO());
+
+    return updateRequest.pipe(
+      tap(() => {
+        const index: number =
+          this._guestsCache
+            ?.getItems()
+            .findIndex((cacheGuest) => cacheGuest.id === guest.id) ?? -1;
+
+        this._guestsCache?.replaceAt(guest, index);
       }),
     );
   }

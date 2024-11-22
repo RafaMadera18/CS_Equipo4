@@ -34,6 +34,10 @@ public class AppDbContext(
     {
         base.OnModelCreating(builder);
 
+        builder.Entity<RoomProperty>()
+            .HasMany(e => e.Rooms)
+            .WithMany(e => e.Properties);
+
         SeedRoles(builder);
     }
 

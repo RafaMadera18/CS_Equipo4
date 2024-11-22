@@ -6,19 +6,10 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+
 import { toSignal } from "@angular/core/rxjs-interop";
 
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonTabs,
-  IonButton,
-  IonIcon,
-} from "@ionic/angular/standalone";
+import { IonTabs } from "@ionic/angular/standalone";
 
 import { addIcons } from "ionicons";
 import {
@@ -26,60 +17,75 @@ import {
   arrowBackOutline,
   bedOutline,
   personOutline,
+  clipboardOutline,
+  cogOutline,
 } from "ionicons/icons";
 
 import { TabButtonComponent } from "@components/tab-button";
 
 import { AuthService, UserInfoResponse } from "@services/auth";
 import { Nullable } from "@customTypes/nullable";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-menu",
   templateUrl: "./menu.page.html",
   styleUrls: ["./menu.page.scss"],
   standalone: true,
-  imports: [
-    IonIcon,
-    IonButton,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonTabs,
-    TabButtonComponent,
-    CommonModule,
-    FormsModule,
-  ],
+  imports: [IonTabs, TabButtonComponent],
 })
 export class MenuPage {
-  protected readonly userInfo: Signal<Nullable<UserInfoResponse>>;
+  private readonly _userInfo: Signal<Nullable<UserInfoResponse>>;
 
-  protected readonly sidebar =
+  private readonly _sidebar =
     viewChild.required<ElementRef<HTMLDivElement>>("sidebar");
 
-  protected readonly sidebarExpanded = signal<boolean>(false);
+  private readonly _isSidebarExpanded = signal<boolean>(false);
 
-  protected readonly tabs = viewChild.required(IonTabs);
+  private readonly _tabs = viewChild.required(IonTabs);
 
-  constructor(authService: AuthService) {
+  constructor(
+    private readonly _authService: AuthService,
+    private readonly _router: Router,
+  ) {
     addIcons({
       reorderThreeOutline,
       arrowBackOutline,
       bedOutline,
       personOutline,
+      clipboardOutline,
+      cogOutline,
     });
 
-    this.userInfo = toSignal(authService.userInfo(), { initialValue: null });
+    this._userInfo = toSignal(this._authService.userInfo(), {
+      initialValue: null,
+    });
 
     effect(() => {
-      this.sidebar().nativeElement.classList.toggle(
+      this._sidebar().nativeElement.classList.toggle(
         "expanded",
-        this.sidebarExpanded(),
+        this._isSidebarExpanded(),
       );
     });
   }
 
-  protected onTabClick(tab: string): void {
-    this.tabs().select(tab);
+  public logOut(): void {
+    this._authService.logout().subscribe({
+      next: () => {
+        this._router.navigate(["../"]);
+      },
+    });
+  }
+
+  public onTabClick(tab: string): void {
+    this._tabs().select(tab);
+  }
+
+  public get userInfo() {
+    return this._userInfo;
+  }
+
+  public get isSideBarExpanded() {
+    return this._isSidebarExpanded;
   }
 }

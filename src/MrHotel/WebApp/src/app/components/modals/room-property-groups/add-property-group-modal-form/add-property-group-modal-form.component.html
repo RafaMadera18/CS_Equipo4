@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Add Property Group</h2>
+  <form (submit)="onSubmit()">
+    <div class="coolinput">
+      <label for="name" class="text">Property Group Name:</label>
+      <input
+        id="name"
+        type="text"
+        class="input"
+        [(ngModel)]="name"
+        name="name"
+        maxlength="5"
+      />
+    </div>
+
+    <div class="container-actions">
+      <button class="button button-add" type="submit">Add</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

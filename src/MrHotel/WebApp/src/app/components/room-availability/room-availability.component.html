@@ -1,0 +1,31 @@
+<div class="container">
+  <div
+    [ngClass]="[getColorState(), 'container-room']"
+    (click)="addReservation.emit()"
+  >
+    <div class="container-room-num">
+      <p class="name">{{ name() }}</p>
+      <ion-icon [name]="icon()" class="icon" />
+      <p class="state"></p>
+    </div>
+
+    <div class="container-room-tags">
+      @for (property of properties(); track property.id) {
+        <div class="tag">
+          <p>
+            {{ property.group.name }} <span>{{ property.name }}</span>
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="container-buttons">
+    <button class="button edit-button" (click)="editClick.emit()">
+      <ion-icon name="pencil-outline" size="large" />
+    </button>
+    <button class="button delete-button" (click)="deleteClick.emit()">
+      <ion-icon name="trash-outline" size="large" />
+    </button>
+  </div>
+</div>

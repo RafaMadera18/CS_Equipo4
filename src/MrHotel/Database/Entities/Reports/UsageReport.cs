@@ -1,7 +1,5 @@
 namespace MrHotel.Database.Entities.Reports;
 
-using System.ComponentModel.DataAnnotations;
-
 public class UsageReport : StockReport
 {
     public required string Concept { get; init; }

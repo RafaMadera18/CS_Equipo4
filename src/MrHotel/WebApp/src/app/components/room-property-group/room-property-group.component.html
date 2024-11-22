@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>{{ _roomPropertyGroup()?.name }}</h2>
+
+  <div class="container-properties">
+    <ul>
+      @for (property of _roomPropertyGroup()?.properties; track property.id) {
+        <li>{{ property.name }}</li>
+      }
+    </ul>
+  </div>
+
+  <div class="container-buttons">
+    <button class="button button-edit" (click)="updateClick.emit()">
+      Edit
+    </button>
+    <button class="button button-delete" (click)="deleteClick.emit()">
+      Delete
+    </button>
+  </div>
+</div>

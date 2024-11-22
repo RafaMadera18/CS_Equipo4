@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Edit Guest</h2>
+  <form (submit)="onSubmit()">
+    <div class="coolinput">
+      <label for="fullName" class="text">Guest Name:</label>
+      <input
+        id="name"
+        type="text"
+        class="input"
+        [(ngModel)]="fullName"
+        name="fullName"
+        maxlength="15"
+      />
+    </div>
+
+    <div class="coolinput">
+      <label for="phoneNumber" class="text">Phone Number:</label>
+      <input
+        id="phoneNumber"
+        type="text"
+        class="input"
+        [(ngModel)]="phoneNumber"
+        name="phoneNumber"
+        maxlength="10"
+        (keypress)="acceptOnlyNumbers($event)"
+      />
+    </div>
+
+    <div class="coolinput">
+      <label for="dateOfBirth" class="text">Date Of Birth:</label>
+      <input
+        id="dateOfBirth"
+        type="date"
+        class="input"
+        [(ngModel)]="dateOfBirth"
+        name="dateOfBirth"
+      />
+    </div>
+
+    <div class="container-actions">
+      <button class="button button-edit" type="submit">Edit</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

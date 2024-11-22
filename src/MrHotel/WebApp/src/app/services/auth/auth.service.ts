@@ -19,28 +19,32 @@ export class AuthService {
 
   public registerAdmin(request: AdminRegisterRequest): Observable<void> {
     return this._httpClient.post<void>(
-      this.getFullPath("register-admin"),
+      this.getApiPath("register-admin"),
       request,
     );
   }
 
   public registerUser(request: RegisterRequest): Observable<void> {
-    return this._httpClient.post<void>(this.getFullPath("register"), request);
+    return this._httpClient.post<void>(this.getApiPath("register"), request);
   }
 
   public adminRegisterStatus(): Observable<boolean> {
     return this._httpClient.get<boolean>(
-      this.getFullPath("admin-register-status"),
+      this.getApiPath("admin-register-status"),
     );
   }
 
   public login(request: LoginRequest): Observable<void> {
-    return this._httpClient.post<void>(this.getFullPath("login"), request);
+    return this._httpClient.post<void>(this.getApiPath("login"), request);
+  }
+
+  public logout(): Observable<void> {
+    return this._httpClient.post<void>(this.getApiPath("logout"), {});
   }
 
   public userInfo(): Observable<Nullable<UserInfoResponse>> {
     return this._httpClient
-      .get<UserInfoResponse>(this.getFullPath("manage/info"))
+      .get<UserInfoResponse>(this.getApiPath("manage/info"))
       .pipe(
         catchError(() => {
           return of(null);
@@ -48,7 +52,7 @@ export class AuthService {
       );
   }
 
-  private getFullPath(path: string): string {
+  private getApiPath(path: string): string {
     return `api/account/${path}`;
   }
 }

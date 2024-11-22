@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Edit Group Property</h2>
+  <form (submit)="onSubmit()">
+    <div>
+      <h3>Name</h3>
+      <div class="coolinput">
+        <label for="name" class="text">Group Property Name:</label>
+        <input
+          id="name"
+          type="text"
+          class="input"
+          [(ngModel)]="name"
+          name="name"
+          maxlength="15"
+        />
+      </div>
+    </div>
+
+    <div>
+      <h3>Properties</h3>
+      @for (property of properties; track $index) {
+        <div class="coolinput">
+          <label for="" class="text">Property name {{$index + 1}}:</label>
+          <input
+            type="text"
+            class="input"
+            [(ngModel)]="properties[$index].name"
+            maxlength="10"
+            [name]="'property-' + $index"
+          />
+        </div>
+      }
+      <button class="button button-add-property" type="button" (click)="addPropertyTextBox()">Add Property</button>
+    </div>
+
+    <div class="container-actions">
+      <button class="button button-edit" type="submit">Edit</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

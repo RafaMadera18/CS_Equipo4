@@ -1,8 +1,6 @@
 import { Guid, Stringify } from "@customTypes/.";
 
 import { RoomInfo } from "./room-info";
-import { RoomAvailability } from "./room-availability";
-import { RoomAvailabilityState } from "./room-availability-state";
 
 export class RoomCreationData {
   private readonly _name: string;

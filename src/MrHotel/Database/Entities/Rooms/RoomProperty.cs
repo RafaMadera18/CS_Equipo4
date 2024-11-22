@@ -1,10 +1,13 @@
 ﻿namespace MrHotel.Database.Entities.Rooms;
 
-public class RoomProperty
+using System.Text.Json.Serialization;
+
+public partial class RoomProperty
 {
     public Guid Id { get; init; }
 
-    public required string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-    public required RoomPropertyGroup Group { get; set; }
+    [JsonIgnore]
+    public RoomPropertyGroup Group { get; set; } = null!;
 }

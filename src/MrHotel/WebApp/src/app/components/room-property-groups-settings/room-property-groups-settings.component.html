@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="container-actions">
+    <h2>Configure Rooms Properties</h2>
+    <button class="button button-add" (click)="addPropertyGroup()">
+      <ion-icon name="add-outline"></ion-icon>
+      <span>Add Property Group</span>
+    </button>
+  </div>
+  <div class="container-properties">
+    @for (
+      roomPropertyGroup of roomPropertyGroups | async;
+      track roomPropertyGroup.id
+    ) {
+      <app-room-property-group
+        [_roomPropertyGroup]="roomPropertyGroup"
+        (deleteClick)="deletePropertyGroup(roomPropertyGroup)"
+        (updateClick)="updatePropertyGroup(roomPropertyGroup)"
+      />
+    }
+  </div>
+</div>

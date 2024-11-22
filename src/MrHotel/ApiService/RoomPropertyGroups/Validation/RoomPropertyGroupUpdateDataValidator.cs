@@ -14,7 +14,7 @@ public sealed class RoomPropertyGroupUpdateDataValidator : AbstractValidator<Roo
         this.RuleFor(group => group.Name)
             .NotEmpty();
 
-        this.RuleFor(group => group.PropertiesUpdates)
+        this.RuleFor(group => group.Properties)
             .NotNull()
             .ForEach(update => update.SetValidator(RoomPropertyUpdateDataValidator.Instance))
             .Unique(update => update.Name);

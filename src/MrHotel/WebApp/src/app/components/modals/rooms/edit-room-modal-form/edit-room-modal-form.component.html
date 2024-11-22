@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>Edit Room</h2>
+  <form (submit)="onSubmit()">
+    <div>
+      <h3>Name</h3>
+      <div class="coolinput">
+        <label for="name" class="text">Room Name:</label>
+        <input
+          id="name"
+          type="text"
+          class="input"
+          [(ngModel)]="name"
+          name="name"
+          maxlength="5"
+        />
+      </div>
+    </div>
+
+    <div class="container-property-groups">
+      <h3>Property Groups</h3>
+      @for (propertyGroup of propertyGroups | async; track propertyGroup.id) {
+        @if (propertyGroup.properties.length > 0) {
+          <div class="container-property-group">
+            <h3>{{ propertyGroup.name }}</h3>
+            <div class="container-properties">
+              @for (property of propertyGroup.properties; track property.id) {
+                <div class="container-properties-inputs">
+                  <input
+                    type="radio"
+                    [name]="propertyGroup.id"
+                    [id]="propertyGroup.id"
+                    [value]="property"
+                    [(ngModel)]="selectedProperties[property.id!]"
+                  />
+                  <label [for]="property.id">{{ property.name }}</label>
+                </div>
+              }
+            </div>
+          </div>
+        } @else {
+          <h4>Please Add Group Properties</h4>
+        }
+      }
+    </div>
+
+    <div class="container-actions">
+      <button class="button button-edit" type="submit">Edit</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

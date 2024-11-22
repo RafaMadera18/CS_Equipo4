@@ -9,11 +9,12 @@ import { pencilOutline, trashOutline, personAddOutline } from "ionicons/icons";
 import { Observable } from "rxjs";
 import { GuestInfo } from "@services/guest-manager/data";
 
-import { addGuestModal } from "@components/modals/add-guest-modal-form";
+import { addGuestModal } from "@components/modals/guests/add-guest-modal-form";
 import { deleteModal } from "@components/modals/delete-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";
 import { GuestManagerService } from "@services/guest-manager";
+import { editGuestModal } from "@components/modals/guests/edit-guest-modal-form/";
 
 @Component({
   selector: "app-guests",
@@ -23,32 +24,48 @@ import { GuestManagerService } from "@services/guest-manager";
   imports: [CommonModule, IonicModule],
 })
 export class GuestsPage {
-  protected readonly guests: Observable<readonly GuestInfo[]>;
+  private readonly _guests: Observable<readonly GuestInfo[]>;
 
   constructor(
-    private readonly guestManager: GuestManagerService,
-    private readonly modalService: ModalService,
+    private readonly _guestManager: GuestManagerService,
+    private readonly _modalService: ModalService,
   ) {
     addIcons({ pencilOutline, trashOutline, personAddOutline });
 
-    this.guests = guestManager.getGuests();
+    this._guests = _guestManager.getGuests();
   }
 
   public async addGuest(): Promise<void> {
-    const guestCreateRequest = await this.modalService.openModal(addGuestModal);
+    const guestCreateRequest =
+      await this._modalService.openModal(addGuestModal);
 
     if (guestCreateRequest != null) {
-      this.guestManager.addGuest(guestCreateRequest).subscribe();
+      this._guestManager.addGuest(guestCreateRequest).subscribe();
     }
   }
 
   public async deleteGuest(guest: GuestInfo): Promise<void> {
-    const isDeleteConfirmed = await this.modalService.openModal(deleteModal, {
+    const isDeleteConfirmed = await this._modalService.openModal(deleteModal, {
       message: `Do You want To Delete Guest: ${guest.fullName}? `,
     });
 
     if (isDeleteConfirmed?.state) {
-      this.guestManager.deleteGuest(guest).subscribe();
+      this._guestManager.deleteGuest(guest).subscribe();
     }
+  }
+
+  public async editGuest(guest: GuestInfo): Promise<void> {
+    const updatedGuest = await this._modalService.openModal(
+      editGuestModal,
+      guest,
+    );
+
+    if (updatedGuest != null) {
+      this._guestManager.editGuest(updatedGuest).subscribe();
+    }
+  }
+
+  public get guests() {
+    return this._guests;
   }
 }

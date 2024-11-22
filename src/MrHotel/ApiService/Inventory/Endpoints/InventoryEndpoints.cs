@@ -9,7 +9,7 @@ using MrHotel.Database.Entities.Inventory;
 
 public static class InventoryEndpoints
 {
-    public static async Task<Results<Ok<Guid>, ValidationProblem>> HandlePost(
+    public static async Task<Results<Ok<ProductStockCreationResult>, ValidationProblem>> HandlePost(
         [FromBody] ProductStockCreationData productStockCreationData,
         [FromServices] InventoryManager inventoryManager)
     {
@@ -18,7 +18,8 @@ public static class InventoryEndpoints
         await inventoryManager.AddProductStock(productStock);
         await inventoryManager.SaveChanges();
 
-        return TypedResults.Ok(productStock.Id);
+        var result = ProductStockCreationResult.FromStock(productStock);
+        return TypedResults.Ok(result);
     }
 
     public static async Task<Results<NoContent, NotFound>> HandlePut(
@@ -33,8 +34,8 @@ public static class InventoryEndpoints
             return TypedResults.NotFound();
         }
 
-        productStockUpdateData.Update(productStock);
         inventoryManager.UpdateProductStock(productStock);
+        productStockUpdateData.ApplyUpdate(productStock);
         await inventoryManager.SaveChanges();
 
         return TypedResults.NoContent();

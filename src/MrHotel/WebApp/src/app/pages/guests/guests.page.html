@@ -21,7 +21,7 @@
             <td>{{ guest.phoneNumber }}</td>
             <td>{{ guest.dateOfBirth.toDateLocal().toLocaleDateString() }}</td>
             <td class="guest-actions">
-              <button class="edit">
+              <button class="edit" (click)="editGuest(guest)">
                 <ion-icon name="pencil-outline"></ion-icon>
               </button>
               <button class="delete" (click)="deleteGuest(guest)">

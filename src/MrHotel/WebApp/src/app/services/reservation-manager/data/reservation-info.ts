@@ -3,12 +3,10 @@ import { RoomInfo } from "@services/room-manager/data";
 
 export class ReservationInfo {
   public constructor(
-    private readonly id: Guid,
-    private readonly room: RoomInfo,
-    private readonly checkInDate: Date,
-    private readonly checkOutDate: Date,
-    private readonly price: number
+    private readonly _id: Guid,
+    private readonly _room: RoomInfo,
+    private readonly _checkInDate: Date,
+    private readonly _checkOutDate: Date,
+    private readonly _price: number,
   ) {}
-
-
 }

@@ -8,15 +8,9 @@ import { addOutline } from "ionicons/icons";
 
 import { Observable } from "rxjs";
 
-import { RoomStatusComponent } from "@components/room-status/room-status.component";
-import {
-  addRoomModal,
-  AddRoomModalFormComponent,
-} from "@components/modals/add-room-modal-form";
-import {
-  deleteModal,
-  DeleteModalFormComponent,
-} from "@components/modals/delete-modal-form";
+import { RoomAvailabilityComponent } from "@components/room-availability/room-availability.component";
+import { addRoomModal } from "@components/modals/rooms/add-room-modal-form";
+import { deleteModal } from "@components/modals/delete-modal-form";
 
 import { ModalService } from "@services/modal/modal.service";
 import { RoomManagerService } from "@services/room-manager";
@@ -27,35 +21,27 @@ import {
   RoomCreationData,
 } from "@services/room-manager/data";
 import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
+import { editRoomModal } from "@components/modals/rooms/edit-room-modal-form/edit-room-modal-form.component";
 
 @Component({
   selector: "app-rooms",
   templateUrl: "./rooms.page.html",
   styleUrls: ["./rooms.page.scss"],
   standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-    RoomStatusComponent,
-    AddRoomModalFormComponent,
-    DeleteModalFormComponent,
-  ],
+  imports: [CommonModule, IonicModule, RoomAvailabilityComponent],
 })
 export class RoomsPage {
   private readonly _roomsAvailability: Observable<readonly RoomAvailability[]>;
 
   constructor(
     private readonly _roomManager: RoomManagerService,
-    roomAvailabilityManager: RoomAvailabilityManagerService,
+    private readonly _roomAvailabilityManager: RoomAvailabilityManagerService,
     private readonly _modalService: ModalService,
   ) {
     addIcons({ addOutline });
 
-    this._roomsAvailability = roomAvailabilityManager.getRoomsAvailability();
-  }
-
-  public get roomsAvailability() {
-    return this._roomsAvailability;
+    this._roomsAvailability =
+      this._roomAvailabilityManager.getRoomsAvailability();
   }
 
   public async addRoom(): Promise<void> {
@@ -77,8 +63,20 @@ export class RoomsPage {
     }
   }
 
+  public async editRoom(room: RoomInfo): Promise<void> {
+    const editedRoom = await this._modalService.openModal(editRoomModal, room);
+
+    if (editedRoom) {
+      this._roomManager.editRoom(editedRoom).subscribe();
+    }
+  }
+
   public async addReservation(): Promise<void> {
     // TODO: Create Logic to add a Reservation
     console.log("Conectado");
+  }
+
+  public get roomsAvailability() {
+    return this._roomsAvailability;
   }
 }

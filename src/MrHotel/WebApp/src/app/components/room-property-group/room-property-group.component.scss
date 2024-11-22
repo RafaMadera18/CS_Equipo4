@@ -1,0 +1,41 @@
+.container {
+  background-color: var(--dark-blue);
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  padding: 1rem;
+
+  &-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.button {
+  padding: 0.5rem;
+  min-width: 4rem;
+  color: var(--light);
+
+  &-edit {
+    background-color: var(--light-blue);
+  }
+
+  &-delete {
+    background-color: var(--error);
+  }
+}
+
+li {
+  color: var(--light);
+}
+
+h2 {
+  color: var(--light);
+  margin: 0;
+  font-weight: bold;
+}
+
+
