@@ -25,6 +25,7 @@ import { TabButtonComponent } from "@components/tab-button";
 
 import { AuthService, UserInfoResponse } from "@services/auth";
 import { Nullable } from "@customTypes/nullable";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-menu",
@@ -34,16 +35,19 @@ import { Nullable } from "@customTypes/nullable";
   imports: [IonTabs, TabButtonComponent],
 })
 export class MenuPage {
-  protected readonly _userInfo: Signal<Nullable<UserInfoResponse>>;
+  private readonly _userInfo: Signal<Nullable<UserInfoResponse>>;
 
-  protected readonly _sidebar =
+  private readonly _sidebar =
     viewChild.required<ElementRef<HTMLDivElement>>("sidebar");
 
-  protected readonly _isSidebarExpanded = signal<boolean>(false);
+  private readonly _isSidebarExpanded = signal<boolean>(false);
 
-  protected readonly _tabs = viewChild.required(IonTabs);
+  private readonly _tabs = viewChild.required(IonTabs);
 
-  constructor(authService: AuthService) {
+  constructor(
+    private readonly _authService: AuthService,
+    private readonly _router: Router,
+  ) {
     addIcons({
       reorderThreeOutline,
       arrowBackOutline,
@@ -53,7 +57,9 @@ export class MenuPage {
       cogOutline,
     });
 
-    this._userInfo = toSignal(authService.userInfo(), { initialValue: null });
+    this._userInfo = toSignal(this._authService.userInfo(), {
+      initialValue: null,
+    });
 
     effect(() => {
       this._sidebar().nativeElement.classList.toggle(
@@ -63,7 +69,15 @@ export class MenuPage {
     });
   }
 
-  protected onTabClick(tab: string): void {
+  public logOut(): void {
+    this._authService.logout().subscribe({
+      next: () => {
+        this._router.navigate(["../"]);
+      },
+    });
+  }
+
+  public onTabClick(tab: string): void {
     this._tabs().select(tab);
   }
 
