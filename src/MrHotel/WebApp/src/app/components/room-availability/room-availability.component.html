@@ -9,6 +9,20 @@
       <p class="state"></p>
     </div>
 
+    @if (roomAvailability()?.activeReservation !== null) {
+      <p>
+        {{
+          roomAvailability()?.activeReservation?.checkInDate
+            | date: "dd/MM/yyyy"
+        }}
+        -
+        {{
+          roomAvailability()?.activeReservation?.checkOutDate
+            | date: "dd/MM/yyyy"
+        }}
+      </p>
+    }
+
     <div class="container-room-tags">
       @for (
         property of roomAvailability()?.room?.properties;

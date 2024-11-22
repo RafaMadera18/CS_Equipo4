@@ -69,4 +69,7 @@ export class RoomAvailabilityComponent {
         return "unavailable";
     }
   }
+
+
+
 }
