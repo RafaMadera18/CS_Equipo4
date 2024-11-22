@@ -10,6 +10,11 @@ public record PurchaseReportData(
     float Price)
     : StockReportData<PurchaseReport>(StockAdjustmentData)
 {
+    public override ValidationResult IsValid()
+    {
+        return PurchaseReportDataValidator.Instance.Validate(this);
+    }
+
     public override PurchaseReport ToReport()
     {
         return new PurchaseReport()
@@ -17,10 +22,5 @@ public record PurchaseReportData(
             Price = this.Price,
             StockAdjustments = this.ConvertAdjustments(),
         };
-    }
-
-    public override ValidationResult IsValid()
-    {
-        return PurchaseReportDataValidator.Instance.Validate(this);
     }
 }

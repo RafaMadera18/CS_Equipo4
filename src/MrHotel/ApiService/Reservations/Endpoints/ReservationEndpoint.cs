@@ -15,7 +15,7 @@ public static class ReservationEndpoint
     {
         ReservationInfo reservation = reservationCreationData.ToReservationInfo();
 
-        reservationManager.AddReservation(reservation);
+        await reservationManager.AddReservation(reservation);
         await reservationManager.SaveChanges();
 
         return TypedResults.Ok(reservation.Id);

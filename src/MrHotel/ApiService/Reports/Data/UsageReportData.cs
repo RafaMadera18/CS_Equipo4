@@ -10,6 +10,11 @@ public record UsageReportData(
     string Concept)
     : StockReportData<UsageReport>(StockAdjustmentData)
 {
+    public override ValidationResult IsValid()
+    {
+        return UsageReportDataValidator.Instance.Validate(this);
+    }
+
     public override UsageReport ToReport()
     {
         return new UsageReport()
@@ -17,10 +22,5 @@ public record UsageReportData(
             StockAdjustments = this.ConvertAdjustments(),
             Concept = this.Concept,
         };
-    }
-
-    public override ValidationResult IsValid()
-    {
-        return UsageReportDataValidator.Instance.Validate(this);
     }
 }

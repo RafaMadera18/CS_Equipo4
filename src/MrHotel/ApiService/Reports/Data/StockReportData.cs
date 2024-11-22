@@ -8,9 +8,9 @@ public abstract record StockReportData<TReport>(
     IReadOnlyCollection<StockAdjustmentData> StockAdjustmentData)
     where TReport : StockReport
 {
-    public abstract TReport ToReport();
-
     public abstract ValidationResult IsValid();
+
+    public abstract TReport ToReport();
 
     protected IReadOnlyCollection<StockAdjustment> ConvertAdjustments()
     {
