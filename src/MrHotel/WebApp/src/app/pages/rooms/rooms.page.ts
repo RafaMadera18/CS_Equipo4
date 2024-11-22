@@ -22,7 +22,7 @@ import {
 } from "@services/room-manager/data";
 import { RoomAvailabilityManagerService } from "@services/room-availability-manager/room-availability-manager.service";
 import { editRoomModal } from "@components/modals/rooms/edit-room-modal-form/edit-room-modal-form.component";
-import { addReservationModal } from "@components/modals/add-reservation-modal-form";
+import { addReservationModal } from "@components/modals/reservations/add-reservation-modal-form";
 
 @Component({
   selector: "app-rooms",

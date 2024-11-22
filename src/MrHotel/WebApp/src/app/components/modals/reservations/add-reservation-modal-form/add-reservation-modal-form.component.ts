@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { IonicModule } from "@ionic/angular";
-import { BaseModalFormComponent } from "../modal-base-form.component";
+import { IonicModule, ModalController } from "@ionic/angular";
+import { BaseModalFormComponent } from "../../modal-base-form.component";
 import { ReservationCreationData } from "@services/reservation-manager/data/reservation-creation-data";
 import { ModalInfo } from "@services/modal/modal-info";
 import { GuestManagerService } from "@services/guest-manager";
-import { ModalController } from "@ionic/angular";
 import { GuestInfo } from "@services/guest-manager/data";
 
 @Component({
@@ -15,10 +14,10 @@ import { GuestInfo } from "@services/guest-manager/data";
   standalone: true,
   imports: [IonicModule, FormsModule],
 })
-export class AddReservationModalFormComponent extends BaseModalFormComponent<
-  void,
-  ReservationCreationData
-> implements OnInit {
+export class AddReservationModalFormComponent
+  extends BaseModalFormComponent<void, ReservationCreationData>
+  implements OnInit
+{
   private guests: GuestInfo[] = [];
 
   constructor(
@@ -32,10 +31,8 @@ export class AddReservationModalFormComponent extends BaseModalFormComponent<
 
   public ngOnInit(): void {
     const observableGuests = this._guestManager.getGuests();
-    observableGuests.subscribe()
+    observableGuests.subscribe();
   }
-
-
 }
 
 export const addReservationModal: ModalInfo<
