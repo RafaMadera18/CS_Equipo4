@@ -16,7 +16,6 @@ import { RoomManagerGatewayService } from "./gateway/room-manager-gateway.servic
 export class RoomManagerService {
   private readonly _addRoomEvent = new EventPublisher<RoomInfo>();
   private readonly _updateRoomEvent = new EventPublisher<RoomInfo>();
-
   private readonly _deleteRoomEvent = new EventPublisher<Guid>();
 
   constructor(private readonly _roomGateway: RoomManagerGatewayService) {}
@@ -34,9 +33,9 @@ export class RoomManagerService {
   }
 
   public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
-    const addRequest = this._roomGateway.addRoom(roomCreationData);
+    const newRoomId = this._roomGateway.addRoom(roomCreationData);
 
-    return addRequest.pipe(
+    return newRoomId.pipe(
       tap((id: Guid) => {
         const newRoom = roomCreationData.toRoomInfo(id);
         this._addRoomEvent.emit(newRoom);
@@ -45,19 +44,19 @@ export class RoomManagerService {
   }
 
   public deleteRoom(room: RoomInfo): Observable<void> {
-    const deleteRequest = this._roomGateway.deleteRoom(room.id);
+    const deleteResponse = this._roomGateway.deleteRoom(room.id);
 
-    return deleteRequest.pipe(
+    return deleteResponse.pipe(
       tap(() => {
         this._deleteRoomEvent.emit(room.id);
       }),
     );
   }
 
-  public editRoom(room: RoomInfo): Observable<void> {
-    const editRequest = this._roomGateway.editRoom(room);
+  public updateRoom(room: RoomInfo): Observable<void> {
+    const updateResponse = this._roomGateway.editRoom(room);
 
-    return editRequest.pipe(
+    return updateResponse.pipe(
       tap(() => {
         this._updateRoomEvent.emit(room);
       }),

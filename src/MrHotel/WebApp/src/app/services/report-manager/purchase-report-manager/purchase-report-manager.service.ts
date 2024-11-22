@@ -23,10 +23,10 @@ export class PurchaseReportManagerService {
   public addPurchaseReport(
     purchaseReportData: PurchaseReportData,
   ): Observable<Guid> {
-    const addRequest =
+    const newPurchaseReportId =
       this._purchaseReportGateway.addPurchaseReport(purchaseReportData);
 
-    return addRequest.pipe(
+    return newPurchaseReportId.pipe(
       concatMap((newPurchaseReportId: Guid) => {
         this._purchaseReportsDataCache?.add(purchaseReportData);
 

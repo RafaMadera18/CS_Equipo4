@@ -32,18 +32,20 @@ export class RoomPropertyGroupManagerService {
 
   public addRoomPropertyGroup(
     roomPropertyGroupCreationData: RoomPropertyGroupCreationData,
-  ) {
-    const addRequest = this._roomPropertyGroupGateway.addRoomPropertyGroup(
-      roomPropertyGroupCreationData,
-    );
+  ): Observable<Guid> {
+    const newRoomPropertyGroupId =
+      this._roomPropertyGroupGateway.addRoomPropertyGroup(
+        roomPropertyGroupCreationData,
+      );
 
-    return addRequest.pipe(
+    return newRoomPropertyGroupId.pipe(
       tap((newRoomPropertyGroupId: Guid) => {
-        this._roomPropertyGroupsCache?.add(
+        const newRoomPropertyGroup =
           roomPropertyGroupCreationData.toRoomPropertyGroup(
             newRoomPropertyGroupId,
-          ),
-        );
+          );
+
+        this._roomPropertyGroupsCache?.add(newRoomPropertyGroup);
       }),
     );
   }
@@ -51,12 +53,12 @@ export class RoomPropertyGroupManagerService {
   public deleteRoomPropertyGroup(
     roomPropertyGroup: RoomPropertyGroup,
   ): Observable<void> {
-    const deleteRequest =
+    const deleteResponse =
       this._roomPropertyGroupGateway.deleteRoomPropertyGroup(
         roomPropertyGroup.id,
       );
 
-    return deleteRequest.pipe(
+    return deleteResponse.pipe(
       tap(() => {
         this._roomPropertyGroupsCache?.removeFirstWhere(
           (cacheRoomPropertyGroup) =>
@@ -69,17 +71,17 @@ export class RoomPropertyGroupManagerService {
   public updateRoomPropertyGroup(
     roomPropertyGroup: RoomPropertyGroup,
   ): Observable<Record<string, string>> {
-    const editRequest =
+    const newRoomPropertyGroupIds =
       this._roomPropertyGroupGateway.updateRoomPropertyGroup(roomPropertyGroup);
 
-    return editRequest.pipe(
-      tap((newIdPropertiesRecord: Record<string, Guid>) => {
+    return newRoomPropertyGroupIds.pipe(
+      tap((newRoomPropertyGroupIds: Record<string, Guid>) => {
         for (const property of roomPropertyGroup.properties) {
-          const newId = newIdPropertiesRecord[property.name];
+          const newId = newRoomPropertyGroupIds[property.name];
           property.id = newId;
         }
 
-        const index: number =
+        const roomPropertyGroupIndexToUpdate: number =
           this._roomPropertyGroupsCache
             ?.getItems()
             .findIndex(
@@ -87,7 +89,10 @@ export class RoomPropertyGroupManagerService {
                 cachePropertyGroup.id === roomPropertyGroup.id,
             ) ?? -1;
 
-        this._roomPropertyGroupsCache?.replaceAt(roomPropertyGroup, index);
+        this._roomPropertyGroupsCache?.replaceAt(
+          roomPropertyGroup,
+          roomPropertyGroupIndexToUpdate,
+        );
       }),
     );
   }

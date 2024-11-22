@@ -31,9 +31,9 @@ export class GuestManagerService {
   }
 
   public addGuest(guestCreationData: GuestCreationData): Observable<Guid> {
-    const addRequest = this._guestGateway.addGuest(guestCreationData);
+    const newGuestId = this._guestGateway.addGuest(guestCreationData);
 
-    return addRequest.pipe(
+    return newGuestId.pipe(
       tap((newGuestId: Guid) => {
         this._guestsCache?.add(guestCreationData.toGuestInfo(newGuestId));
       }),
@@ -41,9 +41,9 @@ export class GuestManagerService {
   }
 
   public deleteGuest(guest: GuestInfo): Observable<void> {
-    const deleteRequest = this._guestGateway.deleteGuest(guest.id);
+    const deleteResponse = this._guestGateway.deleteGuest(guest.id);
 
-    return deleteRequest.pipe(
+    return deleteResponse.pipe(
       tap(() => {
         this._guestsCache?.removeFirstWhere(
           (cacheGuest) => cacheGuest.id === guest.id,
@@ -53,16 +53,16 @@ export class GuestManagerService {
   }
 
   public editGuest(guest: GuestInfo): Observable<void> {
-    const updateRequest = this._guestGateway.editGuest(guest.toGuestInfoDTO());
+    const updateResponse = this._guestGateway.editGuest(guest.toGuestInfoDTO());
 
-    return updateRequest.pipe(
+    return updateResponse.pipe(
       tap(() => {
-        const index: number =
+        const guestIndexToUpdate: number =
           this._guestsCache
             ?.getItems()
             .findIndex((cacheGuest) => cacheGuest.id === guest.id) ?? -1;
 
-        this._guestsCache?.replaceAt(guest, index);
+        this._guestsCache?.replaceAt(guest, guestIndexToUpdate);
       }),
     );
   }

@@ -32,11 +32,11 @@ export class ReservationManagerService {
   public addReservation(
     reservationCreationData: ReservationCreationData,
   ): Observable<Guid> {
-    const addRequest = this._reservationGateway.addReservation(
+    const newReservationId = this._reservationGateway.addReservation(
       reservationCreationData,
     );
 
-    return addRequest.pipe(
+    return newReservationId.pipe(
       tap((newReservationId: Guid) => {
         const reservation =
           reservationCreationData.toReservationInfo(newReservationId);

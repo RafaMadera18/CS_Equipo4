@@ -21,7 +21,6 @@ import { ReservationManagerService } from "@services/reservation-manager/reserva
   providedIn: "root",
 })
 export class RoomAvailabilityManagerService {
-  // Null initially and until a get operation is performed
   private _roomsAvailabilityCache: Nullable<
     ObservableCollection<RoomAvailability>
   > = null;

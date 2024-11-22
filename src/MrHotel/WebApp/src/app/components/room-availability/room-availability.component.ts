@@ -30,7 +30,7 @@ export class RoomAvailabilityComponent {
   public readonly deleteClick = output();
   public readonly addReservation = output();
   public readonly makeCheckout = output();
-  public readonly editClick = output();
+  public readonly updateClick = output();
 
   constructor() {
     addIcons({

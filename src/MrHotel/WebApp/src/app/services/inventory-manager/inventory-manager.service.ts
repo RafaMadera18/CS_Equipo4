@@ -25,37 +25,37 @@ export class InventoryManagerService {
       return this._productStocksCache.items$;
     }
 
-    const productStock = this._inventoryGateway.getProductStocks();
+    const productStocks = this._inventoryGateway.getProductStocks();
 
     this._productStocksCache ??= new ObservableCollection();
-    return this._productStocksCache.loadItems(productStock);
+    return this._productStocksCache.loadItems(productStocks);
   }
 
   public addProductStock(
     productStockCreationData: ProductStockCreationData,
   ): Observable<ProductStockCreationResult> {
-    const addRequest = this._inventoryGateway.addProductStock(
+    const newProductStockIds = this._inventoryGateway.addProductStock(
       productStockCreationData,
     );
 
-    return addRequest.pipe(
+    return newProductStockIds.pipe(
       tap((newIds: ProductStockCreationResult) => {
-        this._productStocksCache?.add(
-          productStockCreationData.toProductStock(
-            newIds.stockId,
-            newIds.productId,
-          ),
+        const newProductStock = productStockCreationData.toProductStock(
+          newIds.stockId,
+          newIds.productId,
         );
+
+        this._productStocksCache?.add(newProductStock);
       }),
     );
   }
 
   public deleteProductStock(productStock: ProductStock): Observable<void> {
-    const deleteRequest = this._inventoryGateway.deleteProductStock(
+    const deleteResponse = this._inventoryGateway.deleteProductStock(
       productStock.id,
     );
 
-    return deleteRequest.pipe(
+    return deleteResponse.pipe(
       tap(() => {
         this._productStocksCache?.removeFirstWhere(
           (cacheProductStock) => cacheProductStock.id === productStock.id,

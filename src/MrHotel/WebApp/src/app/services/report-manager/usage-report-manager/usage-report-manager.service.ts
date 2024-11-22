@@ -20,15 +20,16 @@ export class UsageReportManagerService {
   ) {}
 
   public addUsageReport(usageReportData: UsageReportData): Observable<Guid> {
-    const addRequest = this._usageReportGateway.addUsageReport(usageReportData);
+    const newUsageReportId =
+      this._usageReportGateway.addUsageReport(usageReportData);
 
-    return addRequest.pipe(
-      concatMap((newPurchaseReportId: Guid) => {
+    return newUsageReportId.pipe(
+      concatMap((newUsageReportId: Guid) => {
         this._usageReportsDataCache?.add(usageReportData);
 
         return this._inventoryManager
           .getProductStocks(true)
-          .pipe(map(() => newPurchaseReportId));
+          .pipe(map(() => newUsageReportId));
       }),
     );
   }
