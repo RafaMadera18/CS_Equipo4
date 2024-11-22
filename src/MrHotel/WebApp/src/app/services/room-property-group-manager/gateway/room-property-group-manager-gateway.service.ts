@@ -32,10 +32,10 @@ export class RoomPropertyGroupManagerGatewayService {
 
   public updateRoomPropertyGroup(
     roomPropertyGroup: RoomPropertyGroup,
-  ): Observable<Record<string, string>> {
+  ): Observable<Record<string, Guid>> {
     const apiUrl: string = this.getApiUrl(roomPropertyGroup.id);
 
-    return this._httpClient.put<Record<string, string>>(
+    return this._httpClient.put<Record<string, Guid>>(
       apiUrl,
       roomPropertyGroup,
     );

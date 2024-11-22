@@ -73,13 +73,11 @@ export class RoomPropertyGroupManagerService {
       this._roomPropertyGroupGateway.updateRoomPropertyGroup(roomPropertyGroup);
 
     return editRequest.pipe(
-      tap((newIdPropertiesRecord: Record<string, string>) => {
-        roomPropertyGroup.properties.forEach((property) => {
-          if (property.id) {
-            const newId = newIdPropertiesRecord[property.name];
-            property.id = newId as Guid;
-          }
-        });
+      tap((newIdPropertiesRecord: Record<string, Guid>) => {
+        for (const property of roomPropertyGroup.properties) {
+          const newId = newIdPropertiesRecord[property.name];
+          property.id = newId;
+        }
 
         const index: number =
           this._roomPropertyGroupsCache
