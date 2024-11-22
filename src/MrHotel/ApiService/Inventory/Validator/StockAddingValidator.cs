@@ -1,9 +1,10 @@
 namespace MrHotel.ApiService.Inventory.Validator;
 
 using FluentValidation;
+
 using MrHotel.Database.Entities.Inventory;
 
-public class StockAddingValidator : AbstractValidator<ProductStock>
+public sealed class StockAddingValidator : AbstractValidator<ProductStock>
 {
     private StockAddingValidator()
     {

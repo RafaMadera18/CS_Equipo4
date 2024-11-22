@@ -6,6 +6,7 @@ using System.Diagnostics.Contracts;
 using FluentValidation.Results;
 
 using Microsoft.EntityFrameworkCore;
+
 using MrHotel.ApiService.Core.Storage.Entities;
 using MrHotel.ApiService.Inventory.Validator;
 using MrHotel.Database.Entities.Inventory;
