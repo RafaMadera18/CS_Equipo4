@@ -1,5 +1,7 @@
 namespace MrHotel.ApiService.Reports.Endpoints;
 
+using FluentValidation.Results;
+
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +17,12 @@ public static class ReportEndpoints<TStockReportData, TStockReport>
         [FromBody] TStockReportData reportData,
         [FromServices] ReportManager<TStockReport> reportManager)
     {
+        ValidationResult result = reportData.IsValid();
+        if (!result.IsValid)
+        {
+            return TypedResults.ValidationProblem(result.ToDictionary());
+        }
+
         TStockReport report = reportData.ToReport();
         await reportManager.AddReport(report);
         return TypedResults.Ok(report.Id);

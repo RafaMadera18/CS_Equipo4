@@ -1,5 +1,8 @@
 namespace MrHotel.ApiService.Reports.Data;
 
+using FluentValidation.Results;
+
+using MrHotel.ApiService.Reports.Validation;
 using MrHotel.Database.Entities.Reports;
 
 public record PurchaseReportData(
@@ -14,5 +17,10 @@ public record PurchaseReportData(
             Price = this.Price,
             StockAdjustments = this.ConvertAdjustments(),
         };
+    }
+
+    public override ValidationResult IsValid()
+    {
+        return PurchaseReportDataValidator.Instance.Validate(this);
     }
 }
