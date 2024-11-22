@@ -15,7 +15,6 @@ import {
 import { RoomAvailabilityState } from "@services/room-manager/data";
 import {
   RoomProperty,
-  RoomPropertyGroup,
 } from "@services/room-property-group-manager/data";
 
 @Component({

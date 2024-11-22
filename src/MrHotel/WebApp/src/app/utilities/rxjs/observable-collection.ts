@@ -53,4 +53,14 @@ export class ObservableCollection<T> {
     array[index] = item;
     this.subject.next(array);
   }
+
+  public getAtIndex(index: number): T {
+    const array = this.subject.value;
+
+    if (index < 0 || index >= array.length) {
+      throw new RangeError(`Index "${index}" is out of bounds.`);
+    }
+
+    return array[index];
+  }
 }
