@@ -14,12 +14,12 @@ using MrHotel.Database.Entities.Inventory;
 public class InventoryManager(
     IEntityRepository<ProductStock> productStorage)
 {
-    public async Task<ValidationResult> AddProductStock(ProductStock stock)
+    public async Task<ValidationResult> AddProductStock(ProductStock product)
     {
-        ValidationResult result = StockAddingValidator.Instance.Validate(stock);
+        ValidationResult result = StockAddingValidator.Instance.Validate(product);
         if (result.IsValid)
         {
-            await productStorage.EntitySet.AddAsync(stock);
+            await productStorage.EntitySet.AddAsync(product);
         }
 
         return result;
