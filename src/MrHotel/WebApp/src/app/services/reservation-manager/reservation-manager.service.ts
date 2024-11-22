@@ -11,9 +11,16 @@ import { Observable, tap } from "rxjs";
 export class ReservationManagerService {
   private readonly _addReservationEvent = new EventPublisher<ReservationInfo>();
 
+  private readonly _makeCheckOutEvent = new EventPublisher<ReservationInfo>();
+
   public get addReservationEvent$() {
     return this._addReservationEvent.event$;
   }
+
+  public get makeCheckOutEvent$() {
+    return this._makeCheckOutEvent.event$;
+  }
+
   private readonly _reservationsCache: Nullable<
     ObservableCollection<ReservationInfo>
   > = null;
@@ -35,6 +42,22 @@ export class ReservationManagerService {
           reservationCreationData.toReservationInfo(newReservationId);
         this._reservationsCache?.add(reservation);
         this._addReservationEvent.emit(reservation);
+      }),
+    );
+  }
+
+  public makeCheckout(reservation: ReservationInfo): Observable<void> {
+    const checkOutRequest = this._reservationGateway.makeCheckOut(
+      reservation.id,
+    );
+
+    return checkOutRequest.pipe(
+      tap(() => {
+        this._reservationsCache?.removeFirstWhere(
+          (cacheReservation) => cacheReservation.id === reservation.id,
+        );
+
+        this._makeCheckOutEvent.emit(reservation);
       }),
     );
   }

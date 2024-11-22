@@ -25,6 +25,7 @@ export class ReservationCreationData {
   public toReservationInfo(id: Guid): ReservationInfo {
     return new ReservationInfo(
       id,
+      this._guestId,
       this._room,
       this._checkInDate,
       this._checkOutDate,

@@ -24,6 +24,8 @@ import { RoomAvailabilityManagerService } from "@services/room-availability-mana
 import { editRoomModal } from "@components/modals/rooms/edit-room-modal-form/edit-room-modal-form.component";
 import { addReservationModal } from "@components/modals/reservations/add-reservation-modal-form";
 import { ReservationManagerService } from "@services/reservation-manager/reservation-manager.service";
+import { ReservationInfo } from "@services/reservation-manager/data";
+import { checkOutModal } from "@components/modals/reservations/check-out-modal-form";
 
 @Component({
   selector: "app-rooms",
@@ -84,6 +86,17 @@ export class RoomsPage {
       this._reservationManager
         .addReservation(reservationCreationData)
         .subscribe();
+    }
+  }
+
+  public async makeCheckout(reservation: ReservationInfo): Promise<void> {
+    const checkOutConfirmed = await this._modalService.openModal(
+      checkOutModal,
+      reservation,
+    );
+
+    if (checkOutConfirmed) {
+      this._reservationManager.makeCheckout(reservation).subscribe();
     }
   }
 

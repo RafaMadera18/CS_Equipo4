@@ -50,7 +50,7 @@ export class RoomAvailabilityManagerService {
     roomManager.addRoomEvent$.subscribe((room: RoomInfo) => {
       const availability: RoomAvailability = {
         room: room,
-        state: RoomAvailabilityState.Available, // TODO: Available by default?
+        state: RoomAvailabilityState.Available,
         activeReservation: null,
       };
 
@@ -94,6 +94,27 @@ export class RoomAvailabilityManagerService {
         room: reservation.room,
         state: RoomAvailabilityState.Occupied,
         activeReservation: reservation,
+      };
+
+      const roomAvailabilityIndexToUpdate =
+        this._roomsAvailabilityCache
+          ?.getItems()
+          .findIndex(
+            (cacheRoomAvailability) =>
+              cacheRoomAvailability.room.id === reservation.room.id,
+          ) ?? -1;
+
+      this._roomsAvailabilityCache?.replaceAt(
+        updatedRoomAvailability,
+        roomAvailabilityIndexToUpdate,
+      );
+    });
+
+    reservationManager.makeCheckOutEvent$.subscribe((reservation) => {
+      const updatedRoomAvailability: RoomAvailability = {
+        room: reservation.room,
+        state: RoomAvailabilityState.Available,
+        activeReservation: null,
       };
 
       const roomAvailabilityIndexToUpdate =

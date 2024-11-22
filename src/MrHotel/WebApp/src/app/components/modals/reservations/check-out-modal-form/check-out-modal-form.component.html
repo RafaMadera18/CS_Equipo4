@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>Reservation</h2>
+  <div class="container-content">
+    <p><span>Room: </span>{{ this.input.room.name }}</p>
+    <p>
+      <span>Check in: </span>{{ this.input.checkInDate | date: "dd/MM/yyyy" }}
+    </p>
+    <p>
+      <span>Check out: </span>{{ this.input.checkOutDate | date: "dd/MM/yyyy" }}
+    </p>
+    <p><span>Price:</span>{{ this.input.price }}</p>
+  </div>
+
+  <form (submit)="onSubmit()">
+    <div class="container-actions">
+      <button class="button button-add" type="submit">Checkout</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

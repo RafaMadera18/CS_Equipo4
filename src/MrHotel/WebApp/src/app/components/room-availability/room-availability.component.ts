@@ -29,6 +29,7 @@ export class RoomAvailabilityComponent {
   icon = this.getIconState();
   public readonly deleteClick = output();
   public readonly addReservation = output();
+  public readonly makeCheckout = output();
   public readonly editClick = output();
 
   constructor() {

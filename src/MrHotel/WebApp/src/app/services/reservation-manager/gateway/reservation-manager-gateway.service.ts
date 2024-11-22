@@ -17,6 +17,11 @@ export class ReservationManagerGatewayService {
     return this._httpClient.post<Guid>(apiPath, reservationCreationData);
   }
 
+  public makeCheckOut(reservationId: Guid): Observable<void> {
+    const apiPath = this.getApiPath(reservationId + "/checkout");
+    return this._httpClient.put<void>(apiPath, {});
+  }
+
   private getApiPath(path: string = ""): string {
     return `api/reservations/${path}`;
   }

@@ -1,7 +1,11 @@
 <div class="container">
   <div
     [ngClass]="[getColorState(), 'container-room']"
-    (click)="addReservation.emit()"
+    (click)="
+      roomAvailability()?.activeReservation
+        ? makeCheckout.emit()
+        : addReservation.emit()
+    "
   >
     <div class="container-room-num">
       <p class="name">{{ roomAvailability()?.room?.name }}</p>
