@@ -8,6 +8,10 @@ public record StockAdjustmentData(
 {
     public StockAdjustment ToStockAdjustment()
     {
-        return new() { Quantity = this.Quantity, ProductId = this.ProductId };
+        return new()
+        {
+            Quantity = this.Quantity,
+            ProductId = this.ProductId,
+        };
     }
 }

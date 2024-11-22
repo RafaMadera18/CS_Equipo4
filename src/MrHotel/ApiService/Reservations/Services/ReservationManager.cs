@@ -10,24 +10,17 @@ using MrHotel.Database.Entities.Reservations;
 public class ReservationManager(
     IEntityRepository<ReservationInfo> reservationStorage)
 {
-    public void AddReservation(ReservationInfo reservation)
+    public async Task AddReservation(ReservationInfo reservation)
     {
-        reservationStorage.EntitySet.AddAsync(reservation);
-    }
-
-    [Pure]
-    public ValueTask<ReservationInfo?> TryGetReservationById(Guid id)
-    {
-        // TODO: .Include?
-        return reservationStorage.EntitySet.FindAsync(id);
+        await reservationStorage.EntitySet.AddAsync(reservation);
     }
 
     [Pure]
     public async Task<IReadOnlyCollection<ReservationInfo>> GetReservations(bool onlyActive = false)
     {
-        return await GetReservations().ToArrayAsync();
+        return await QueryReservations().ToArrayAsync();
 
-        IQueryable<ReservationInfo> GetReservations()
+        IQueryable<ReservationInfo> QueryReservations()
         {
             var reservations = reservationStorage.EntitySet
                 .Include(reservation => reservation.Guest)

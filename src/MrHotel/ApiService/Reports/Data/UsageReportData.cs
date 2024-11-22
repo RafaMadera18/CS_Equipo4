@@ -1,5 +1,8 @@
 namespace MrHotel.ApiService.Reports.Data;
 
+using FluentValidation.Results;
+
+using MrHotel.ApiService.Reports.Validation;
 using MrHotel.Database.Entities.Reports;
 
 public record UsageReportData(
@@ -7,6 +10,11 @@ public record UsageReportData(
     string Concept)
     : StockReportData<UsageReport>(StockAdjustmentData)
 {
+    public override ValidationResult IsValid()
+    {
+        return UsageReportDataValidator.Instance.Validate(this);
+    }
+
     public override UsageReport ToReport()
     {
         return new UsageReport()

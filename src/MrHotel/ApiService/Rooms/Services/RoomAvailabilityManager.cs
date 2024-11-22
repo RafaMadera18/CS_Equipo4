@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 
 using MrHotel.ApiService.Reservations.Services;
 using MrHotel.ApiService.Rooms.Data;
+using MrHotel.Database.Entities.Reservations;
 using MrHotel.Database.Entities.Rooms;
 
 public class RoomAvailabilityManager(
@@ -23,7 +24,9 @@ public class RoomAvailabilityManager(
     public async ValueTask<RoomAvailability> GetRoomAvailability(RoomInfo room)
     {
         RoomAvailabilityState roomState = await this.GetRoomState(room);
-        return new RoomAvailability(room, roomState);
+        ReservationInfo? activeReservation = await this.TryGetActiveReservation(room, roomState);
+
+        return new RoomAvailability(room, roomState, activeReservation);
     }
 
     [Pure]
@@ -38,6 +41,20 @@ public class RoomAvailabilityManager(
 
         // TODO: Check for maintenance & unavailable
         return RoomAvailabilityState.Available;
+    }
+
+    private async Task<ReservationInfo?> TryGetActiveReservation(
+        RoomInfo room,
+        RoomAvailabilityState roomState)
+    {
+        if (roomState != RoomAvailabilityState.Occupied)
+        {
+            return null;
+        }
+
+        RoomAvailabilityContext context = await this.GetRoomAvailabilityContext();
+
+        return context.ActiveReservations.First(reservation => reservation.Room.Id == room.Id);
     }
 
     [Pure]
