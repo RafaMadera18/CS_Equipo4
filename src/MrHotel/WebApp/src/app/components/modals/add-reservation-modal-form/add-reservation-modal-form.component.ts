@@ -3,9 +3,9 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 
 @Component({
-  selector: "app-reservation-form-modal",
-  templateUrl: "./reservation-form-modal.component.html",
-  styleUrls: ["./reservation-form-modal.component.scss"],
+  selector: "app-add-reservation-modal-form",
+  templateUrl: "./add-reservation-modal-form.component.html",
+  styleUrls: ["./add-reservation-modal-form.component.scss"],
   standalone: true,
   imports: [IonicModule, FormsModule],
 })

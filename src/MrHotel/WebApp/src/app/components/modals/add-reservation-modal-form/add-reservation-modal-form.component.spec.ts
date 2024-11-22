@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ReservationFormModalComponent } from './reservation-form-modal.component';
+import { ReservationFormModalComponent } from './add-reservation-modal-form.component';
 
 describe('ReservationFormModalComponent', () => {
   let component: ReservationFormModalComponent;
