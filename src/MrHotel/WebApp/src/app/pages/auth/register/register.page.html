@@ -13,40 +13,40 @@
           (ngSubmit)="onSubmit()"
         >
           <app-input-field
-            name="userName"
-            label="User Name"
-            placeholder="..."
-            icon="person-outline"
-            [errorMessage]="getErrorMsg('userName')"
+            _name="userName"
+            _label="User Name"
+            _placeholder="..."
+            _icon="person-outline"
+            [_errorMessage]="getErrorMsg('userName')"
           />
 
           <app-input-field
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="..."
-            icon="lock-closed-outline"
-            [errorMessage]="getErrorMsg('password')"
-            (blur)="updateMismatchPasswordState(authForm)"
+            _name="password"
+            _type="password"
+            _label="Password"
+            _placeholder="..."
+            _icon="lock-closed-outline"
+            [_errorMessage]="getErrorMsg('password')"
+            (_blur)="updateMismatchPasswordState(authForm)"
           />
 
           <app-input-field
-            name="passwordConfirm"
-            type="password"
-            label="Password Confirmation"
-            placeholder="..."
-            icon="lock-closed-outline"
-            [errorMessage]="getErrorMsg('passwordConfirm')"
-            (blur)="updateMismatchPasswordState(authForm)"
+            _name="passwordConfirm"
+            _type="password"
+            _label="Password Confirmation"
+            _placeholder="..."
+            _icon="lock-closed-outline"
+            [_errorMessage]="getErrorMsg('passwordConfirm')"
+            (_blur)="updateMismatchPasswordState(authForm)"
           />
 
           <app-input-field
-            name="adminCode"
-            type="password"
-            label="Admin Code"
-            placeholder="..."
-            icon="key-outline"
-            [errorMessage]="getErrorMsg('adminCode')"
+            _name="adminCode"
+            _type="password"
+            _label="Admin Code"
+            _placeholder="..."
+            _icon="key-outline"
+            [_errorMessage]="getErrorMsg('adminCode')"
             class="last-input"
           />
 

@@ -25,12 +25,12 @@ import {
   imports: [IonIcon, CommonModule],
 })
 export class RoomAvailabilityComponent {
-  roomAvailability = input<RoomAvailability>();
-  icon = this.getIconState();
-  public readonly deleteClick = output();
-  public readonly addReservation = output();
-  public readonly makeCheckout = output();
-  public readonly updateClick = output();
+  public readonly _roomAvailability = input<RoomAvailability>();
+  public readonly _deleteClick = output();
+  public readonly _addReservation = output();
+  public readonly _makeCheckout = output();
+  public readonly _updateClick = output();
+  private readonly _icon = this.getIconState();
 
   constructor() {
     addIcons({
@@ -43,9 +43,13 @@ export class RoomAvailabilityComponent {
     });
   }
 
+  public get icon() {
+    return this._icon;
+  }
+
   getIconState(): Signal<string> {
     return computed(() => {
-      switch (this.roomAvailability()!.state) {
+      switch (this._roomAvailability()!.state) {
         case RoomAvailabilityState.Available:
           return "bed-outline";
         case RoomAvailabilityState.Maintenance:
@@ -59,7 +63,7 @@ export class RoomAvailabilityComponent {
   }
 
   getColorState(): string {
-    switch (this.roomAvailability()!.state) {
+    switch (this._roomAvailability()!.state) {
       case RoomAvailabilityState.Available:
         return "available";
       case RoomAvailabilityState.Maintenance:
@@ -70,7 +74,4 @@ export class RoomAvailabilityComponent {
         return "unavailable";
     }
   }
-
-
-
 }

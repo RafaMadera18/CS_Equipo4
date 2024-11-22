@@ -39,11 +39,11 @@ import { Nullable } from "@customTypes/nullable";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputFieldComponent {
-  name = input("");
-  type = input("");
-  label = input("");
-  placeholder = input("");
-  icon = input("");
-  errorMessage = input<Nullable<string>>(null);
-  blur = output();
+  public readonly _name = input("");
+  public readonly _type = input("");
+  public readonly _label = input("");
+  public readonly _placeholder = input("");
+  public readonly _icon = input("");
+  public readonly _errorMessage = input<Nullable<string>>(null);
+  public readonly _blur = output();
 }

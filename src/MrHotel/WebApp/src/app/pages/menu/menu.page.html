@@ -25,10 +25,10 @@
   <ul>
     <li class="back">
       <app-tab-button
-        name="Back"
+        _name="Back"
         (click)="isSideBarExpanded.set(!isSideBarExpanded())"
-        [expanded]="isSideBarExpanded"
-        [icon]="
+        [_isExpanded]="isSideBarExpanded"
+        [_icon]="
           isSideBarExpanded() ? 'arrow-back-outline' : 'reorder-three-outline'
         "
       />
@@ -36,27 +36,27 @@
 
     <li>
       <app-tab-button
-        name="Reservations"
-        icon="bed-outline"
-        [expanded]="isSideBarExpanded"
+        _name="Reservations"
+        _icon="bed-outline"
+        [_isExpanded]="isSideBarExpanded"
         (click)="onTabClick('reservations')"
       />
     </li>
 
     <li>
       <app-tab-button
-        name="Guests"
-        icon="person-outline"
-        [expanded]="isSideBarExpanded"
+        _name="Guests"
+        _icon="person-outline"
+        [_isExpanded]="isSideBarExpanded"
         (click)="onTabClick('guests')"
       />
     </li>
 
     <li>
       <app-tab-button
-        name="Inventory"
-        icon="clipboard-outline"
-        [expanded]="isSideBarExpanded"
+        _name="Inventory"
+        _icon="clipboard-outline"
+        [_isExpanded]="isSideBarExpanded"
         (click)="onTabClick('inventory')"
       />
     </li>
@@ -64,9 +64,9 @@
     <li>
       <app-tab-button
         class="settings"
-        name="Settings"
-        icon="cog-outline"
-        [expanded]="isSideBarExpanded"
+        _name="Settings"
+        _icon="cog-outline"
+        [_isExpanded]="isSideBarExpanded"
         (click)="onTabClick('settings')"
       />
     </li>

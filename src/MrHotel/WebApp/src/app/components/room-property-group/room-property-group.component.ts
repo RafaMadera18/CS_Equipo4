@@ -11,8 +11,8 @@ import { RoomPropertyGroup } from "@services/room-property-group-manager/data";
 })
 export class RoomPropertyGroupComponent {
   public _roomPropertyGroup = input<RoomPropertyGroup>();
-  public readonly updateClick = output();
-  public readonly deleteClick = output();
+  public readonly _updateClick = output();
+  public readonly _deleteClick = output();
 
   constructor() {}
 }

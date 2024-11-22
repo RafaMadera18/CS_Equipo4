@@ -13,20 +13,20 @@
           (ngSubmit)="onSubmit()"
         >
           <app-input-field
-            name="userName"
-            label="User Name"
-            placeholder="..."
-            icon="person-outline"
-            [errorMessage]="getErrorMsg('userName')"
+            _name="userName"
+            _label="User Name"
+            _placeholder="..."
+            _icon="person-outline"
+            [_errorMessage]="getErrorMsg('userName')"
           />
 
           <app-input-field
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="..."
-            icon="lock-closed-outline"
-            [errorMessage]="getErrorMsg('password')"
+            _name="password"
+            _type="password"
+            _label="Password"
+            _placeholder="..."
+            _icon="lock-closed-outline"
+            [_errorMessage]="getErrorMsg('password')"
             class="last-input"
           />
 

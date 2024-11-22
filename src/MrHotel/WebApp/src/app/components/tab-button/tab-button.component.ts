@@ -17,7 +17,7 @@ import { IonButton, IonIcon } from "@ionic/angular/standalone";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabButtonComponent {
-  public readonly name = input("");
-  public readonly icon = input("");
-  public readonly expanded = input<Signal<boolean>>(signal(false));
+  public readonly _name = input("");
+  public readonly _icon = input("");
+  public readonly _isExpanded = input<Signal<boolean>>(signal(false));
 }

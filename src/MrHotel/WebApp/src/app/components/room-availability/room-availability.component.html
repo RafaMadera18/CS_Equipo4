@@ -2,26 +2,26 @@
   <div
     [ngClass]="[getColorState(), 'container-room']"
     (click)="
-      roomAvailability()?.activeReservation
-        ? makeCheckout.emit()
-        : addReservation.emit()
+      _roomAvailability()?.activeReservation
+        ? _makeCheckout.emit()
+        : _addReservation.emit()
     "
   >
     <div class="container-room-num">
-      <p class="name">{{ roomAvailability()?.room?.name }}</p>
+      <p class="name">{{ _roomAvailability()?.room?.name }}</p>
       <ion-icon [name]="icon()" class="icon" />
       <p class="state"></p>
     </div>
 
-    @if (roomAvailability()?.activeReservation !== null) {
+    @if (_roomAvailability()?.activeReservation !== null) {
       <p>
         {{
-          roomAvailability()?.activeReservation?.checkInDate
+          _roomAvailability()?.activeReservation?.checkInDate
             | date: "dd/MM/yyyy"
         }}
         -
         {{
-          roomAvailability()?.activeReservation?.checkOutDate
+          _roomAvailability()?.activeReservation?.checkOutDate
             | date: "dd/MM/yyyy"
         }}
       </p>
@@ -29,7 +29,7 @@
 
     <div class="container-room-tags">
       @for (
-        property of roomAvailability()?.room?.properties;
+        property of _roomAvailability()?.room?.properties;
         track property.id
       ) {
         <div class="tag">
@@ -42,10 +42,10 @@
   </div>
 
   <div class="container-buttons">
-    <button class="button edit-button" (click)="updateClick.emit()">
+    <button class="button edit-button" (click)="_updateClick.emit()">
       <ion-icon name="pencil-outline" size="large" />
     </button>
-    <button class="button delete-button" (click)="deleteClick.emit()">
+    <button class="button delete-button" (click)="_deleteClick.emit()">
       <ion-icon name="trash-outline" size="large" />
     </button>
   </div>

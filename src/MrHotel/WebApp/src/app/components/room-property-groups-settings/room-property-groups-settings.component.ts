@@ -35,13 +35,13 @@ export class RoomPropertyGroupsSettingsComponent {
   }
 
   public async addPropertyGroup(): Promise<void> {
-    const propertyGroupCreateRequest = await this._modalService.openModal(
+    const propertyGroupCreationData = await this._modalService.openModal(
       AddPropertyGroupModal,
     );
 
-    if (propertyGroupCreateRequest !== null) {
+    if (propertyGroupCreationData !== null) {
       this._roomPropertyGroupManager
-        .addRoomPropertyGroup(propertyGroupCreateRequest)
+        .addRoomPropertyGroup(propertyGroupCreationData)
         .subscribe();
     }
   }

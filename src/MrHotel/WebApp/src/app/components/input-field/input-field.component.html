@@ -1,24 +1,24 @@
 <div class="field">
   <ion-input
-    [id]="name()"
-    [formControlName]="name()"
-    [type]="type()"
-    [label]="label()"
-    [placeholder]="placeholder()"
-    [labelPlacement]="label() ? 'stacked' : ''"
+    [id]="_name()"
+    [formControlName]="_name()"
+    [type]="_type()"
+    [label]="_label()"
+    [placeholder]="_placeholder()"
+    [labelPlacement]="_label() ? 'stacked' : ''"
     helperText=" "
     clearOnEdit="false"
-    (ionBlur)="blur.emit()"
+    (ionBlur)="_blur.emit()"
   >
-    @if (icon()) {
-      <ion-icon [name]="icon()" slot="start" aria-hidden="true" />
+    @if (_icon()) {
+      <ion-icon [name]="_icon()" slot="start" aria-hidden="true" />
     }
 
-    @if (type() === "password") {
+    @if (_type() === "password") {
       <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     }
   </ion-input>
   <ion-note class="error">
-    {{ errorMessage() }}
+    {{ _errorMessage() }}
   </ion-note>
 </div>

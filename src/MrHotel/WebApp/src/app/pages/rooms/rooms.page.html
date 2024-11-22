@@ -12,11 +12,11 @@
       track roomAvailability.room.id
     ) {
       <app-room-availability
-        [roomAvailability]="roomAvailability"
-        (deleteClick)="deleteRoom(roomAvailability.room)"
-        (addReservation)="addReservation(roomAvailability.room)"
-        (editClick)="updateRoom(roomAvailability.room)"
-        (makeCheckout)="makeCheckout(roomAvailability.activeReservation!)"
+        [_roomAvailability]="roomAvailability"
+        (_deleteClick)="deleteRoom(roomAvailability.room)"
+        (_addReservation)="addReservation(roomAvailability.room)"
+        (_editClick)="updateRoom(roomAvailability.room)"
+        (_makeCheckout)="makeCheckout(roomAvailability.activeReservation!)"
       />
     }
   </main>
