@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Purchase report</h2>
+  <form (submit)="onSubmit()">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Stock Quantity</th>
+          <th>Increase</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (
+          productStock of productStocks;
+          track productStock.id;
+          let i = $index
+        ) {
+          <tr>
+            <td>{{ productStock.product.name }}</td>
+            <td>{{ productStock.stockQuantity }}</td>
+            <td>
+              <input
+                id="quantity"
+                type="number"
+                class="input"
+                [(ngModel)]="_stockAdjustmentsData[i].quantity"
+                name="Quantity"
+                min="0"
+              />
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <div class="container-total">
+      <label for="totalCost" class="text">Concept:</label>
+      <input
+        id="concept"
+        type="text"
+        class="input"
+        [(ngModel)]="concept"
+        name="concept"
+      />
+    </div>
+    <div class="container-actions">
+      <button class="button button-modify" type="submit">Modify</button>
+      <button
+        class="button button-cancel"
+        type="button"
+        (click)="dismissModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
