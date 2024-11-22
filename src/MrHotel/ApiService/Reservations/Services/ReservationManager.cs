@@ -16,29 +16,36 @@ public class ReservationManager(
     }
 
     [Pure]
-    public async Task<IReadOnlyCollection<ReservationInfo>> GetReservations(bool onlyActive = false)
+    public async Task<ReservationInfo?> TryGetReservationById(Guid id, bool onlyActive = false)
     {
-        return await QueryReservations().ToArrayAsync();
-
-        IQueryable<ReservationInfo> QueryReservations()
-        {
-            var reservations = reservationStorage.EntitySet
-                .Include(reservation => reservation.Guest)
-                .Include(reservation => reservation.Room);
-
-            return onlyActive
-                ? reservations.Where(reservation => !reservation.CheckOutDone)
-                : reservations;
-        }
+        return await this.QueryReservations(onlyActive)
+            .FirstOrDefaultAsync(r => r.Id == id);
     }
 
-    public void DeleteReservation(ReservationInfo reservation)
+    [Pure]
+    public async Task<IReadOnlyCollection<ReservationInfo>> GetReservations(bool onlyActive = false)
     {
-        reservationStorage.EntitySet.Remove(reservation);
+        return await this.QueryReservations(onlyActive).ToArrayAsync();
+    }
+
+    public void UpdateReservation(ReservationInfo reservation)
+    {
+        reservationStorage.EntitySet.Update(reservation);
     }
 
     public Task SaveChanges()
     {
         return reservationStorage.SaveChanges();
+    }
+
+    private IQueryable<ReservationInfo> QueryReservations(bool onlyActive)
+    {
+        var reservations = reservationStorage.EntitySet
+            .Include(reservation => reservation.Guest)
+            .Include(reservation => reservation.Room);
+
+        return onlyActive
+            ? reservations.Where(reservation => !reservation.CheckOutDone)
+            : reservations;
     }
 }
