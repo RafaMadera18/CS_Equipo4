@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Guid, Nullable } from "@customTypes/index";
-import { ObservableCollection } from "@utilities/rxjs";
+import { EventPublisher, ObservableCollection } from "@utilities/rxjs";
 import { ReservationCreationData, ReservationInfo } from "./data";
 import { ReservationManagerGatewayService } from "./gateway";
 import { Observable, tap } from "rxjs";
@@ -9,6 +9,11 @@ import { Observable, tap } from "rxjs";
   providedIn: "root",
 })
 export class ReservationManagerService {
+  private readonly _addReservationEvent = new EventPublisher<ReservationInfo>();
+
+  public get addReservationEvent$() {
+    return this._addReservationEvent.event$;
+  }
   private readonly _reservationsCache: Nullable<
     ObservableCollection<ReservationInfo>
   > = null;
@@ -26,9 +31,10 @@ export class ReservationManagerService {
 
     return addRequest.pipe(
       tap((newReservationId: Guid) => {
-        this._reservationsCache?.add(
-          reservationCreationData.toReservationInfo(newReservationId),
-        );
+        const reservation =
+          reservationCreationData.toReservationInfo(newReservationId);
+        this._reservationsCache?.add(reservation);
+        this._addReservationEvent.emit(reservation);
       }),
     );
   }
