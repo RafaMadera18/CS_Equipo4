@@ -16,29 +16,29 @@ export class GuestManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   public getGuests(): Observable<GuestInfo[]> {
-    const apiUrl: string = this.getApiPath();
+    const apiPath: string = this.getApiPath();
 
     return this._httpClient
-      .get<GuestInfoDto[]>(apiUrl)
+      .get<GuestInfoDto[]>(apiPath)
       .pipe(mapCollection(GuestInfo.createFromDto));
   }
 
   public addGuest(guestCreationData: GuestCreationData): Observable<Guid> {
-    const apiUrl: string = this.getApiPath();
+    const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, guestCreationData);
+    return this._httpClient.post<Guid>(apiPath, guestCreationData);
   }
 
   public deleteGuest(guestId: Guid): Observable<void> {
-    const apiUrl: string = this.getApiPath(guestId);
+    const apiPath: string = this.getApiPath(guestId);
 
-    return this._httpClient.delete<void>(apiUrl);
+    return this._httpClient.delete<void>(apiPath);
   }
 
   public editGuest(guest: GuestInfoDto): Observable<void> {
-    const apiUrl: string = this.getApiPath(guest.id);
+    const apiPath: string = this.getApiPath(guest.id);
 
-    return this._httpClient.put<void>(apiUrl, guest);
+    return this._httpClient.put<void>(apiPath, guest);
   }
 
   private getApiPath(path: string = ""): string {

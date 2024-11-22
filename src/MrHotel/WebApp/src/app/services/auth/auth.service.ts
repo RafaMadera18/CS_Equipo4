@@ -18,38 +18,43 @@ export class AuthService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   public registerAdmin(request: AdminRegisterRequest): Observable<void> {
-    return this._httpClient.post<void>(
-      this.getApiPath("register-admin"),
-      request,
-    );
+    const apiPath: string = this.getApiPath("register-admin");
+
+    return this._httpClient.post<void>(apiPath, request);
   }
 
   public registerUser(request: RegisterRequest): Observable<void> {
-    return this._httpClient.post<void>(this.getApiPath("register"), request);
+    const apiPath: string = this.getApiPath("register");
+
+    return this._httpClient.post<void>(apiPath, request);
   }
 
   public adminRegisterStatus(): Observable<boolean> {
-    return this._httpClient.get<boolean>(
-      this.getApiPath("admin-register-status"),
-    );
+    const apiPath: string = this.getApiPath("admin-register-status");
+
+    return this._httpClient.get<boolean>(apiPath);
   }
 
   public login(request: LoginRequest): Observable<void> {
-    return this._httpClient.post<void>(this.getApiPath("login"), request);
+    const apiPath: string = this.getApiPath("login");
+
+    return this._httpClient.post<void>(apiPath, request);
   }
 
   public logout(): Observable<void> {
-    return this._httpClient.post<void>(this.getApiPath("logout"), {});
+    const apiPath: string = this.getApiPath("logout");
+
+    return this._httpClient.post<void>(apiPath, {});
   }
 
   public userInfo(): Observable<Nullable<UserInfoResponse>> {
-    return this._httpClient
-      .get<UserInfoResponse>(this.getApiPath("manage/info"))
-      .pipe(
-        catchError(() => {
-          return of(null);
-        }),
-      );
+    const apiPath: string = this.getApiPath("manage/info");
+
+    return this._httpClient.get<UserInfoResponse>(apiPath).pipe(
+      catchError(() => {
+        return of(null);
+      }),
+    );
   }
 
   private getApiPath(path: string): string {

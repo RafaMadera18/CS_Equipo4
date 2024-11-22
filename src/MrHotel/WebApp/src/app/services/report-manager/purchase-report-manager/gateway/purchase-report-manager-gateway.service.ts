@@ -15,12 +15,12 @@ export class PurchaseReportManagerGatewayService {
   public addPurchaseReport(
     purchaseReport: PurchaseReportData,
   ): Observable<Guid> {
-    const apiUrl: string = this.getApiUrl();
+    const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, purchaseReport);
+    return this._httpClient.post<Guid>(apiPath, purchaseReport);
   }
 
-  private getApiUrl(url: string = ""): string {
-    return `api/reports/purchases${url}`;
+  private getApiPath(path: string = ""): string {
+    return `api/reports/purchases${path}`;
   }
 }

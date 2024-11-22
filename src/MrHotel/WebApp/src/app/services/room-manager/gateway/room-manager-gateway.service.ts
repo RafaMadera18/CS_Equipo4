@@ -14,32 +14,30 @@ export class RoomManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   public addRoom(roomCreationData: RoomCreationData): Observable<Guid> {
-    const apiUrl: string = this.getApiUrl();
+    const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, roomCreationData);
+    return this._httpClient.post<Guid>(apiPath, roomCreationData);
   }
 
   public deleteRoom(roomId: Guid): Observable<void> {
-    const apiUrl: string = this.getApiUrl(roomId);
+    const apiPath: string = this.getApiPath(roomId);
 
-    return this._httpClient.delete<void>(apiUrl);
+    return this._httpClient.delete<void>(apiPath);
   }
 
   public editRoom(room: RoomInfo): Observable<void> {
-    const apiUrl: string = this.getApiUrl(room.id);
+    const apiPath: string = this.getApiPath(room.id);
 
     const roomUpdateData = new RoomUpdateData(
       room.name,
       room.properties
-        .map(property => property.id)
-        .filter((id): id is Guid => id !== null)
+        .map((property) => property.id)
+        .filter((id): id is Guid => id !== null),
     );
-
-    console.log(roomUpdateData)
-    return this._httpClient.put<void>(apiUrl, roomUpdateData);
+    return this._httpClient.put<void>(apiPath, roomUpdateData);
   }
 
-  private getApiUrl(path: string = ""): string {
+  private getApiPath(path: string = ""): string {
     return `api/rooms/${path}`;
   }
 }

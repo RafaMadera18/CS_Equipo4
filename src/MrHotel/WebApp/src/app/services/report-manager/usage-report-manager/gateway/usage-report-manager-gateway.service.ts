@@ -16,7 +16,7 @@ export class UsageReportManagerGatewayService {
     return this._httpClient.post<Guid>(apiPath, usageReport);
   }
 
-  private getApiPath(url: string = ""): string {
-    return `api/reports/usages${url}`;
+  private getApiPath(path: string = ""): string {
+    return `api/reports/usages${path}`;
   }
 }

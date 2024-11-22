@@ -11,37 +11,37 @@ export class RoomPropertyGroupManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   public getRoomPropertyGroups(): Observable<RoomPropertyGroup[]> {
-    const apiUrl: string = this.getApiUrl();
+    const apiPath: string = this.getApiPath();
 
-    return this._httpClient.get<RoomPropertyGroup[]>(apiUrl);
+    return this._httpClient.get<RoomPropertyGroup[]>(apiPath);
   }
 
   public addRoomPropertyGroup(
     roomPropertyGroupCreationData: RoomPropertyGroupCreationData,
   ): Observable<Guid> {
-    const apiUrl: string = this.getApiUrl();
+    const apiPath: string = this.getApiPath();
 
-    return this._httpClient.post<Guid>(apiUrl, roomPropertyGroupCreationData);
+    return this._httpClient.post<Guid>(apiPath, roomPropertyGroupCreationData);
   }
 
   public deleteRoomPropertyGroup(roomPropertyGroupId: Guid): Observable<void> {
-    const apiUrl: string = this.getApiUrl(roomPropertyGroupId);
+    const apiPath: string = this.getApiPath(roomPropertyGroupId);
 
-    return this._httpClient.delete<void>(apiUrl);
+    return this._httpClient.delete<void>(apiPath);
   }
 
   public updateRoomPropertyGroup(
     roomPropertyGroup: RoomPropertyGroup,
   ): Observable<Record<string, Guid>> {
-    const apiUrl: string = this.getApiUrl(roomPropertyGroup.id);
+    const apiPath: string = this.getApiPath(roomPropertyGroup.id);
 
     return this._httpClient.put<Record<string, Guid>>(
-      apiUrl,
+      apiPath,
       roomPropertyGroup,
     );
   }
 
-  private getApiUrl(path: string = ""): string {
+  private getApiPath(path: string = ""): string {
     return `api/room-property-groups/${path}`;
   }
 }

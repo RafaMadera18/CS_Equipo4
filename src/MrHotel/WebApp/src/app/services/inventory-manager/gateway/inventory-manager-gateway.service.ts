@@ -14,26 +14,26 @@ export class InventoryManagerGatewayService {
   constructor(private readonly _httpClient: HttpClient) {}
 
   public getProductStock(): Observable<ProductStock[]> {
-    const apiUrl: string = this.getApiPath();
+    const apiPath: string = this.getApiPath();
 
-    return this._httpClient.get<ProductStock[]>(apiUrl);
+    return this._httpClient.get<ProductStock[]>(apiPath);
   }
 
   public addProductStock(
     productStockCreationData: ProductStockCreationData,
   ): Observable<ProductStockCreationResult> {
-    const apiUrl: string = this.getApiPath();
+    const apiPath: string = this.getApiPath();
 
     return this._httpClient.post<ProductStockCreationResult>(
-      apiUrl,
+      apiPath,
       productStockCreationData,
     );
   }
 
   public deleteProductStock(productId: Guid): Observable<void> {
-    const apiUrl: string = this.getApiPath(productId);
+    const apiPath: string = this.getApiPath(productId);
 
-    return this._httpClient.delete<void>(apiUrl);
+    return this._httpClient.delete<void>(apiPath);
   }
 
   private getApiPath(path: string = ""): string {
