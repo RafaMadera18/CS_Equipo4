@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ReportManagerGatewayService } from './report-manager-gateway.service';
+import { ReportManagerGatewayService } from './purchase-report-manager-gateway.service';
 
 describe('ReportManagerGatewayService', () => {
   let service: ReportManagerGatewayService;

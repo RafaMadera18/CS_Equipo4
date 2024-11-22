@@ -1,12 +1,12 @@
 <div class="container">
-  <h2>Purchase report</h2>
+  <h2>Usage report</h2>
   <form (submit)="onSubmit()">
     <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>Stock Quantity</th>
-          <th>Increase</th>
+          <th>Decrease</th>
         </tr>
       </thead>
       <tbody>
@@ -32,14 +32,15 @@
         }
       </tbody>
     </table>
-    <div class="container-total">
-      <label for="totalCost" class="text">Concept:</label>
+    <div class="coolinput">
+      <label for="concept" class="text">Concept:</label>
       <input
         id="concept"
         type="text"
         class="input"
         [(ngModel)]="concept"
         name="concept"
+        maxlength="15"
       />
     </div>
     <div class="container-actions">
